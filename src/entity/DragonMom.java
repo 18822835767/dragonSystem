@@ -14,6 +14,10 @@ public class DragonMom extends Person {
         this.dragonMomId = dragonMomId;
     }
 
+    public DragonMom(){
+
+    }
+
     public List<DragonTrainer> getDragonTrainerList() {
         return dragonTrainerList;
     }

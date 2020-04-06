@@ -11,6 +11,10 @@ public abstract class Person {
         this.password = password;
     }
 
+    public Person(){
+
+    }
+
     public String getName() {
         return name;
     }

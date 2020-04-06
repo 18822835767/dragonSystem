@@ -117,6 +117,6 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         } finally {
             DBUtils.close(conn,ps, rs);
         }
-        return null;
+        return dragonTrainerList;
     }
 }

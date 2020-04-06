@@ -19,6 +19,10 @@ public class DragonGroup {
         this.size = size;
     }
 
+    public DragonGroup(){
+
+    }
+
     public String getName() {
         return name;
     }

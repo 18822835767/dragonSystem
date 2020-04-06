@@ -21,6 +21,10 @@ public class Dragon {
         this.age = age;
     }
 
+    public Dragon(){
+
+    }
+
     public String getName() {
         return name;
     }

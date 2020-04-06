@@ -16,6 +16,10 @@ public class DragonTrainer extends Person {
         this.dragonGroupId = dragonGroupId;
     }
 
+    public DragonTrainer(){
+
+    }
+
     public List<Dragon> getDragonList() {
         return dragonList;
     }

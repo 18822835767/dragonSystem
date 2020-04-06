@@ -24,7 +24,7 @@
                                     <padding>
                                         <Insets top="70.0"/>
                                     </padding>
-                                    <Button text="增加"  prefWidth="50">
+                                    <Button  text="增加"  prefWidth="50" onAction="#hhh">
                                         <font>
                                             <Font size="15.0" />
                                         </font>
@@ -82,12 +82,7 @@
             </children>
         </VBox>
 
-        <TreeTableView>
-            <columns>
-                <TreeTableColumn prefWidth="75.0" text="C1"/>
-                <TreeTableColumn prefWidth="75.0" text="C2"/>
-            </columns>
-        </TreeTableView>
+        <TreeTableView fx:id="treeTableView"/>
 
     </children>
 </MyHBox>
