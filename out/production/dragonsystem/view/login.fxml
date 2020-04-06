@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane fx:controller="controller.LoginController" xmlns:fx="http://www.giagor.top" prefWidth="450" prefHeight="300">
+    <style>-fx-background-color:#FFF5EE</style>
+    <alignment>CENTER</alignment>
+    <hgap>8</hgap>
+    <vgap>13</vgap>
+    <children>
+        <Label text="用户名:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <Label text="密码 :" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="username" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <CheckBox fx:id="autoLogin" text="自动登陆"  GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <Button fx:id="signUp" text="注册" GridPane.columnIndex="0" GridPane.rowIndex="3" onAction="#regist"/>
+        <Button fx:id="sighIn" text="登陆" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="185" onAction="#login"/>
+    </children>
+</GridPane>

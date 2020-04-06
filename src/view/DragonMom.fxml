@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import view.MyHBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<MyHBox xmlns:fx="http://javafx.com/fxml" fx:controller="controller.DragonMonController" prefHeight="600.0"
+        prefWidth="600.0">
+    <children>
+        <VBox>
+            <children>
+                <Button text="切换账号"/>
+
+                <TabPane>
+                    <tabs>
+                        <Tab text="驯龙高手">
+                            <content>
+                                <VBox alignment="CENTER" spacing="15">
+                                    <padding>
+                                        <Insets top="70.0"/>
+                                    </padding>
+                                    <Button text="增加"  prefWidth="50">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                    <Button text="删除"  prefWidth="50">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                    <Button text="查询"  prefWidth="50">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                    <Button text="修改"  prefWidth="50">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                </VBox>
+                            </content>
+                        </Tab>
+                        <Tab text="族群">
+                            <content>
+                                <VBox alignment="CENTER" spacing="15">
+                                    <padding>
+                                        <Insets top="70.0"/>
+                                    </padding>
+                                    <Button text="增加" prefWidth="50">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                    <Button text="删除" prefWidth="50">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                    <Button text="查询" prefWidth="50">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                    <Button text="修改" prefWidth="50">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                </VBox>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+
+            </children>
+        </VBox>
+
+        <TreeTableView>
+            <columns>
+                <TreeTableColumn prefWidth="75.0" text="C1"/>
+                <TreeTableColumn prefWidth="75.0" text="C2"/>
+            </columns>
+        </TreeTableView>
+
+    </children>
+</MyHBox>
