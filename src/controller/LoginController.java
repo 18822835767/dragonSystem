@@ -9,11 +9,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.database.impl.DragonMomDAOImpl;
 import model.database.impl.DragonTrainerDAOImpl;
 import model.database.impl.ForeignerDAOImpl;
+import widget.AlertTool;
 
 public class LoginController {
     @FXML
@@ -33,10 +33,7 @@ public class LoginController {
                 Stage loginStage = (Stage) username.getScene().getWindow();
                 loginStage.close();
             } else {
-                Alert warning = new Alert(Alert.AlertType.WARNING);
-                warning.setHeaderText("登陆失败");
-                warning.setContentText("用户名或密码输入错误");
-                warning.showAndWait();
+                AlertTool.alert(Alert.AlertType.WARNING,null,"登陆失败","用户名或密码输入错误");
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 import model.database.impl.DragonGroupDAOImpl;
 import model.database.impl.DragonTrainerDAOImpl;
+import widget.AlertTool;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -181,10 +182,7 @@ public class DragonMonController implements Initializable {
                 dialog.setTitle("驯龙高手信息");
                 dialog.showAndWait();
             }else{
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("错误提示");
-                alert.setContentText("查询不到该驯龙高手的信息");
-                alert.showAndWait();
+                AlertTool.alert(Alert.AlertType.ERROR,null,"错误提示","查询不到该驯龙高手的信息");
             }
         }
     }
