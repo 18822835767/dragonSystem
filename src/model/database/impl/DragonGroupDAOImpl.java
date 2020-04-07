@@ -89,11 +89,12 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
                         rs.getString("profile"), rs.getString("location"),rs.getFloat("size"));
                 dragonGroupList.add(dragonGroup);
             }
+            return dragonGroupList;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             DBUtils.close(conn,ps, rs);
         }
-        return dragonGroupList;
+        return null;
     }
 }

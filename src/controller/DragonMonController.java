@@ -10,10 +10,10 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 import model.database.impl.DragonGroupDAOImpl;
 import model.database.impl.DragonTrainerDAOImpl;
-import org.w3c.dom.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -89,7 +89,7 @@ public class DragonMonController implements Initializable {
         //如果用户点击了确定按钮
         if(result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE){
             String name = t_name.getText();
-            int dragonGroupId = Integer.valueOf(t_dragonGroupId.getText().trim());
+            int dragonGroupId = Integer.parseInt(t_dragonGroupId.getText().trim());
             String username = t_username.getText().trim();
             String password = t_password.getText().trim();
             new DragonTrainerDAOImpl().save(dragonGroupId,name,username,password);//数据库保存数据
@@ -129,7 +129,7 @@ public class DragonMonController implements Initializable {
         Optional<ButtonType> result = dialog.showAndWait();
         //如果用户点击了确定按钮
         if(result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE){
-            int dragonTrainerId = Integer.valueOf(t_dragonTrainerId.getText().trim());
+            int dragonTrainerId = Integer.parseInt(t_dragonTrainerId.getText().trim());
             DragonTrainer dragonTrainer = new DragonTrainerDAOImpl().get(dragonTrainerId);
             new DragonTrainerDAOImpl().delete(dragonTrainerId);
             /**
@@ -148,6 +148,45 @@ public class DragonMonController implements Initializable {
      * 查询驯龙高手信息
      * */
     public void queryDragonTrainer(ActionEvent actionEvent) {
+        TextInputDialog input = new TextInputDialog();
+        input.setTitle("查询驯龙高手信息");
+        input.setHeaderText("请输入驯龙高手的Id");
+        input.setContentText("Id:");
+        Optional<String> result = input.showAndWait();
+
+        if(result.isPresent()){
+            int dragonTrainerId = Integer.parseInt(result.get());
+            DragonTrainer dragonTrainer = new DragonTrainerDAOImpl().get(dragonTrainerId);
+            if(dragonTrainer != null){
+                int dragonGroupId = dragonTrainer.getDragonGroupId();
+                VBox vBox = new VBox();
+                Text t_name = new Text("名字:"+dragonTrainer.getName());
+                Text t_dragonTrainerId = new Text("Id:"+dragonGroupId);
+                Text t_dragonGroupName = new Text("族群名字:"+new DragonGroupDAOImpl().get(dragonGroupId).getName());
+                Text t_dragonGroupId = new Text("族群Id:"+dragonTrainer.getDragonGroupId());
+                Text t_username = new Text("用户名:"+dragonTrainer.getUsername());
+                Text t_password = new Text("密码:"+dragonTrainer.getPassword());
+                vBox.getChildren().addAll(t_name,t_dragonTrainerId,t_dragonGroupName,t_dragonGroupId,t_username,
+                        t_password);
+                vBox.setSpacing(10);
+
+                DialogPane dialogPane = new DialogPane();
+                dialogPane.setContent(vBox);
+
+                ButtonType ok = new ButtonType("确定", ButtonBar.ButtonData.OK_DONE);
+                dialogPane.getButtonTypes().add(ok);
+
+                Dialog<ButtonType> dialog = new Dialog<>();
+                dialog.setDialogPane(dialogPane);
+                dialog.setTitle("驯龙高手信息");
+                dialog.showAndWait();
+            }else{
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("错误提示");
+                alert.setContentText("查询不到该驯龙高手的信息");
+                alert.showAndWait();
+            }
+        }
     }
 
     /**

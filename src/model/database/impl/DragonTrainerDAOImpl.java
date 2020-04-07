@@ -119,11 +119,12 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
                         , rs.getString("name"), rs.getString("username"), rs.getString("password"));
                 dragonTrainerList.add(dragonTrainer);
             }
+            return dragonTrainerList;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             DBUtils.close(conn,ps, rs);
         }
-        return dragonTrainerList;
+        return null;
     }
 }

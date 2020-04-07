@@ -97,12 +97,13 @@ public class DragonDAOImpl implements IDragonDAO {
                         rs.getString("profile"), training, healthy, (char) rs.getInt("sex"), rs.getInt("age"));
                 dragonList.add(dragon);
             }
+            return dragonList;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             DBUtils.close(conn, ps, rs);
         }
-        return dragonList;
+        return null;
     }
 }
 
