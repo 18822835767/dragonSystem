@@ -54,10 +54,17 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         executeUpdate(sql, dragonTrainerId);
     }
 
+    @Override//可能没用
+    public void update(int dragonTrainerId, DragonTrainer dragonTrainer) {
+        String sql = "update dragontrainer set dragonGroupId=?,name=?,username=?,password=? where dragonTrainerId = ?";
+        executeUpdate(sql, dragonTrainer.getDragonGroupId(),dragonTrainer.getName(),dragonTrainer.getUsername(),
+                dragonTrainer.getPassword(), dragonTrainerId);
+    }
+
     @Override
-    public void updata(int dragonTrainerId, DragonTrainer dragonTrainer) {
-        String sql = "update name = ? set where dragonTrainerId = ?";
-        executeUpdate(sql, dragonTrainer.getName(), dragonTrainerId);
+    public void update(int id, int dragonGroupId, String name, String username, String password) {
+        String sql = "update dragontrainer set dragonGroupId=?,name=?,username=?,password=? where dragonTrainerId = ?";
+        executeUpdate(sql,dragonGroupId,name,username,password,id);
     }
 
     //id查询

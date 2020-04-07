@@ -59,4 +59,8 @@ public class DragonTrainer extends Person {
     public int getDragonGroupId() {
         return dragonGroupId;
     }
+
+    public void setDragonGroupId(int dragonGroupId) {
+        this.dragonGroupId = dragonGroupId;
+    }
 }
