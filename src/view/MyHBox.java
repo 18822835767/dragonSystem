@@ -16,7 +16,12 @@ public class MyHBox extends HBox {
         VBox vBox =(VBox) getChildren().get(0);
         vBox.resizeRelocate(0,0,w*0.3,h);
 
-        TreeTableView treeTableView = (TreeTableView) getChildren().get(1);
-        treeTableView.resizeRelocate(w*0.3,0,w*0.7,h);
+        TreeTableView trainerTreeTableView = (TreeTableView) getChildren().get(1);
+        trainerTreeTableView.resizeRelocate(w*0.3,0,w*0.7,h);
+
+        TreeTableView groupTreeTableView = (TreeTableView) getChildren().get(2);
+        trainerTreeTableView.resizeRelocate(w*0.3,0,w*0.7,h);
+
+
     }
 }

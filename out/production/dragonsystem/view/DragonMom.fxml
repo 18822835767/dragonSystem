@@ -82,7 +82,9 @@
             </children>
         </VBox>
 
-        <TreeTableView fx:id="treeTableView" />
+        <TreeTableView fx:id="trainerTreeTableView" />
+        <TreeTableView fx:id="groupTreeTableView" visible="false"/>
+
 
     </children>
 </MyHBox>

@@ -7,7 +7,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -30,7 +29,9 @@ import java.util.ResourceBundle;
  */
 public class DragonMonController implements Initializable {
     @FXML
-    TreeTableView<DragonTrainer> treeTableView;
+    TreeTableView<DragonTrainer> trainerTreeTableView;
+    @FXML
+    TreeTableView<DragonGroup> groupTreeTableView;
     @FXML
     TabPane tabPane;
 
@@ -60,8 +61,18 @@ public class DragonMonController implements Initializable {
     public void tabPaneListener() {
         tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
-            public void changed(ObservableValue<? extends Tab> observableValue, Tab tab, Tab t1) {
-                System.out.println(t1.getText());
+            public void changed(ObservableValue<? extends Tab> observableValue, Tab oldTab, Tab newTab) {
+//                if(newTab.getText().equals("驯龙高手")){
+//                    groupTreeTableView.setVisible(false);
+//                    trainerTreeTableView.setVisible(true);
+//                    initTrainerTreeTable();//默认先显示驯龙高手的信息
+//                    initTrainerTreeData();
+//                }else if(newTab.getText().equals("族群")){
+//                    groupTreeTableView.setVisible(true);
+//                    trainerTreeTableView.setVisible(false);
+//                    initGroupTreeTable();
+//                    initGroupTreeData();
+//                }
             }
         });
     }
@@ -221,7 +232,7 @@ public class DragonMonController implements Initializable {
         columns[1] = new TreeTableColumn("Id");
         columns[2] = new TreeTableColumn("族群Id");
         columns[3] = new TreeTableColumn("族群名字");
-        treeTableView.getColumns().addAll(columns);
+        trainerTreeTableView.getColumns().addAll(columns);
 
         Callback cellValueFactory = new Callback() {
             @Override
@@ -261,8 +272,8 @@ public class DragonMonController implements Initializable {
      * 根节点进行了隐藏
      * */
     public void initTrainerTreeData() {
-        treeTableView.setRoot(trainerRoot);
-        treeTableView.setShowRoot(false);
+        trainerTreeTableView.setRoot(trainerRoot);
+        trainerTreeTableView.setShowRoot(false);
 
         flushTrainer();
     }
@@ -319,109 +330,117 @@ public class DragonMonController implements Initializable {
         }
     }
 
-//    /**
-//     * 族群表：
-//     * 设置列名、列宽
-//     * */
-//    public void initGroupTreeTable() {
-//        //这里添加了多个列
-//        TreeTableColumn<DragonGroup, DragonGroup> columns[] = new TreeTableColumn[5];
-//        columns[0] = new TreeTableColumn("族群名字");
-//        columns[1] = new TreeTableColumn("Id");
-//        columns[2] = new TreeTableColumn("简介");
-//        columns[3] = new TreeTableColumn("地理位置");
-//        columns[4] = new TreeTableColumn("大小");
-//        treeTableView.getColumns().addAll(columns);
-//
-//        Callback cellValueFactory = new Callback() {
-//            @Override
-//            public Object call(Object o) {
-//                TreeTableColumn.CellDataFeatures p = (TreeTableColumn.CellDataFeatures) o;
-//                return p.getValue().valueProperty();
-//            }
-//        };
-//        for (int i = 0; i < columns.length; i++) {
-//            columns[i].setCellValueFactory(cellValueFactory);
-//        }
-//
-//        //设置列的宽度
-//        columns[0].setPrefWidth(120);
-//        columns[1].setPrefWidth(80);
-//        columns[2].setPrefWidth(120);
-//        columns[3].setPrefWidth(120);
-//        columns[4].setPrefWidth(80);
-//
-//
-//        //设置CellFactory,定义每一列单元格的显示
-//        columns[0].setCellFactory((param) -> {
-//            return new GroupTableTreeCell("name");
-//        });
-//        columns[1].setCellFactory((param) -> {
-//            return new GroupTableTreeCell("Id");
-//        });
-//        columns[2].setCellFactory((param) -> {
-//            return new GroupTableTreeCell("profile");
-//        });
-//        columns[3].setCellFactory((param) -> {
-//            return new GroupTableTreeCell("location");
-//        });
-//        columns[4].setCellFactory((param)->{
-//            return new GroupTableTreeCell("size");
-//        });
-//    }
-//
-//    /**
-//     * 族群表：
-//     * 数据的显示。
-//     * 根节点进行了隐藏
-//     * */
-//    public void initGroupTreeData() {
-//        treeTableView.setRoot(trainerRoot);
-//        treeTableView.setShowRoot(false);
-//
-//        List<DragonTrainer> dragonTrainerList = new DragonTrainerDAOImpl().getList();
-//        if (dragonTrainerList != null) {
-//            for (DragonTrainer dragonTrainer : dragonTrainerList) {
-//                TreeItem<DragonTrainer> treeItem = new TreeItem(dragonTrainer);
-//                trainerTreeItemList.add(treeItem);
-//                trainerRoot.getChildren().add(treeItem);
-//            }
-//        }
-//    }
-//
-//    /**
-//     * 族群表：
-//     * 单元格的显示
-//     * */
-//    class GroupTableTreeCell extends TreeTableCell<DragonGroup,DragonGroup> {
-//        String columnID;
-//
-//        public GroupTableTreeCell(String columnID) {
-//            this.columnID = columnID;
-//        }
-//
-//        @Override
-//        protected void updateItem(DragonGroup item, boolean empty) {
-//            super.updateItem(item, empty);
-//
-//            if (empty || null == item) {
-//                setGraphic(null);
-//                setText(null);
-//            } else {
-//                setGraphic(null);
-//                if (columnID.equals("name")) {
-//                    this.setText(item.getName());
-//                } else if (columnID.equals("Id")) {
-//                    this.setText(String.valueOf(item.getDragonTrainerId()));
-//                } else if (columnID.equals("dragonGroupId")) {
-//                    this.setText(String.valueOf(item.getDragonGroupId()));
-//                } else if (columnID.equals("dragonGroupName")) {
-//                    int dragonGroupId = item.getDragonGroupId();
-//                    //获得族群名字
-//                    String dragonGroupName = new DragonGroupDAOImpl().get(dragonGroupId).getName();
-//                    this.setText(dragonGroupName);
-//                }
-//            }
-//        }
-//    }
+    /**
+     * 刷新groupTreeItemList(储存treeItem的)和groupRoot
+     * */
+    public void flushGroup(){
+        groupTreeItemList.clear();
+        groupRoot.getChildren().clear();
+        List<DragonGroup> dragonGroupList = new DragonGroupDAOImpl().getList();
+        if (dragonGroupList != null) {
+            for (DragonGroup dragonGroup : dragonGroupList) {
+                TreeItem<DragonGroup> treeItem = new TreeItem(dragonGroup);
+                groupTreeItemList.add(treeItem);
+                groupRoot.getChildren().add(treeItem);
+            }
+        }
+    }
+
+    /**
+     * 族群表：
+     * 设置列名、列宽
+     * */
+    public void initGroupTreeTable() {
+        //这里添加了多个列
+        TreeTableColumn<DragonGroup, DragonGroup> columns[] = new TreeTableColumn[5];
+        columns[0] = new TreeTableColumn("族群名字");
+        columns[1] = new TreeTableColumn("Id");
+        columns[2] = new TreeTableColumn("简介");
+        columns[3] = new TreeTableColumn("地理位置");
+        columns[4] = new TreeTableColumn("大小");
+        groupTreeTableView.getColumns().addAll(columns);
+
+        Callback cellValueFactory = new Callback() {
+            @Override
+            public Object call(Object o) {
+                TreeTableColumn.CellDataFeatures p = (TreeTableColumn.CellDataFeatures) o;
+                return p.getValue().valueProperty();
+            }
+        };
+        for (int i = 0; i < columns.length; i++) {
+            columns[i].setCellValueFactory(cellValueFactory);
+        }
+
+        //设置列的宽度
+        columns[0].setPrefWidth(120);
+        columns[1].setPrefWidth(80);
+        columns[2].setPrefWidth(120);
+        columns[3].setPrefWidth(120);
+        columns[4].setPrefWidth(80);
+
+
+        //设置CellFactory,定义每一列单元格的显示
+        columns[0].setCellFactory((param) -> {
+            return new GroupTableTreeCell("name");
+        });
+        columns[1].setCellFactory((param) -> {
+            return new GroupTableTreeCell("Id");
+        });
+        columns[2].setCellFactory((param) -> {
+            return new GroupTableTreeCell("profile");
+        });
+        columns[3].setCellFactory((param) -> {
+            return new GroupTableTreeCell("location");
+        });
+        columns[4].setCellFactory((param)->{
+            return new GroupTableTreeCell("size");
+        });
+    }
+
+    /**
+     * 族群表：
+     * 数据的显示。
+     * 根节点进行了隐藏
+     * */
+    public void initGroupTreeData() {
+        groupTreeTableView.setRoot(groupRoot);
+        groupTreeTableView.setShowRoot(false);
+
+        flushGroup();
+    }
+
+    /**
+     * 族群表：
+     * 单元格的显示
+     * */
+    class GroupTableTreeCell extends TreeTableCell<DragonGroup,DragonGroup> {
+        String columnID;
+
+        public GroupTableTreeCell(String columnID) {
+            this.columnID = columnID;
+        }
+
+        @Override
+        protected void updateItem(DragonGroup item, boolean empty) {
+            super.updateItem(item, empty);
+
+            if (empty || null == item) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(null);
+                if (columnID.equals("name")) {
+                    this.setText(item.getName());
+                } else if (columnID.equals("Id")) {
+                    this.setText(String.valueOf(item.getId()));
+                } else if (columnID.equals("profile")) {
+                    this.setText(item.getProfile());
+                } else if (columnID.equals("location")) {
+                    this.setText(item.getLocation());
+                }else if(columnID.equals("size")){
+                    this.setText(String.valueOf(item.getSize()));
+                }
+            }
+        }
+    }
 }
