@@ -16,7 +16,7 @@
             <children>
                 <Button text="切换账号"/>
 
-                <TabPane>
+                <TabPane fx:id="tabPane">
                     <tabs>
                         <Tab text="驯龙高手">
                             <content>
@@ -24,7 +24,7 @@
                                     <padding>
                                         <Insets top="70.0"/>
                                     </padding>
-                                    <Button  text="增加"  prefWidth="50" onAction="#hhh">
+                                    <Button  text="增加"  prefWidth="50">
                                         <font>
                                             <Font size="15.0" />
                                         </font>
