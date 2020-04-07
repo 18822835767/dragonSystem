@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
  */
 public class DragonMonController implements Initializable {
     @FXML
-    TreeTableView treeTableView;
+    TreeTableView<DragonTrainer> treeTableView;
     @FXML
     TabPane tabPane;
 
@@ -202,29 +202,7 @@ public class DragonMonController implements Initializable {
 
                     new DragonTrainerDAOImpl().update(dragonTrainerId, dragonGroupId, name, username, password);
 
-                    for (TreeItem<DragonTrainer> treeItem : trainerTreeItemList) {
-
-                        DragonTrainer dragonTrainer1 = treeItem.getValue();
-                        /**
-                         * 完成2步。
-                         * 1.treeItemList的treeItem要更换
-                         * 2.树控件中的显示要更换
-                         * */
-                        if (dragonTrainer1.getDragonTrainerId() == dragonTrainerId) {
-                            dragonTrainer1.setDragonGroupId(dragonGroupId);
-                            dragonTrainer1.setName(name);
-                            dragonTrainer1.setUsername(username);
-                            dragonTrainer1.setPassword(password);
-
-                            TreeItem<DragonTrainer> treeItem1 = new TreeItem<>(dragonTrainer1);
-                            trainerTreeItemList.remove(treeItem);
-                            trainerTreeItemList.add(treeItem1);
-
-                            trainerRoot.getChildren().remove(treeItem);
-                            trainerRoot.getChildren().add(treeItem1);
-                            break;
-                        }
-                    }
+                    flushTrainer();
                 }
             } else {
                 AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该驯龙高手的信息");
@@ -286,14 +264,7 @@ public class DragonMonController implements Initializable {
         treeTableView.setRoot(trainerRoot);
         treeTableView.setShowRoot(false);
 
-        List<DragonTrainer> dragonTrainerList = new DragonTrainerDAOImpl().getList();
-        if (dragonTrainerList != null) {
-            for (DragonTrainer dragonTrainer : dragonTrainerList) {
-                TreeItem<DragonTrainer> treeItem = new TreeItem(dragonTrainer);
-                trainerTreeItemList.add(treeItem);
-                trainerRoot.getChildren().add(treeItem);
-            }
-        }
+        flushTrainer();
     }
 
     /**
@@ -328,6 +299,22 @@ public class DragonMonController implements Initializable {
                     String dragonGroupName = new DragonGroupDAOImpl().get(dragonGroupId).getName();
                     this.setText(dragonGroupName);
                 }
+            }
+        }
+    }
+
+    /**
+     * 刷新trainerTreeItemList(储存treeItem的)和trainerRoot
+     * */
+    public void flushTrainer(){
+        trainerTreeItemList.clear();
+        trainerRoot.getChildren().clear();
+        List<DragonTrainer> dragonTrainerList = new DragonTrainerDAOImpl().getList();
+        if (dragonTrainerList != null) {
+            for (DragonTrainer dragonTrainer : dragonTrainerList) {
+                TreeItem<DragonTrainer> treeItem = new TreeItem(dragonTrainer);
+                trainerTreeItemList.add(treeItem);
+                trainerRoot.getChildren().add(treeItem);
             }
         }
     }
