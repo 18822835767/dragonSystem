@@ -4,15 +4,21 @@ import entity.DragonGroup;
 import entity.DragonTrainer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import model.database.impl.DragonGroupDAOImpl;
 import model.database.impl.DragonTrainerDAOImpl;
+import org.w3c.dom.Text;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 /**
  * 为了可以初始化，所以继承该接口
@@ -22,6 +28,13 @@ public class DragonMonController implements Initializable {
     TreeTableView<DragonTrainer> treeTableView;
     @FXML
     TabPane tabPane;
+
+    TreeItem<DragonTrainer> root = new TreeItem<DragonTrainer>(new DragonTrainer());
+
+    /**
+     * 因为多列树控件中删除一行时，需要是原来加载进去的那个TreeItem对象，所以这里先把TreeItem存起来
+     * */
+    List<TreeItem<DragonTrainer>> treeItemList = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -40,6 +53,107 @@ public class DragonMonController implements Initializable {
                 System.out.println(t1.getText());
             }
         });
+    }
+
+    /**
+     * 添加驯龙高手信息
+     * */
+    public void addDragonTrainer(ActionEvent actionEvent) {
+        VBox vBox = new VBox();
+
+        TextField t_dragonGroupId = new TextField();
+        t_dragonGroupId.setPromptText("已存在的族群Id");
+        TextField t_name = new TextField();
+        t_name.setPromptText("驯龙高手名字");
+        TextField t_username = new TextField();
+        t_username.setPromptText("用户名");
+        TextField t_password = new TextField();
+        t_password.setPromptText("密码");
+        vBox.getChildren().addAll(t_name,t_dragonGroupId,t_username,t_password);
+
+        vBox.setSpacing(10);
+
+        DialogPane dialogPane = new DialogPane();
+        dialogPane.setContent(vBox);
+
+        ButtonType cancel =new ButtonType("取消",ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialogPane.getButtonTypes().add(cancel);
+        ButtonType ok = new ButtonType("确定",ButtonBar.ButtonData.OK_DONE);
+        dialogPane.getButtonTypes().add(ok);
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setDialogPane(dialogPane);
+        dialog.setTitle("添加驯龙高手信息");
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        //如果用户点击了确定按钮
+        if(result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE){
+            String name = t_name.getText();
+            int dragonGroupId = Integer.valueOf(t_dragonGroupId.getText().trim());
+            String username = t_username.getText().trim();
+            String password = t_password.getText().trim();
+            new DragonTrainerDAOImpl().save(dragonGroupId,name,username,password);//数据库保存数据
+
+            DragonTrainer dragonTrainer = new DragonTrainerDAOImpl().get(username,password);
+            TreeItem<DragonTrainer> treeItem = new TreeItem(dragonTrainer);//试下TreeItem后面加<>会怎么样
+            treeItemList.add(treeItem);
+            root.getChildren().add(treeItem);
+        }
+
+    }
+
+    /**
+     * 删除驯龙高手信息
+     * */
+    public void deleteDragonTrainer(ActionEvent actionEvent) {
+        VBox vBox = new VBox();
+
+        TextField t_dragonTrainerId = new TextField();
+        t_dragonTrainerId.setPromptText("驯龙高手Id");
+        vBox.getChildren().add(t_dragonTrainerId);
+
+        vBox.setAlignment(Pos.CENTER);
+
+        DialogPane dialogPane = new DialogPane();
+        dialogPane.setContent(vBox);
+
+        ButtonType cancel =new ButtonType("取消",ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialogPane.getButtonTypes().add(cancel);
+        ButtonType ok = new ButtonType("确定",ButtonBar.ButtonData.OK_DONE);
+        dialogPane.getButtonTypes().add(ok);
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setDialogPane(dialogPane);
+        dialog.setTitle("删除驯龙高手信息");
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        //如果用户点击了确定按钮
+        if(result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE){
+            int dragonTrainerId = Integer.valueOf(t_dragonTrainerId.getText().trim());
+            DragonTrainer dragonTrainer = new DragonTrainerDAOImpl().get(dragonTrainerId);
+            new DragonTrainerDAOImpl().delete(dragonTrainerId);
+            /**
+             * 从treeItemList找到驯龙高手相匹配的treeItem,然后从树控件中移除
+             * */
+            for(TreeItem<DragonTrainer> treeItem : treeItemList){
+                if(treeItem.getValue().getDragonTrainerId() == dragonTrainerId){
+                    root.getChildren().remove(treeItem);
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * 查询驯龙高手信息
+     * */
+    public void queryDragonTrainer(ActionEvent actionEvent) {
+    }
+
+    /**
+     * 修改驯龙高手信息
+     * */
+    public void changeDragonTrainer(ActionEvent actionEvent) {
     }
 
     //设置列
@@ -86,13 +200,16 @@ public class DragonMonController implements Initializable {
 
     //数据的初始化
     public void initTreeData(){
-        TreeItem<DragonTrainer> root = new TreeItem<DragonTrainer>(new DragonTrainer());
         treeTableView.setRoot(root);
         treeTableView.setShowRoot(false);
 
         List<DragonTrainer> dragonTrainerList = new DragonTrainerDAOImpl().getList();
-        for(DragonTrainer dragonTrainer : dragonTrainerList){
-            root.getChildren().add(new TreeItem(dragonTrainer));
+        if(dragonTrainerList != null){
+            for(DragonTrainer dragonTrainer : dragonTrainerList){
+                TreeItem<DragonTrainer> treeItem = new TreeItem(dragonTrainer);
+                treeItemList.add(treeItem);
+                root.getChildren().add(treeItem);
+            }
         }
     }
 

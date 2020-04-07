@@ -24,22 +24,22 @@
                                     <padding>
                                         <Insets top="70.0"/>
                                     </padding>
-                                    <Button  text="增加"  prefWidth="50">
+                                    <Button  text="增加"  prefWidth="50" onAction="#addDragonTrainer">
                                         <font>
                                             <Font size="15.0" />
                                         </font>
                                     </Button>
-                                    <Button text="删除"  prefWidth="50">
+                                    <Button text="删除"  prefWidth="50" onAction="#deleteDragonTrainer">
                                         <font>
                                             <Font size="15.0" />
                                         </font>
                                     </Button>
-                                    <Button text="查询"  prefWidth="50">
+                                    <Button text="查询"  prefWidth="50" onAction="#queryDragonTrainer">
                                         <font>
                                             <Font size="15.0" />
                                         </font>
                                     </Button>
-                                    <Button text="修改"  prefWidth="50">
+                                    <Button text="修改"  prefWidth="50" onAction="#changeDragonTrainer">
                                         <font>
                                             <Font size="15.0" />
                                         </font>

@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface IDragonTrainerDAO {
     void save(DragonTrainer dragonTrainer);
+    void save(int dragonGroupId,String name,String username,String password);
     void delete(int id);
     void updata(int id,DragonTrainer dragonTrainer);
     DragonTrainer get(int id);

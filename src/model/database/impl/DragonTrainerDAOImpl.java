@@ -35,10 +35,17 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         return 0;
     }
 
+    //该方法可能没用
     @Override
     public void save(DragonTrainer dT) {
         String sql = "insert into dragontrainer(dragonTrainerId,dragonGroupId,name,username,password) values(?,?,?,?)";
         executeUpdate(sql, dT.getDragonTrainerId(), dT.getDragonGroupId(), dT.getName(), dT.getUsername(), dT.getPassword());
+    }
+
+    @Override
+    public void save(int dragonGroupId, String name, String username, String password) {
+        String sql = "insert into dragontrainer(dragonGroupId,name,username,password) values(?,?,?,?)";
+        executeUpdate(sql,  dragonGroupId,name,username,password);
     }
 
     @Override
