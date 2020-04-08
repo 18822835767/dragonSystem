@@ -20,7 +20,7 @@ public class MyHBox extends HBox {
         trainerTreeTableView.resizeRelocate(w*0.3,0,w*0.7,h);
 
         TreeTableView groupTreeTableView = (TreeTableView) getChildren().get(2);
-        trainerTreeTableView.resizeRelocate(w*0.3,0,w*0.7,h);
+        groupTreeTableView.resizeRelocate(w*0.3,0,w*0.7,h);
 
 
     }

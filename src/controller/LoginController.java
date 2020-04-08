@@ -50,7 +50,7 @@ public class LoginController {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("龙妈您好");
-            stage.setWidth(600);
+            stage.setWidth(700);
             stage.setHeight(500);
             stage.show();
             return true;
