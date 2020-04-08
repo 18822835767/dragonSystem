@@ -8,7 +8,8 @@ public interface IDragonGroupDAO {
     void save(DragonGroup dragonGroup);
     void save(String name, String profile, String location, double size);
     void delete(int id);
-    void updata(int id,DragonGroup dragonGroup);
+    void update(int id, DragonGroup dragonGroup);
+    void update(String name,String profile,String location,double size,int id);
     DragonGroup get(int id);//根据id找某个族群
 
     /**

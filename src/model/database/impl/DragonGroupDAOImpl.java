@@ -11,23 +11,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DragonGroupDAOImpl implements IDragonGroupDAO {
-    public int executeUpdate(String sql,Object... params){
+    public int executeUpdate(String sql, Object... params) {
         Connection conn = null;
         PreparedStatement ps = null;
-        try{
+        try {
             //加载驱动、获取连接
             conn = DBUtils.getConnection();
             //获取数据库预编译操作对象
             ps = conn.prepareStatement(sql);
             //params参数遍历
-            for(int i=0;i<params.length;i++){
-                ps.setObject(i+1,params[i]);
+            for (int i = 0; i < params.length; i++) {
+                ps.setObject(i + 1, params[i]);
             }
             return ps.executeUpdate();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            DBUtils.close(conn,ps,null);
+        } finally {
+            DBUtils.close(conn, ps, null);
         }
         return 0;
     }
@@ -40,10 +40,11 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
                 dragonGroup.getSize());
     }
 
+
     @Override
     public void save(String name, String profile, String location, double size) {
         String sql = "insert into dragongroup(name,profile,location,size) values(?,?,?,?)";
-        executeUpdate(name,profile,location,size);
+        executeUpdate(sql,name,profile,location,size);
     }
 
     @Override
@@ -52,11 +53,17 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
         executeUpdate(sql,dragonGroupId);
     }
 
-    @Override
-    public void updata(int dragonGroupId, DragonGroup dragonGroup) {
+    @Override//可能没用
+    public void update(int dragonGroupId, DragonGroup dragonGroup) {
         String sql = "update dragongroup set name = ?,profile = ?,location = ?,size = ? where dragonGroupId = ?";
         executeUpdate(sql,dragonGroup.getName(),dragonGroup.getProfile(),dragonGroup.getLocation(),dragonGroup.getSize(),
                 dragonGroupId);
+    }
+
+    @Override
+    public void update(String name, String profile, String location, double size,int id) {
+        String sql = "update dragongroup set name = ?,profile = ?,location = ?,size = ? where dragonGroupId = ?";
+        executeUpdate(sql,name,profile,location,size,id);
     }
 
     //根据id找某个族群

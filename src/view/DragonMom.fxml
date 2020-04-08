@@ -14,7 +14,7 @@
     <children>
         <VBox>
             <children>
-                <Button text="切换账号"/>
+                <Button fx:id="changeUser" text="切换账号" onAction="#changeUser"/>
 
                 <TabPane fx:id="tabPane">
                     <tabs>
@@ -53,22 +53,22 @@
                                     <padding>
                                         <Insets top="70.0"/>
                                     </padding>
-                                    <Button text="增加" prefWidth="50">
+                                    <Button text="增加" prefWidth="50" onAction="#addDragonGroup">
                                         <font>
                                             <Font size="15.0" />
                                         </font>
                                     </Button>
-                                    <Button text="删除" prefWidth="50">
+                                    <Button text="删除" prefWidth="50" onAction="#deleteDragonGroup">
                                         <font>
                                             <Font size="15.0" />
                                         </font>
                                     </Button>
-                                    <Button text="查询" prefWidth="50">
+                                    <Button text="查询" prefWidth="50" onAction="#queryDragonGroup">
                                         <font>
                                             <Font size="15.0" />
                                         </font>
                                     </Button>
-                                    <Button text="修改" prefWidth="50">
+                                    <Button text="修改" prefWidth="50" onAction="#changeDragonGroup">
                                         <font>
                                             <Font size="15.0" />
                                         </font>

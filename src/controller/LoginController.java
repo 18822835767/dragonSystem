@@ -15,6 +15,8 @@ import model.database.impl.DragonTrainerDAOImpl;
 import model.database.impl.ForeignerDAOImpl;
 import widget.AlertTool;
 
+import java.io.IOException;
+
 public class LoginController {
     @FXML
     private TextField username;
@@ -42,20 +44,11 @@ public class LoginController {
 
     //判断是否登陆成功以及用户是哪个，从而加载不同的.fxml
     public boolean userJudge(String username, String password) throws Exception {
-        FXMLLoader fx = new FXMLLoader();
-        Stage stage = new Stage();
         if (new DragonMomDAOImpl().get(username, password) != null) {
-            fx.setLocation(fx.getClassLoader().getResource("view/DragonMom.fxml"));
-            HBox root = (HBox) fx.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("龙妈您好");
-            stage.setWidth(700);
-            stage.setHeight(500);
-            stage.show();
+            changeView("view/DragonMom.fxml","龙妈您好");
             return true;
         } else if (new DragonTrainerDAOImpl().get(username, password) != null) {
-            System.out.println("驯龙高手");
+            changeView("view/DragonTrainer.fxml","驯龙高手您好");
             return true;
         } else if (new ForeignerDAOImpl().get(username, password) != null) {
             System.out.println("外邦人");
@@ -68,4 +61,22 @@ public class LoginController {
     }
 
 
+    /**
+     * 从登录界面切换到各个用户的主界面.
+     *
+     * @param name 要切换的界面的.fxml文件
+     * @param stageTitle 主界面的stageTitle
+     * */
+    public void changeView(String name,String stageTitle) throws IOException {
+        FXMLLoader fx = new FXMLLoader();
+        Stage stage = new Stage();
+        fx.setLocation(fx.getClassLoader().getResource(name));
+        HBox root = (HBox) fx.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle(stageTitle);
+        stage.setWidth(700);
+        stage.setHeight(500);
+        stage.show();
+    }
 }

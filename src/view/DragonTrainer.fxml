@@ -6,8 +6,88 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import view.MyHBox?>
+<MyHBox xmlns:fx="http://cxf.apache.org/jaxws" fx:controller="controller.DragonTrainerController" prefHeight="600.0"
+        prefWidth="600.0">
+    <children>
+        <VBox>
+            <children>
+                <Button fx:id="changeUser" text="切换账号" onAction="#changeUser"/>
 
-</AnchorPane>
+                <TabPane fx:id="tabPane">
+                    <tabs>
+                        <Tab text="族群的龙">
+                            <content>
+                                <VBox alignment="CENTER" spacing="15">
+                                    <padding>
+                                        <Insets top="70.0"/>
+                                    </padding>
+                                    <Button  text="增加"  prefWidth="50" onAction="#addDragon">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                    <Button text="删除"  prefWidth="50" onAction="#deleteDragon">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                    <Button text="查询"  prefWidth="50" onAction="#queryDragon">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                    <Button text="修改"  prefWidth="50" onAction="#changeDragon">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                </VBox>
+                            </content>
+                        </Tab>
+                        <Tab text="我的族群">
+                            <content>
+                                <VBox alignment="CENTER" spacing="15">
+                                    <padding>
+                                        <Insets top="70.0"/>
+                                    </padding>
+                                    <Button text="查询" prefWidth="50" onAction="#queryMyDragonGroup">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                    <Button text="修改" prefWidth="50" onAction="#changeMyDragonGroup">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                </VBox>
+                            </content>
+                        </Tab>
+                        <Tab text="所有族群">
+                            <content>
+                                <VBox alignment="CENTER" spacing="15">
+                                    <padding>
+                                        <Insets top="70.0"/>
+                                    </padding>
+                                    <Button text="查询" prefWidth="50" onAction="#queryDragonGroup">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                </VBox>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </children>
+        </VBox>
+
+        <TreeTableView fx:id="dragonTreeTableView" />
+        <TreeTableView fx:id="groupTreeTableView" visible="false"/>
+
+
+    </children>
+</MyHBox>
