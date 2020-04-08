@@ -220,6 +220,43 @@ public class DragonMonController implements Initializable {
     }
 
     /**
+     * 添加族群信息.
+     */
+    public void addDragonGroup(ActionEvent actionEvent) {
+        VBox vBox = new VBox();
+
+        TextField t_name = new TextField();
+        t_name.setPromptText("族群名字");
+        TextField t_profile = new TextField();
+        t_profile.setPromptText("简介");
+        TextField t_location = new TextField();
+        t_location.setPromptText("地理位置");
+        TextField t_size = new TextField();
+        t_size.setPromptText("大小");
+        vBox.getChildren().addAll(t_name, t_profile,t_location,t_size);
+
+        vBox.setSpacing(10);
+
+        //使用了自定义控件
+        Dialog<ButtonType> dialog = DialogTool.dialog("添加族群高手信息", vBox, "确定", "取消");
+        Optional<ButtonType> result = dialog.showAndWait();
+        //如果用户点击了确定按钮
+        if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+            String name = t_name.getText().trim();
+            String profile = t_profile.getText().trim();
+            String location = t_location.getText().trim();
+            double size = Double.valueOf(t_size.getText().trim());
+            new DragonGroupDAOImpl().save(name, profile, location, size);//数据库保存数据
+
+            DragonGroup dragonGroup = new DragonGroupDAOImpl().get(name);
+            TreeItem<DragonGroup> treeItem = new TreeItem(dragonGroup);//试下TreeItem后面加<>会怎么样
+            groupTreeItemList.add(treeItem);
+            groupRoot.getChildren().add(treeItem);
+        }
+
+    }
+
+    /**
      * 驯龙高手表：
      * 设置列名、列宽
      */

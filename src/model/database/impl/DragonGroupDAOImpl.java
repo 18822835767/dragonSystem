@@ -32,11 +32,18 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
         return 0;
     }
 
+    //目前没用
     @Override
     public void save(DragonGroup dragonGroup) {
         String sql = "insert into dragongroup(dragonGroupId,name,profile,location,size) values(?,?,?,?,?)";
         executeUpdate(sql,dragonGroup.getId(),dragonGroup.getName(),dragonGroup.getProfile(),dragonGroup.getLocation(),
                 dragonGroup.getSize());
+    }
+
+    @Override
+    public void save(String name, String profile, String location, double size) {
+        String sql = "insert into dragongroup(name,profile,location,size) values(?,?,?,?)";
+        executeUpdate(name,profile,location,size);
     }
 
     @Override
@@ -59,8 +66,11 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
+            conn = DBUtils.getConnection();
             String sql = "select * from dragongroup where dragonGroupId = ?";
-            rs = DBUtils.executeQuery(conn,ps,sql,dragonGroupId);
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,dragonGroupId);
+            rs =ps.executeQuery();
             if (rs.next()) {
                 DragonGroup dragonGroup = new DragonGroup(rs.getInt("dragonGroupId"),rs.getString("name"),
                         rs.getString("profile"), rs.getString("location"),rs.getFloat("size"));
@@ -74,16 +84,46 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
         return null;
     }
 
+    @Override
+    public DragonGroup get(String name) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            String sql = "select * from dragongroup where name = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,name);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                DragonGroup dragonGroup = new DragonGroup(rs.getInt("dragonGroupId"),rs.getString("name"),
+                        rs.getString("profile"), rs.getString("location"),rs.getFloat("size"));
+                return dragonGroup;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtils.close(conn,ps, rs);
+        }
+        return null;
+    }
+
+    /**
+     * 根据族群名字来找族群，数据库中设置族群名字为unique
+     * */
+
     //找到所有的族群
     @Override
     public List<DragonGroup> getList() {
+        List<DragonGroup> dragonGroupList = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
-        List<DragonGroup> dragonGroupList = new ArrayList<>();
         ResultSet rs = null;
         String sql = "select * from dragongroup";
         try {
-            rs = DBUtils.executeQuery(conn,ps,sql);
+            conn = DBUtils.getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 DragonGroup dragonGroup = new DragonGroup(rs.getInt("dragonGroupId"),rs.getString("name"),
                         rs.getString("profile"), rs.getString("location"),rs.getFloat("size"));

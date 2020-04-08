@@ -63,23 +63,5 @@ public class DBUtils {
         }
     }
 
-    //该方法内部因为返回ResultSet,所以没有将ResultSet的资源释放掉，要在调用的方法内部释放资源
-    public static ResultSet executeQuery(Connection conn,PreparedStatement ps,String sql, Object... params) {
-        ResultSet rs = null;
-        try {
-            //加载驱动、获取连接
-            conn = DBUtils.getConnection();
-            //获取数据库预编译操作对象
-            ps = conn.prepareStatement(sql);
-            //params参数遍历
-            for (int i = 0; i < params.length; i++) {
-                ps.setObject(i + 1, params[i]);
-            }
-            rs = ps.executeQuery();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return rs;
-    }
 
 }

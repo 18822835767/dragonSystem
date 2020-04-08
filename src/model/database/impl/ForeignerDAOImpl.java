@@ -45,9 +45,12 @@ public class ForeignerDAOImpl implements IForeignerDAO {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = "select * from foreigner where username = ? and password = ?";
-        rs = DBUtils.executeQuery(conn,ps,sql,username,password);
         try {
+            String sql = "select * from foreigner where username = ? and password = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,username);
+            ps.setString(2,password);
+            rs = ps.executeQuery();
             if(rs.next()){
                 Foreigner foreigner = new Foreigner(rs.getInt("foreignerId"), rs.getString("username"),
                         rs.getString("password"),rs.getString("name"),rs.getInt("money"));

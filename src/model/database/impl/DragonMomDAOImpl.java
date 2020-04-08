@@ -19,8 +19,12 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         String sql = "select * from dragonmom where username = ? and password = ?";
-        rs = DBUtils.executeQuery(conn,ps,sql,username,password);
         try {
+            conn = DBUtils.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,username);
+            ps.setString(2,password);
+            rs = ps.executeQuery();
             if(rs.next()){
                 DragonMom dragonMom = new DragonMom(rs.getInt("dragonMomId"), rs.getString("name"),
                         rs.getString("username"), rs.getString("password"));

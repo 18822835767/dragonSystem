@@ -74,8 +74,11 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
+            conn = DBUtils.getConnection();
             String sql = "select * from dragontrainer where dragonTrainerId = ?";
-            rs = DBUtils.executeQuery(conn,ps,sql,dragonTrainerId);
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,dragonTrainerId);
+            rs = ps.executeQuery();
             if (rs.next()) {
                 DragonTrainer dragonTrainer = new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
                         , rs.getString("name"), rs.getString("username"), rs.getString("password"));
@@ -95,9 +98,13 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = "select * from dragontrainer where username = ? and password = ?";
-        rs = DBUtils.executeQuery(conn,ps,sql,username,password);
         try {
+            conn = DBUtils.getConnection();
+            String sql = "select * from dragontrainer where username = ? and password = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,username);
+            ps.setString(2,password);
+            rs = ps.executeQuery();
             if(rs.next()){
                 DragonTrainer dragonTrainer = new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
                         , rs.getString("name"), rs.getString("username"), rs.getString("password"));
@@ -114,13 +121,15 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
     //找到所有的驯龙高手
     @Override
     public List<DragonTrainer> getList() {
+        List<DragonTrainer> dragonTrainerList = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
-        List<DragonTrainer> dragonTrainerList = new ArrayList<>();
         ResultSet rs = null;
         String sql = "select * from dragontrainer";
         try {
-            rs = DBUtils.executeQuery(conn,ps,sql);
+            conn = DBUtils.getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 DragonTrainer dragonTrainer = new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
                         , rs.getString("name"), rs.getString("username"), rs.getString("password"));

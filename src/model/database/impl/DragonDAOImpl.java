@@ -60,9 +60,12 @@ public class DragonDAOImpl implements IDragonDAO {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = "select * from dragon where dragonId = ?";
         try {
-            rs = DBUtils.executeQuery(conn,ps,sql, dragonId);
+            conn = DBUtils.getConnection();
+            String sql = "select * from dragon where dragonId = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, dragonId);
+            rs = ps.executeQuery();
             if (rs.next()) {
                 //boolean与int的值转换
                 boolean training = rs.getInt("training") == 1;
@@ -82,13 +85,15 @@ public class DragonDAOImpl implements IDragonDAO {
     //找到某个族群的龙
     @Override
     public List<Dragon> getList(int dragonGroupId) {
+        List<Dragon> dragonList = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
-        List<Dragon> dragonList = new ArrayList<>();
         ResultSet rs = null;
-        String sql = "select * from dragon where dragonGroupId = ?";
         try {
-            rs = DBUtils.executeQuery(conn,ps,sql, dragonGroupId);
+            conn = DBUtils.getConnection();
+            String sql = "select * from dragon where dragonGroupId = ?";
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 //boolean与int的值转换,因为表和类中该字段的属性不同
                 boolean training = rs.getInt("training") == 1;
