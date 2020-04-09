@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.database.impl.DragonGroupDAOImpl;
 import model.database.impl.DragonTrainerDAOImpl;
+import view.ChangeUser;
 import view.InitDragonGroupView;
 import view.InitDragonTrainerView;
 import widget.AlertTool;
@@ -46,8 +47,10 @@ public class DragonMonController implements Initializable {
     TreeItem<DragonTrainer> trainerRoot = new TreeItem<DragonTrainer>(new DragonTrainer());
 
     TreeItem<DragonGroup> groupRoot = new TreeItem<DragonGroup>(new DragonGroup());
+
     /**
-     * 因为多列树控件中删除一行时，需要是原来加载进去的那个TreeItem对象，所以这里先把TreeItem存起来
+     * 因为多列树控件中删除一行时，需要是原来加载进去的那个TreeItem对象，所以这里先把TreeItem存起来.
+     * 为表的更好地显示而加载。
      */
     List<TreeItem<DragonTrainer>> trainerTreeItemList = new ArrayList<>();
 
@@ -58,7 +61,7 @@ public class DragonMonController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initTrainerTreeTable();//默认先显示驯龙高手的信息
+        initTrainerTreeTable();
         initTrainerTreeData();
         initGroupTreeTable();
         initGroupTreeData();
@@ -84,24 +87,10 @@ public class DragonMonController implements Initializable {
     }
 
     /**
-     * 切换账号方法，切换为登陆界面.
+     * 切换账号切换为登陆界面.
      */
     public void changeUser(ActionEvent actionEvent) {
-        try {
-            FXMLLoader fx = new FXMLLoader();
-            fx.setLocation(fx.getClassLoader().getResource("view/login.fxml"));
-            GridPane gridPane = (GridPane) fx.load();
-            Scene scene = new Scene(gridPane);
-            Stage newStage = new Stage();
-            newStage.setScene(scene);
-            newStage.setHeight(280);
-            newStage.setWidth(420);
-            newStage.show();
-            Stage oldStage = (Stage) changeUser.getScene().getWindow();
-            oldStage.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ChangeUser.changeUser(changeUser);
     }
 
 
@@ -278,7 +267,7 @@ public class DragonMonController implements Initializable {
             new DragonGroupDAOImpl().save(name, profile, location, size);
 
             DragonGroup dragonGroup = new DragonGroupDAOImpl().get(name);
-            TreeItem<DragonGroup> treeItem = new TreeItem(dragonGroup);//试下TreeItem后面加<>会怎么样
+            TreeItem<DragonGroup> treeItem = new TreeItem(dragonGroup);
             groupTreeItemList.add(treeItem);
             groupRoot.getChildren().add(treeItem);
         }
@@ -329,7 +318,7 @@ public class DragonMonController implements Initializable {
                 DialogTool.dialog("族群信息", vBox, "确定", null).showAndWait();
             } else {
                 //自定义控件
-                AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该驯龙高手的信息");
+                AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");
             }
         }
     }

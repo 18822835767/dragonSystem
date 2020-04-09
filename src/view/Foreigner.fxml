@@ -6,6 +6,54 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml"  prefHeight="400.0" prefWidth="600.0">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import view.MyHBox?>
+<MyHBox xmlns:fx="http://java.sun.com/JSP/Page" fx:controller="controller.ForeignerController" prefHeight="600.0"
+        prefWidth="600.0">
+    <children>
+        <VBox>
+            <children>
+                <Button fx:id="changeUser" text="切换账号" onAction="#changeUser"/>
 
-</AnchorPane>
+                <TabPane fx:id="tabPane">
+                    <tabs>
+                        <Tab text="龙">
+                            <content>
+                                <VBox alignment="CENTER" spacing="15">
+                                    <padding>
+                                        <Insets top="70.0"/>
+                                    </padding>
+                                    <Button text="查询"  prefWidth="120" onAction="#queryDragon">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                </VBox>
+                            </content>
+                        </Tab>
+                        <Tab text="族群">
+                            <content>
+                                <VBox alignment="CENTER" spacing="15">
+                                    <padding>
+                                        <Insets top="70.0"/>
+                                    </padding>
+                                    <Button text="查询" prefWidth="120" onAction="#queryDragonGroup">
+                                        <font>
+                                            <Font size="15.0" />
+                                        </font>
+                                    </Button>
+                                </VBox>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </children>
+        </VBox>
+
+        <TreeTableView fx:id="dragonTreeTableView" />
+        <TreeTableView fx:id="groupTreeTableView" visible="false"/>
+
+    </children>
+</MyHBox>

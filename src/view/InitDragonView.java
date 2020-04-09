@@ -63,6 +63,7 @@ public class InitDragonView {
      * 龙的表.
      * 数据的显示。
      * 根节点进行了隐藏
+     * 对某个族群的龙操作
      */
     public static void initDragonTreeData(TreeTableView<Dragon> dragonTreeTableView, TreeItem<Dragon> dragonRoot,
                                           List<TreeItem<Dragon>> dragonTreeItemList, int dragonGroupId) {
@@ -70,6 +71,20 @@ public class InitDragonView {
         dragonTreeTableView.setShowRoot(false);
 
         flushDragon(dragonTreeItemList, dragonRoot, dragonGroupId);
+    }
+
+    /**
+     * 龙的表.
+     * 数据的显示。
+     * 根节点进行了隐藏
+     * 重载，对所有的龙操作。
+     */
+    public static void initDragonTreeData(TreeTableView<Dragon> dragonTreeTableView, TreeItem<Dragon> dragonRoot,
+                                          List<TreeItem<Dragon>> dragonTreeItemList) {
+        dragonTreeTableView.setRoot(dragonRoot);
+        dragonTreeTableView.setShowRoot(false);
+
+        flushDragon(dragonTreeItemList, dragonRoot);
     }
 
     /**
@@ -113,12 +128,30 @@ public class InitDragonView {
 
     /**
      * 刷新trainerTreeItemList(储存treeItem的)和trainerRoot.
+     * 对某个族群的龙操作。
      */
     public static void flushDragon(List<TreeItem<Dragon>> dragonTreeItemList,
                                    TreeItem<Dragon> dragonRoot, int dragonGroupId) {
         dragonTreeItemList.clear();
         dragonRoot.getChildren().clear();
         List<Dragon> dragonList = new DragonDAOImpl().getList(dragonGroupId);
+        if (dragonList != null) {
+            for (Dragon dragon : dragonList) {
+                TreeItem<Dragon> treeItem = new TreeItem(dragon);
+                dragonTreeItemList.add(treeItem);
+                dragonRoot.getChildren().add(treeItem);
+            }
+        }
+    }
+
+    /**
+     * 刷新trainerTreeItemList(储存treeItem的)和trainerRoot.
+     * 对所有的龙操作。重载
+     */
+    public static void flushDragon(List<TreeItem<Dragon>> dragonTreeItemList, TreeItem<Dragon> dragonRoot) {
+        dragonTreeItemList.clear();
+        dragonRoot.getChildren().clear();
+        List<Dragon> dragonList = new DragonDAOImpl().getList();
         if (dragonList != null) {
             for (Dragon dragon : dragonList) {
                 TreeItem<Dragon> treeItem = new TreeItem(dragon);

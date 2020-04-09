@@ -69,7 +69,8 @@ public class LoginController {
             stageTitle = "驯龙高手您好";
             loginSuccess = true;
         } else if (new ForeignerDAOImpl().get(username, password) != null) {
-            System.out.println("外邦人");
+            stageUrl = "view/Foreigner.fxml";
+            stageTitle = "外邦人您好";
             loginSuccess = true;
         }
         if(loginSuccess){

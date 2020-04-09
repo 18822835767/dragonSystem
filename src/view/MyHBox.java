@@ -4,7 +4,10 @@ import javafx.scene.control.TreeTableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-//自定义布局，为了保持stage受到拉升时，布局内的各节点比例保持不变
+/**
+ * 自定义布局，为了保持stage受到拉升时，布局内的各节点比例保持不变.
+ * fxml所有的根布局就是这个MyHBox。
+ * */
 public class MyHBox extends HBox {
     @Override
     protected void layoutChildren() {
