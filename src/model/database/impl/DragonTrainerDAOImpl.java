@@ -14,57 +14,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
-    public int executeUpdate(String sql, Object... params) {
-        Connection conn = null;
-        PreparedStatement ps = null;
-        try {
-            //加载驱动、获取连接
-            conn = DBUtils.getConnection();
-            //获取数据库预编译操作对象
-            ps = conn.prepareStatement(sql);
-            //params参数遍历
-            for (int i = 0; i < params.length; i++) {
-                ps.setObject(i + 1, params[i]);
-            }
-            return ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            DBUtils.close(conn, ps, null);
-        }
-        return 0;
-    }
-
     //该方法可能没用
     @Override
     public void save(DragonTrainer dT) {
         String sql = "insert into dragontrainer(dragonTrainerId,dragonGroupId,name,username,password) values(?,?,?,?)";
-        executeUpdate(sql, dT.getDragonTrainerId(), dT.getDragonGroupId(), dT.getName(), dT.getUsername(), dT.getPassword());
+        DBUtils.executeUpdate(sql, dT.getDragonTrainerId(), dT.getDragonGroupId(), dT.getName(), dT.getUsername(), dT.getPassword());
     }
 
     @Override
     public void save(int dragonGroupId, String name, String username, String password) {
         String sql = "insert into dragontrainer(dragonGroupId,name,username,password) values(?,?,?,?)";
-        executeUpdate(sql,  dragonGroupId,name,username,password);
+        DBUtils.executeUpdate(sql,  dragonGroupId,name,username,password);
     }
 
     @Override
     public void delete(int dragonTrainerId) {
         String sql = "delete from dragontrainer where dragonTrainerId = ?";
-        executeUpdate(sql, dragonTrainerId);
+        DBUtils.executeUpdate(sql, dragonTrainerId);
     }
 
     @Override//可能没用
     public void update(int dragonTrainerId, DragonTrainer dragonTrainer) {
         String sql = "update dragontrainer set dragonGroupId=?,name=?,username=?,password=? where dragonTrainerId = ?";
-        executeUpdate(sql, dragonTrainer.getDragonGroupId(),dragonTrainer.getName(),dragonTrainer.getUsername(),
+        DBUtils.executeUpdate(sql, dragonTrainer.getDragonGroupId(),dragonTrainer.getName(),dragonTrainer.getUsername(),
                 dragonTrainer.getPassword(), dragonTrainerId);
     }
 
     @Override
     public void update(int id, int dragonGroupId, String name, String username, String password) {
         String sql = "update dragontrainer set dragonGroupId=?,name=?,username=?,password=? where dragonTrainerId = ?";
-        executeUpdate(sql,dragonGroupId,name,username,password,id);
+        DBUtils.executeUpdate(sql,dragonGroupId,name,username,password,id);
     }
 
     //id查询

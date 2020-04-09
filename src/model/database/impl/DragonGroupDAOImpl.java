@@ -11,32 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DragonGroupDAOImpl implements IDragonGroupDAO {
-    public int executeUpdate(String sql, Object... params) {
-        Connection conn = null;
-        PreparedStatement ps = null;
-        try {
-            //加载驱动、获取连接
-            conn = DBUtils.getConnection();
-            //获取数据库预编译操作对象
-            ps = conn.prepareStatement(sql);
-            //params参数遍历
-            for (int i = 0; i < params.length; i++) {
-                ps.setObject(i + 1, params[i]);
-            }
-            return ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            DBUtils.close(conn, ps, null);
-        }
-        return 0;
-    }
-
     //目前没用
     @Override
     public void save(DragonGroup dragonGroup) {
         String sql = "insert into dragongroup(dragonGroupId,name,profile,location,size) values(?,?,?,?,?)";
-        executeUpdate(sql,dragonGroup.getId(),dragonGroup.getName(),dragonGroup.getProfile(),dragonGroup.getLocation(),
+        DBUtils.executeUpdate(sql,dragonGroup.getId(),dragonGroup.getName(),dragonGroup.getProfile(),dragonGroup.getLocation(),
                 dragonGroup.getSize());
     }
 
@@ -44,26 +23,26 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
     @Override
     public void save(String name, String profile, String location, double size) {
         String sql = "insert into dragongroup(name,profile,location,size) values(?,?,?,?)";
-        executeUpdate(sql,name,profile,location,size);
+        DBUtils.executeUpdate(sql,name,profile,location,size);
     }
 
     @Override
     public void delete(int dragonGroupId) {
         String sql = "delete from dragongroup where dragonGroupId = ?";
-        executeUpdate(sql,dragonGroupId);
+        DBUtils.executeUpdate(sql,dragonGroupId);
     }
 
     @Override//可能没用
     public void update(int dragonGroupId, DragonGroup dragonGroup) {
         String sql = "update dragongroup set name = ?,profile = ?,location = ?,size = ? where dragonGroupId = ?";
-        executeUpdate(sql,dragonGroup.getName(),dragonGroup.getProfile(),dragonGroup.getLocation(),dragonGroup.getSize(),
+        DBUtils.executeUpdate(sql,dragonGroup.getName(),dragonGroup.getProfile(),dragonGroup.getLocation(),dragonGroup.getSize(),
                 dragonGroupId);
     }
 
     @Override
     public void update(String name, String profile, String location, double size,int id) {
         String sql = "update dragongroup set name = ?,profile = ?,location = ?,size = ? where dragonGroupId = ?";
-        executeUpdate(sql,name,profile,location,size,id);
+        DBUtils.executeUpdate(sql,name,profile,location,size,id);
     }
 
     //根据id找某个族群

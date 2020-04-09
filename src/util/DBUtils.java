@@ -63,5 +63,29 @@ public class DBUtils {
         }
     }
 
+    /**
+     * DML语句封装在工具类里.
+     * */
+    public static int executeUpdate(String sql, Object... params) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            //加载驱动、获取连接
+            conn = DBUtils.getConnection();
+            //获取数据库预编译操作对象
+            ps = conn.prepareStatement(sql);
+            //params参数遍历
+            for (int i = 0; i < params.length; i++) {
+                ps.setObject(i + 1, params[i]);
+            }
+            return ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtils.close(conn, ps, null);
+        }
+        return 0;
+    }
+
 
 }

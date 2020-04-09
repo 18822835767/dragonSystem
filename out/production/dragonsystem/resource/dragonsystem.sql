@@ -20,7 +20,7 @@ create table dragon(
 	profile varchar(255),
 	training int,
 	healthy int,
-	sex char(1),
+	sex varchar(255),
 	age int,
 	foreign key(dragonGroupId) references dragongroup(dragonGroupId)
 );
@@ -52,3 +52,14 @@ create table foreigner(
 	name varchar (255),
 	money double
 );
+insert into dragonmom(name,username,password) values('mom','admin','123');
+insert into dragongroup(name,profile,location,size) values('bawanglongguan','no','shenzhen','100.0');
+insert into dragongroup(name,profile,location,size) values('konglongguan','no','shenzhen','100.0');
+insert into dragongroup(name,profile,location,size) values('shenlongguan','no','shenzhen','100.0');
+insert into dragontrainer(dragonGroupId,username,password,name) values(1,'hhh','123','noname');
+insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1,'a','no',0,1,'n',15);
+insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1,'b','no',0,1,'n',18);
+insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1,'c','no',0,1,'n',20);
+insert into foreigner(username, password, name, money) values('yoyo','123','no',100);
+insert into foreigner(username, password, name, money) values('yoyo2','1234','no',100);
+insert into foreigner(username, password, name, money) values('yoyo3','1235','no',100);

@@ -12,16 +12,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.database.impl.DragonDAOImpl;
+import model.database.impl.DragonTrainerDAOImpl;
 import view.InitDragonGroupView;
 import view.InitDragonView;
+import widget.DialogTool;
 
 import javax.sound.midi.Soundbank;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class DragonTrainerController{
@@ -98,6 +103,37 @@ public class DragonTrainerController{
     }
 
     public void addDragon(ActionEvent actionEvent) {
+        VBox vBox = new VBox();
+
+        TextField t_name = new TextField();
+        t_name.setPromptText("龙的名字");
+        TextField t_profile = new TextField();
+        t_profile.setPromptText("龙的简介");
+        TextField t_sex = new TextField();
+        t_sex.setPromptText("性别");
+        TextField t_age = new TextField();
+        t_age.setPromptText("年龄");
+        vBox.getChildren().addAll(t_name, t_profile,t_sex,t_age);
+
+        vBox.setSpacing(10);
+
+        Dialog<ButtonType> dialog = DialogTool.dialog("龙的信息",vBox,"确定","取消");
+        Optional<ButtonType> result = dialog.showAndWait();
+
+        if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+            String name = t_name.getText();
+            String profile = t_profile.getText().trim();
+            String sex = t_sex.getText().trim();
+            int age = Integer.parseInt(t_age.getText().trim());
+            new DragonDAOImpl().save(dragonGroupId, name, profile,false,true,sex,age);//数据库保存数据
+
+            //通过族群id和名字来获取龙的实例
+            Dragon dragon = new DragonDAOImpl().get(dragonGroupId,name);
+            TreeItem<Dragon> treeItem = new TreeItem(dragon);//试下TreeItem后面加<>会怎么样
+            dragonTreeItemList.add(treeItem);
+            dragonRoot.getChildren().add(treeItem);
+            InitDragonView.flushDragon(dragonTreeItemList,dragonRoot,dragonGroupId);
+        }
     }
 
     public void deleteDragon(ActionEvent actionEvent) {

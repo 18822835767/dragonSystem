@@ -12,39 +12,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DragonDAOImpl implements IDragonDAO {
-    public int executeUpdate(String sql, Object... params) {
-        Connection conn = null;
-        PreparedStatement ps = null;
-        try {
-            //加载驱动、获取连接
-            conn = DBUtils.getConnection();
-            //获取数据库预编译操作对象
-            ps = conn.prepareStatement(sql);
-            //params参数遍历
-            for (int i = 0; i < params.length; i++) {
-                ps.setObject(i + 1, params[i]);
-            }
-            return ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            DBUtils.close(conn, ps, null);
-        }
-        return 0;
-    }
-
-    @Override
+    @Override//可能没用
     public void save(Dragon d) {
         int training = d.isTraining() ? 1 : 0;
         int healthy = d.isHealthy() ? 1 : 0;
         String sql = "insert into dragon(dragonId,dragonGroupId,name,profile,training,healthy,sex,age) values(?,?,?,?,?,?,?,?)";
-        executeUpdate(sql, d.getDragonId(), d.getDragonGroupId(), d.getName(), d.getProfile(), training, healthy, d.getSex(), d.getAge());
+        DBUtils.executeUpdate(sql, d.getDragonId(), d.getDragonGroupId(), d.getName(), d.getProfile(), training, healthy, d.getSex(), d.getAge());
+    }
+
+    @Override
+    public void save(int dragonGroupId, String name, String profile, boolean training, boolean healthy, String sex, int age) {
+        int isTraining = training ? 1 : 0;
+        int isHealthy = healthy ? 1 : 0;
+        String sql = "insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(?,?,?,?,?,?,?)";
+        DBUtils.executeUpdate(sql, dragonGroupId,name,profile,isTraining,isHealthy,sex,age);
     }
 
     @Override
     public void delete(int dragonId) {
         String sql = "delete from dragon where dragonId = ?";
-        executeUpdate(sql, dragonId);
+        DBUtils.executeUpdate(sql, dragonId);
     }
 
     @Override
@@ -52,7 +39,7 @@ public class DragonDAOImpl implements IDragonDAO {
         int training = d.isTraining() ? 1 : 0;
         int healthy = d.isHealthy() ? 1 : 0;
         String sql = "update dragon set name = ?,profile = ?,training = ?,healthy = ?,sex = ?,age = ? where dragonId = ?";
-        executeUpdate(sql, d.getName(), d.getProfile(), training, healthy, d.getSex(), d.getAge());
+        DBUtils.executeUpdate(sql, d.getName(), d.getProfile(), training, healthy, d.getSex(), d.getAge());
     }
 
     @Override
@@ -65,6 +52,34 @@ public class DragonDAOImpl implements IDragonDAO {
             String sql = "select * from dragon where dragonId = ?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, dragonId);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                //boolean与int的值转换
+                boolean training = rs.getInt("training") == 1;
+                boolean healthy = rs.getInt("healthy") == 1;
+                Dragon dragon = new Dragon(rs.getInt("dragonId"), rs.getInt("dragonGroupId"), rs.getString("name"),
+                        rs.getString("profile"), training, healthy, rs.getString("sex"), rs.getInt("age"));
+                return dragon;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBUtils.close(conn, ps, rs);
+        }
+        return null;
+    }
+
+    @Override
+    public Dragon get(int dragonId,String name) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            String sql = "select * from dragon where dragonId = ? and name =?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, dragonId);
+            ps.setString(2,name);
             rs = ps.executeQuery();
             if (rs.next()) {
                 //boolean与int的值转换
