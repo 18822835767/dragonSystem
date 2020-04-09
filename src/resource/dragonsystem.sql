@@ -50,7 +50,7 @@ create table foreigner(
 	username varchar(255) unique not null,
 	password varchar(255) not null,
 	name varchar (255),
-	money double
+	money double default 100.0
 );
 insert into dragonmom(name,username,password) values('mom','admin','123');
 insert into dragongroup(name,profile,location,size) values('bawanglongguan','no','shenzhen','100.0');

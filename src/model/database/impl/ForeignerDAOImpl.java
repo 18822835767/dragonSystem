@@ -18,6 +18,12 @@ public class ForeignerDAOImpl implements IForeignerDAO {
         DBUtils.executeUpdate(sql,f.getForeignerId(),f.getUsername(),f.getPassword(),f.getName(),f.getMoney());
     }
 
+    @Override
+    public void save(String username, String password,String name) {
+        String sql = "insert into foreigner(username,password,name) values(?,?,?)";
+        DBUtils.executeUpdate(sql,username,password,name);
+    }
+
     //用户名和密码查询
     @Override
     public Foreigner get(String username, String password) {
