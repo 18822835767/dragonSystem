@@ -71,7 +71,7 @@ public class DragonDAOImpl implements IDragonDAO {
                 boolean training = rs.getInt("training") == 1;
                 boolean healthy = rs.getInt("healthy") == 1;
                 Dragon dragon = new Dragon(rs.getInt("dragonId"), rs.getInt("dragonGroupId"), rs.getString("name"),
-                        rs.getString("profile"), training, healthy, (char) rs.getInt("sex"), rs.getInt("age"));
+                        rs.getString("profile"), training, healthy, rs.getString("sex"), rs.getInt("age"));
                 return dragon;
             }
         } catch (SQLException e) {
@@ -93,13 +93,14 @@ public class DragonDAOImpl implements IDragonDAO {
             conn = DBUtils.getConnection();
             String sql = "select * from dragon where dragonGroupId = ?";
             ps = conn.prepareStatement(sql);
+            ps.setInt(1,dragonGroupId);
             rs = ps.executeQuery();
             while (rs.next()) {
                 //boolean与int的值转换,因为表和类中该字段的属性不同
                 boolean training = rs.getInt("training") == 1;
                 boolean healthy = rs.getInt("healthy") == 1;
                 Dragon dragon = new Dragon(rs.getInt("dragonId"), rs.getInt("dragonGroupId"), rs.getString("name"),
-                        rs.getString("profile"), training, healthy, (char) rs.getInt("sex"), rs.getInt("age"));
+                        rs.getString("profile"), training, healthy, rs.getString("sex"), rs.getInt("age"));
                 dragonList.add(dragon);
             }
             return dragonList;

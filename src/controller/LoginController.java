@@ -1,5 +1,6 @@
 package controller;
 
+import entity.DragonTrainer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +32,7 @@ public class LoginController {
         String user = username.getText().trim();
         String pass = password.getText().trim();
         try {
-            if (userJudge(user, pass)) {
+            if (changeView(user,pass)) {
                 Stage loginStage = (Stage) username.getScene().getWindow();
                 loginStage.close();
             } else {
@@ -42,41 +43,53 @@ public class LoginController {
         }
     }
 
-    //判断是否登陆成功以及用户是哪个，从而加载不同的.fxml
-    public boolean userJudge(String username, String password) throws Exception {
-        if (new DragonMomDAOImpl().get(username, password) != null) {
-            changeView("view/DragonMom.fxml","龙妈您好");
-            return true;
-        } else if (new DragonTrainerDAOImpl().get(username, password) != null) {
-            changeView("view/DragonTrainer.fxml","驯龙高手您好");
-            return true;
-        } else if (new ForeignerDAOImpl().get(username, password) != null) {
-            System.out.println("外邦人");
-            return true;
-        }
-        return false;
-    }
-
     public void regist(ActionEvent actionEvent) {
     }
 
 
     /**
      * 从登录界面切换到各个用户的主界面.
+     * 如果登陆的是驯龙高手，则将族群id传入驯龙高手的控制器中，以便得到驯龙高手所在的族群id，从而得到驯龙高手所在的族群。
+     * 然后再调用控制器的方法进行初始化。
      *
-     * @param name 要切换的界面的.fxml文件
-     * @param stageTitle 主界面的stageTitle
+     * @param username 输入的用户名
+     * @param password 输入的密码
      * */
-    public void changeView(String name,String stageTitle) throws IOException {
-        FXMLLoader fx = new FXMLLoader();
-        Stage stage = new Stage();
-        fx.setLocation(fx.getClassLoader().getResource(name));
-        HBox root = (HBox) fx.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle(stageTitle);
-        stage.setWidth(700);
-        stage.setHeight(500);
-        stage.show();
+    public boolean changeView(String username, String password) throws IOException {
+        Boolean loginSuccess = false;
+        String stageUrl = null;
+        String stageTitle = null;
+        DragonTrainer dragonTrainer = null;
+        if (new DragonMomDAOImpl().get(username, password) != null) {
+            stageUrl = "view/DragonMom.fxml";
+            stageTitle = "龙妈您好";
+            loginSuccess = true;
+        } else if ( (dragonTrainer = new DragonTrainerDAOImpl().get(username, password)) != null) {
+            stageUrl = "view/DragonTrainer.fxml";
+            stageTitle = "驯龙高手您好";
+            loginSuccess = true;
+        } else if (new ForeignerDAOImpl().get(username, password) != null) {
+            System.out.println("外邦人");
+            loginSuccess = true;
+        }
+        if(loginSuccess){
+            FXMLLoader fx = new FXMLLoader();
+            Stage stage = new Stage();
+            fx.setLocation(fx.getClassLoader().getResource(stageUrl));
+            HBox root = (HBox) fx.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle(stageTitle);
+            stage.setWidth(700);
+            stage.setHeight(500);
+            if(dragonTrainer != null){
+                DragonTrainerController dragonTrainerController = (DragonTrainerController)fx.getController();
+                int dragonGroupId = dragonTrainer.getDragonGroupId();
+                dragonTrainerController.setDragonGroupId(dragonGroupId);
+                dragonTrainerController.Init();
+            }
+            stage.show();
+        }
+        return loginSuccess;
     }
 }

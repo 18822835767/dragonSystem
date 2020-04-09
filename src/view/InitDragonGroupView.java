@@ -11,7 +11,7 @@ import model.database.impl.DragonGroupDAOImpl;
 import java.util.List;
 
 /**
- * 因为多次要显示族群列表，所以封转成一个View的工具类.
+ * 负责显示族群列表，封转成一个View的工具类.
  * 可以根据需要显示对应的列
  * */
 public class InitDragonGroupView {
@@ -71,7 +71,7 @@ public class InitDragonGroupView {
 
     /**
      * 族群表：
-     * 单元格的显示
+     * 单元格内容的显示
      */
     static class GroupTableTreeCell extends TreeTableCell<DragonGroup, DragonGroup> {
         String columnID;

@@ -18,6 +18,7 @@ import javafx.util.Callback;
 import model.database.impl.DragonGroupDAOImpl;
 import model.database.impl.DragonTrainerDAOImpl;
 import view.InitDragonGroupView;
+import view.InitDragonTrainerView;
 import widget.AlertTool;
 import widget.DialogTool;
 import widget.TextInputDialogTool;
@@ -239,7 +240,7 @@ public class DragonMonController implements Initializable {
 
                     new DragonTrainerDAOImpl().update(dragonTrainerId, dragonGroupId, name, username, password);
 
-                    flushTrainer();
+                    InitDragonTrainerView.flushTrainer(trainerTreeItemList,trainerRoot);
                 }
             } else {
                 AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该驯龙高手的信息");
@@ -378,7 +379,7 @@ public class DragonMonController implements Initializable {
 
                     new DragonGroupDAOImpl().update(name, profile, location, size, dragonGroupId);
 
-                    flushGroup();
+                    InitDragonGroupView.flushGroup(groupTreeItemList,groupRoot);
                 }
             } else {
                 AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");
@@ -390,99 +391,29 @@ public class DragonMonController implements Initializable {
     /**
      * 驯龙高手表：
      * 设置列名、列宽
+     * 调用工具类
      */
     public void initTrainerTreeTable() {
-        //这里添加了多个列
-        TreeTableColumn<DragonTrainer, DragonTrainer> columns[] = new TreeTableColumn[4];
-        columns[0] = new TreeTableColumn("驯龙高手名字");
-        columns[1] = new TreeTableColumn("Id");
-        columns[2] = new TreeTableColumn("族群Id");
-        columns[3] = new TreeTableColumn("族群名字");
-        trainerTreeTableView.getColumns().addAll(columns);
-
-        Callback cellValueFactory = new Callback() {
-            @Override
-            public Object call(Object o) {
-                TreeTableColumn.CellDataFeatures p = (TreeTableColumn.CellDataFeatures) o;
-                return p.getValue().valueProperty();
-            }
-        };
-        for (int i = 0; i < columns.length; i++) {
-            columns[i].setCellValueFactory(cellValueFactory);
-        }
-
-        //设置列的宽度
-        columns[0].setPrefWidth(150);
-        columns[1].setPrefWidth(80);
-        columns[2].setPrefWidth(80);
-        columns[3].setPrefWidth(120);
-
-        //设置CellFactory,定义每一列单元格的显示
-        columns[0].setCellFactory((param) -> {
-            return new TrainerTableTreeCell("name");
-        });
-        columns[1].setCellFactory((param) -> {
-            return new TrainerTableTreeCell("Id");
-        });
-        columns[2].setCellFactory((param) -> {
-            return new TrainerTableTreeCell("dragonGroupId");
-        });
-        columns[3].setCellFactory((param) -> {
-            return new TrainerTableTreeCell("dragonGroupName");
-        });
+        String [] columnName = {"驯龙高手名字","Id","族群Id","族群名字"};
+        double [] columnPrefWidth = {150,80,80,120};
+        String [] columnId = {"name","Id","dragonGroupId","dragonGroupName"};
+        InitDragonTrainerView.initTrainerTreeTable(trainerTreeTableView,columnName,columnPrefWidth,columnId);
     }
 
     /**
      * 驯龙高手表：
      * 数据的显示。
      * 根节点进行了隐藏
+     * 调用工具类
      */
     public void initTrainerTreeData() {
-        trainerTreeTableView.setRoot(trainerRoot);
-        trainerTreeTableView.setShowRoot(false);
-
-        flushTrainer();
-    }
-
-    /**
-     * 驯龙高手表：
-     * 单元格的显示
-     */
-    class TrainerTableTreeCell extends TreeTableCell<DragonTrainer, DragonTrainer> {
-        String columnID;
-
-        public TrainerTableTreeCell(String columnID) {
-            this.columnID = columnID;
-        }
-
-        @Override
-        protected void updateItem(DragonTrainer item, boolean empty) {
-            super.updateItem(item, empty);
-
-            if (empty || null == item) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(null);
-                if (columnID.equals("name")) {
-                    this.setText(item.getName());
-                } else if (columnID.equals("Id")) {
-                    this.setText(String.valueOf(item.getDragonTrainerId()));
-                } else if (columnID.equals("dragonGroupId")) {
-                    this.setText(String.valueOf(item.getDragonGroupId()));
-                } else if (columnID.equals("dragonGroupName")) {
-                    int dragonGroupId = item.getDragonGroupId();
-                    //获得族群名字
-                    String dragonGroupName = new DragonGroupDAOImpl().get(dragonGroupId).getName();
-                    this.setText(dragonGroupName);
-                }
-            }
-        }
+        InitDragonTrainerView.initTrainerTreeData(trainerTreeTableView,trainerRoot,trainerTreeItemList);
     }
 
     /**
      * 族群表：
      * 设置列名、列宽
+     * 调用工具类
      */
     public void initGroupTreeTable() {
         String [] columnName = {"族群名字","Id","简介","地理位置","大小"};
@@ -495,33 +426,10 @@ public class DragonMonController implements Initializable {
      * 族群表：
      * 数据的显示。
      * 根节点进行了隐藏
+     * 调用工具类
      */
     public void initGroupTreeData() {
         InitDragonGroupView.initGroupTreeData(groupTreeTableView, groupRoot, groupTreeItemList);
-    }
-
-
-    /**
-     * 刷新trainerTreeItemList(储存treeItem的)和trainerRoot
-     */
-    public void flushTrainer() {
-        trainerTreeItemList.clear();
-        trainerRoot.getChildren().clear();
-        List<DragonTrainer> dragonTrainerList = new DragonTrainerDAOImpl().getList();
-        if (dragonTrainerList != null) {
-            for (DragonTrainer dragonTrainer : dragonTrainerList) {
-                TreeItem<DragonTrainer> treeItem = new TreeItem(dragonTrainer);
-                trainerTreeItemList.add(treeItem);
-                trainerRoot.getChildren().add(treeItem);
-            }
-        }
-    }
-
-    /**
-     * 刷新groupTreeItemList(储存treeItem的)和groupRoot
-     */
-    public void flushGroup() {
-        InitDragonGroupView.flushGroup(groupTreeItemList,groupRoot);
     }
 
 }

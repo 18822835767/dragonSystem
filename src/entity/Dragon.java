@@ -7,10 +7,10 @@ public class Dragon {
     private String profile;
     private boolean training = false;
     private boolean healthy = true;
-    private char sex;
+    private String sex;
     private int age;
 
-    public Dragon(int dragonId,int dragonGroupId,String name,String profile,boolean training,boolean healthy,char sex, int age) {
+    public Dragon(int dragonId, int dragonGroupId, String name, String profile, boolean training, boolean healthy, String sex, int age) {
         this.dragonId = dragonId;
         this.dragonGroupId = dragonGroupId;
         this.name = name;
@@ -57,11 +57,11 @@ public class Dragon {
         this.healthy = healthy;
     }
 
-    public char getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

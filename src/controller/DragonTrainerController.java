@@ -7,15 +7,24 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import view.InitDragonGroupView;
+import view.InitDragonView;
 
+import javax.sound.midi.Soundbank;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class DragonTrainerController implements Initializable {
+public class DragonTrainerController{
     @FXML
     TreeTableView<Dragon> dragonTreeTableView;
     @FXML
@@ -24,6 +33,11 @@ public class DragonTrainerController implements Initializable {
     TabPane tabPane;
     @FXML
     Button changeUser;
+    @FXML
+    Text text;
+
+    private int dragonGroupId;
+
 
     TreeItem<Dragon> dragonRoot = new TreeItem<Dragon>(new Dragon());
 
@@ -35,9 +49,16 @@ public class DragonTrainerController implements Initializable {
 
     List<TreeItem<DragonGroup>> groupTreeItemList = new ArrayList<>();
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    /**
+     * 初始化这里拿到族群的Id
+     * */
+    public void Init() {
+        initDragonTreeTable();
+        initDragonTreeData();
+        initGroupTreeTable();
+        initGroupTreeData();
 
+        tabPaneListener();
     }
 
     /**
@@ -47,16 +68,33 @@ public class DragonTrainerController implements Initializable {
         tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
             public void changed(ObservableValue<? extends Tab> observableValue, Tab oldTab, Tab newTab) {
-                if(newTab.getText().equals("驯龙高手")){
-
-                }else if(newTab.getText().equals("族群")){
-
+                if (newTab.getText().equals("族群的龙")) {
+                    dragonTreeTableView.setVisible(true);
+                    groupTreeTableView.setVisible(false);
+                } else if (newTab.getText().equals("所有族群")) {
+                    dragonTreeTableView.setVisible(false);
+                    groupTreeTableView.setVisible(true);
                 }
             }
         });
     }
 
     public void changeUser(ActionEvent actionEvent) {
+        try {
+            FXMLLoader fx = new FXMLLoader();
+            fx.setLocation(fx.getClassLoader().getResource("view/login.fxml"));
+            GridPane gridPane = (GridPane) fx.load();
+            Scene scene = new Scene(gridPane);
+            Stage newStage = new Stage();
+            newStage.setScene(scene);
+            newStage.setHeight(280);
+            newStage.setWidth(420);
+            newStage.show();
+            Stage oldStage = (Stage) changeUser.getScene().getWindow();
+            oldStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addDragon(ActionEvent actionEvent) {
@@ -79,4 +117,45 @@ public class DragonTrainerController implements Initializable {
 
     public void queryDragonGroup(ActionEvent actionEvent) {
     }
+
+    public void changeDragonGroup(ActionEvent actionEvent) {
+    }
+
+    /**
+     * 族群表.
+     * 设置列名、列宽
+     * 调用工具类
+     */
+    public void initGroupTreeTable() {
+        String[] columnName = {"族群名字", "Id", "简介", "地理位置", "大小"};
+        double[] columnPrefWidth = {120, 80, 120, 120, 80};
+        String[] columnId = {"name", "Id", "profile", "location", "size"};
+        InitDragonGroupView.initGroupTreeTable(groupTreeTableView, columnName, columnPrefWidth, columnId);
+    }
+
+    /**
+     * 族群表.
+     * 数据的显示。
+     * 根节点进行了隐藏
+     * 调用工具类
+     */
+    public void initGroupTreeData() {
+        InitDragonGroupView.initGroupTreeData(groupTreeTableView, groupRoot, groupTreeItemList);
+    }
+
+    public void initDragonTreeTable(){
+        String [] columnName = {"Id","名字","性别","年龄","简介","训练","健康"};
+        double [] columnPrefWidth = {80,120,80,80,120,80,80};
+        String [] columnId = {"Id","name","sex","age","profile","training","healthy"};
+        InitDragonView.initDragonTreeTable(dragonTreeTableView, columnName, columnPrefWidth, columnId);
+    }
+
+    public void initDragonTreeData(){
+        InitDragonView.initDragonTreeData(dragonTreeTableView, dragonRoot, dragonTreeItemList, dragonGroupId);
+    }
+
+    public void setDragonGroupId(int dragonGroupId){
+        this.dragonGroupId = dragonGroupId;
+    }
+
 }
