@@ -24,8 +24,10 @@ public class Main extends Application {
         primaryStage.setHeight(280);
         primaryStage.setWidth(420);
         primaryStage.show();
-//        LoginController loginController= (LoginController)fx.getController();
-//        loginController.init();
+
+        //这里是判断用户是否有保存登陆信息，自动登录
+        LoginController loginController= (LoginController)fx.getController();
+        loginController.init();
     }
 
     public static void main(String[] args) {

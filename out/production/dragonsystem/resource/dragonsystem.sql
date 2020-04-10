@@ -32,14 +32,14 @@ create table dragontrainer(
 	dragonGroupId int not null ,
 	username varchar(255) unique not null,
 	password varchar(255) not null,
-	name varchar(255) unique,
+	name varchar(255) not null,
 	foreign key(dragonGroupId) references dragongroup(dragonGroupId)
 );
 
 drop table if exists dragonmom;
 create table dragonmom(
 	dragonMomId int primary key auto_increment,
-	name varchar(255) unique,
+	name varchar(255) not null,
 	username varchar(255) unique not null,
 	password varchar(255) not null
 );
@@ -47,9 +47,9 @@ create table dragonmom(
 drop table if exists foreigner;
 create table foreigner(
 	foreignerId int primary key auto_increment,
-	username varchar(255) not null,
+	username varchar(255) unique not null,
 	password varchar(255) not null,
-	name varchar(255) unique not null,
+	name varchar(255) not null,
 	money double default 100.0
 );
 insert into dragonmom(name,username,password) values('mom','admin','123');

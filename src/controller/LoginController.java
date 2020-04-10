@@ -36,27 +36,39 @@ public class LoginController {
     public static final String dragonMomUrl = "view/DragonMom.fxml";
     public static final String dragonTrainerUrl = "view/DragonTrainer.fxml";
     public static final String foreignerUrl = "view/Foreigner.fxml";
-//    public static final String autoLoginFile = "autoLogin.txt";
+    public static final String autoLoginFile = "autoLogin.txt";
 
-
-//    public void init(){
-//        File f = new File(autoLoginFile);
-//        String user = null;
-//        String pass = null;
-//        try{
-//            if (f.exists()) {
-//                FileInputStream inputStream = new FileInputStream(f);
-//                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-//                user = reader.readLine();
-//                pass = reader.readLine();
-//                changeView(user,pass);
-//                Stage loginStage = (Stage) username.getScene().getWindow();
-//                loginStage.close();
-//            }
-//        }catch(Exception e){
-//            e.printStackTrace();
-//        }
-//    }
+    /**
+     * 先判断用户是否保存了登录信息，保存了就读取信息，自动登录.
+     * */
+    public void init(){
+        File f = new File(autoLoginFile);
+        BufferedReader reader = null;
+        String user = null;
+        String pass = null;
+        try{
+            if (f.exists()) {
+                FileInputStream inputStream = new FileInputStream(f);
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+                user = reader.readLine();
+                pass = reader.readLine();
+                changeView(user,pass);
+                Stage loginStage = (Stage) username.getScene().getWindow();
+                loginStage.close();
+                System.out.println("自动登录成功");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
+            if(reader != null){
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     /**
      * 登录按钮的点击事件.
@@ -67,8 +79,21 @@ public class LoginController {
         String pass = password.getText().trim();
 
         try {
+
             //调用方法判断登陆用户是谁
             if (changeView(user, pass)) {
+                //如果用户勾选了自动登录，则保存信息
+                if(autoLogin.isSelected()){
+                    saveLoginInfo(user,pass);
+                }else{
+                    //如果用户没有勾选自动登录。文件存在则删除。
+                    File f = new File(autoLoginFile);
+                    if(f.exists()){
+                        f.delete();
+                    }
+
+                }
+
                 //关闭登陆界面
                 Stage loginStage = (Stage) username.getScene().getWindow();
                 loginStage.close();
@@ -215,4 +240,37 @@ public class LoginController {
             }
         }
     }
+
+    /**
+     * 保存自动登录的信息.
+     * */
+    public void saveLoginInfo(String user,String pass){
+        //保存登陆信息的文件
+        File f = new File(autoLoginFile);
+
+        //如果存在,先删除文件
+        if(f.exists()){
+            f.delete();
+        }
+
+        //文件中保存登录信息
+        BufferedWriter writer = null;
+        try {
+            f.createNewFile();
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f)));
+            writer.write(user);
+            writer.newLine();
+            writer.write(pass);
+            writer.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
