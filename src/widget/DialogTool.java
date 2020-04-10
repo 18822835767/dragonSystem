@@ -16,8 +16,8 @@ public class DialogTool {
 
     }
 
-    public static Dialog<ButtonType> dialog(String dialogTitle, Node dialogPaneContent,
-                                            String okBtnText, String cancelBtnText){
+    public static Dialog<ButtonType> showDialog(String dialogTitle, Node dialogPaneContent,
+                                                String okBtnText, String cancelBtnText){
         DialogPane dialogPane = new DialogPane();
         dialogPane.setContent(dialogPaneContent);
 

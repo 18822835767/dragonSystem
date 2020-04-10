@@ -107,7 +107,7 @@ public class ForeignerController implements Initializable {
                 vBox.getChildren().addAll(t_Id, t_name, t_sex, t_profile, t_training, t_healthy);
                 vBox.setSpacing(10);
 
-                DialogTool.dialog("龙的信息", vBox, "确定", null).showAndWait();
+                DialogTool.showDialog("龙的信息", vBox, "确定", null).showAndWait();
             } else {
                 //自定义控件
                 AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该龙的信息");
@@ -133,7 +133,7 @@ public class ForeignerController implements Initializable {
                 vBox.getChildren().addAll(t_name, t_Id, t_profile,t_size);
                 vBox.setSpacing(10);
 
-                DialogTool.dialog("族群信息", vBox, "确定", null).showAndWait();
+                DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
             } else {
                 //自定义控件
                 AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");

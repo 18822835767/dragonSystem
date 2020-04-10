@@ -1,4 +1,5 @@
 package main;
+import controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,6 +24,8 @@ public class Main extends Application {
         primaryStage.setHeight(280);
         primaryStage.setWidth(420);
         primaryStage.show();
+//        LoginController loginController= (LoginController)fx.getController();
+//        loginController.init();
     }
 
     public static void main(String[] args) {

@@ -6,13 +6,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.database.impl.DragonDAOImpl;
 import model.database.impl.DragonGroupDAOImpl;
 import view.ChangeUser;
@@ -20,9 +18,9 @@ import view.InitDragonGroupView;
 import view.InitDragonView;
 import widget.AlertTool;
 import widget.DialogTool;
+import widget.SingleSelectionTool;
 import widget.TextInputDialogTool;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -113,6 +111,8 @@ public class DragonTrainerController {
 
     /**
      * 为族群添加龙.
+     * 刚添加龙的时候，默认龙是健康的，且不在训练状态。
+     * 使用了自己封转好的单选框来选择龙的性别。
      */
     public void addDragon(ActionEvent actionEvent) {
         VBox vBox = new VBox();
@@ -121,21 +121,33 @@ public class DragonTrainerController {
         t_name.setPromptText("龙的名字");
         TextField t_profile = new TextField();
         t_profile.setPromptText("龙的简介");
-        TextField t_sex = new TextField();
-        t_sex.setPromptText("性别");
+
+        HBox h_sex = new HBox(10);
+        String [] buttonName = {"雄性","雌性"};
+        //封转好的单选框
+        RadioButton [] radioButtons = SingleSelectionTool.singSelection(h_sex,buttonName,0);
+
+        h_sex.getChildren().addAll(radioButtons[0],radioButtons[1]);
+
         TextField t_age = new TextField();
         t_age.setPromptText("年龄");
-        vBox.getChildren().addAll(t_name, t_profile, t_sex, t_age);
+        vBox.getChildren().addAll(t_name, t_profile, h_sex, t_age);
 
         vBox.setSpacing(10);
 
-        Dialog<ButtonType> dialog = DialogTool.dialog("龙的信息", vBox, "确定", "取消");
+        Dialog<ButtonType> dialog = DialogTool.showDialog("龙的信息", vBox, "确定", "取消");
         Optional<ButtonType> result = dialog.showAndWait();
 
         if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+            //从信息框中得到信息并存入数据库
             String name = t_name.getText();
             String profile = t_profile.getText().trim();
-            String sex = t_sex.getText().trim();
+            String sex = null;
+            if(radioButtons[0].isSelected()){
+                sex = radioButtons[0].getText();
+            }else if(radioButtons[1].isSelected()){
+                sex = radioButtons[1].getText();
+            }
             int age = Integer.parseInt(t_age.getText().trim());
             new DragonDAOImpl().save(dragonGroupId, name, profile, false, true, sex, age);//数据库保存数据
 
@@ -182,7 +194,7 @@ public class DragonTrainerController {
             int dragonId = Integer.parseInt(result.get());
             Dragon dragon = new DragonDAOImpl().get(dragonId);
             if (dragon != null) {
-                VBox vBox = new VBox();
+                VBox vBox = new VBox(10);
                 Text t_Id = new Text("龙的Id:" + dragon.getDragonId());
                 Text t_name = new Text("名字:" + dragon.getName());
                 Text t_sex = new Text("性别:" + dragon.getSex());
@@ -191,9 +203,8 @@ public class DragonTrainerController {
                 Text t_training = new Text("是否在训练:" + dragon.isTraining());
                 Text t_healthy = new Text("是否健康:" + dragon.isHealthy());
                 vBox.getChildren().addAll(t_Id, t_name, t_sex, t_age, t_profile, t_training, t_healthy);
-                vBox.setSpacing(10);
 
-                DialogTool.dialog("龙的信息", vBox, "确定", null).showAndWait();
+                DialogTool.showDialog("龙的信息", vBox, "确定", null).showAndWait();
             } else {
                 //自定义控件
                 AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该龙的信息");
@@ -211,6 +222,8 @@ public class DragonTrainerController {
         if (result.isPresent()) {
             int dragonId = Integer.parseInt(result.get());
             Dragon dragon = new DragonDAOImpl().get(dragonId);
+            boolean dragonTraining = dragon.isTraining();//标记龙未修改前的训练状态
+            boolean dragonHealthy = dragon.isHealthy();//标记龙未修改前的健康状态
             if (dragon != null) {
                 GridPane gridPane = new GridPane();
 
@@ -223,8 +236,15 @@ public class DragonTrainerController {
                 TextField t_name = new TextField(dragon.getName());
                 TextField t_age = new TextField(String.valueOf(dragon.getAge()));
                 TextField t_profile = new TextField(dragon.getProfile());
-                TextField t_training = new TextField(String.valueOf(dragon.isTraining()));
-                TextField t_healthy = new TextField(String.valueOf(dragon.isHealthy()));
+
+                HBox h_training = new HBox(8);
+                String [] buttonName = {"true","false"};
+                RadioButton [] trainButtons = SingleSelectionTool.singSelection(h_training,buttonName,dragonTraining?1:0);
+                h_training.getChildren().addAll(trainButtons[0],trainButtons[1]);
+
+                HBox h_healthy = new HBox(8);
+                RadioButton [] healthyButtons = SingleSelectionTool.singSelection(h_training,buttonName,dragonHealthy?1:0);
+                h_healthy.getChildren().addAll(healthyButtons[0],healthyButtons[1]);
 
                 gridPane.add(l_name, 0, 0);
                 gridPane.add(t_name, 1, 0);
@@ -233,22 +253,32 @@ public class DragonTrainerController {
                 gridPane.add(l_profile, 0, 2);
                 gridPane.add(t_profile, 1, 2);
                 gridPane.add(l_training, 0, 3);
-                gridPane.add(t_training, 1, 3);
+                gridPane.add(h_training,1,3);
                 gridPane.add(l_healthy, 0, 4);
-                gridPane.add(t_healthy, 1, 4);
+                gridPane.add(h_healthy, 1, 4);
 
 
                 gridPane.setVgap(10);
 
-                Optional<ButtonType> choice = DialogTool.dialog("修改龙的信息", gridPane, "确定",
+                Optional<ButtonType> choice = DialogTool.showDialog("修改龙的信息", gridPane, "确定",
                         null).showAndWait();
 
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                     String name = t_name.getText().trim();
                     int age = Integer.parseInt(t_age.getText().trim());
                     String profile = t_profile.getText().trim();
-                    boolean training = t_training.getText().trim().equals("true");
-                    boolean healthy = t_healthy.getText().trim().equals("true");
+                    boolean training;
+                    boolean healthy;
+                    if(trainButtons[0].isSelected()){
+                        training = true;
+                    }else{
+                        training = false;
+                    }
+                    if(healthyButtons[0].isSelected()){
+                        healthy = true;
+                    }else{
+                        healthy = false;
+                    }
 
                     new DragonDAOImpl().update(dragonId, dragonGroupId, name, profile, training, healthy, age);
 
@@ -280,7 +310,7 @@ public class DragonTrainerController {
                 vBox.getChildren().addAll(t_name, t_Id, t_profile, t_location,t_size);
                 vBox.setSpacing(10);
 
-                DialogTool.dialog("族群信息", vBox, "确定", null).showAndWait();
+                DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
             } else {
                 //自定义控件
                 AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");
@@ -317,7 +347,7 @@ public class DragonTrainerController {
 
         gridPane.setVgap(10);
 
-        Optional<ButtonType> choice = DialogTool.dialog("修改族群信息", gridPane, "确定",
+        Optional<ButtonType> choice = DialogTool.showDialog("修改族群信息", gridPane, "确定",
                 null).showAndWait();
 
         if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {

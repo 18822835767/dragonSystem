@@ -6,15 +6,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.util.Callback;
 import model.database.impl.DragonGroupDAOImpl;
 import model.database.impl.DragonTrainerDAOImpl;
 import view.ChangeUser;
@@ -24,7 +20,6 @@ import widget.AlertTool;
 import widget.DialogTool;
 import widget.TextInputDialogTool;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,10 +90,10 @@ public class DragonMonController implements Initializable {
 
 
     /**
-     * 添加驯龙高手信息
+     * 添加驯龙高手信息.
      */
     public void addDragonTrainer(ActionEvent actionEvent) {
-        VBox vBox = new VBox();
+        VBox vBox = new VBox(10);
 
         TextField t_dragonGroupId = new TextField();
         t_dragonGroupId.setPromptText("已存在的族群Id");
@@ -110,10 +105,8 @@ public class DragonMonController implements Initializable {
         t_password.setPromptText("密码");
         vBox.getChildren().addAll(t_name, t_dragonGroupId, t_username, t_password);
 
-        vBox.setSpacing(10);
-
         //使用了自定义控件
-        Dialog<ButtonType> dialog = DialogTool.dialog("添加驯龙高手信息", vBox, "确定", "取消");
+        Dialog<ButtonType> dialog = DialogTool.showDialog("添加驯龙高手信息", vBox, "确定", "取消");
         Optional<ButtonType> result = dialog.showAndWait();
         //如果用户点击了确定按钮
         if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
@@ -176,7 +169,7 @@ public class DragonMonController implements Initializable {
                         t_password);
                 vBox.setSpacing(10);
 
-                DialogTool.dialog("驯龙高手信息", vBox, "确定", null).showAndWait();
+                DialogTool.showDialog("驯龙高手信息", vBox, "确定", null).showAndWait();
             } else {
                 //自定义控件
                 AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该驯龙高手的信息");
@@ -218,7 +211,7 @@ public class DragonMonController implements Initializable {
 
                 gridPane.setVgap(10);
 
-                Optional<ButtonType> choice = DialogTool.dialog("修改驯龙高手信息", gridPane, "确定",
+                Optional<ButtonType> choice = DialogTool.showDialog("修改驯龙高手信息", gridPane, "确定",
                         null).showAndWait();
 
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
@@ -241,7 +234,7 @@ public class DragonMonController implements Initializable {
      * 添加族群信息.
      */
     public void addDragonGroup(ActionEvent actionEvent) {
-        VBox vBox = new VBox();
+        VBox vBox = new VBox(10);
 
         TextField t_name = new TextField();
         t_name.setPromptText("族群名字");
@@ -253,10 +246,8 @@ public class DragonMonController implements Initializable {
         t_size.setPromptText("大小");
         vBox.getChildren().addAll(t_name, t_profile, t_location, t_size);
 
-        vBox.setSpacing(10);
-
         //使用了自定义控件
-        Dialog<ButtonType> dialog = DialogTool.dialog("添加族群高手信息", vBox, "确定", "取消");
+        Dialog<ButtonType> dialog = DialogTool.showDialog("添加族群高手信息", vBox, "确定", "取消");
         Optional<ButtonType> result = dialog.showAndWait();
         //如果用户点击了确定按钮
         if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
@@ -315,7 +306,7 @@ public class DragonMonController implements Initializable {
                 vBox.getChildren().addAll(t_name, t_Id, t_profile, t_location);
                 vBox.setSpacing(10);
 
-                DialogTool.dialog("族群信息", vBox, "确定", null).showAndWait();
+                DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
             } else {
                 //自定义控件
                 AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");
@@ -357,7 +348,7 @@ public class DragonMonController implements Initializable {
 
                 gridPane.setVgap(10);
 
-                Optional<ButtonType> choice = DialogTool.dialog("修改族群信息", gridPane, "确定",
+                Optional<ButtonType> choice = DialogTool.showDialog("修改族群信息", gridPane, "确定",
                         null).showAndWait();
 
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
