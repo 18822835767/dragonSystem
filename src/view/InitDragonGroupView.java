@@ -11,7 +11,7 @@ import model.database.impl.DragonGroupDAOImpl;
 import java.util.List;
 
 /**
- * 负责显示族群列表，封转成一个View的工具类.
+ * 负责显示族群列表TreeTableView，封转成一个View的工具类.
  * 可以根据需要显示对应的列
  * */
 public class InitDragonGroupView {

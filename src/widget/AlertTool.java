@@ -1,7 +1,9 @@
 package widget;
 
 import javafx.scene.control.Alert;
-
+/**
+ * Alert工具类.
+ * */
 public class AlertTool {
     private AlertTool() {
     }

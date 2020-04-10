@@ -12,14 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DragonDAOImpl implements IDragonDAO {
-    @Override//可能没用
-    public void save(Dragon d) {
-        int training = d.isTraining() ? 1 : 0;
-        int healthy = d.isHealthy() ? 1 : 0;
-        String sql = "insert into dragon(dragonId,dragonGroupId,name,profile,training,healthy,sex,age) values(?,?,?,?,?,?,?,?)";
-        DBUtils.executeUpdate(sql, d.getDragonId(), d.getDragonGroupId(), d.getName(), d.getProfile(), training, healthy, d.getSex(), d.getAge());
-    }
-
     @Override
     public void save(int dragonGroupId, String name, String profile, boolean training, boolean healthy, String sex, int age) {
         int isTraining = training ? 1 : 0;
@@ -32,14 +24,6 @@ public class DragonDAOImpl implements IDragonDAO {
     public void delete(int dragonId) {
         String sql = "delete from dragon where dragonId = ?";
         DBUtils.executeUpdate(sql, dragonId);
-    }
-
-    @Override//kenengmeiy
-    public void updata(int dragonId, Dragon d) {
-        int training = d.isTraining() ? 1 : 0;
-        int healthy = d.isHealthy() ? 1 : 0;
-        String sql = "update dragon set name = ?,profile = ?,training = ?,healthy = ?,sex = ?,age = ? where dragonId = ?";
-        DBUtils.executeUpdate(sql, d.getName(), d.getProfile(), training, healthy, d.getSex(), d.getAge());
     }
 
     @Override

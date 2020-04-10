@@ -14,14 +14,14 @@ import javafx.stage.Stage;
 import model.database.impl.DragonMomDAOImpl;
 import model.database.impl.DragonTrainerDAOImpl;
 import model.database.impl.ForeignerDAOImpl;
+import util.AddNodeForPane;
 import widget.AlertTool;
 import widget.DialogTool;
 import widget.SingleSelectionTool;
-
 import java.io.*;
 import java.util.Optional;
 
-public class LoginController{
+public class LoginController {
     @FXML
     private TextField username;
     @FXML
@@ -36,7 +36,7 @@ public class LoginController{
     public static final String dragonMomUrl = "view/DragonMom.fxml";
     public static final String dragonTrainerUrl = "view/DragonTrainer.fxml";
     public static final String foreignerUrl = "view/Foreigner.fxml";
-    public static final String autoLoginFile = "autoLogin.txt";
+//    public static final String autoLoginFile = "autoLogin.txt";
 
 
 //    public void init(){
@@ -60,13 +60,16 @@ public class LoginController{
 
     /**
      * 登录按钮的点击事件.
-     * */
+     */
     public void login(ActionEvent actionEvent) {
+        //从输入框和密码框中得到账号密码
         String user = username.getText().trim();
         String pass = password.getText().trim();
 
         try {
+            //调用方法判断登陆用户是谁
             if (changeView(user, pass)) {
+                //关闭登陆界面
                 Stage loginStage = (Stage) username.getScene().getWindow();
                 loginStage.close();
             } else {
@@ -79,8 +82,8 @@ public class LoginController{
 
     /**
      * 从登录界面切换到各个用户的主界面.
-     * 如果登陆的是驯龙高手，则将族群id传入驯龙高手的控制器中，以便得到驯龙高手所在的族群id，从而得到驯龙高手所在的族群。
-     * 然后再调用控制器的方法进行初始化。
+     * 如果登陆的是驯龙高手，则将族群id传入驯龙高手的控制器中，以便得到驯龙高手所在的族群id，从而得到驯龙高手所在的族群，
+     * 然后再调用驯龙高手控制器的方法进行初始化。
      *
      * @param username 输入的用户名
      * @param password 输入的密码
@@ -104,6 +107,7 @@ public class LoginController{
             loginSuccess = true;
         }
         if (loginSuccess) {
+            //切换到对应人物的主界面
             FXMLLoader fx = new FXMLLoader();
             Stage stage = new Stage();
             fx.setLocation(fx.getClassLoader().getResource(stageUrl));
@@ -113,7 +117,9 @@ public class LoginController{
             stage.setTitle(stageTitle);
             stage.setWidth(700);
             stage.setHeight(500);
+            //如果登陆的是驯龙高手
             if (dragonTrainer != null) {
+                //得到控制器，出入族群Id，调用初始化方法.
                 DragonTrainerController dragonTrainerController = (DragonTrainerController) fx.getController();
                 int dragonGroupId = dragonTrainer.getDragonGroupId();
                 dragonTrainerController.setDragonGroupId(dragonGroupId);
@@ -126,51 +132,58 @@ public class LoginController{
 
     /**
      * 注册.
-     * 这里只为驯龙高手和外邦人提供注册。龙妈设定上只有一个，在sql语句中直接插入。
+     * 这里只为驯龙高手和外邦人提供注册。设定上龙妈只有一个，在sql语句中直接插入。
      * 通过自己封转好的单选框来选择注册对象。
      * 外邦人注册时默认的金钱为100元。
      */
     public void regist(ActionEvent actionEvent) {
+//        //获取当前已有的用户名，防止重复
+//        List<String> userList = new ArrayList<>();
+//        List<String> trainerUsers = new DragonTrainerDAOImpl().getUserNameList();
+//        List<String> foreignerUsers = new ForeignerDAOImpl().getUserNameList();
+//        userList.add(new DragonMomDAOImpl().getUsername());
+//        for(String user : trainerUsers){
+//            userList.add(user);
+//        }
+//        for(String user : foreignerUsers){
+//            userList.add(user);
+//        }
+//
+
         VBox vBox = new VBox(10);
         Text text = new Text("请选择注册的对象:");
         vBox.getChildren().add(text);
 
-        String [] buttonName = {"外邦人","驯龙高手"};
-        //使用自己封转好的单选框
-        RadioButton[] radioButtons = SingleSelectionTool.singSelection(vBox,buttonName,0);
+        //使用自己封转好的单选框,选择注册对象
+        String[] buttonName = {"外邦人", "驯龙高手"};
+        RadioButton[] radioButtons = SingleSelectionTool.singSelection(vBox, buttonName, 0);
 
         vBox.getChildren().addAll(radioButtons[0], radioButtons[1]);
 
+        //封转好的自定义控件
         Dialog<ButtonType> dialog = DialogTool.showDialog("注册", vBox, "确定", null);
         Optional<ButtonType> result = dialog.showAndWait();
+        //如果用户点击了确定按钮
         if (result.isPresent()) {
             if (radioButtons[0].isSelected()) {
                 GridPane gridPane = new GridPane();
 
-                Label l_name = new Label("名字:");
-                Label l_username = new Label("用户名");
-                Label l_password = new Label("密码");
-
-                TextField t_name = new TextField();
-                TextField t_username = new TextField();
-                PasswordField p_password = new PasswordField();
-
-                gridPane.add(l_name, 0, 0);
-                gridPane.add(t_name, 1, 0);
-                gridPane.add(l_username, 0, 1);
-                gridPane.add(t_username, 1, 1);
-                gridPane.add(l_password, 0, 2);
-                gridPane.add(p_password, 1, 2);
+                //调用工具类，加载布局中的数据
+                String [] labelTexts = {"名字:","用户名","密码"};
+                String [] textFieldContents = {"","",""};//使传入的两个数组长度相同
+                TextField [] textFields = AddNodeForPane.addForGridPane(gridPane,labelTexts,textFieldContents);
 
                 gridPane.setVgap(10);
 
+                //弹出弹窗
                 Optional<ButtonType> choice = DialogTool.showDialog("注册信息", gridPane, "确定",
                         null).showAndWait();
 
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-                    String name = t_name.getText().trim();
-                    String username = t_username.getText().trim();
-                    String password = p_password.getText().trim();
+                    //保存用户数据，存入数据库
+                    String name = textFields[0].getText().trim();
+                    String username = textFields[1].getText().trim();
+                    String password = textFields[2].getText().trim();
 
                     new ForeignerDAOImpl().save(username, password, name);
 
@@ -179,24 +192,10 @@ public class LoginController{
             } else if (radioButtons[1].isSelected()) {
                 GridPane gridPane = new GridPane();
 
-                Label l_name = new Label("名字:");
-                Label l_username = new Label("用户名:");
-                Label l_password = new Label("密码:");
-                Label l_dragonGroupId = new Label("族群Id:");
-
-                TextField t_name = new TextField();
-                TextField t_username = new TextField();
-                PasswordField p_password = new PasswordField();
-                TextField t_dragonGroupId = new TextField();
-
-                gridPane.add(l_name, 0, 0);
-                gridPane.add(t_name, 1, 0);
-                gridPane.add(l_username, 0, 1);
-                gridPane.add(t_username, 1, 1);
-                gridPane.add(l_password, 0, 2);
-                gridPane.add(p_password, 1, 2);
-                gridPane.add(l_dragonGroupId, 0, 3);
-                gridPane.add(t_dragonGroupId, 1, 3);
+                //加载布局中的数据
+                String [] labelTexts = {"名字:","用户名:","密码:","族群Id:"};
+                String [] textFieldContents = {"","","",""};//使传入的两个数组长度相同。
+                TextField [] textFields = AddNodeForPane.addForGridPane(gridPane,labelTexts,textFieldContents);
 
                 gridPane.setVgap(10);
 
@@ -204,10 +203,10 @@ public class LoginController{
                         null).showAndWait();
 
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-                    String name = t_name.getText().trim();
-                    String username = t_username.getText().trim();
-                    String password = p_password.getText().trim();
-                    int dragonGroupId = Integer.valueOf(t_dragonGroupId.getText().trim());
+                    String name = textFields[0].getText().trim();
+                    String username = textFields[1].getText().trim();
+                    String password = textFields[2].getText().trim();
+                    int dragonGroupId = Integer.parseInt(textFields[3].getText().trim());
 
                     new DragonTrainerDAOImpl().save(dragonGroupId, name, username, password);
 

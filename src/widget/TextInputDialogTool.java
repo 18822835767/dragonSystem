@@ -3,7 +3,10 @@ package widget;
 import javafx.scene.control.TextInputDialog;
 
 import java.util.Optional;
-
+/**
+ * TextInputDialog，可重用的自定义控件.
+ * 适合于只输入一个ID...的显示
+ * */
 public class TextInputDialogTool {
     private TextInputDialogTool(){
 

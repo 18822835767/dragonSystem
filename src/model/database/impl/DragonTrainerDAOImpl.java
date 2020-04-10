@@ -14,13 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
-    //该方法可能没用
-    @Override
-    public void save(DragonTrainer dT) {
-        String sql = "insert into dragontrainer(dragonTrainerId,dragonGroupId,name,username,password) values(?,?,?,?)";
-        DBUtils.executeUpdate(sql, dT.getDragonTrainerId(), dT.getDragonGroupId(), dT.getName(), dT.getUsername(), dT.getPassword());
-    }
-
     @Override
     public void save(int dragonGroupId, String name, String username, String password) {
         String sql = "insert into dragontrainer(dragonGroupId,name,username,password) values(?,?,?,?)";
@@ -31,13 +24,6 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
     public void delete(int dragonTrainerId) {
         String sql = "delete from dragontrainer where dragonTrainerId = ?";
         DBUtils.executeUpdate(sql, dragonTrainerId);
-    }
-
-    @Override//可能没用
-    public void update(int dragonTrainerId, DragonTrainer dragonTrainer) {
-        String sql = "update dragontrainer set dragonGroupId=?,name=?,username=?,password=? where dragonTrainerId = ?";
-        DBUtils.executeUpdate(sql, dragonTrainer.getDragonGroupId(),dragonTrainer.getName(),dragonTrainer.getUsername(),
-                dragonTrainer.getPassword(), dragonTrainerId);
     }
 
     @Override
@@ -115,6 +101,31 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
                 dragonTrainerList.add(dragonTrainer);
             }
             return dragonTrainerList;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtils.close(conn,ps, rs);
+        }
+        return null;
+    }
+
+    @Override
+    public List<String> getUserNameList() {
+        List<String> UserNameList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "select * from dragontrainer";
+        try {
+            conn = DBUtils.getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                DragonTrainer dragonTrainer = new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
+                        , rs.getString("name"), rs.getString("username"), rs.getString("password"));
+                UserNameList.add(dragonTrainer.getUsername());
+            }
+            return UserNameList;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

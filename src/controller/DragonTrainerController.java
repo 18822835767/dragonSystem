@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.database.impl.DragonDAOImpl;
 import model.database.impl.DragonGroupDAOImpl;
+import util.AddNodeForPane;
 import view.ChangeUser;
 import view.InitDragonGroupView;
 import view.InitDragonView;
@@ -27,6 +28,7 @@ import java.util.Optional;
 
 /**
  * 驯龙高手的控制器.
+ * 为了使代码简洁，CRUD使用了自定义的工具类AddNodeForPane。
  */
 public class DragonTrainerController {
     @FXML
@@ -102,11 +104,11 @@ public class DragonTrainerController {
     /**
      * 初始化Text控件.
      * 该控件显示族群的id和名字，那么就不用额外在列表里显示族群的有关信息了。
-     * */
-    public void initText(){
+     */
+    public void initText() {
         DragonGroup dragonGroup = new DragonGroupDAOImpl().get(dragonGroupId);
-        text1.setText("\n族群ID: "+dragonGroup.getId()+"\n\n"+ "族群名字: "+dragonGroup.getName());
-        text2.setText("\n族群ID: "+dragonGroup.getId()+"\n\n"+ "族群名字: "+dragonGroup.getName());
+        text1.setText("\n族群ID: " + dragonGroup.getId() + "\n\n" + "族群名字: " + dragonGroup.getName());
+        text2.setText("\n族群ID: " + dragonGroup.getId() + "\n\n" + "族群名字: " + dragonGroup.getName());
     }
 
     /**
@@ -115,40 +117,34 @@ public class DragonTrainerController {
      * 使用了自己封转好的单选框来选择龙的性别。
      */
     public void addDragon(ActionEvent actionEvent) {
-        VBox vBox = new VBox();
+        VBox vBox = new VBox(10);
 
-        TextField t_name = new TextField();
-        t_name.setPromptText("龙的名字");
-        TextField t_profile = new TextField();
-        t_profile.setPromptText("龙的简介");
+        String[] promotTexts = {"龙的名字", "龙的简介", "年龄"};
+        TextField[] textFields = AddNodeForPane.addTextFieldForPane(vBox, promotTexts);
 
+        //自定义的单选框，选择龙的性别
         HBox h_sex = new HBox(10);
-        String [] buttonName = {"雄性","雌性"};
-        //封转好的单选框
-        RadioButton [] radioButtons = SingleSelectionTool.singSelection(h_sex,buttonName,0);
+        String[] buttonName = {"雄性", "雌性"};
+        RadioButton[] radioButtons = SingleSelectionTool.singSelection(h_sex, buttonName, 0);
+        h_sex.getChildren().addAll(radioButtons[0], radioButtons[1]);
 
-        h_sex.getChildren().addAll(radioButtons[0],radioButtons[1]);
 
-        TextField t_age = new TextField();
-        t_age.setPromptText("年龄");
-        vBox.getChildren().addAll(t_name, t_profile, h_sex, t_age);
-
-        vBox.setSpacing(10);
+        vBox.getChildren().add(h_sex);
 
         Dialog<ButtonType> dialog = DialogTool.showDialog("龙的信息", vBox, "确定", "取消");
         Optional<ButtonType> result = dialog.showAndWait();
 
         if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
             //从信息框中得到信息并存入数据库
-            String name = t_name.getText();
-            String profile = t_profile.getText().trim();
+            String name = textFields[0].getText();
+            String profile = textFields[1].getText().trim();
+            int age = Integer.parseInt(textFields[2].getText().trim());
             String sex = null;
-            if(radioButtons[0].isSelected()){
+            if (radioButtons[0].isSelected()) {
                 sex = radioButtons[0].getText();
-            }else if(radioButtons[1].isSelected()){
+            } else if (radioButtons[1].isSelected()) {
                 sex = radioButtons[1].getText();
             }
-            int age = Integer.parseInt(t_age.getText().trim());
             new DragonDAOImpl().save(dragonGroupId, name, profile, false, true, sex, age);//数据库保存数据
 
             //通过族群id和名字来获取龙的实例
@@ -195,14 +191,11 @@ public class DragonTrainerController {
             Dragon dragon = new DragonDAOImpl().get(dragonId);
             if (dragon != null) {
                 VBox vBox = new VBox(10);
-                Text t_Id = new Text("龙的Id:" + dragon.getDragonId());
-                Text t_name = new Text("名字:" + dragon.getName());
-                Text t_sex = new Text("性别:" + dragon.getSex());
-                Text t_age = new Text("年龄:" + dragon.getAge());
-                Text t_profile = new Text("简介:" + dragon.getProfile());
-                Text t_training = new Text("是否在训练:" + dragon.isTraining());
-                Text t_healthy = new Text("是否健康:" + dragon.isHealthy());
-                vBox.getChildren().addAll(t_Id, t_name, t_sex, t_age, t_profile, t_training, t_healthy);
+
+                String[] textContents = {"龙的Id:" + dragon.getDragonId(), "名字:" + dragon.getName(),
+                        "性别:" + dragon.getSex(), "年龄:" + dragon.getAge(), "简介:" + dragon.getProfile(),
+                        "是否在训练:" + dragon.isTraining(), "是否健康:" + dragon.isHealthy()};
+                AddNodeForPane.addTextForPane(vBox, textContents);
 
                 DialogTool.showDialog("龙的信息", vBox, "确定", null).showAndWait();
             } else {
@@ -227,36 +220,30 @@ public class DragonTrainerController {
             if (dragon != null) {
                 GridPane gridPane = new GridPane();
 
-                Label l_name = new Label("名字:");
-                Label l_age = new Label("年龄");
-                Label l_profile = new Label("简介:");
+                //先给GridPane添加一些Label和TextField
+                String[] labelTexts = {"名字:", "年龄", "简介:"};
+                String[] textFiledContents = {dragon.getName(), String.valueOf(dragon.getAge()), dragon.getProfile()};
+                TextField[] textFields = AddNodeForPane.addForGridPane(gridPane, labelTexts, textFiledContents);
+
                 Label l_training = new Label("训练中:");
                 Label l_healthy = new Label("健康:");
 
-                TextField t_name = new TextField(dragon.getName());
-                TextField t_age = new TextField(String.valueOf(dragon.getAge()));
-                TextField t_profile = new TextField(dragon.getProfile());
-
+                //自定义的单选框，选择龙的训练状态
                 HBox h_training = new HBox(8);
-                String [] buttonName = {"true","false"};
-                RadioButton [] trainButtons = SingleSelectionTool.singSelection(h_training,buttonName,dragonTraining?1:0);
-                h_training.getChildren().addAll(trainButtons[0],trainButtons[1]);
+                String[] buttonName = {"true", "false"};
+                RadioButton[] trainButtons = SingleSelectionTool.singSelection(h_training, buttonName, dragonTraining ? 1 : 0);
+                h_training.getChildren().addAll(trainButtons[0], trainButtons[1]);
 
+                //自定义的单选框，选择龙的健康状态
                 HBox h_healthy = new HBox(8);
-                RadioButton [] healthyButtons = SingleSelectionTool.singSelection(h_training,buttonName,dragonHealthy?1:0);
-                h_healthy.getChildren().addAll(healthyButtons[0],healthyButtons[1]);
+                RadioButton[] healthyButtons = SingleSelectionTool.singSelection(h_training, buttonName, dragonHealthy ? 1 : 0);
+                h_healthy.getChildren().addAll(healthyButtons[0], healthyButtons[1]);
 
-                gridPane.add(l_name, 0, 0);
-                gridPane.add(t_name, 1, 0);
-                gridPane.add(l_age, 0, 1);
-                gridPane.add(t_age, 1, 1);
-                gridPane.add(l_profile, 0, 2);
-                gridPane.add(t_profile, 1, 2);
+                //给GridPane添加单选框
                 gridPane.add(l_training, 0, 3);
-                gridPane.add(h_training,1,3);
+                gridPane.add(h_training, 1, 3);
                 gridPane.add(l_healthy, 0, 4);
                 gridPane.add(h_healthy, 1, 4);
-
 
                 gridPane.setVgap(10);
 
@@ -264,19 +251,20 @@ public class DragonTrainerController {
                         null).showAndWait();
 
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-                    String name = t_name.getText().trim();
-                    int age = Integer.parseInt(t_age.getText().trim());
-                    String profile = t_profile.getText().trim();
+                    //从弹框得到信息并保存进数据库
+                    String name = textFields[0].getText().trim();
+                    int age = Integer.parseInt(textFields[1].getText().trim());
+                    String profile = textFields[2].getText().trim();
                     boolean training;
                     boolean healthy;
-                    if(trainButtons[0].isSelected()){
+                    if (trainButtons[0].isSelected()) {
                         training = true;
-                    }else{
+                    } else {
                         training = false;
                     }
-                    if(healthyButtons[0].isSelected()){
+                    if (healthyButtons[0].isSelected()) {
                         healthy = true;
-                    }else{
+                    } else {
                         healthy = false;
                     }
 
@@ -299,16 +287,13 @@ public class DragonTrainerController {
                 "请输入族群的Id", "Id:");
         if (result.isPresent()) {
             int dragonGroupId = Integer.parseInt(result.get());
-            DragonGroup dragonGroup = new DragonGroupDAOImpl().get(dragonGroupId);
-            if (dragonGroup != null) {
-                VBox vBox = new VBox();
-                Text t_name = new Text("名字:" + dragonGroup.getName());
-                Text t_Id = new Text("Id:" + dragonGroup.getId());
-                Text t_profile = new Text("简介:" + dragonGroup.getProfile());
-                Text t_location = new Text("地理位置:" + dragonGroup.getLocation());
-                Text t_size = new Text("大小:" + dragonGroup.getSize());
-                vBox.getChildren().addAll(t_name, t_Id, t_profile, t_location,t_size);
-                vBox.setSpacing(10);
+            DragonGroup group = new DragonGroupDAOImpl().get(dragonGroupId);
+            if (group != null) {
+                VBox vBox = new VBox(10);
+
+                String[] promptTexts = {"名字:" + group.getName(), "Id:" + group.getId(), "简介:" + group.getProfile(),
+                        "地理位置:" + group.getLocation(), "大小:" + group.getSize()};
+                AddNodeForPane.addTextForPane(vBox, promptTexts);
 
                 DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
             } else {
@@ -322,28 +307,13 @@ public class DragonTrainerController {
      * 对我的族群信息进行修改.
      */
     public void changeDragonGroup(ActionEvent actionEvent) {
-        DragonGroup dragonGroup = new DragonGroupDAOImpl().get(dragonGroupId);
+        DragonGroup group = new DragonGroupDAOImpl().get(dragonGroupId);
 
         GridPane gridPane = new GridPane();
 
-        Label l_name = new Label("名字:");
-        Label l_profile = new Label("简介:");
-        Label l_location = new Label("地理位置:");
-        Label l_size = new Label("大小:");
-
-        TextField t_name = new TextField(dragonGroup.getName());
-        TextField t_profile = new TextField(dragonGroup.getProfile());
-        TextField t_location = new TextField(dragonGroup.getLocation());
-        TextField t_size = new TextField(String.valueOf(dragonGroup.getSize()));
-
-        gridPane.add(l_name, 0, 0);
-        gridPane.add(t_name, 1, 0);
-        gridPane.add(l_profile, 0, 1);
-        gridPane.add(t_profile, 1, 1);
-        gridPane.add(l_location, 0, 2);
-        gridPane.add(t_location, 1, 2);
-        gridPane.add(l_size, 0, 3);
-        gridPane.add(t_size, 1, 3);
+        String[] labelTexts = {"名字:", "简介:", "地理位置:", "大小:"};
+        String[] textFieldContents = {group.getName(), group.getProfile(), group.getLocation(), String.valueOf(group.getSize())};
+        TextField[] textFields = AddNodeForPane.addForGridPane(gridPane, labelTexts, textFieldContents);
 
         gridPane.setVgap(10);
 
@@ -351,10 +321,10 @@ public class DragonTrainerController {
                 null).showAndWait();
 
         if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-            String name = t_name.getText().trim();
-            String profile = t_profile.getText().trim();
-            String location = t_location.getText().trim();
-            double size = Double.parseDouble(t_size.getText().trim());
+            String name = textFields[0].getText().trim();
+            String profile = textFields[1].getText().trim();
+            String location = textFields[2].getText().trim();
+            double size = Double.parseDouble(textFields[3].getText().trim());
 
             new DragonGroupDAOImpl().update(name, profile, location, size, dragonGroupId);
 

@@ -15,6 +15,9 @@ public class DBUtils {
     private DBUtils() {
     }
 
+    /**
+     * 负责驱动，只执行一次.
+     * */
     static {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("resource/jdbc");

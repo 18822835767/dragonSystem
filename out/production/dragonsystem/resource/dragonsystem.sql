@@ -6,7 +6,7 @@ use dragonsystem;
 drop table if exists dragongroup;
 create table dragongroup(
 	dragonGroupId int primary key auto_increment,
-	name varchar(255) not null,
+	name varchar(255) unique not null,
 	profile varchar(255),
 	location varchar(255),
 	size float
@@ -15,8 +15,8 @@ create table dragongroup(
 drop table if exists dragon;
 create table dragon(
 	dragonId int primary key auto_increment,
-	dragonGroupId int,
-	name varchar(255) not null,
+	dragonGroupId int not null,
+	name varchar(255) unique not null,
 	profile varchar(255),
 	training int,
 	healthy int,
@@ -29,17 +29,17 @@ create table dragon(
 drop table if exists dragontrainer;
 create table dragontrainer(
 	dragonTrainerId int primary key auto_increment,
-	dragonGroupId int,
+	dragonGroupId int not null ,
 	username varchar(255) unique not null,
 	password varchar(255) not null,
-	name varchar (255),
+	name varchar(255) unique,
 	foreign key(dragonGroupId) references dragongroup(dragonGroupId)
 );
 
 drop table if exists dragonmom;
 create table dragonmom(
 	dragonMomId int primary key auto_increment,
-	name varchar (255),
+	name varchar(255) unique,
 	username varchar(255) unique not null,
 	password varchar(255) not null
 );
@@ -47,9 +47,9 @@ create table dragonmom(
 drop table if exists foreigner;
 create table foreigner(
 	foreignerId int primary key auto_increment,
-	username varchar(255) unique not null,
+	username varchar(255) not null,
 	password varchar(255) not null,
-	name varchar (255),
+	name varchar(255) unique not null,
 	money double default 100.0
 );
 insert into dragonmom(name,username,password) values('mom','admin','123');
@@ -60,6 +60,6 @@ insert into dragontrainer(dragonGroupId,username,password,name) values(1,'hhh','
 insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1,'a','no',0,1,'n',15);
 insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1,'b','no',0,1,'n',18);
 insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1,'c','no',0,1,'n',20);
-insert into foreigner(username, password, name, money) values('yoyo','123','no',100);
-insert into foreigner(username, password, name, money) values('yoyo2','1234','no',100);
-insert into foreigner(username, password, name, money) values('yoyo3','1235','no',100);
+insert into foreigner(username, password, name, money) values('yoyo','123','no1',100);
+insert into foreigner(username, password, name, money) values('yoyo2','1234','no2',100);
+insert into foreigner(username, password, name, money) values('yoyo3','1235','no3',100);

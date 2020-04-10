@@ -1,7 +1,5 @@
 package view;
 
-import controller.DragonMonController;
-import entity.DragonGroup;
 import entity.DragonTrainer;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableCell;
@@ -13,6 +11,10 @@ import model.database.impl.DragonTrainerDAOImpl;
 
 import java.util.List;
 
+/**
+ * 负责显示驯龙高手列表TreeTableView，封转成一个View的工具类.
+ * 可以根据需要显示对应的列
+ * */
 public class InitDragonTrainerView {
     /**
      * 驯龙高手表：

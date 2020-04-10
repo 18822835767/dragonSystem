@@ -34,6 +34,7 @@ public class ChangeUser {
             newStage.setHeight(280);
             newStage.setWidth(420);
             newStage.show();
+            //关闭之前的窗口
             Stage oldStage = (Stage)button.getScene().getWindow();
             oldStage.close();
         } catch (IOException e) {

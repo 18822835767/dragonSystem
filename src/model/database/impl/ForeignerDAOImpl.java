@@ -10,14 +10,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ForeignerDAOImpl implements IForeignerDAO {
-    @Override
-    public void save(Foreigner f) {
-        String sql = "insert into foreigner(foreignerId,username,password,name,money) values(?,?,?,?,?)";
-        DBUtils.executeUpdate(sql,f.getForeignerId(),f.getUsername(),f.getPassword(),f.getName(),f.getMoney());
-    }
-
     @Override
     public void save(String username, String password,String name) {
         String sql = "insert into foreigner(username,password,name) values(?,?,?)";
@@ -42,6 +38,31 @@ public class ForeignerDAOImpl implements IForeignerDAO {
                         rs.getString("password"),rs.getString("name"),rs.getInt("money"));
                 return foreigner;
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBUtils.close(conn,ps,rs);
+        }
+        return null;
+    }
+
+    @Override
+    public List<String> getUserNameList() {
+        List<String> userNameList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String sql = "select * from foreigner";
+            conn = DBUtils.getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+           while(rs.next()){
+                Foreigner foreigner = new Foreigner(rs.getInt("foreignerId"), rs.getString("username"),
+                        rs.getString("password"),rs.getString("name"),rs.getInt("money"));
+                userNameList.add(foreigner.getUsername());
+            }
+           return userNameList;
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {

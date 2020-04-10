@@ -11,15 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DragonGroupDAOImpl implements IDragonGroupDAO {
-    //目前没用
-    @Override
-    public void save(DragonGroup dragonGroup) {
-        String sql = "insert into dragongroup(dragonGroupId,name,profile,location,size) values(?,?,?,?,?)";
-        DBUtils.executeUpdate(sql,dragonGroup.getId(),dragonGroup.getName(),dragonGroup.getProfile(),dragonGroup.getLocation(),
-                dragonGroup.getSize());
-    }
-
-
     @Override
     public void save(String name, String profile, String location, double size) {
         String sql = "insert into dragongroup(name,profile,location,size) values(?,?,?,?)";
@@ -30,13 +21,6 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
     public void delete(int dragonGroupId) {
         String sql = "delete from dragongroup where dragonGroupId = ?";
         DBUtils.executeUpdate(sql,dragonGroupId);
-    }
-
-    @Override//可能没用
-    public void update(int dragonGroupId, DragonGroup dragonGroup) {
-        String sql = "update dragongroup set name = ?,profile = ?,location = ?,size = ? where dragonGroupId = ?";
-        DBUtils.executeUpdate(sql,dragonGroup.getName(),dragonGroup.getProfile(),dragonGroup.getLocation(),dragonGroup.getSize(),
-                dragonGroupId);
     }
 
     @Override

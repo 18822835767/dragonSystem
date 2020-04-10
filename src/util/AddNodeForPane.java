@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 /**
- * 为pane添加node.
+ * 为pane添加node,即为布局加载textField等控件.
  * 由于增删查改有大量的语句本质上一样，都是为pane添加某种node，所以抽离出来作为一个工具类使用，提供不同的方法,从而使增删查改
  * 的方法更加简洁。
  * */

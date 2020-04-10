@@ -6,11 +6,6 @@ import java.util.List;
 
 public interface IDragonDAO {
     /**
-     * 通过龙的引用，来储存一条龙.
-     * */
-    void save(Dragon dragon);
-
-    /**
      * 通过具体的信息，来储存一条龙.
      * */
     void save(int dragonGroupId, String name, String profile, boolean training, boolean healthy, String sex, int age);
@@ -21,17 +16,12 @@ public interface IDragonDAO {
     void delete(int id);
 
     /**
-     * id+引用来更新一条龙.
-     * */
-    void updata(int id,Dragon dragon);
-
-    /**
      * 通过具体的信息，来更新一条龙.
      * */
     void update(int id,int dragonGroupId, String name, String profile, boolean training, boolean healthy,int age);
 
     /**
-     * 获取一条龙.
+     * 通过族群id+名字 获取一条龙.
      *
      * @param dragonGroupId 族群id
      * @param name 龙的名字
@@ -46,7 +36,7 @@ public interface IDragonDAO {
     Dragon get(int id);
 
     /**
-     * 找到某个族群的龙.
+     * 通过族群id找到某个族群的龙.
      *
      * @param dragonGroupId 族群id
      * */

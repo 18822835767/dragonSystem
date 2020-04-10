@@ -5,19 +5,37 @@ import entity.DragonGroup;
 import java.util.List;
 
 public interface IDragonGroupDAO {
-    void save(DragonGroup dragonGroup);
+    /**
+     * 通过具体的信息保存一条龙.
+     * */
     void save(String name, String profile, String location, double size);
+
+    /**
+     * 通过id来删除一条龙.
+     * */
     void delete(int id);
-    void update(int id, DragonGroup dragonGroup);
+
+    /**
+     * 具体的信息更新一条龙.
+     * */
     void update(String name,String profile,String location,double size,int id);
+
+    /**
+     * 根据id来找到某个族群.
+     * */
     DragonGroup get(int id);//根据id找某个族群
 
     /**
-     * 根据族群名字来找族群，数据库中设置族群名字为unique.
+     * 根据族群名字来找族群.
+     * 数据库中设置族群名字为unique.
      *
      * @param name 族群名字
      * @return 族群
      * */
-    DragonGroup get(String name);//根据名字找某个族群
-    List<DragonGroup> getList();//找到所有的族群
+    DragonGroup get(String name);
+
+    /**
+     * 找到所有族群.
+     * */
+    List<DragonGroup> getList();
 }

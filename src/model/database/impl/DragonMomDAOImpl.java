@@ -37,4 +37,27 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
         }
         return null;
     }
+
+    @Override
+    public String getUsername() {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "select * from dragonmom";
+        try {
+            conn = DBUtils.getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                DragonMom dragonMom = new DragonMom(rs.getInt("dragonMomId"), rs.getString("name"),
+                        rs.getString("username"), rs.getString("password"));
+                return dragonMom.getUsername();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBUtils.close(conn,ps,rs);
+        }
+        return null;
+    }
 }

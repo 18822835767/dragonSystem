@@ -6,10 +6,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 
-import java.util.Optional;
-
 /**
- * 这里将对话框封装成工具类
+ * 这里将对话框Dialog封装成工具类
  * */
 public class DialogTool {
     private DialogTool(){
