@@ -8,17 +8,17 @@ public interface IDragonDAO {
     /**
      * 通过具体的信息，来储存一条龙.
      * */
-    void save(int dragonGroupId, String name, String profile, boolean training, boolean healthy, String sex, int age);
+    int save(int dragonGroupId, String name, String profile, boolean training, boolean healthy, String sex, int age);
 
     /**
      * 通过龙的id(主键)来删除一条龙.
      * */
-    void delete(int id);
+    int delete(int id);
 
     /**
      * 通过具体的信息，来更新一条龙.
      * */
-    void update(int id,int dragonGroupId, String name, String profile, boolean training, boolean healthy,int age);
+    int update(int id,int dragonGroupId, String name, String profile, boolean training, boolean healthy,int age);
 
     /**
      * 通过族群id+名字 获取一条龙.

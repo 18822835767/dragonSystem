@@ -8,17 +8,17 @@ public interface IDragonTrainerDAO {
     /**
      * 通过具体信息来保存驯龙高手.
      * */
-    void save(int dragonGroupId,String name,String username,String password);
+    int save(int dragonGroupId,String name,String username,String password);
 
     /**
      * 通过id来删除驯龙高手.
      * */
-    void delete(int id);
+    int delete(int id);
 
     /**
      * 通过具体信息来更新驯龙高手.
      * */
-    void update(int id,int dragonGroupId,String name,String username,String password);
+    int update(int id,int dragonGroupId,String name,String username,String password);
 
     /**
      * 通过id来得到驯龙高手.

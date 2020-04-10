@@ -15,9 +15,9 @@ import java.util.List;
 
 public class ForeignerDAOImpl implements IForeignerDAO {
     @Override
-    public void save(String username, String password,String name) {
+    public int save(String username, String password,String name) {
         String sql = "insert into foreigner(username,password,name) values(?,?,?)";
-        DBUtils.executeUpdate(sql,username,password,name);
+        return DBUtils.executeUpdate(sql,username,password,name);
     }
 
     //用户名和密码查询

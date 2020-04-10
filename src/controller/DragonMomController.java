@@ -109,12 +109,17 @@ public class DragonMomController implements Initializable {
             String name = textFields[1].getText();
             String username = textFields[2].getText().trim();
             String password = textFields[3].getText().trim();
-            new DragonTrainerDAOImpl().save(dragonGroupId, name, username, password);//数据库保存数据
+            //数据库保存数据,items记录影响的数据条数
+            int items = new DragonTrainerDAOImpl().save(dragonGroupId, name, username, password);
 
-            DragonTrainer dragonTrainer = new DragonTrainerDAOImpl().get(username, password);
-            TreeItem<DragonTrainer> treeItem = new TreeItem(dragonTrainer);
-            trainerTreeItemList.add(treeItem);
-            trainerRoot.getChildren().add(treeItem);
+            if(items == 0){//说明没有插入数据
+                AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"族群不存在或者用户名已注册");
+            }else{
+                DragonTrainer dragonTrainer = new DragonTrainerDAOImpl().get(username, password);
+                TreeItem<DragonTrainer> treeItem = new TreeItem(dragonTrainer);
+                trainerTreeItemList.add(treeItem);
+                trainerRoot.getChildren().add(treeItem);
+            }
         }
 
     }
@@ -130,13 +135,17 @@ public class DragonMomController implements Initializable {
         if (result.isPresent()) {
             int dragonTrainerId = Integer.parseInt(result.get().trim());
             DragonTrainer dragonTrainer = new DragonTrainerDAOImpl().get(dragonTrainerId);
-            new DragonTrainerDAOImpl().delete(dragonTrainerId);
+            int items = new DragonTrainerDAOImpl().delete(dragonTrainerId);
 
-            for (TreeItem<DragonTrainer> treeItem : trainerTreeItemList) {
-                if (treeItem.getValue().getDragonTrainerId() == dragonTrainerId) {
-                    trainerTreeItemList.remove(treeItem);
-                    trainerRoot.getChildren().remove(treeItem);
-                    break;
+            if(items == 0){//说明没有数据删除
+                AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"没有与id匹配的驯龙高手");
+            }else{
+                for (TreeItem<DragonTrainer> treeItem : trainerTreeItemList) {
+                    if (treeItem.getValue().getDragonTrainerId() == dragonTrainerId) {
+                        trainerTreeItemList.remove(treeItem);
+                        trainerRoot.getChildren().remove(treeItem);
+                        break;
+                    }
                 }
             }
         }
@@ -198,9 +207,13 @@ public class DragonMomController implements Initializable {
                     String username = textFields[2].getText().trim();
                     String password = textFields[3].getText().trim();
 
-                    new DragonTrainerDAOImpl().update(dragonTrainerId, dragonGroupId, name, username, password);
+                    int items = new DragonTrainerDAOImpl().update(dragonTrainerId, dragonGroupId, name, username, password);
 
-                    InitDragonTrainerView.flushTrainer(trainerTreeItemList, trainerRoot);
+                    if(items == 0){//说明没有数据修改
+                        AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"用户名已存在");
+                    }else{
+                        InitDragonTrainerView.flushTrainer(trainerTreeItemList, trainerRoot);
+                    }
                 }
             } else {
                 AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该驯龙高手的信息");
@@ -226,12 +239,16 @@ public class DragonMomController implements Initializable {
             String profile = textFields[1].getText().trim();
             String location = textFields[2].getText().trim();
             double size = Double.parseDouble(textFields[3].getText().trim());
-            new DragonGroupDAOImpl().save(name, profile, location, size);
+            int items = new DragonGroupDAOImpl().save(name, profile, location, size);
 
-            DragonGroup dragonGroup = new DragonGroupDAOImpl().get(name);
-            TreeItem<DragonGroup> treeItem = new TreeItem(dragonGroup);
-            groupTreeItemList.add(treeItem);
-            groupRoot.getChildren().add(treeItem);
+            if(items == 0){//说明没有插入数据
+                AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"该名字已存在");
+            }else{
+                DragonGroup dragonGroup = new DragonGroupDAOImpl().get(name);
+                TreeItem<DragonGroup> treeItem = new TreeItem(dragonGroup);
+                groupTreeItemList.add(treeItem);
+                groupRoot.getChildren().add(treeItem);
+            }
         }
 
     }
@@ -247,13 +264,17 @@ public class DragonMomController implements Initializable {
         if (result.isPresent()) {
             int dragonGroupId = Integer.parseInt(result.get().trim());
             DragonGroup dragonGroup = new DragonGroupDAOImpl().get(dragonGroupId);
-            new DragonGroupDAOImpl().delete(dragonGroupId);
+            int items = new DragonGroupDAOImpl().delete(dragonGroupId);
 
-            for (TreeItem<DragonGroup> treeItem : groupTreeItemList) {
-                if (treeItem.getValue().getId() == dragonGroupId) {
-                    groupTreeItemList.remove(treeItem);
-                    groupRoot.getChildren().remove(treeItem);
-                    break;
+            if(items == 0){//说明没有数据删除
+                AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"没有与id匹配的族群");
+            }else {
+                for (TreeItem<DragonGroup> treeItem : groupTreeItemList) {
+                    if (treeItem.getValue().getId() == dragonGroupId) {
+                        groupTreeItemList.remove(treeItem);
+                        groupRoot.getChildren().remove(treeItem);
+                        break;
+                    }
                 }
             }
         }
@@ -312,9 +333,13 @@ public class DragonMomController implements Initializable {
                     String location = textFields[2].getText().trim();
                     double size = Double.parseDouble(textFields[3].getText().trim());
 
-                    new DragonGroupDAOImpl().update(name, profile, location, size, dragonGroupId);
+                    int items = new DragonGroupDAOImpl().update(name, profile, location, size, dragonGroupId);
 
-                    InitDragonGroupView.flushGroup(groupTreeItemList, groupRoot);
+                    if(items == 0){//说明没有数据修改
+                        AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"该名字已存在");
+                    }else{
+                        InitDragonGroupView.flushGroup(groupTreeItemList, groupRoot);
+                    }
                 }
             } else {
                 AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");

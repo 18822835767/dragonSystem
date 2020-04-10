@@ -12,21 +12,21 @@ import java.util.List;
 
 public class DragonGroupDAOImpl implements IDragonGroupDAO {
     @Override
-    public void save(String name, String profile, String location, double size) {
+    public int save(String name, String profile, String location, double size) {
         String sql = "insert into dragongroup(name,profile,location,size) values(?,?,?,?)";
-        DBUtils.executeUpdate(sql,name,profile,location,size);
+        return DBUtils.executeUpdate(sql,name,profile,location,size);
     }
 
     @Override
-    public void delete(int dragonGroupId) {
+    public int delete(int dragonGroupId) {
         String sql = "delete from dragongroup where dragonGroupId = ?";
-        DBUtils.executeUpdate(sql,dragonGroupId);
+        return DBUtils.executeUpdate(sql,dragonGroupId);
     }
 
     @Override
-    public void update(String name, String profile, String location, double size,int id) {
+    public int update(String name, String profile, String location, double size,int id) {
         String sql = "update dragongroup set name = ?,profile = ?,location = ?,size = ? where dragonGroupId = ?";
-        DBUtils.executeUpdate(sql,name,profile,location,size,id);
+        return DBUtils.executeUpdate(sql,name,profile,location,size,id);
     }
 
     //根据id找某个族群

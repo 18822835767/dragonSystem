@@ -13,25 +13,25 @@ import java.util.List;
 
 public class DragonDAOImpl implements IDragonDAO {
     @Override
-    public void save(int dragonGroupId, String name, String profile, boolean training, boolean healthy, String sex, int age) {
+    public int save(int dragonGroupId, String name, String profile, boolean training, boolean healthy, String sex, int age) {
         int isTraining = training ? 1 : 0;
         int isHealthy = healthy ? 1 : 0;
         String sql = "insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(?,?,?,?,?,?,?)";
-        DBUtils.executeUpdate(sql, dragonGroupId,name,profile,isTraining,isHealthy,sex,age);
+        return DBUtils.executeUpdate(sql, dragonGroupId,name,profile,isTraining,isHealthy,sex,age);
     }
 
     @Override
-    public void delete(int dragonId) {
+    public int delete(int dragonId) {
         String sql = "delete from dragon where dragonId = ?";
-        DBUtils.executeUpdate(sql, dragonId);
+        return DBUtils.executeUpdate(sql, dragonId);
     }
 
     @Override
-    public void update(int id,int dragonGroupId, String name, String profile, boolean training, boolean healthy, int age) {
+    public int update(int id,int dragonGroupId, String name, String profile, boolean training, boolean healthy, int age) {
         int isTraining = training ? 1 : 0;
         int isHealthy = healthy ? 1 : 0;
         String sql = "update dragon set name = ?,profile = ?,training = ?,healthy = ?,age = ? where dragonId = ?";
-        DBUtils.executeUpdate(sql, name,profile,isTraining,isHealthy,age,id);
+        return DBUtils.executeUpdate(sql, name,profile,isTraining,isHealthy,age,id);
     }
 
     @Override

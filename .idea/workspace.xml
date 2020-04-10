@@ -82,17 +82,27 @@
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/Item.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/MP3.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/VideoGame.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/DragonMomController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/DragonMomController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/DragonTrainerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/DragonTrainerController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/main/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/IDragonMomDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/model/IDragonMomDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/IDragonDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/model/IDragonDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/IDragonGroupDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/model/IDragonGroupDAO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/IDragonTrainerDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/model/IDragonTrainerDAO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/IForeignerDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/model/IForeignerDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/database/impl/DragonMomDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/model/database/impl/DragonMomDAOImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/database/impl/DragonDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/model/database/impl/DragonDAOImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/database/impl/DragonGroupDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/model/database/impl/DragonGroupDAOImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/database/impl/DragonTrainerDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/model/database/impl/DragonTrainerDAOImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/database/impl/ForeignerDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/model/database/impl/ForeignerDAOImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/resource/dragonsystem.sql" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/resource/dragonsystem.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/DragonMomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DragonMomController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/DragonTrainerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DragonTrainerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/IDragonDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/IDragonDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/IDragonGroupDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/IDragonGroupDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/IDragonTrainerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/IDragonTrainerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/IForeignerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/IForeignerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/database/impl/DragonDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/impl/DragonDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/database/impl/DragonGroupDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/impl/DragonGroupDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/database/impl/DragonTrainerDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/impl/DragonTrainerDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/database/impl/ForeignerDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/impl/ForeignerDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/coins/Coin.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/discussion34.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/notebook/NoteBook.class" beforeDir="false" />
@@ -317,7 +327,7 @@
       <workItem from="1586273388799" duration="1365000" />
       <workItem from="1586335091487" duration="19885000" />
       <workItem from="1586412529848" duration="22757000" />
-      <workItem from="1586486185202" duration="26270000" />
+      <workItem from="1586486185202" duration="32772000" />
     </task>
     <servers />
   </component>
@@ -365,22 +375,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1586521332448" />
-    <state width="1493" height="208" key="GridCell.Tab.0.bottom" timestamp="1586524470255">
+    <state width="1493" height="208" key="GridCell.Tab.0.bottom" timestamp="1586533226956">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="208" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586524470255" />
-    <state width="1493" height="208" key="GridCell.Tab.0.center" timestamp="1586524470255">
+    <state width="1493" height="208" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586533226956" />
+    <state width="1493" height="208" key="GridCell.Tab.0.center" timestamp="1586533226956">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="208" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1586524470255" />
-    <state width="1493" height="208" key="GridCell.Tab.0.left" timestamp="1586524470255">
+    <state width="1493" height="208" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1586533226956" />
+    <state width="1493" height="208" key="GridCell.Tab.0.left" timestamp="1586533226955">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="208" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1586524470255" />
-    <state width="1493" height="208" key="GridCell.Tab.0.right" timestamp="1586524470255">
+    <state width="1493" height="208" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1586533226955" />
+    <state width="1493" height="208" key="GridCell.Tab.0.right" timestamp="1586533226956">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="208" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1586524470255" />
+    <state width="1493" height="208" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1586533226956" />
     <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1586255138256">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -413,9 +423,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="511" y="39" key="refactoring.ChangeSignatureDialog/0.0.1536.824@0.0.1536.824" timestamp="1586506468189" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1586508702646">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1586532563743">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1586508702646" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1586532563743" />
   </component>
 </project>

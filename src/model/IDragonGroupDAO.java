@@ -8,17 +8,17 @@ public interface IDragonGroupDAO {
     /**
      * 通过具体的信息保存一条龙.
      * */
-    void save(String name, String profile, String location, double size);
+    int save(String name, String profile, String location, double size);
 
     /**
      * 通过id来删除一条龙.
      * */
-    void delete(int id);
+    int delete(int id);
 
     /**
      * 具体的信息更新一条龙.
      * */
-    void update(String name,String profile,String location,double size,int id);
+    int update(String name,String profile,String location,double size,int id);
 
     /**
      * 根据id来找到某个族群.

@@ -145,15 +145,18 @@ public class DragonTrainerController {
             } else if (radioButtons[1].isSelected()) {
                 sex = radioButtons[1].getText();
             }
-            new DragonDAOImpl().save(dragonGroupId, name, profile, false, true, sex, age);//数据库保存数据
+            int items = new DragonDAOImpl().save(dragonGroupId, name, profile, false, true, sex, age);//数据库保存数据
 
-            //通过族群id和名字来获取龙的实例
-            Dragon dragon = new DragonDAOImpl().get(dragonGroupId, name);
-            TreeItem<Dragon> treeItem = new TreeItem(dragon);//试下TreeItem后面加<>会怎么样
-            dragonTreeItemList.add(treeItem);
-            dragonRoot.getChildren().add(treeItem);
+            if(items == 0){//说明没有插入数据
+                AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"该名字已存在");
+            }else{
+                //通过族群id和名字来获取龙的实例
+                Dragon dragon = new DragonDAOImpl().get(dragonGroupId, name);
+                TreeItem<Dragon> treeItem = new TreeItem(dragon);
+                dragonTreeItemList.add(treeItem);
+                dragonRoot.getChildren().add(treeItem);
+            }
 
-            InitDragonView.flushDragon(dragonTreeItemList, dragonRoot, dragonGroupId);//刷新一下表的显示
         }
     }
 
@@ -168,13 +171,17 @@ public class DragonTrainerController {
         if (result.isPresent()) {
             int dragonId = Integer.parseInt(result.get().trim());
             Dragon dragon = new DragonDAOImpl().get(dragonId);
-            new DragonDAOImpl().delete(dragonId);
+            int items = new DragonDAOImpl().delete(dragonId);
 
-            for (TreeItem<Dragon> treeItem : dragonTreeItemList) {
-                if (treeItem.getValue().getDragonId() == dragonId) {
-                    dragonTreeItemList.remove(treeItem);
-                    dragonRoot.getChildren().remove(treeItem);
-                    break;
+            if(items == 0){
+                AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"没有与id匹配的龙");
+            }else{
+                for (TreeItem<Dragon> treeItem : dragonTreeItemList) {
+                    if (treeItem.getValue().getDragonId() == dragonId) {
+                        dragonTreeItemList.remove(treeItem);
+                        dragonRoot.getChildren().remove(treeItem);
+                        break;
+                    }
                 }
             }
         }
@@ -268,9 +275,13 @@ public class DragonTrainerController {
                         healthy = false;
                     }
 
-                    new DragonDAOImpl().update(dragonId, dragonGroupId, name, profile, training, healthy, age);
+                    int items = new DragonDAOImpl().update(dragonId, dragonGroupId, name, profile, training, healthy, age);
 
-                    InitDragonView.flushDragon(dragonTreeItemList, dragonRoot, dragonGroupId);
+                    if(items == 0){//说明没有数据修改
+                        AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"该名字已存在");
+                    }else{
+                        InitDragonView.flushDragon(dragonTreeItemList, dragonRoot, dragonGroupId);
+                    }
                 }
             } else {
                 AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该龙的信息");
@@ -326,9 +337,13 @@ public class DragonTrainerController {
             String location = textFields[2].getText().trim();
             double size = Double.parseDouble(textFields[3].getText().trim());
 
-            new DragonGroupDAOImpl().update(name, profile, location, size, dragonGroupId);
+            int items = new DragonGroupDAOImpl().update(name, profile, location, size, dragonGroupId);
 
-            InitDragonGroupView.flushGroup(groupTreeItemList, groupRoot);
+            if(items == 0){//说明没有数据修改
+                AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"该名字已存在");
+            }else{
+                InitDragonGroupView.flushGroup(groupTreeItemList, groupRoot);
+            }
         }
     }
 

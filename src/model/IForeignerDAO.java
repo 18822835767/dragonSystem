@@ -8,7 +8,7 @@ public interface IForeignerDAO {
     /**
      * 通过具体信息来保存外邦人.
      * */
-    void save(String username,String password,String name);
+    int save(String username,String password,String name);
 
     /**
      * 账户名+密码来得到外邦人.

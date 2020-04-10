@@ -15,21 +15,21 @@ import java.util.List;
 
 public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
     @Override
-    public void save(int dragonGroupId, String name, String username, String password) {
+    public int save(int dragonGroupId, String name, String username, String password) {
         String sql = "insert into dragontrainer(dragonGroupId,name,username,password) values(?,?,?,?)";
-        DBUtils.executeUpdate(sql,  dragonGroupId,name,username,password);
+        return DBUtils.executeUpdate(sql,  dragonGroupId,name,username,password);
     }
 
     @Override
-    public void delete(int dragonTrainerId) {
+    public int delete(int dragonTrainerId) {
         String sql = "delete from dragontrainer where dragonTrainerId = ?";
-        DBUtils.executeUpdate(sql, dragonTrainerId);
+        return DBUtils.executeUpdate(sql, dragonTrainerId);
     }
 
     @Override
-    public void update(int id, int dragonGroupId, String name, String username, String password) {
+    public int update(int id, int dragonGroupId, String name, String username, String password) {
         String sql = "update dragontrainer set dragonGroupId=?,name=?,username=?,password=? where dragonTrainerId = ?";
-        DBUtils.executeUpdate(sql,dragonGroupId,name,username,password,id);
+        return DBUtils.executeUpdate(sql,dragonGroupId,name,username,password,id);
     }
 
     //id查询
