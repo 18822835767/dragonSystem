@@ -4,9 +4,9 @@ import base.Person;
 
 public class Foreigner extends Person {
     private int foreignerId;
-    private int money;
+    private double money;
 
-    public Foreigner(int foreignerId, String username, String password,String name,int money) {
+    public Foreigner(int foreignerId, String username, String password,String name,double money) {
         super(name, username, password);
         this.foreignerId = foreignerId;
         this.money = money;
@@ -20,7 +20,11 @@ public class Foreigner extends Person {
         return foreignerId;
     }
 
-    public int getMoney() {
+    public double getMoney() {
         return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
     }
 }

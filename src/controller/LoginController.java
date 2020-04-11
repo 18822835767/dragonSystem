@@ -1,6 +1,8 @@
 package controller;
 
 import entity.DragonTrainer;
+import entity.Foreigner;
+import entity.Ticket;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +16,7 @@ import javafx.stage.Stage;
 import model.database.impl.DragonMomDAOImpl;
 import model.database.impl.DragonTrainerDAOImpl;
 import model.database.impl.ForeignerDAOImpl;
+import model.database.impl.TicketDAOImpl;
 import util.AddNodeForPane;
 import widget.AlertTool;
 import widget.DialogTool;
@@ -118,6 +121,7 @@ public class LoginController {
         String stageUrl = null;
         String stageTitle = null;
         DragonTrainer dragonTrainer = null;
+        Foreigner foreigner = null;
         if (new DragonMomDAOImpl().get(username, password) != null) {
             stageUrl = dragonMomUrl;
             stageTitle = "龙妈您好";
@@ -126,7 +130,7 @@ public class LoginController {
             stageUrl = dragonTrainerUrl;
             stageTitle = "驯龙高手您好";
             loginSuccess = true;
-        } else if (new ForeignerDAOImpl().get(username, password) != null) {
+        } else if ((foreigner = new ForeignerDAOImpl().get(username, password)) != null) {
             stageUrl = foreignerUrl;
             stageTitle = "外邦人您好";
             loginSuccess = true;
@@ -142,15 +146,23 @@ public class LoginController {
             stage.setTitle(stageTitle);
             stage.setWidth(700);
             stage.setHeight(500);
+
+            stage.show();
+
             //如果登陆的是驯龙高手
             if (dragonTrainer != null) {
-                //得到控制器，出入族群Id，调用初始化方法.
+                //得到控制器，传入族群Id，调用初始化方法.
                 DragonTrainerController dragonTrainerController = (DragonTrainerController) fx.getController();
                 int dragonGroupId = dragonTrainer.getDragonGroupId();
                 dragonTrainerController.setDragonGroupId(dragonGroupId);
                 dragonTrainerController.Init();
             }
-            stage.show();
+            if(foreigner != null){
+                //得到外邦人的控制器，传入登陆的外邦人的实例对象
+                ForeignerController foreignerController = (ForeignerController) fx.getController();
+                foreignerController.setForeigner(foreigner);
+                foreignerController.init();
+            }
         }
         return loginSuccess;
     }

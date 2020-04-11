@@ -41,7 +41,8 @@ create table dragonmom(
 	dragonMomId int primary key auto_increment,
 	name varchar(255) not null,
 	username varchar(255) unique not null,
-	password varchar(255) not null
+	password varchar(255) not null,
+	moneyTub float
 );
 
 drop table if exists foreigner;
@@ -52,7 +53,22 @@ create table foreigner(
 	name varchar(255) not null,
 	money double default 100.0
 );
-insert into dragonmom(name,username,password) values('mom','admin','123');
+
+drop table if exists ticket;
+create table ticket(
+    ticketId int primary key auto_increment,
+    foreignerId int unique not null,
+    price float,
+    type varchar(255),
+    buyTime varchar(255),
+    times int,
+    backing int,
+    foreign key(foreignerId) references foreigner(foreignerId)
+);
+
+
+
+insert into dragonmom(name,username,password) values('mom','admin','123',0);
 insert into dragongroup(name,profile,location,size) values('bawanglongguan','no','shenzhen','100.0');
 insert into dragongroup(name,profile,location,size) values('konglongguan','no','shenzhen','100.0');
 insert into dragongroup(name,profile,location,size) values('shenlongguan','no','shenzhen','100.0');
@@ -63,3 +79,4 @@ insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1
 insert into foreigner(username, password, name, money) values('yoyo','123','no1',100);
 insert into foreigner(username, password, name, money) values('yoyo2','1234','no2',100);
 insert into foreigner(username, password, name, money) values('yoyo3','1235','no3',100);
+insert into ticket(foreignerId,price,type,buyTime,times, backing) values(1,5,'rankone','2020.04.11',5,0);

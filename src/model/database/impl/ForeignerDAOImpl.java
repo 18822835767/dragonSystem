@@ -20,6 +20,12 @@ public class ForeignerDAOImpl implements IForeignerDAO {
         return DBUtils.executeUpdate(sql,username,password,name);
     }
 
+    @Override
+    public int update(int foreignerId, double money) {
+        String sql = "update foreigner set money = ? where foreignerId = ?";
+        return DBUtils.executeUpdate(sql,money,foreignerId);
+    }
+
     //用户名和密码查询
     @Override
     public Foreigner get(String username, String password) {

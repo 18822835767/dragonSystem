@@ -11,6 +11,11 @@ public interface IForeignerDAO {
     int save(String username,String password,String name);
 
     /**
+     * 更新外邦人余额.
+     * */
+    int update(int foreignerId,double money);
+
+    /**
      * 账户名+密码来得到外邦人.
      * */
     Foreigner get(String username,String password);

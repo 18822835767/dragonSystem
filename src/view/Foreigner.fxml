@@ -52,7 +52,7 @@
             </children>
         </VBox>
 
-        <TreeTableView fx:id="dragonTreeTableView" />
+        <TreeTableView fx:id="dragonTreeTableView" visible="false"/>
         <TreeTableView fx:id="groupTreeTableView" visible="false"/>
 
     </children>

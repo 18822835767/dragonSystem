@@ -2,17 +2,22 @@ package controller;
 
 import entity.Dragon;
 import entity.DragonGroup;
+import entity.Foreigner;
+import entity.Ticket;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.database.impl.DragonDAOImpl;
 import model.database.impl.DragonGroupDAOImpl;
+import model.database.impl.ForeignerDAOImpl;
+import model.database.impl.TicketDAOImpl;
 import util.AddNodeForPane;
+import view.BuyTicket;
 import view.ChangeUser;
 import view.InitDragonGroupView;
 import view.InitDragonView;
@@ -20,16 +25,14 @@ import widget.AlertTool;
 import widget.DialogTool;
 import widget.TextInputDialogTool;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
 /**
  * 外邦人的控制器，实现Initializable接口来初始化.
  * 为了使代码简洁，查询方法使用了自定义的工具类AddNodeForPane。
- * */
-public class ForeignerController implements Initializable {
+ */
+public class ForeignerController {
     @FXML
     TreeTableView<Dragon> dragonTreeTableView;
     @FXML
@@ -43,6 +46,16 @@ public class ForeignerController implements Initializable {
 
     TreeItem<DragonGroup> groupRoot = new TreeItem<DragonGroup>(new DragonGroup());
 
+    Foreigner foreigner = null;
+
+    Ticket ticket = null;
+
+    /**
+     * 标志是否成功入园.
+     */
+    boolean enterSuccess = false;
+
+
 
     /**
      * 因为多列树控件中删除一行时，需要是原来加载进去的那个TreeItem对象，所以这里先把TreeItem存起来.
@@ -53,16 +66,41 @@ public class ForeignerController implements Initializable {
     List<TreeItem<DragonGroup>> groupTreeItemList = new ArrayList<>();
 
     /**
-     * 初始化，默认先显示龙的表.
+     * 初始化.
+     * 这里判断外邦人是否有信物，有信物且有效次数足够，入园。无信物或者有效次数不够，买信物。
      */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    public void init() {
         initDragonTreeTable();
         initDragonTreeData();
         initGroupTreeTable();
         initGroupTreeData();
 
         tabPaneListener();
+
+        //初始化信物
+        Ticket ticket = new TicketDAOImpl().get(foreigner.getForeignerId());
+
+        //有信物的情况下
+        if (ticket != null) {
+            //如果信物的有效次数大于0，入园，有效次数-1
+            if (ticket.getTimes() > 0) {
+                dragonTreeTableView.setVisible(true);
+                int nowTimes = ticket.getTimes() - 1;//票的目前有效次数
+                new TicketDAOImpl().update(ticket.getTicketId(), nowTimes);//数据库中更新的有效次数
+                enterSuccess = true;
+            } else {//有效次数不够，需要重新买票。
+                enterSuccess = BuyTicket.buyTicketView(foreigner, ticket);
+            }
+        } else {//从没买过票的情况。购买信物。
+            enterSuccess = BuyTicket.buyTicketView(foreigner, ticket);
+        }
+
+        //若买票成功，默认先显示“龙”的表
+        if(enterSuccess){
+            dragonTreeTableView.setVisible(true);
+        }
+
 
     }
 
@@ -73,10 +111,10 @@ public class ForeignerController implements Initializable {
         tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
             public void changed(ObservableValue<? extends Tab> observableValue, Tab oldTab, Tab newTab) {
-                if (newTab.getText().equals("龙")) {
+                if (newTab.getText().equals("龙") && enterSuccess) {
                     dragonTreeTableView.setVisible(true);
                     groupTreeTableView.setVisible(false);
-                } else if (newTab.getText().equals("族群")) {
+                } else if (newTab.getText().equals("族群") && enterSuccess) {
                     dragonTreeTableView.setVisible(false);
                     groupTreeTableView.setVisible(true);
                 }
@@ -188,4 +226,7 @@ public class ForeignerController implements Initializable {
         InitDragonView.initDragonTreeData(dragonTreeTableView, dragonRoot, dragonTreeItemList);
     }
 
+    public void setForeigner(Foreigner foreigner) {
+        this.foreigner = foreigner;
+    }
 }
