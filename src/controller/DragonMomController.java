@@ -112,9 +112,9 @@ public class DragonMomController implements Initializable {
             //数据库保存数据,items记录影响的数据条数
             int items = new DragonTrainerDAOImpl().save(dragonGroupId, name, username, password);
 
-            if(items == 0){//说明没有插入数据
-                AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"族群不存在或者用户名已注册");
-            }else{
+            if (items == 0) {//说明没有插入数据
+                AlertTool.alert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是族群不存在或者用户名已注册");
+            } else {
                 DragonTrainer dragonTrainer = new DragonTrainerDAOImpl().get(username, password);
                 TreeItem<DragonTrainer> treeItem = new TreeItem(dragonTrainer);
                 trainerTreeItemList.add(treeItem);
@@ -137,9 +137,9 @@ public class DragonMomController implements Initializable {
             DragonTrainer dragonTrainer = new DragonTrainerDAOImpl().get(dragonTrainerId);
             int items = new DragonTrainerDAOImpl().delete(dragonTrainerId);
 
-            if(items == 0){//说明没有数据删除
-                AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"没有与id匹配的驯龙高手");
-            }else{
+            if (items == 0) {//说明没有数据删除
+                AlertTool.alert(Alert.AlertType.WARNING, "错误", "删除失败", "可能是没有与id匹配的驯龙高手");
+            } else {
                 for (TreeItem<DragonTrainer> treeItem : trainerTreeItemList) {
                     if (treeItem.getValue().getDragonTrainerId() == dragonTrainerId) {
                         trainerTreeItemList.remove(treeItem);
@@ -209,9 +209,9 @@ public class DragonMomController implements Initializable {
 
                     int items = new DragonTrainerDAOImpl().update(dragonTrainerId, dragonGroupId, name, username, password);
 
-                    if(items == 0){//说明没有数据修改
-                        AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"用户名已存在");
-                    }else{
+                    if (items == 0) {//说明没有数据修改
+                        AlertTool.alert(Alert.AlertType.WARNING, "错误", "修改失败", "可能用户名已存在");
+                    } else {
                         InitDragonTrainerView.flushTrainer(trainerTreeItemList, trainerRoot);
                     }
                 }
@@ -241,9 +241,9 @@ public class DragonMomController implements Initializable {
             double size = Double.parseDouble(textFields[3].getText().trim());
             int items = new DragonGroupDAOImpl().save(name, profile, location, size);
 
-            if(items == 0){//说明没有插入数据
-                AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"该名字已存在");
-            }else{
+            if (items == 0) {//说明没有插入数据
+                AlertTool.alert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是该名字已存在");
+            } else {
                 DragonGroup dragonGroup = new DragonGroupDAOImpl().get(name);
                 TreeItem<DragonGroup> treeItem = new TreeItem(dragonGroup);
                 groupTreeItemList.add(treeItem);
@@ -266,9 +266,9 @@ public class DragonMomController implements Initializable {
             DragonGroup dragonGroup = new DragonGroupDAOImpl().get(dragonGroupId);
             int items = new DragonGroupDAOImpl().delete(dragonGroupId);
 
-            if(items == 0){//说明没有数据删除
-                AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"没有与id匹配的族群");
-            }else {
+            if (items == 0) {//说明没有数据删除
+                AlertTool.alert(Alert.AlertType.WARNING, "错误", "删除失败", "可能是没有与id匹配的族群");
+            } else {
                 for (TreeItem<DragonGroup> treeItem : groupTreeItemList) {
                     if (treeItem.getValue().getId() == dragonGroupId) {
                         groupTreeItemList.remove(treeItem);
@@ -335,9 +335,9 @@ public class DragonMomController implements Initializable {
 
                     int items = new DragonGroupDAOImpl().update(name, profile, location, size, dragonGroupId);
 
-                    if(items == 0){//说明没有数据修改
-                        AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"该名字已存在");
-                    }else{
+                    if (items == 0) {//说明没有数据修改
+                        AlertTool.alert(Alert.AlertType.WARNING, "错误", "修改失败", "可能是该名字已存在");
+                    } else {
                         InitDragonGroupView.flushGroup(groupTreeItemList, groupRoot);
                     }
                 }
@@ -391,5 +391,5 @@ public class DragonMomController implements Initializable {
     public void initGroupTreeData() {
         InitDragonGroupView.initGroupTreeData(groupTreeTableView, groupRoot, groupTreeItemList);
     }
-
+    
 }

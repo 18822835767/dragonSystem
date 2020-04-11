@@ -148,7 +148,7 @@ public class DragonTrainerController {
             int items = new DragonDAOImpl().save(dragonGroupId, name, profile, false, true, sex, age);//数据库保存数据
 
             if(items == 0){//说明没有插入数据
-                AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"该名字已存在");
+                AlertTool.alert(Alert.AlertType.WARNING,"错误","添加失败","可能是该名字已存在");
             }else{
                 //通过族群id和名字来获取龙的实例
                 Dragon dragon = new DragonDAOImpl().get(dragonGroupId, name);
@@ -174,7 +174,7 @@ public class DragonTrainerController {
             int items = new DragonDAOImpl().delete(dragonId);
 
             if(items == 0){
-                AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"没有与id匹配的龙");
+                AlertTool.alert(Alert.AlertType.WARNING,"错误","删除失败","可能是没有与id匹配的龙");
             }else{
                 for (TreeItem<Dragon> treeItem : dragonTreeItemList) {
                     if (treeItem.getValue().getDragonId() == dragonId) {
@@ -278,7 +278,7 @@ public class DragonTrainerController {
                     int items = new DragonDAOImpl().update(dragonId, dragonGroupId, name, profile, training, healthy, age);
 
                     if(items == 0){//说明没有数据修改
-                        AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"该名字已存在");
+                        AlertTool.alert(Alert.AlertType.WARNING,"错误","修改失败","可能是该名字已存在");
                     }else{
                         InitDragonView.flushDragon(dragonTreeItemList, dragonRoot, dragonGroupId);
                     }
@@ -340,7 +340,7 @@ public class DragonTrainerController {
             int items = new DragonGroupDAOImpl().update(name, profile, location, size, dragonGroupId);
 
             if(items == 0){//说明没有数据修改
-                AlertTool.alert(Alert.AlertType.WARNING,"错误",null,"该名字已存在");
+                AlertTool.alert(Alert.AlertType.WARNING,"错误","修改失败","可能是该名字已存在");
             }else{
                 InitDragonGroupView.flushGroup(groupTreeItemList, groupRoot);
             }
