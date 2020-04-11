@@ -1,6 +1,7 @@
 package view;
 
 import entity.Dragon;
+import entity.DragonMom;
 import entity.Foreigner;
 import entity.Ticket;
 import javafx.beans.value.ChangeListener;
@@ -11,6 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import model.database.impl.DragonMomDAOImpl;
 import model.database.impl.ForeignerDAOImpl;
 import model.database.impl.TicketDAOImpl;
 import widget.AlertTool;
@@ -93,6 +95,7 @@ public class BuyTicket {
                     double balance = foreigner.getMoney() - Ticket.PRICE1;//用户剩余的钱
                     foreigner.setMoney(balance);//更新对象中的值
                     new ForeignerDAOImpl().update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
+                    new DragonMomDAOImpl().update(Ticket.PRICE1);//更新数据库的金库
                 }else{
                     AlertTool.alert(Alert.AlertType.WARNING,"购买失败",null,"余额不足");
                     return false;
@@ -108,6 +111,7 @@ public class BuyTicket {
                     double balance = foreigner.getMoney() - Ticket.PRICE2;//外邦人剩余的钱
                     foreigner.setMoney(balance);//更新对象的值
                     new ForeignerDAOImpl().update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
+                    new DragonMomDAOImpl().update(Ticket.PRICE2);//更新数据库的金库
                 }else{
                     AlertTool.alert(Alert.AlertType.WARNING,"购买失败",null,"余额不足");
                     return false;
@@ -123,12 +127,13 @@ public class BuyTicket {
                     double balance = foreigner.getMoney() - Ticket.PRICE3;//外邦人剩余的钱
                     foreigner.setMoney(balance);//更新对象的值
                     new ForeignerDAOImpl().update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
+                    new DragonMomDAOImpl().update(Ticket.PRICE3);//更新数据库的金库
                 }else{
                     AlertTool.alert(Alert.AlertType.WARNING,"购买失败",null,"余额不足");
                     return false;
                 }
             }
-            //购买成功
+            //购买成功后
             ticket = new TicketDAOImpl().get(foreigner.getForeignerId());//对象实例化
             return true;
         }

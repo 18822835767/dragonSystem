@@ -68,7 +68,7 @@ create table ticket(
 
 
 
-insert into dragonmom(name,username,password) values('mom','admin','123',0);
+insert into dragonmom(name,username,password,moneyTub) values('mom','admin','123',0);
 insert into dragongroup(name,profile,location,size) values('bawanglongguan','no','shenzhen','100.0');
 insert into dragongroup(name,profile,location,size) values('konglongguan','no','shenzhen','100.0');
 insert into dragongroup(name,profile,location,size) values('shenlongguan','no','shenzhen','100.0');
@@ -79,4 +79,3 @@ insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1
 insert into foreigner(username, password, name, money) values('yoyo','123','no1',100);
 insert into foreigner(username, password, name, money) values('yoyo2','1234','no2',100);
 insert into foreigner(username, password, name, money) values('yoyo3','1235','no3',100);
-insert into ticket(foreignerId,price,type,buyTime,times, backing) values(1,5,'rankone','2020.04.11',5,0);

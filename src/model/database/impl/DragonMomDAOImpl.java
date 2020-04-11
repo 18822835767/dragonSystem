@@ -12,6 +12,36 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DragonMomDAOImpl implements IDragonMomDAO {
+    @Override
+    public int update(double money) {
+        double moneyTub = get().getMoneyTub();
+        String sql = "update dragonmom set moneyTub = ?";
+        return DBUtils.executeUpdate(sql,moneyTub+money);
+    }
+
+    @Override
+    public DragonMom get() {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "select * from dragonmom";
+        try {
+            conn = DBUtils.getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                DragonMom dragonMom = new DragonMom(rs.getInt("dragonMomId"), rs.getString("name"),
+                        rs.getString("username"), rs.getString("password"),rs.getFloat("moneyTub"));
+                return dragonMom;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBUtils.close(conn,ps,rs);
+        }
+        return null;
+    }
+
     //用户名和密码查询
     @Override
     public DragonMom get(String username, String password) {
@@ -27,7 +57,7 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
             rs = ps.executeQuery();
             if(rs.next()){
                 DragonMom dragonMom = new DragonMom(rs.getInt("dragonMomId"), rs.getString("name"),
-                        rs.getString("username"), rs.getString("password"));
+                        rs.getString("username"), rs.getString("password"),rs.getFloat("moneyTub"));
                 return dragonMom;
             }
         } catch (SQLException e) {
@@ -40,24 +70,6 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
 
     @Override
     public String getUsername() {
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        String sql = "select * from dragonmom";
-        try {
-            conn = DBUtils.getConnection();
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            if(rs.next()){
-                DragonMom dragonMom = new DragonMom(rs.getInt("dragonMomId"), rs.getString("name"),
-                        rs.getString("username"), rs.getString("password"));
-                return dragonMom.getUsername();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
-            DBUtils.close(conn,ps,rs);
-        }
-        return null;
+        return get().getUsername();
     }
 }
