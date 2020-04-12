@@ -2,7 +2,6 @@ package controller;
 
 import entity.DragonTrainer;
 import entity.Foreigner;
-import entity.Ticket;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +15,6 @@ import javafx.stage.Stage;
 import model.database.impl.DragonMomDAOImpl;
 import model.database.impl.DragonTrainerDAOImpl;
 import model.database.impl.ForeignerDAOImpl;
-import model.database.impl.TicketDAOImpl;
 import util.AddNodeForPane;
 import widget.AlertTool;
 import widget.DialogTool;

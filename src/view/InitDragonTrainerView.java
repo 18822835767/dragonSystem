@@ -9,6 +9,7 @@ import javafx.util.Callback;
 import model.database.impl.DragonGroupDAOImpl;
 import model.database.impl.DragonTrainerDAOImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -116,7 +117,7 @@ public class InitDragonTrainerView {
         List<DragonTrainer> dragonTrainerList = new DragonTrainerDAOImpl().getList();
         if (dragonTrainerList != null) {
             for (DragonTrainer dragonTrainer : dragonTrainerList) {
-                TreeItem<DragonTrainer> treeItem = new TreeItem(dragonTrainer);
+                TreeItem<DragonTrainer> treeItem = new TreeItem<>(dragonTrainer);
                 trainerTreeItemList.add(treeItem);
                 trainerRoot.getChildren().add(treeItem);
             }
