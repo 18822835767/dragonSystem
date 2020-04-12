@@ -37,7 +37,7 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            DBUtils.close(conn,ps,rs);
+            DBUtils.close(null,ps,rs);
         }
         return null;
     }
@@ -63,7 +63,7 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            DBUtils.close(conn,ps,rs);
+            DBUtils.close(null,ps,rs);
         }
         return null;
     }

@@ -7,10 +7,10 @@ import java.util.ResourceBundle;
  * JDBC工具包
  */
 public class DBUtils {
-    private static String driver;
-    private static String url;
-    private static String username;
-    private static String password;
+    /**
+     * 在静态代码块中加载connection，只有一份，重复利用
+     * */
+    private static Connection conn;
 
     private DBUtils() {
     }
@@ -21,26 +21,23 @@ public class DBUtils {
     static {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("resource/jdbc");
-            driver = bundle.getString("driver");
-            url = bundle.getString("url");
-            username = bundle.getString("username");
-            password = bundle.getString("password");
+            String driver = bundle.getString("driver");
+            String url = bundle.getString("url");
+            String username = bundle.getString("username");
+            String password = bundle.getString("password");
             Class.forName(driver);
+
+            conn = DriverManager.getConnection(url, username, password);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static Connection getConnection() {
-        try {
-            return DriverManager.getConnection(url, username, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return conn;
     }
 
-    public static void close(Connection conn, Statement stmt, ResultSet rs) {
+    public static void close(Connection connection, Statement stmt, ResultSet rs) {
         if (rs != null) {
             try {
                 rs.close();
@@ -57,9 +54,9 @@ public class DBUtils {
             }
         }
 
-        if (conn != null) {
+        if (connection != null) {
             try {
-                conn.close();
+                connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -70,11 +67,8 @@ public class DBUtils {
      * DML语句封装在工具类里.
      * */
     public static int executeUpdate(String sql, Object... params) {
-        Connection conn = null;
         PreparedStatement ps = null;
         try {
-            //加载驱动、获取连接
-            conn = DBUtils.getConnection();
             //获取数据库预编译操作对象
             ps = conn.prepareStatement(sql);
             //params参数遍历
@@ -85,7 +79,7 @@ public class DBUtils {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(conn, ps, null);
+            DBUtils.close(null, ps, null);
         }
         return 0;
     }

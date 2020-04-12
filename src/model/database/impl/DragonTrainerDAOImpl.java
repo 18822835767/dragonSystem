@@ -52,7 +52,7 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(conn,ps, rs);
+            DBUtils.close(null,ps, rs);
         }
         return null;
     }
@@ -78,7 +78,7 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            DBUtils.close(conn,ps,rs);
+            DBUtils.close(null,ps,rs);
         }
         return null;
     }
@@ -104,7 +104,7 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(conn,ps, rs);
+            DBUtils.close(null,ps, rs);
         }
         return null;
     }
@@ -129,7 +129,7 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(conn,ps, rs);
+            DBUtils.close(null,ps, rs);
         }
         return null;
     }

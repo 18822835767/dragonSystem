@@ -49,7 +49,7 @@ public class TicketDAOImpl implements ITicketDAO{
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(conn,ps, rs);
+            DBUtils.close(null,ps, rs);
         }
         return null;
     }

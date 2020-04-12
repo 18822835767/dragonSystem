@@ -5,6 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import util.DBUtils;
+
+import java.sql.Connection;
 
 /**
  * 启动类.
@@ -30,9 +33,14 @@ public class Main extends Application {
         loginController.init();
     }
 
+    /**
+     * 最后程序结束的时候，关闭连接对象connection
+     * */
     @Override
     public void stop() throws Exception {
         super.stop();
+        Connection conn = DBUtils.getConnection();
+        DBUtils.close(conn,null,null);
     }
 
     public static void main(String[] args) {

@@ -49,7 +49,7 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(conn,ps, rs);
+            DBUtils.close(null,ps, rs);
         }
         return null;
     }
@@ -73,7 +73,7 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(conn,ps, rs);
+            DBUtils.close(null,ps, rs);
         }
         return null;
     }
@@ -103,7 +103,7 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(conn,ps, rs);
+            DBUtils.close(null,ps, rs);
         }
         return null;
     }
