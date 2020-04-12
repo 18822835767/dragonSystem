@@ -107,20 +107,29 @@ public class InitDragonView {
                 setText(null);
             } else {
                 setGraphic(null);
-                if (columnID.equals("Id")) {
-                    setText(String.valueOf(item.getDragonId()));
-                } else if (columnID.equals("name")) {
-                    setText(item.getName());
-                } else if (columnID.equals("sex")) {
-                    setText(String.valueOf(item.getSex()));
-                } else if (columnID.equals("age")) {
-                    setText(String.valueOf(item.getAge()));
-                } else if (columnID.equals("profile")) {
-                    setText(item.getProfile());
-                } else if (columnID.equals("training")) {
-                    setText(String.valueOf(item.isTraining()));
-                } else if (columnID.equals("healthy")) {
-                    setText(String.valueOf(item.isHealthy()));
+
+                switch (columnID) {
+                    case "Id":
+                        setText(String.valueOf(item.getDragonId()));
+                        break;
+                    case "name":
+                        setText(item.getName());
+                        break;
+                    case "sex":
+                        setText(String.valueOf(item.getSex()));
+                        break;
+                    case "age":
+                        setText(String.valueOf(item.getAge()));
+                        break;
+                    case "profile":
+                        setText(item.getProfile());
+                        break;
+                    case "training":
+                        setText(String.valueOf(item.isTraining()));
+                        break;
+                    case "healthy":
+                        setText(String.valueOf(item.isHealthy()));
+                        break;
                 }
             }
         }

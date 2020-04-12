@@ -13,18 +13,18 @@ import java.util.List;
 /**
  * 负责显示族群列表TreeTableView，封转成一个View的工具类.
  * 可以根据需要显示对应的列
- * */
+ */
 public class InitDragonGroupView {
     /**
      * 族群表：
      * 设置列名、列宽
      */
-    public static void initGroupTreeTable(TreeTableView<DragonGroup> groupTreeTableView,String [] columnName,
-                                          double [] columnPrefWidth,String [] columnId) {
+    public static void initGroupTreeTable(TreeTableView<DragonGroup> groupTreeTableView, String[] columnName,
+                                          double[] columnPrefWidth, String[] columnId) {
         //这里添加了多个列
         int columnNum = columnName.length;
         TreeTableColumn<DragonGroup, DragonGroup> columns[] = new TreeTableColumn[columnNum];
-        for(int i=0;i<columnNum;i++){
+        for (int i = 0; i < columnNum; i++) {
             columns[i] = new TreeTableColumn(columnName[i]);
         }
         groupTreeTableView.getColumns().addAll(columns);
@@ -41,13 +41,13 @@ public class InitDragonGroupView {
         }
 
         //设置列的宽度
-        for(int i=0;i<columnNum;i++){
+        for (int i = 0; i < columnNum; i++) {
             columns[i].setPrefWidth(columnPrefWidth[i]);
         }
 
 
         //设置CellFactory,定义每一列单元格的显示
-        for(int i=0;i<columnNum;i++){
+        for (int i = 0; i < columnNum; i++) {
             int finalI = i;
             columns[i].setCellFactory((param) -> {
                 return new InitDragonGroupView.GroupTableTreeCell(columnId[finalI]);
@@ -66,7 +66,7 @@ public class InitDragonGroupView {
         groupTreeTableView.setRoot(groupRoot);
         groupTreeTableView.setShowRoot(false);
 
-        flushGroup(groupTreeItemList,groupRoot);
+        flushGroup(groupTreeItemList, groupRoot);
     }
 
     /**
@@ -90,17 +90,27 @@ public class InitDragonGroupView {
                 setText(null);
             } else {
                 setGraphic(null);
-                if (columnID.equals("name")) {
-                    setText(item.getName());
-                } else if (columnID.equals("Id")) {
-                    setText(String.valueOf(item.getId()));
-                } else if (columnID.equals("profile")) {
-                    setText(item.getProfile());
-                } else if (columnID.equals("location")) {
-                    setText(item.getLocation());
-                } else if (columnID.equals("size")) {
-                    setText(String.valueOf(item.getSize()));
+
+                switch (columnID) {
+                    case "name":
+                        setText(item.getName());
+                        break;
+                    case "Id":
+                        setText(String.valueOf(item.getId()));
+                        break;
+                    case "profile":
+                        setText(item.getProfile());
+                        break;
+                    case "location":
+                        setText(item.getLocation());
+                        break;
+                    case "size":
+                        setText(String.valueOf(item.getSize()));
+                        break;
+                    default:
+                        break;
                 }
+
             }
         }
     }

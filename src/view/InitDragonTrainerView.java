@@ -91,18 +91,27 @@ public class InitDragonTrainerView {
                 setText(null);
             } else {
                 setGraphic(null);
-                if (columnID.equals("name")) {
-                    this.setText(item.getName());
-                } else if (columnID.equals("Id")) {
-                    this.setText(String.valueOf(item.getDragonTrainerId()));
-                } else if (columnID.equals("dragonGroupId")) {
-                    this.setText(String.valueOf(item.getDragonGroupId()));
-                } else if (columnID.equals("dragonGroupName")) {
-                    int dragonGroupId = item.getDragonGroupId();
-                    //获得族群名字
-                    String dragonGroupName = new DragonGroupDAOImpl().get(dragonGroupId).getName();
-                    this.setText(dragonGroupName);
+
+                switch (columnID){
+                    case "name":
+                        this.setText(item.getName());
+                        break;
+                    case "Id":
+                        this.setText(String.valueOf(item.getDragonTrainerId()));
+                        break;
+                    case "dragonGroupId":
+                        this.setText(String.valueOf(item.getDragonGroupId()));
+                        break;
+                    case "dragonGroupName":
+                        int dragonGroupId = item.getDragonGroupId();
+                        //获得族群名字
+                        String dragonGroupName = new DragonGroupDAOImpl().get(dragonGroupId).getName();
+                        this.setText(dragonGroupName);
+                        break;
+                    default:
+                        break;
                 }
+
             }
         }
     }
