@@ -12,11 +12,15 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import model.IDragonDAO;
+import model.IDragonGroupDAO;
+import model.ITicketDAO;
 import model.database.impl.DragonDAOImpl;
 import model.database.impl.DragonGroupDAOImpl;
 import model.database.impl.ForeignerDAOImpl;
 import model.database.impl.TicketDAOImpl;
 import util.AddNodeForPane;
+import util.DAOFactory;
 import view.BuyTicket;
 import view.ChangeUser;
 import view.InitDragonGroupView;
@@ -41,6 +45,12 @@ public class ForeignerController {
     TabPane tabPane;
     @FXML
     Button changeUser;
+
+    IDragonDAO iDragonDAO = DAOFactory.getDragonDAOInstance();
+
+    IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
+
+    ITicketDAO iTicketDAO = DAOFactory.getTicketDAOInstance();
 
     TreeItem<Dragon> dragonRoot = new TreeItem<Dragon>(new Dragon());
 
@@ -79,7 +89,7 @@ public class ForeignerController {
         tabPaneListener();
 
         //初始化信物
-        Ticket ticket = new TicketDAOImpl().get(foreigner.getForeignerId());
+        Ticket ticket = iTicketDAO.get(foreigner.getForeignerId());
 
         //有信物的情况下
         if (ticket != null) {
@@ -87,7 +97,7 @@ public class ForeignerController {
             if (ticket.getTimes() > 0) {
                 dragonTreeTableView.setVisible(true);
                 int nowTimes = ticket.getTimes() - 1;//票的目前有效次数
-                new TicketDAOImpl().update(ticket.getTicketId(), nowTimes);//数据库中更新的有效次数
+                iTicketDAO.update(ticket.getTicketId(), nowTimes);//数据库中更新的有效次数
                 enterSuccess = true;
             } else {//有效次数不够，需要重新买票。
                 enterSuccess = BuyTicket.buyTicketView(foreigner, ticket);
@@ -138,7 +148,7 @@ public class ForeignerController {
                 "请输入龙的Id", "Id:");
         if (result.isPresent()) {
             int dragonId = Integer.parseInt(result.get());
-            Dragon dragon = new DragonDAOImpl().get(dragonId);
+            Dragon dragon = iDragonDAO.get(dragonId);
             if (dragon != null) {
                 VBox vBox = new VBox(10);
 
@@ -164,7 +174,7 @@ public class ForeignerController {
                 "请输入族群的Id", "Id:");
         if (result.isPresent()) {
             int dragonGroupId = Integer.parseInt(result.get());
-            DragonGroup dragonGroup = new DragonGroupDAOImpl().get(dragonGroupId);
+            DragonGroup dragonGroup = iDragonGroupDAO.get(dragonGroupId);
             if (dragonGroup != null) {
                 VBox vBox = new VBox(10);
 

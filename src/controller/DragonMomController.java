@@ -11,9 +11,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import model.IDragonGroupDAO;
+import model.IDragonTrainerDAO;
 import model.database.impl.DragonGroupDAOImpl;
 import model.database.impl.DragonTrainerDAOImpl;
 import util.AddNodeForPane;
+import util.DAOFactory;
 import view.ChangeUser;
 import view.InitDragonGroupView;
 import view.InitDragonTrainerView;
@@ -40,6 +43,10 @@ public class DragonMomController implements Initializable {
     TabPane tabPane;
     @FXML
     Button changeUser;
+
+    IDragonTrainerDAO iDragonTrainerDAO = DAOFactory.getDragonTrainerDAOInstance();
+
+    IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
 
     TreeItem<DragonTrainer> trainerRoot = new TreeItem<DragonTrainer>(new DragonTrainer());
 
@@ -110,12 +117,12 @@ public class DragonMomController implements Initializable {
             String username = textFields[2].getText().trim();
             String password = textFields[3].getText().trim();
             //数据库保存数据,items记录影响的数据条数
-            int items = new DragonTrainerDAOImpl().save(dragonGroupId, name, username, password);
+            int items = iDragonTrainerDAO.save(dragonGroupId, name, username, password);
 
             if (items == 0) {//说明没有插入数据
                 AlertTool.alert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是族群不存在或者用户名已注册");
             } else {
-                DragonTrainer dragonTrainer = new DragonTrainerDAOImpl().get(username, password);
+                DragonTrainer dragonTrainer = iDragonTrainerDAO.get(username, password);
                 TreeItem<DragonTrainer> treeItem = new TreeItem(dragonTrainer);
                 trainerTreeItemList.add(treeItem);
                 trainerRoot.getChildren().add(treeItem);
@@ -134,8 +141,8 @@ public class DragonMomController implements Initializable {
         //如果用户点击了确定按钮
         if (result.isPresent()) {
             int dragonTrainerId = Integer.parseInt(result.get().trim());
-            DragonTrainer dragonTrainer = new DragonTrainerDAOImpl().get(dragonTrainerId);
-            int items = new DragonTrainerDAOImpl().delete(dragonTrainerId);
+            DragonTrainer dragonTrainer = iDragonTrainerDAO.get(dragonTrainerId);
+            int items = iDragonTrainerDAO.delete(dragonTrainerId);
 
             if (items == 0) {//说明没有数据删除
                 AlertTool.alert(Alert.AlertType.WARNING, "错误", "删除失败", "可能是没有与id匹配的驯龙高手");
@@ -159,13 +166,13 @@ public class DragonMomController implements Initializable {
                 "请输入驯龙高手的Id", "Id:");
         if (result.isPresent()) {
             int dragonTrainerId = Integer.parseInt(result.get());
-            DragonTrainer trainer = new DragonTrainerDAOImpl().get(dragonTrainerId);
+            DragonTrainer trainer = iDragonTrainerDAO.get(dragonTrainerId);
             if (trainer != null) {
                 int dragonGroupId = trainer.getDragonGroupId();
                 VBox vBox = new VBox(10);
 
                 String[] textContents = {"名字:" + trainer.getName(), "Id:" + dragonGroupId,
-                        "族群名字:" + new DragonGroupDAOImpl().get(dragonGroupId).getName(),
+                        "族群名字:" + iDragonTrainerDAO.get(dragonGroupId).getName(),
                         "族群Id:" + trainer.getDragonGroupId(), "用户名:" + trainer.getUsername(),
                         "密码:" + trainer.getPassword()};
                 AddNodeForPane.addTextForPane(vBox, textContents);
@@ -187,7 +194,7 @@ public class DragonMomController implements Initializable {
                 "Id:");
         if (result.isPresent()) {
             int dragonTrainerId = Integer.parseInt(result.get());
-            DragonTrainer trainer = new DragonTrainerDAOImpl().get(dragonTrainerId);
+            DragonTrainer trainer = iDragonTrainerDAO.get(dragonTrainerId);
             if (trainer != null) {
                 GridPane gridPane = new GridPane();
 
@@ -207,7 +214,7 @@ public class DragonMomController implements Initializable {
                     String username = textFields[2].getText().trim();
                     String password = textFields[3].getText().trim();
 
-                    int items = new DragonTrainerDAOImpl().update(dragonTrainerId, dragonGroupId, name, username, password);
+                    int items = iDragonTrainerDAO.update(dragonTrainerId, dragonGroupId, name, username, password);
 
                     if (items == 0) {//说明没有数据修改
                         AlertTool.alert(Alert.AlertType.WARNING, "错误", "修改失败", "可能用户名已存在");
@@ -239,13 +246,13 @@ public class DragonMomController implements Initializable {
             String profile = textFields[1].getText().trim();
             String location = textFields[2].getText().trim();
             double size = Double.parseDouble(textFields[3].getText().trim());
-            int items = new DragonGroupDAOImpl().save(name, profile, location, size);
+            int items = iDragonGroupDAO.save(name, profile, location, size);
 
             if (items == 0) {//说明没有插入数据
                 AlertTool.alert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是该名字已存在");
             } else {
-                DragonGroup dragonGroup = new DragonGroupDAOImpl().get(name);
-                TreeItem<DragonGroup> treeItem = new TreeItem(dragonGroup);
+                DragonGroup dragonGroup = iDragonGroupDAO.get(name);
+                TreeItem<DragonGroup> treeItem = new TreeItem<>(dragonGroup);
                 groupTreeItemList.add(treeItem);
                 groupRoot.getChildren().add(treeItem);
             }
@@ -263,8 +270,8 @@ public class DragonMomController implements Initializable {
         //如果用户点击了确定按钮
         if (result.isPresent()) {
             int dragonGroupId = Integer.parseInt(result.get().trim());
-            DragonGroup dragonGroup = new DragonGroupDAOImpl().get(dragonGroupId);
-            int items = new DragonGroupDAOImpl().delete(dragonGroupId);
+            DragonGroup dragonGroup = iDragonGroupDAO.get(dragonGroupId);
+            int items = iDragonGroupDAO.delete(dragonGroupId);
 
             if (items == 0) {//说明没有数据删除
                 AlertTool.alert(Alert.AlertType.WARNING, "错误", "删除失败", "可能是没有与id匹配的族群");
@@ -288,7 +295,7 @@ public class DragonMomController implements Initializable {
                 "请输入族群的Id", "Id:");
         if (result.isPresent()) {
             int dragonGroupId = Integer.parseInt(result.get());
-            DragonGroup group = new DragonGroupDAOImpl().get(dragonGroupId);
+            DragonGroup group =iDragonGroupDAO.get(dragonGroupId);
             if (group != null) {
                 VBox vBox = new VBox(10);
 
@@ -313,7 +320,7 @@ public class DragonMomController implements Initializable {
                 "Id:");
         if (result.isPresent()) {
             int dragonGroupId = Integer.parseInt(result.get());
-            DragonGroup group = new DragonGroupDAOImpl().get(dragonGroupId);
+            DragonGroup group = iDragonGroupDAO.get(dragonGroupId);
             if (group != null) {
                 GridPane gridPane = new GridPane();
 
@@ -333,7 +340,7 @@ public class DragonMomController implements Initializable {
                     String location = textFields[2].getText().trim();
                     double size = Double.parseDouble(textFields[3].getText().trim());
 
-                    int items = new DragonGroupDAOImpl().update(name, profile, location, size, dragonGroupId);
+                    int items = iDragonGroupDAO.update(name, profile, location, size, dragonGroupId);
 
                     if (items == 0) {//说明没有数据修改
                         AlertTool.alert(Alert.AlertType.WARNING, "错误", "修改失败", "可能是该名字已存在");

@@ -12,10 +12,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.IDragonMomDAO;
+import model.IDragonTrainerDAO;
+import model.IForeignerDAO;
 import model.database.impl.DragonMomDAOImpl;
 import model.database.impl.DragonTrainerDAOImpl;
 import model.database.impl.ForeignerDAOImpl;
 import util.AddNodeForPane;
+import util.DAOFactory;
 import widget.AlertTool;
 import widget.DialogTool;
 import widget.SingleSelectionTool;
@@ -33,6 +37,12 @@ public class LoginController {
     private Button sighIn;
     @FXML
     private CheckBox autoLogin;
+
+    IDragonMomDAO iDragonMomDAO = DAOFactory.getDragonMomDAOInstance();
+
+    IDragonTrainerDAO iDragonTrainerDAO = DAOFactory.getDragonTrainerDAOInstance();
+
+    IForeignerDAO iForeignerDAO = DAOFactory.getForeignerDAOInstance();
 
     public static final String dragonMomUrl = "view/DragonMom.fxml";
     public static final String dragonTrainerUrl = "view/DragonTrainer.fxml";
@@ -120,15 +130,15 @@ public class LoginController {
         String stageTitle = null;
         DragonTrainer dragonTrainer = null;
         Foreigner foreigner = null;
-        if (new DragonMomDAOImpl().get(username, password) != null) {
+        if (iDragonMomDAO.get(username, password) != null) {
             stageUrl = dragonMomUrl;
             stageTitle = "龙妈您好";
             loginSuccess = true;
-        } else if ((dragonTrainer = new DragonTrainerDAOImpl().get(username, password)) != null) {
+        } else if ((dragonTrainer = iDragonTrainerDAO.get(username, password)) != null) {
             stageUrl = dragonTrainerUrl;
             stageTitle = "驯龙高手您好";
             loginSuccess = true;
-        } else if ((foreigner = new ForeignerDAOImpl().get(username, password)) != null) {
+        } else if ((foreigner = iForeignerDAO.get(username, password)) != null) {
             stageUrl = foreignerUrl;
             stageTitle = "外邦人您好";
             loginSuccess = true;
@@ -220,7 +230,7 @@ public class LoginController {
                     String username = textFields[1].getText().trim();
                     String password = textFields[2].getText().trim();
 
-                    new ForeignerDAOImpl().save(username, password, name);
+                    iForeignerDAO.save(username, password, name);
 
                     AlertTool.alert(Alert.AlertType.INFORMATION, null, null, "注册成功");
                 }
@@ -243,7 +253,7 @@ public class LoginController {
                     String password = textFields[2].getText().trim();
                     int dragonGroupId = Integer.parseInt(textFields[3].getText().trim());
 
-                    new DragonTrainerDAOImpl().save(dragonGroupId, name, username, password);
+                    iDragonTrainerDAO.save(dragonGroupId, name, username, password);
 
                     AlertTool.alert(Alert.AlertType.INFORMATION, null, null, "注册成功");
                 }

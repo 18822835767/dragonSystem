@@ -12,9 +12,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import model.IDragonMomDAO;
+import model.IForeignerDAO;
+import model.ITicketDAO;
 import model.database.impl.DragonMomDAOImpl;
 import model.database.impl.ForeignerDAOImpl;
 import model.database.impl.TicketDAOImpl;
+import util.DAOFactory;
 import widget.AlertTool;
 import widget.DialogTool;
 
@@ -26,6 +30,13 @@ import java.util.Optional;
  * 买票流程:外邦人先选票，选了票后看钱够不够，够的话买票成功，不够的话，买票失败.
  * */
 public class BuyTicket {
+
+    static IDragonMomDAO iDragonMomDAO = DAOFactory.getDragonMomDAOInstance();
+
+    static IForeignerDAO iForeignerDAO = DAOFactory.getForeignerDAOInstance();
+
+    static ITicketDAO iTicketDAO = DAOFactory.getTicketDAOInstance();
+
     private BuyTicket() {
     }
 
@@ -79,7 +90,7 @@ public class BuyTicket {
 
         //如果外邦人选择了买票
         if (result.isPresent() && comboBox.getValue() != null) {
-            new TicketDAOImpl().delete(foreigner.getForeignerId());//删除以前的票。以前没有票也不影响.
+            iTicketDAO.delete(foreigner.getForeignerId());//删除以前的票。以前没有票也不影响.
             SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date();
             String currentTime = timeFormat.format(date);//得出当前买票时间
@@ -89,13 +100,13 @@ public class BuyTicket {
                 //如果用户买了一等票
                 if(foreigner.getMoney() >= Ticket.PRICE1){
                     //如果用户余额足够
-                    new TicketDAOImpl().save(foreigner.getForeignerId(), Ticket.PRICE1, Ticket.TYPE1, currentTime,
+                    iTicketDAO.save(foreigner.getForeignerId(), Ticket.PRICE1, Ticket.TYPE1, currentTime,
                             Ticket.TIMES1 - 1, false);
 
                     double balance = foreigner.getMoney() - Ticket.PRICE1;//用户剩余的钱
                     foreigner.setMoney(balance);//更新对象中的值
-                    new ForeignerDAOImpl().update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
-                    new DragonMomDAOImpl().update(Ticket.PRICE1);//更新数据库的金库
+                    iForeignerDAO.update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
+                    iDragonMomDAO.update(Ticket.PRICE1);//更新数据库的金库
                 }else{
                     AlertTool.alert(Alert.AlertType.WARNING,"购买失败",null,"余额不足");
                     return false;
@@ -105,13 +116,13 @@ public class BuyTicket {
                 //如果用户购买了二等票
                 if(foreigner.getMoney() >= Ticket.PRICE2){
                     //如果用户余额足够
-                    new TicketDAOImpl().save(foreigner.getForeignerId(), Ticket.PRICE2, Ticket.TYPE2, currentTime,
+                    iTicketDAO.save(foreigner.getForeignerId(), Ticket.PRICE2, Ticket.TYPE2, currentTime,
                             Ticket.TIMES2 - 1, false);
 
                     double balance = foreigner.getMoney() - Ticket.PRICE2;//外邦人剩余的钱
                     foreigner.setMoney(balance);//更新对象的值
-                    new ForeignerDAOImpl().update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
-                    new DragonMomDAOImpl().update(Ticket.PRICE2);//更新数据库的金库
+                    iForeignerDAO.update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
+                    iDragonMomDAO.update(Ticket.PRICE2);//更新数据库的金库
                 }else{
                     AlertTool.alert(Alert.AlertType.WARNING,"购买失败",null,"余额不足");
                     return false;
@@ -121,20 +132,20 @@ public class BuyTicket {
                 //如果用户购买了三等票
                 if(foreigner.getMoney() >= Ticket.PRICE3){
                     //如果用户余额足够
-                    new TicketDAOImpl().save(foreigner.getForeignerId(), Ticket.PRICE3, Ticket.TYPE3, currentTime,
+                    iTicketDAO.save(foreigner.getForeignerId(), Ticket.PRICE3, Ticket.TYPE3, currentTime,
                             Ticket.TIMES3 - 1, false);
 
                     double balance = foreigner.getMoney() - Ticket.PRICE3;//外邦人剩余的钱
                     foreigner.setMoney(balance);//更新对象的值
-                    new ForeignerDAOImpl().update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
-                    new DragonMomDAOImpl().update(Ticket.PRICE3);//更新数据库的金库
+                    iForeignerDAO.update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
+                    iDragonMomDAO.update(Ticket.PRICE3);//更新数据库的金库
                 }else{
                     AlertTool.alert(Alert.AlertType.WARNING,"购买失败",null,"余额不足");
                     return false;
                 }
             }
             //购买成功后
-            ticket = new TicketDAOImpl().get(foreigner.getForeignerId());//对象实例化
+            ticket = iTicketDAO.get(foreigner.getForeignerId());//对象实例化
             return true;
         }
         return false;

@@ -114,7 +114,7 @@ public class InitDragonGroupView {
         List<DragonGroup> dragonGroupList = new DragonGroupDAOImpl().getList();
         if (dragonGroupList != null) {
             for (DragonGroup dragonGroup : dragonGroupList) {
-                TreeItem<DragonGroup> treeItem = new TreeItem(dragonGroup);
+                TreeItem<DragonGroup> treeItem = new TreeItem<>(dragonGroup);
                 groupTreeItemList.add(treeItem);
                 groupRoot.getChildren().add(treeItem);
             }

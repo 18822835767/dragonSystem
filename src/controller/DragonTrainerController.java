@@ -11,9 +11,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import model.IDragonDAO;
+import model.IDragonGroupDAO;
 import model.database.impl.DragonDAOImpl;
 import model.database.impl.DragonGroupDAOImpl;
 import util.AddNodeForPane;
+import util.DAOFactory;
 import view.ChangeUser;
 import view.InitDragonGroupView;
 import view.InitDragonView;
@@ -43,6 +46,10 @@ public class DragonTrainerController {
     Text text1;
     @FXML
     Text text2;
+
+    IDragonDAO iDragonDAO = DAOFactory.getDragonDAOInstance();
+
+    IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
 
     /**
      * 记录驯龙高手所在族群的Id.
@@ -145,14 +152,14 @@ public class DragonTrainerController {
             } else if (radioButtons[1].isSelected()) {
                 sex = radioButtons[1].getText();
             }
-            int items = new DragonDAOImpl().save(dragonGroupId, name, profile, false, true, sex, age);//数据库保存数据
+            int items = iDragonDAO.save(dragonGroupId, name, profile, false, true, sex, age);//数据库保存数据
 
             if(items == 0){//说明没有插入数据
                 AlertTool.alert(Alert.AlertType.WARNING,"错误","添加失败","可能是该名字已存在");
             }else{
                 //通过族群id和名字来获取龙的实例
-                Dragon dragon = new DragonDAOImpl().get(dragonGroupId, name);
-                TreeItem<Dragon> treeItem = new TreeItem(dragon);
+                Dragon dragon = iDragonDAO.get(dragonGroupId, name);
+                TreeItem<Dragon> treeItem = new TreeItem<>(dragon);
                 dragonTreeItemList.add(treeItem);
                 dragonRoot.getChildren().add(treeItem);
             }
@@ -170,8 +177,8 @@ public class DragonTrainerController {
         //如果用户点击了确定按钮
         if (result.isPresent()) {
             int dragonId = Integer.parseInt(result.get().trim());
-            Dragon dragon = new DragonDAOImpl().get(dragonId);
-            int items = new DragonDAOImpl().delete(dragonId);
+            Dragon dragon = iDragonDAO.get(dragonId);
+            int items = iDragonDAO.delete(dragonId);
 
             if(items == 0){
                 AlertTool.alert(Alert.AlertType.WARNING,"错误","删除失败","可能是没有与id匹配的龙");
@@ -195,7 +202,7 @@ public class DragonTrainerController {
                 "请输入龙的Id", "Id:");
         if (result.isPresent()) {
             int dragonId = Integer.parseInt(result.get());
-            Dragon dragon = new DragonDAOImpl().get(dragonId);
+            Dragon dragon = iDragonDAO.get(dragonId);
             if (dragon != null) {
                 VBox vBox = new VBox(10);
 
@@ -221,7 +228,7 @@ public class DragonTrainerController {
                 "Id:");
         if (result.isPresent()) {
             int dragonId = Integer.parseInt(result.get());
-            Dragon dragon = new DragonDAOImpl().get(dragonId);
+            Dragon dragon = iDragonDAO.get(dragonId);
             boolean dragonTraining = dragon.isTraining();//标记龙未修改前的训练状态
             boolean dragonHealthy = dragon.isHealthy();//标记龙未修改前的健康状态
             if (dragon != null) {
@@ -275,7 +282,7 @@ public class DragonTrainerController {
                         healthy = false;
                     }
 
-                    int items = new DragonDAOImpl().update(dragonId, dragonGroupId, name, profile, training, healthy, age);
+                    int items = iDragonDAO.update(dragonId, dragonGroupId, name, profile, training, healthy, age);
 
                     if(items == 0){//说明没有数据修改
                         AlertTool.alert(Alert.AlertType.WARNING,"错误","修改失败","可能是该名字已存在");
@@ -298,7 +305,7 @@ public class DragonTrainerController {
                 "请输入族群的Id", "Id:");
         if (result.isPresent()) {
             int dragonGroupId = Integer.parseInt(result.get());
-            DragonGroup group = new DragonGroupDAOImpl().get(dragonGroupId);
+            DragonGroup group = iDragonGroupDAO.get(dragonGroupId);
             if (group != null) {
                 VBox vBox = new VBox(10);
 
@@ -318,7 +325,7 @@ public class DragonTrainerController {
      * 对我的族群信息进行修改.
      */
     public void changeDragonGroup(ActionEvent actionEvent) {
-        DragonGroup group = new DragonGroupDAOImpl().get(dragonGroupId);
+        DragonGroup group = iDragonGroupDAO.get(dragonGroupId);
 
         GridPane gridPane = new GridPane();
 
@@ -337,7 +344,7 @@ public class DragonTrainerController {
             String location = textFields[2].getText().trim();
             double size = Double.parseDouble(textFields[3].getText().trim());
 
-            int items = new DragonGroupDAOImpl().update(name, profile, location, size, dragonGroupId);
+            int items = iDragonGroupDAO.update(name, profile, location, size, dragonGroupId);
 
             if(items == 0){//说明没有数据修改
                 AlertTool.alert(Alert.AlertType.WARNING,"错误","修改失败","可能是该名字已存在");
