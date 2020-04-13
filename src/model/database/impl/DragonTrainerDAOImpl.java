@@ -5,6 +5,7 @@ import entity.DragonGroup;
 import entity.DragonTrainer;
 import model.IDragonTrainerDAO;
 import util.DBUtils;
+import util.Encrypt;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
     @Override
     public int save(int dragonGroupId, String name, String username, String password) {
         String sql = "insert into dragontrainer(dragonGroupId,name,username,password) values(?,?,?,?)";
-        return DBUtils.executeUpdate(sql,  dragonGroupId,name,username,password);
+        return DBUtils.executeUpdate(sql,dragonGroupId,name,username, Encrypt.setEncrypt(password));
     }
 
     @Override
@@ -29,7 +30,7 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
     @Override
     public int update(int id, int dragonGroupId, String name, String username, String password) {
         String sql = "update dragontrainer set dragonGroupId=?,name=?,username=?,password=? where dragonTrainerId = ?";
-        return DBUtils.executeUpdate(sql,dragonGroupId,name,username,password,id);
+        return DBUtils.executeUpdate(sql,dragonGroupId,name,username,Encrypt.setEncrypt(password),id);
     }
 
     //id查询
@@ -46,7 +47,8 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
             rs = ps.executeQuery();
             if (rs.next()) {
                 DragonTrainer dragonTrainer = new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
-                        , rs.getString("name"), rs.getString("username"), rs.getString("password"));
+                        , rs.getString("name"), rs.getString("username"),
+                        Encrypt.getEncrypt( rs.getString("password")));
                 return dragonTrainer;
             }
         } catch (Exception e) {
@@ -68,11 +70,11 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
             String sql = "select * from dragontrainer where username = ? and password = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1,username);
-            ps.setString(2,password);
+            ps.setString(2,Encrypt.setEncrypt(password));
             rs = ps.executeQuery();
             if(rs.next()){
                 DragonTrainer dragonTrainer = new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
-                        , rs.getString("name"), rs.getString("username"), rs.getString("password"));
+                        , rs.getString("name"), rs.getString("username"),Encrypt.getEncrypt( rs.getString("password")));
                 return dragonTrainer;
             }
         } catch (SQLException e) {
@@ -97,7 +99,7 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 DragonTrainer dragonTrainer = new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
-                        , rs.getString("name"), rs.getString("username"), rs.getString("password"));
+                        , rs.getString("name"), rs.getString("username"), Encrypt.getEncrypt(rs.getString("password")));
                 dragonTrainerList.add(dragonTrainer);
             }
             return dragonTrainerList;
@@ -109,28 +111,28 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         return null;
     }
 
-    @Override
-    public List<String> getUserNameList() {
-        List<String> UserNameList = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        String sql = "select * from dragontrainer";
-        try {
-            conn = DBUtils.getConnection();
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                DragonTrainer dragonTrainer = new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
-                        , rs.getString("name"), rs.getString("username"), rs.getString("password"));
-                UserNameList.add(dragonTrainer.getUsername());
-            }
-            return UserNameList;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            DBUtils.close(null,ps, rs);
-        }
-        return null;
-    }
+//    @Override
+//    public List<String> getUserNameList() {
+//        List<String> UserNameList = new ArrayList<>();
+//        Connection conn = null;
+//        PreparedStatement ps = null;
+//        ResultSet rs = null;
+//        String sql = "select * from dragontrainer";
+//        try {
+//            conn = DBUtils.getConnection();
+//            ps = conn.prepareStatement(sql);
+//            rs = ps.executeQuery();
+//            while (rs.next()) {
+//                DragonTrainer dragonTrainer = new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
+//                        , rs.getString("name"), rs.getString("username"), rs.getString("password"));
+//                UserNameList.add(dragonTrainer.getUsername());
+//            }
+//            return UserNameList;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            DBUtils.close(null,ps, rs);
+//        }
+//        return null;
+//    }
 }

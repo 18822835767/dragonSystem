@@ -5,6 +5,7 @@ import entity.DragonMom;
 import entity.DragonTrainer;
 import model.IDragonMomDAO;
 import util.DBUtils;
+import util.Encrypt;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,7 +43,9 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
         return null;
     }
 
-    //用户名和密码查询
+    /**
+     *用户名和密码查询,加密和解密.
+     * */
     @Override
     public DragonMom get(String username, String password) {
         Connection conn = null;
@@ -53,11 +56,12 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
             conn = DBUtils.getConnection();
             ps = conn.prepareStatement(sql);
             ps.setString(1,username);
-            ps.setString(2,password);
+            ps.setString(2, Encrypt.setEncrypt(password));
             rs = ps.executeQuery();
             if(rs.next()){
                 DragonMom dragonMom = new DragonMom(rs.getInt("dragonMomId"), rs.getString("name"),
-                        rs.getString("username"), rs.getString("password"),rs.getFloat("moneyTub"));
+                        rs.getString("username"), Encrypt.getEncrypt(rs.getString("password")),
+                        rs.getFloat("moneyTub"));
                 return dragonMom;
             }
         } catch (SQLException e) {
@@ -68,8 +72,9 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
         return null;
     }
 
-    @Override
-    public String getUsername() {
-        return get().getUsername();
-    }
+//    //可能没用
+//    @Override
+//    public String getUsername() {
+//        return get().getUsername();
+//    }
 }

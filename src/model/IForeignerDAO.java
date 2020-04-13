@@ -20,8 +20,8 @@ public interface IForeignerDAO {
      * */
     Foreigner get(String username,String password);
 
-    /**
-     * 得到所有的外邦人.
-     * */
-    List<String> getUserNameList();
+//    /**
+//     * 得到所有的外邦人.
+//     * */
+//    List<String> getUserNameList();
 }

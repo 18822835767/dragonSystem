@@ -68,14 +68,14 @@ create table ticket(
 
 
 
-insert into dragonmom(name,username,password,moneyTub) values('mom','admin','123',0);
+insert into dragonmom(name,username,password,moneyTub) values('mom','admin','090087074',0);#解密后密码是123
 insert into dragongroup(name,profile,location,size) values('bawanglongguan','no','shenzhen','100.0');
 insert into dragongroup(name,profile,location,size) values('konglongguan','no','shenzhen','100.0');
 insert into dragongroup(name,profile,location,size) values('shenlongguan','no','shenzhen','100.0');
-insert into dragontrainer(dragonGroupId,username,password,name) values(1,'hhh','123','noname');
+insert into dragontrainer(dragonGroupId,username,password,name) values(1,'hhh','090087074','noname');#解密后密码是123
 insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1,'a','no',0,1,'n',15);
 insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1,'b','no',0,1,'n',18);
 insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1,'c','no',0,1,'n',20);
-insert into foreigner(username, password, name, money) values('yoyo','123','no1',100);
-insert into foreigner(username, password, name, money) values('yoyo2','1234','no2',100);
-insert into foreigner(username, password, name, money) values('yoyo3','1235','no3',100);
+insert into foreigner(username, password, name, money) values('yoyo','090087074','no1',100);#解密后密码是123
+insert into foreigner(username, password, name, money) values('yoyo2','090087074095','no2',100);#解密后密码是1234
+insert into foreigner(username, password, name, money) values('yoyo3','090087074094','no3',100);#解密后密码是1235
