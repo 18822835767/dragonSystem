@@ -23,6 +23,7 @@ import util.DAOFactory;
 import widget.AlertTool;
 import widget.DialogTool;
 import widget.SingleSelectionTool;
+
 import java.io.*;
 import java.util.Optional;
 
@@ -51,27 +52,27 @@ public class LoginController {
 
     /**
      * 先判断用户是否保存了登录信息，保存了就读取信息，自动登录.
-     * */
-    public void init(){
+     */
+    public void init() {
         File f = new File(autoLoginFile);
         BufferedReader reader = null;
         String user = null;
         String pass = null;
-        try{
+        try {
             if (f.exists()) {
                 FileInputStream inputStream = new FileInputStream(f);
                 reader = new BufferedReader(new InputStreamReader(inputStream));
                 user = reader.readLine();
                 pass = reader.readLine();
-                changeView(user,pass);
+                changeView(user, pass);
                 Stage loginStage = (Stage) username.getScene().getWindow();
                 loginStage.close();
                 System.out.println("自动登录成功");
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            if(reader != null){
+        } finally {
+            if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException e) {
@@ -94,12 +95,12 @@ public class LoginController {
             //调用方法判断登陆用户是谁
             if (changeView(user, pass)) {
                 //如果用户勾选了自动登录，则保存信息
-                if(autoLogin.isSelected()){
-                    saveLoginInfo(user,pass);
-                }else{
+                if (autoLogin.isSelected()) {
+                    saveLoginInfo(user, pass);
+                } else {
                     //如果用户没有勾选自动登录。文件存在则删除。
                     File f = new File(autoLoginFile);
-                    if(f.exists()){
+                    if (f.exists()) {
                         f.delete();
                     }
 
@@ -165,7 +166,7 @@ public class LoginController {
                 dragonTrainerController.setDragonGroupId(dragonGroupId);
                 dragonTrainerController.Init();
             }
-            if(foreigner != null){
+            if (foreigner != null) {
                 //得到外邦人的控制器，传入登陆的外邦人的实例对象
                 ForeignerController foreignerController = (ForeignerController) fx.getController();
                 foreignerController.setForeigner(foreigner);
@@ -214,9 +215,9 @@ public class LoginController {
                 GridPane gridPane = new GridPane();
 
                 //调用工具类，加载布局中的数据
-                String [] labelTexts = {"名字:","用户名","密码"};
-                String [] textFieldContents = {"","",""};//使传入的两个数组长度相同
-                TextField [] textFields = AddNodeForPane.addForGridPane(gridPane,labelTexts,textFieldContents);
+                String[] labelTexts = {"名字:", "用户名", "密码"};
+                String[] textFieldContents = {"", "", ""};//使传入的两个数组长度相同
+                TextField[] textFields = AddNodeForPane.addForGridPane(gridPane, labelTexts, textFieldContents);
 
                 gridPane.setVgap(10);
 
@@ -230,17 +231,22 @@ public class LoginController {
                     String username = textFields[1].getText().trim();
                     String password = textFields[2].getText().trim();
 
-                    iForeignerDAO.save(username, password, name);
+                    int items = iForeignerDAO.save(username, password, name);
 
-                    AlertTool.alert(Alert.AlertType.INFORMATION, null, null, "注册成功");
+                    if (items == 0) {//说明没有插入数据，错误弹窗提示
+                        AlertTool.alert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是用户名已注册");
+                    } else {//错误弹窗提示
+                        AlertTool.alert(Alert.AlertType.INFORMATION, null, null, "注册成功");
+                    }
+
                 }
             } else if (radioButtons[1].isSelected()) {
                 GridPane gridPane = new GridPane();
 
                 //加载布局中的数据
-                String [] labelTexts = {"名字:","用户名:","密码:","族群Id:"};
-                String [] textFieldContents = {"","","",""};//使传入的两个数组长度相同。
-                TextField [] textFields = AddNodeForPane.addForGridPane(gridPane,labelTexts,textFieldContents);
+                String[] labelTexts = {"名字:", "用户名:", "密码:", "族群Id:"};
+                String[] textFieldContents = {"", "", "", ""};//使传入的两个数组长度相同。
+                TextField[] textFields = AddNodeForPane.addForGridPane(gridPane, labelTexts, textFieldContents);
 
                 gridPane.setVgap(10);
 
@@ -253,9 +259,15 @@ public class LoginController {
                     String password = textFields[2].getText().trim();
                     int dragonGroupId = Integer.parseInt(textFields[3].getText().trim());
 
-                    iDragonTrainerDAO.save(dragonGroupId, name, username, password);
+                    int items = iDragonTrainerDAO.save(dragonGroupId, name, username, password);
 
-                    AlertTool.alert(Alert.AlertType.INFORMATION, null, null, "注册成功");
+                    if (items == 0) {//说明没有插入数据，错误弹窗提示
+                        AlertTool.alert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是族群不存在" +
+                                "或者用户名已注册");
+                    } else {
+                        AlertTool.alert(Alert.AlertType.INFORMATION, null, null, "注册成功");
+                    }
+
                 }
             }
         }
@@ -263,13 +275,13 @@ public class LoginController {
 
     /**
      * 保存自动登录的信息.
-     * */
-    public void saveLoginInfo(String user,String pass){
+     */
+    public void saveLoginInfo(String user, String pass) {
         //保存登陆信息的文件
         File f = new File(autoLoginFile);
 
         //如果存在,先删除文件
-        if(f.exists()){
+        if (f.exists()) {
             f.delete();
         }
 
@@ -284,7 +296,7 @@ public class LoginController {
             writer.flush();
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 writer.close();
             } catch (IOException e) {
