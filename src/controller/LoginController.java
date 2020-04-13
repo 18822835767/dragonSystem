@@ -25,6 +25,7 @@ import widget.DialogTool;
 import widget.SingleSelectionTool;
 
 import java.io.*;
+import java.util.Map;
 import java.util.Optional;
 
 public class LoginController {
@@ -217,7 +218,7 @@ public class LoginController {
                 //调用工具类，加载布局中的数据
                 String[] labelTexts = {"名字:", "用户名", "密码"};
                 String[] textFieldContents = {"", "", ""};//使传入的两个数组长度相同
-                TextField[] textFields = AddNodeForPane.addForGridPane(gridPane, labelTexts, textFieldContents);
+                Map<String,TextField> map = AddNodeForPane.addForGridPane(gridPane, labelTexts, textFieldContents);
 
                 gridPane.setVgap(10);
 
@@ -227,9 +228,9 @@ public class LoginController {
 
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                     //保存用户数据，存入数据库
-                    String name = textFields[0].getText().trim();
-                    String username = textFields[1].getText().trim();
-                    String password = textFields[2].getText().trim();
+                    String name = map.get("名字:").getText().trim();
+                    String username =  map.get("用户名").getText().trim();
+                    String password =  map.get("密码").getText().trim();
 
                     int items = iForeignerDAO.save(username, password, name);
 
@@ -246,7 +247,7 @@ public class LoginController {
                 //加载布局中的数据
                 String[] labelTexts = {"名字:", "用户名:", "密码:", "族群Id:"};
                 String[] textFieldContents = {"", "", "", ""};//使传入的两个数组长度相同。
-                TextField[] textFields = AddNodeForPane.addForGridPane(gridPane, labelTexts, textFieldContents);
+                Map<String,TextField> map = AddNodeForPane.addForGridPane(gridPane, labelTexts, textFieldContents);
 
                 gridPane.setVgap(10);
 
@@ -254,10 +255,10 @@ public class LoginController {
                         null).showAndWait();
 
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-                    String name = textFields[0].getText().trim();
-                    String username = textFields[1].getText().trim();
-                    String password = textFields[2].getText().trim();
-                    int dragonGroupId = Integer.parseInt(textFields[3].getText().trim());
+                    String name = map.get("名字:").getText().trim();
+                    String username = map.get("用户名:").getText().trim();
+                    String password = map.get( "密码:").getText().trim();
+                    int dragonGroupId = Integer.parseInt(map.get("族群Id:").getText().trim());
 
                     int items = iDragonTrainerDAO.save(dragonGroupId, name, username, password);
 

@@ -25,10 +25,7 @@ import widget.DialogTool;
 import widget.TextInputDialogTool;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * 为了可以初始化，所以继承接口Initializable.
@@ -105,17 +102,17 @@ public class DragonMomController implements Initializable {
         VBox vBox = new VBox(10);
 
         String[] promptTexts = {"已存在的族群Id", "驯龙高手名字", "用户名", "密码"};
-        TextField[] textFields = AddNodeForPane.addTextFieldForPane(vBox, promptTexts);
+        Map<String,TextField> map = AddNodeForPane.addTextFieldForPane(vBox, promptTexts);
 
         //使用了自定义控件，弹出弹窗
         Dialog<ButtonType> dialog = DialogTool.showDialog("添加驯龙高手信息", vBox, "确定", "取消");
         Optional<ButtonType> result = dialog.showAndWait();
         //如果用户点击了确定按钮
         if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-            int dragonGroupId = Integer.parseInt(textFields[0].getText().trim());
-            String name = textFields[1].getText();
-            String username = textFields[2].getText().trim();
-            String password = textFields[3].getText().trim();
+            int dragonGroupId = Integer.parseInt(map.get("已存在的族群Id").getText().trim());
+            String name = map.get("驯龙高手名字").getText();
+            String username = map.get("用户名").getText().trim();
+            String password = map.get("密码").getText().trim();
             //数据库保存数据,items记录影响的数据条数
             int items = iDragonTrainerDAO.save(dragonGroupId, name, username, password);
 
@@ -201,7 +198,7 @@ public class DragonMomController implements Initializable {
                 String[] labelTexts = {"名字:", "族群Id:", "用户名:", "密码:"};
                 String[] textFiledContents = {trainer.getName(), String.valueOf(trainer.getDragonGroupId()),
                         trainer.getUsername(), trainer.getPassword()};
-                TextField[] textFields = AddNodeForPane.addForGridPane(gridPane, labelTexts, textFiledContents);
+                Map<String,TextField> map = AddNodeForPane.addForGridPane(gridPane, labelTexts, textFiledContents);
 
                 gridPane.setVgap(10);
 
@@ -209,10 +206,10 @@ public class DragonMomController implements Initializable {
                         null).showAndWait();
 
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-                    String name = textFields[0].getText().trim();
-                    int dragonGroupId = Integer.parseInt(textFields[1].getText().trim());
-                    String username = textFields[2].getText().trim();
-                    String password = textFields[3].getText().trim();
+                    String name = map.get("名字:").getText().trim();
+                    int dragonGroupId = Integer.parseInt(map.get("族群Id:").getText().trim());
+                    String username = map.get("用户名:").getText().trim();
+                    String password = map.get("密码:").getText().trim();
 
                     int items = iDragonTrainerDAO.update(dragonTrainerId, dragonGroupId, name, username, password);
 
@@ -235,17 +232,17 @@ public class DragonMomController implements Initializable {
         VBox vBox = new VBox(10);
 
         String[] promptTexts = {"族群名字", "简介", "地理位置", "大小"};
-        TextField[] textFields = AddNodeForPane.addTextFieldForPane(vBox, promptTexts);
+        Map<String,TextField> map = AddNodeForPane.addTextFieldForPane(vBox, promptTexts);
 
         //使用了自定义控件
         Dialog<ButtonType> dialog = DialogTool.showDialog("添加族群高手信息", vBox, "确定", "取消");
         Optional<ButtonType> result = dialog.showAndWait();
         //如果用户点击了确定按钮
         if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-            String name = textFields[0].getText().trim();
-            String profile = textFields[1].getText().trim();
-            String location = textFields[2].getText().trim();
-            double size = Double.parseDouble(textFields[3].getText().trim());
+            String name = map.get("族群名字").getText().trim();
+            String profile = map.get("简介").getText().trim();
+            String location = map.get("地理位置").getText().trim();
+            double size = Double.parseDouble(map.get("大小").getText().trim());
             int items = iDragonGroupDAO.save(name, profile, location, size);
 
             if (items == 0) {//说明没有插入数据
@@ -327,7 +324,7 @@ public class DragonMomController implements Initializable {
                 String[] labelTexts = {"名字:", "简介:", "地理位置:", "大小:"};
                 String[] textFiledContents = {group.getName(), group.getProfile(), group.getLocation(),
                         String.valueOf(group.getSize())};
-                TextField[] textFields = AddNodeForPane.addForGridPane(gridPane, labelTexts, textFiledContents);
+                Map<String,TextField> map = AddNodeForPane.addForGridPane(gridPane, labelTexts, textFiledContents);
 
                 gridPane.setVgap(10);
 
@@ -335,10 +332,10 @@ public class DragonMomController implements Initializable {
                         null).showAndWait();
 
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-                    String name = textFields[0].getText().trim();
-                    String profile = textFields[1].getText().trim();
-                    String location = textFields[2].getText().trim();
-                    double size = Double.parseDouble(textFields[3].getText().trim());
+                    String name = map.get("名字:").getText().trim();
+                    String profile = map.get("简介:").getText().trim();
+                    String location = map.get("地理位置:").getText().trim();
+                    double size = Double.parseDouble(map.get("大小:").getText().trim());
 
                     int items = iDragonGroupDAO.update(name, profile, location, size, dragonGroupId);
 

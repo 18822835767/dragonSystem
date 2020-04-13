@@ -27,6 +27,7 @@ import widget.TextInputDialogTool;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -127,7 +128,7 @@ public class DragonTrainerController {
         VBox vBox = new VBox(10);
 
         String[] promotTexts = {"龙的名字", "龙的简介", "年龄"};
-        TextField[] textFields = AddNodeForPane.addTextFieldForPane(vBox, promotTexts);
+        Map<String,TextField> map = AddNodeForPane.addTextFieldForPane(vBox, promotTexts);
 
         //自定义的单选框，选择龙的性别
         HBox h_sex = new HBox(10);
@@ -143,9 +144,9 @@ public class DragonTrainerController {
 
         if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
             //从信息框中得到信息并存入数据库
-            String name = textFields[0].getText();
-            String profile = textFields[1].getText().trim();
-            int age = Integer.parseInt(textFields[2].getText().trim());
+            String name = map.get("龙的名字").getText();
+            String profile = map.get("龙的简介").getText().trim();
+            int age = Integer.parseInt(map.get("年龄").getText().trim());
             String sex = null;
             if (radioButtons[0].isSelected()) {
                 sex = radioButtons[0].getText();
@@ -237,7 +238,7 @@ public class DragonTrainerController {
                 //先给GridPane添加一些Label和TextField
                 String[] labelTexts = {"名字:", "年龄", "简介:"};
                 String[] textFiledContents = {dragon.getName(), String.valueOf(dragon.getAge()), dragon.getProfile()};
-                TextField[] textFields = AddNodeForPane.addForGridPane(gridPane, labelTexts, textFiledContents);
+                Map<String,TextField> map = AddNodeForPane.addForGridPane(gridPane, labelTexts, textFiledContents);
 
                 Label l_training = new Label("训练中:");
                 Label l_healthy = new Label("健康:");
@@ -266,9 +267,9 @@ public class DragonTrainerController {
 
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                     //从弹框得到信息并保存进数据库
-                    String name = textFields[0].getText().trim();
-                    int age = Integer.parseInt(textFields[1].getText().trim());
-                    String profile = textFields[2].getText().trim();
+                    String name = map.get("名字:").getText().trim();
+                    int age = Integer.parseInt(map.get("年龄").getText().trim());
+                    String profile = map.get("简介:").getText().trim();
                     boolean training;
                     boolean healthy;
                     if (trainButtons[0].isSelected()) {
@@ -331,7 +332,7 @@ public class DragonTrainerController {
 
         String[] labelTexts = {"名字:", "简介:", "地理位置:", "大小:"};
         String[] textFieldContents = {group.getName(), group.getProfile(), group.getLocation(), String.valueOf(group.getSize())};
-        TextField[] textFields = AddNodeForPane.addForGridPane(gridPane, labelTexts, textFieldContents);
+        Map<String,TextField> map = AddNodeForPane.addForGridPane(gridPane, labelTexts, textFieldContents);
 
         gridPane.setVgap(10);
 
@@ -339,10 +340,10 @@ public class DragonTrainerController {
                 null).showAndWait();
 
         if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-            String name = textFields[0].getText().trim();
-            String profile = textFields[1].getText().trim();
-            String location = textFields[2].getText().trim();
-            double size = Double.parseDouble(textFields[3].getText().trim());
+            String name = map.get("名字:").getText().trim();
+            String profile = map.get("简介:").getText().trim();
+            String location = map.get("地理位置:").getText().trim();
+            double size = Double.parseDouble(map.get("大小:").getText().trim());
 
             int items = iDragonGroupDAO.update(name, profile, location, size, dragonGroupId);
 
