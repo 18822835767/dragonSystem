@@ -16,9 +16,6 @@ import javafx.stage.Stage;
 import model.IDragonMomDAO;
 import model.IDragonTrainerDAO;
 import model.IForeignerDAO;
-import model.database.impl.DragonMomDAOImpl;
-import model.database.impl.DragonTrainerDAOImpl;
-import model.database.impl.ForeignerDAOImpl;
 import util.AddNodeForPane;
 import util.DAOFactory;
 import widget.AlertTool;
@@ -112,7 +109,7 @@ public class LoginController {
                 Stage loginStage = (Stage) username.getScene().getWindow();
                 loginStage.close();
             } else {
-                AlertTool.alert(Alert.AlertType.WARNING, null, "登陆失败", "用户名或密码输入错误");
+                AlertTool.showAlert(Alert.AlertType.WARNING, null, "登陆失败", "用户名或密码输入错误");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -246,9 +243,9 @@ public class LoginController {
                     int items = iForeignerDAO.save(username, password, name);
 
                     if (items == 0) {//说明没有插入数据，错误弹窗提示
-                        AlertTool.alert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是用户名已注册");
+                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是用户名已注册");
                     } else {//错误弹窗提示
-                        AlertTool.alert(Alert.AlertType.INFORMATION, null, null, "注册成功");
+                        AlertTool.showAlert(Alert.AlertType.INFORMATION, null, null, "注册成功");
                     }
 
                 }
@@ -274,10 +271,10 @@ public class LoginController {
                     int items = iDragonTrainerDAO.save(dragonGroupId, name, username, password);
 
                     if (items == 0) {//说明没有插入数据，错误弹窗提示
-                        AlertTool.alert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是族群不存在" +
+                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是族群不存在" +
                                 "或者用户名已注册");
                     } else {
-                        AlertTool.alert(Alert.AlertType.INFORMATION, null, null, "注册成功");
+                        AlertTool.showAlert(Alert.AlertType.INFORMATION, null, null, "注册成功");
                     }
 
                 }

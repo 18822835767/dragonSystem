@@ -22,6 +22,11 @@ public interface ITicketDAO {
     int update(int ticketId,int times);
 
     /**
+     * 更新是否退票的状态.
+     * */
+    int update(int ticketId,boolean back);
+
+    /**
      * 得到Ticket实例对象.
      *
      * @param foreignerId 外邦人Id

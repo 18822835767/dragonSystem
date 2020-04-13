@@ -7,7 +7,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -17,8 +16,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import model.IDragonGroupDAO;
 import model.IDragonTrainerDAO;
-import model.database.impl.DragonGroupDAOImpl;
-import model.database.impl.DragonTrainerDAOImpl;
 import util.AddNodeForPane;
 import util.DAOFactory;
 import view.ChangeUser;
@@ -28,7 +25,6 @@ import widget.AlertTool;
 import widget.DialogTool;
 import widget.TextInputDialogTool;
 
-import java.net.URL;
 import java.util.*;
 
 /**
@@ -122,7 +118,7 @@ public class DragonMomController{
             int items = iDragonTrainerDAO.save(dragonGroupId, name, username, password);
 
             if (items == 0) {//说明没有插入数据
-                AlertTool.alert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是族群不存在或者用户名已注册");
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是族群不存在或者用户名已注册");
             } else {
                 DragonTrainer dragonTrainer = iDragonTrainerDAO.get(username, password);
                 TreeItem<DragonTrainer> treeItem = new TreeItem(dragonTrainer);
@@ -147,7 +143,7 @@ public class DragonMomController{
             int items = iDragonTrainerDAO.delete(dragonTrainerId);
 
             if (items == 0) {//说明没有数据删除
-                AlertTool.alert(Alert.AlertType.WARNING, "错误", "删除失败", "可能是没有与id匹配的驯龙高手");
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "删除失败", "可能是没有与id匹配的驯龙高手");
             } else {
                 for (TreeItem<DragonTrainer> treeItem : trainerTreeItemList) {
                     if (treeItem.getValue().getDragonTrainerId() == dragonTrainerId) {
@@ -182,7 +178,7 @@ public class DragonMomController{
                 DialogTool.showDialog("驯龙高手信息", vBox, "确定", null).showAndWait();
             } else {
                 //自定义控件
-                AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该驯龙高手的信息");
+                AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该驯龙高手的信息");
             }
         }
     }
@@ -219,13 +215,13 @@ public class DragonMomController{
                     int items = iDragonTrainerDAO.update(dragonTrainerId, dragonGroupId, name, username, password);
 
                     if (items == 0) {//说明没有数据修改
-                        AlertTool.alert(Alert.AlertType.WARNING, "错误", "修改失败", "可能用户名已存在");
+                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "可能用户名已存在");
                     } else {
                         InitDragonTrainerView.flushTrainer(trainerTreeItemList, trainerRoot);
                     }
                 }
             } else {
-                AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该驯龙高手的信息");
+                AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该驯龙高手的信息");
             }
         }
     }
@@ -251,7 +247,7 @@ public class DragonMomController{
             int items = iDragonGroupDAO.save(name, profile, location, size);
 
             if (items == 0) {//说明没有插入数据
-                AlertTool.alert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是该名字已存在");
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是该名字已存在");
             } else {
                 DragonGroup dragonGroup = iDragonGroupDAO.get(name);
                 TreeItem<DragonGroup> treeItem = new TreeItem<>(dragonGroup);
@@ -276,7 +272,7 @@ public class DragonMomController{
             int items = iDragonGroupDAO.delete(dragonGroupId);
 
             if (items == 0) {//说明没有数据删除
-                AlertTool.alert(Alert.AlertType.WARNING, "错误", "删除失败", "可能是没有与id匹配的族群");
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "删除失败", "可能是没有与id匹配的族群");
             } else {
                 for (TreeItem<DragonGroup> treeItem : groupTreeItemList) {
                     if (treeItem.getValue().getId() == dragonGroupId) {
@@ -308,7 +304,7 @@ public class DragonMomController{
                 DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
             } else {
                 //自定义控件
-                AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");
+                AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");
             }
         }
     }
@@ -345,13 +341,13 @@ public class DragonMomController{
                     int items = iDragonGroupDAO.update(name, profile, location, size, dragonGroupId);
 
                     if (items == 0) {//说明没有数据修改
-                        AlertTool.alert(Alert.AlertType.WARNING, "错误", "修改失败", "可能是该名字已存在");
+                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "可能是该名字已存在");
                     } else {
                         InitDragonGroupView.flushGroup(groupTreeItemList, groupRoot);
                     }
                 }
             } else {
-                AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");
+                AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");
             }
         }
     }

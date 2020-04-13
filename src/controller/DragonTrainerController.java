@@ -13,7 +13,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.IDragonDAO;
 import model.IDragonGroupDAO;
-import model.database.impl.DragonDAOImpl;
 import model.database.impl.DragonGroupDAOImpl;
 import util.AddNodeForPane;
 import util.DAOFactory;
@@ -156,7 +155,7 @@ public class DragonTrainerController {
             int items = iDragonDAO.save(dragonGroupId, name, profile, false, true, sex, age);//数据库保存数据
 
             if(items == 0){//说明没有插入数据
-                AlertTool.alert(Alert.AlertType.WARNING,"错误","添加失败","可能是该名字已存在");
+                AlertTool.showAlert(Alert.AlertType.WARNING,"错误","添加失败","可能是该名字已存在");
             }else{
                 //通过族群id和名字来获取龙的实例
                 Dragon dragon = iDragonDAO.get(dragonGroupId, name);
@@ -182,7 +181,7 @@ public class DragonTrainerController {
             int items = iDragonDAO.delete(dragonId);
 
             if(items == 0){
-                AlertTool.alert(Alert.AlertType.WARNING,"错误","删除失败","可能是没有与id匹配的龙");
+                AlertTool.showAlert(Alert.AlertType.WARNING,"错误","删除失败","可能是没有与id匹配的龙");
             }else{
                 for (TreeItem<Dragon> treeItem : dragonTreeItemList) {
                     if (treeItem.getValue().getDragonId() == dragonId) {
@@ -215,7 +214,7 @@ public class DragonTrainerController {
                 DialogTool.showDialog("龙的信息", vBox, "确定", null).showAndWait();
             } else {
                 //自定义控件
-                AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该龙的信息");
+                AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该龙的信息");
             }
         }
     }
@@ -286,13 +285,13 @@ public class DragonTrainerController {
                     int items = iDragonDAO.update(dragonId, dragonGroupId, name, profile, training, healthy, age);
 
                     if(items == 0){//说明没有数据修改
-                        AlertTool.alert(Alert.AlertType.WARNING,"错误","修改失败","可能是该名字已存在");
+                        AlertTool.showAlert(Alert.AlertType.WARNING,"错误","修改失败","可能是该名字已存在");
                     }else{
                         InitDragonView.flushDragon(dragonTreeItemList, dragonRoot, dragonGroupId);
                     }
                 }
             } else {
-                AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该龙的信息");
+                AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该龙的信息");
             }
         }
 
@@ -317,7 +316,7 @@ public class DragonTrainerController {
                 DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
             } else {
                 //自定义控件
-                AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");
+                AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");
             }
         }
     }
@@ -348,7 +347,7 @@ public class DragonTrainerController {
             int items = iDragonGroupDAO.update(name, profile, location, size, dragonGroupId);
 
             if(items == 0){//说明没有数据修改
-                AlertTool.alert(Alert.AlertType.WARNING,"错误","修改失败","可能是该名字已存在");
+                AlertTool.showAlert(Alert.AlertType.WARNING,"错误","修改失败","可能是该名字已存在");
             }else{
                 InitDragonGroupView.flushGroup(groupTreeItemList, groupRoot);
             }

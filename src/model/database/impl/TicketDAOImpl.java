@@ -30,6 +30,13 @@ public class TicketDAOImpl implements ITicketDAO{
     }
 
     @Override
+    public int update(int ticketId,boolean back) {
+        int backing = back ? 1 : 0;
+        String sql = "update ticket set backing = ? where ticketId = ?";
+        return DBUtils.executeUpdate(sql,backing,ticketId);
+    }
+
+    @Override
     public Ticket get(int foreignerId) {
         Connection conn = null;
         PreparedStatement ps = null;

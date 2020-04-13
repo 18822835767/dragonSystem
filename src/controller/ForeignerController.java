@@ -15,9 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import model.*;
-import model.database.impl.TicketDAOImpl;
 import util.AddNodeForPane;
 import util.DAOFactory;
 import view.ChangeUser;
@@ -167,7 +165,7 @@ public class ForeignerController {
                     DialogTool.showDialog("龙的信息", vBox, "确定", null).showAndWait();
                 } else {
                     //自定义控件
-                    AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该龙的信息");
+                    AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该龙的信息");
                 }
         }
         }
@@ -195,7 +193,7 @@ public class ForeignerController {
                     DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
                 } else {
                     //自定义控件
-                    AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");
+                    AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");
                 }
             }
         }
@@ -321,7 +319,7 @@ public class ForeignerController {
                         iForeignerDAO.update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
                         iDragonMomDAO.update(Ticket.PRICE1);//更新数据库的金库
                     }else{
-                        AlertTool.alert(Alert.AlertType.WARNING,"购买失败",null,"余额不足");
+                        AlertTool.showAlert(Alert.AlertType.WARNING,"购买失败",null,"余额不足");
                         return false;
                     }
                     break;
@@ -339,7 +337,7 @@ public class ForeignerController {
                         iForeignerDAO.update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
                         iDragonMomDAO.update(Ticket.PRICE2);//更新数据库的金库
                     }else{
-                        AlertTool.alert(Alert.AlertType.WARNING,"购买失败",null,"余额不足");
+                        AlertTool.showAlert(Alert.AlertType.WARNING,"购买失败",null,"余额不足");
                         return false;
                     }
                     break;
@@ -357,7 +355,7 @@ public class ForeignerController {
                         iForeignerDAO.update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
                         iDragonMomDAO.update(Ticket.PRICE3);//更新数据库的金库
                     }else{
-                        AlertTool.alert(Alert.AlertType.WARNING,"购买失败",null,"余额不足");
+                        AlertTool.showAlert(Alert.AlertType.WARNING,"购买失败",null,"余额不足");
                         return false;
                     }
                     break;
@@ -398,5 +396,47 @@ public class ForeignerController {
         vBox.setPadding(new Insets(15));
 
         DialogTool.showDialog("我的信息",vBox,"确定",null).showAndWait();
+    }
+
+    /**
+     * 申请退票的点击事件
+     * */
+    public void backTicket(ActionEvent actionEvent) {
+        //可以申请退票的条件
+        if((ticket != null) && (ticket.getTimes() > 0)){
+            if(!ticket.isBacking()){
+                //有票且票的有效次数大于0
+                VBox vBox = new VBox(10);
+
+                Text t_times = new Text("剩余有效次数: " + ticket.getTimes());
+                t_times.setFont(new Font(15));
+                Text t_ask = new Text("您确定退票吗?");
+                t_ask.setFont(new Font(15));
+
+                vBox.getChildren().addAll(t_times,t_ask);
+                vBox.setAlignment(Pos.CENTER_LEFT);
+                vBox.setPadding(new Insets(10));
+
+                Optional<ButtonType> result = DialogTool.showDialog("退票",vBox,"确定",
+                        "取消").showAndWait();
+
+                if(result.isPresent() && result.get().getButtonData()== ButtonBar.ButtonData.OK_DONE){
+                    iTicketDAO.update(ticket.getTicketId(),true);
+                    ticket.setBacking(true);
+                    AlertTool.showAlert(Alert.AlertType.INFORMATION,null,null,"已申请退票");
+                }
+            }else{
+                //之前已经申请过退票
+                AlertTool.showAlert(Alert.AlertType.INFORMATION,null,null,"退票处理中，请耐心等待");
+            }
+
+        }
+
+        //无法申请退票
+        if(ticket == null || ticket.getTimes()==0){
+            //没票或者票的有效次数不够
+            AlertTool.showAlert(Alert.AlertType.ERROR,null,null,"您尚未购票或者票的有效次数不足");
+        }
+
     }
 }

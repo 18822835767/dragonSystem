@@ -8,7 +8,7 @@ public class AlertTool {
     private AlertTool() {
     }
 
-    public static void alert(Alert.AlertType type,String title,String header,String context){
+    public static void showAlert(Alert.AlertType type, String title, String header, String context){
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(header);
