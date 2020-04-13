@@ -1,5 +1,6 @@
 package controller;
 
+import entity.DragonMom;
 import entity.DragonTrainer;
 import entity.Foreigner;
 import javafx.event.ActionEvent;
@@ -130,9 +131,10 @@ public class LoginController {
         Boolean loginSuccess = false;
         String stageUrl = null;
         String stageTitle = null;
+        DragonMom dragonMom = null;
         DragonTrainer dragonTrainer = null;
         Foreigner foreigner = null;
-        if (iDragonMomDAO.get(username, password) != null) {
+        if ((dragonMom = iDragonMomDAO.get(username, password) )!= null) {
             stageUrl = dragonMomUrl;
             stageTitle = "龙妈您好";
             loginSuccess = true;
@@ -159,6 +161,13 @@ public class LoginController {
 
             stage.show();
 
+            //如果登陆的是龙妈
+            if(dragonMom != null){
+                //得到龙妈的控制器，传入龙妈的实例对象
+                DragonMomController dragonMomController = (DragonMomController) fx.getController();
+                dragonMomController.setDragonMom(dragonMom);
+                dragonMomController.init();
+            }
             //如果登陆的是驯龙高手
             if (dragonTrainer != null) {
                 //得到控制器，传入族群Id，调用初始化方法.
@@ -167,12 +176,14 @@ public class LoginController {
                 dragonTrainerController.setDragonGroupId(dragonGroupId);
                 dragonTrainerController.Init();
             }
+            //如果登陆的是外邦人
             if (foreigner != null) {
                 //得到外邦人的控制器，传入登陆的外邦人的实例对象
                 ForeignerController foreignerController = (ForeignerController) fx.getController();
                 foreignerController.setForeigner(foreigner);
                 foreignerController.init();
             }
+
         }
         return loginSuccess;
     }

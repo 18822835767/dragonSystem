@@ -1,15 +1,19 @@
 package controller;
 
 import entity.DragonGroup;
+import entity.DragonMom;
 import entity.DragonTrainer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import model.IDragonGroupDAO;
 import model.IDragonTrainerDAO;
@@ -31,7 +35,7 @@ import java.util.*;
  * 为了可以初始化，所以继承接口Initializable.
  * 为了使代码简洁，CRUD使用了自定义的工具类AddNodeForPane。
  */
-public class DragonMomController implements Initializable {
+public class DragonMomController{
     @FXML
     TreeTableView<DragonTrainer> trainerTreeTableView;
     @FXML
@@ -40,6 +44,8 @@ public class DragonMomController implements Initializable {
     TabPane tabPane;
     @FXML
     Button changeUser;
+
+    DragonMom dragonMom = null;
 
     IDragonTrainerDAO iDragonTrainerDAO = DAOFactory.getDragonTrainerDAOInstance();
 
@@ -60,8 +66,7 @@ public class DragonMomController implements Initializable {
     /**
      * 默认先显示驯龙高手的信息
      */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void init() {
         initTrainerTreeTable();
         initTrainerTreeData();
         initGroupTreeTable();
@@ -395,5 +400,23 @@ public class DragonMomController implements Initializable {
     public void initGroupTreeData() {
         InitDragonGroupView.initGroupTreeData(groupTreeTableView, groupRoot, groupTreeItemList);
     }
-    
+
+    /**
+     * 点击事件，弹出弹窗显示金库中的钱.
+     * */
+    public void showMoneyTub(ActionEvent actionEvent) {
+        VBox vBox = new VBox();
+        vBox.setPadding(new Insets(25));
+        Text text = new Text("金库余额:"+dragonMom.getMoneyTub());
+        text.setFont(new Font(15));
+        vBox.getChildren().add(text);
+        vBox.setAlignment(Pos.CENTER);
+
+        DialogTool.showDialog("金库",vBox,"确定",
+                null).showAndWait();
+    }
+
+    public void setDragonMom(DragonMom dragonMom) {
+        this.dragonMom = dragonMom;
+    }
 }

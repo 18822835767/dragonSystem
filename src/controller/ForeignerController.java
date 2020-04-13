@@ -8,11 +8,16 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import model.*;
+import model.database.impl.TicketDAOImpl;
 import util.AddNodeForPane;
 import util.DAOFactory;
 import view.ChangeUser;
@@ -86,21 +91,24 @@ public class ForeignerController {
         tabPaneListener();
 
         //初始化信物
-        Ticket ticket = iTicketDAO.get(foreigner.getForeignerId());
+        ticket = iTicketDAO.get(foreigner.getForeignerId());
 
         //有信物的情况下
         if (ticket != null) {
             //如果信物的有效次数大于0，入园，有效次数-1
             if (ticket.getTimes() > 0) {
                 dragonTreeTableView.setVisible(true);
-                int nowTimes = ticket.getTimes() - 1;//票的目前有效次数
-                iTicketDAO.update(ticket.getTicketId(), nowTimes);//数据库中更新的有效次数
+
+                int leftTimes = ticket.getTimes() - 1;//票的剩余有效次数
+                iTicketDAO.update(ticket.getTicketId(), leftTimes);//数据库中更新的有效次数
+                ticket.setTimes(leftTimes);//更新对象中的值
+
                 enterSuccess = true;
             } else {//有效次数不够，需要重新买票。
-                enterSuccess = buyTicketView(foreigner, ticket);
+                enterSuccess = buyTicketView();
             }
         } else {//从没买过票的情况。购买信物。
-            enterSuccess = buyTicketView(foreigner, ticket);
+            enterSuccess = buyTicketView();
         }
 
         //若买票成功，默认先显示“龙”的表
@@ -141,24 +149,27 @@ public class ForeignerController {
      * 外邦人看不到属性:年龄。
      */
     public void queryDragon(ActionEvent actionEvent) {
-        Optional<String> result = TextInputDialogTool.textInputDialog("查询龙的信息",
-                "请输入龙的Id", "Id:");
-        if (result.isPresent()) {
-            int dragonId = Integer.parseInt(result.get());
-            Dragon dragon = iDragonDAO.get(dragonId);
-            if (dragon != null) {
-                VBox vBox = new VBox(10);
+        if(enterSuccess){
+            //如果成功入园
+            Optional<String> result = TextInputDialogTool.textInputDialog("查询龙的信息",
+                    "请输入龙的Id", "Id:");
+            if (result.isPresent()) {
+                int dragonId = Integer.parseInt(result.get());
+                Dragon dragon = iDragonDAO.get(dragonId);
+                if (dragon != null) {
+                    VBox vBox = new VBox(10);
 
-                String[] textContents = {"龙的Id:" + dragon.getDragonId(), "名字:" + dragon.getName(),
-                        "性别:" + dragon.getSex(), "简介:" + dragon.getProfile(), "是否在训练:" + dragon.isTraining(),
-                        "是否健康:" + dragon.isHealthy()};
-                AddNodeForPane.addTextForPane(vBox, textContents);
+                    String[] textContents = {"龙的Id:" + dragon.getDragonId(), "名字:" + dragon.getName(),
+                            "性别:" + dragon.getSex(), "简介:" + dragon.getProfile(), "是否在训练:" + dragon.isTraining(),
+                            "是否健康:" + dragon.isHealthy()};
+                    AddNodeForPane.addTextForPane(vBox, textContents);
 
-                DialogTool.showDialog("龙的信息", vBox, "确定", null).showAndWait();
-            } else {
-                //自定义控件
-                AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该龙的信息");
-            }
+                    DialogTool.showDialog("龙的信息", vBox, "确定", null).showAndWait();
+                } else {
+                    //自定义控件
+                    AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该龙的信息");
+                }
+        }
         }
     }
 
@@ -167,22 +178,25 @@ public class ForeignerController {
      * 外邦人看不到属性:地理位置。
      */
     public void queryDragonGroup(ActionEvent actionEvent) {
-        Optional<String> result = TextInputDialogTool.textInputDialog("查询族群信息",
-                "请输入族群的Id", "Id:");
-        if (result.isPresent()) {
-            int dragonGroupId = Integer.parseInt(result.get());
-            DragonGroup dragonGroup = iDragonGroupDAO.get(dragonGroupId);
-            if (dragonGroup != null) {
-                VBox vBox = new VBox(10);
+        if(enterSuccess){
+            //如果成功入园
+            Optional<String> result = TextInputDialogTool.textInputDialog("查询族群信息",
+                    "请输入族群的Id", "Id:");
+            if (result.isPresent()) {
+                int dragonGroupId = Integer.parseInt(result.get());
+                DragonGroup dragonGroup = iDragonGroupDAO.get(dragonGroupId);
+                if (dragonGroup != null) {
+                    VBox vBox = new VBox(10);
 
-                String[] textContents = {"名字:" + dragonGroup.getName(), "Id:" + dragonGroup.getId(),
-                        "简介:" + dragonGroup.getProfile(), "大小:" + dragonGroup.getSize()};
-                AddNodeForPane.addTextForPane(vBox, textContents);
+                    String[] textContents = {"名字:" + dragonGroup.getName(), "Id:" + dragonGroup.getId(),
+                            "简介:" + dragonGroup.getProfile(), "大小:" + dragonGroup.getSize()};
+                    AddNodeForPane.addTextForPane(vBox, textContents);
 
-                DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
-            } else {
-                //自定义控件
-                AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");
+                    DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
+                } else {
+                    //自定义控件
+                    AlertTool.alert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");
+                }
             }
         }
     }
@@ -236,7 +250,7 @@ public class ForeignerController {
     /**
      * 买票函数.
      * */
-    public boolean buyTicketView(Foreigner foreigner, Ticket ticket) {
+    public boolean buyTicketView() {
         //买票窗口
         AnchorPane anchorPane = new AnchorPane();
 
@@ -261,7 +275,7 @@ public class ForeignerController {
 
         //监听器,对于票的信息进行展示(票价+有效次数)
         comboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override//s是oldvalue,t1是newvalue
+            @Override
             public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
 
                 switch (newValue){
@@ -363,5 +377,26 @@ public class ForeignerController {
 
     public void setForeigner(Foreigner foreigner) {
         this.foreigner = foreigner;
+    }
+
+    /**
+     * 点击事件。弹出弹窗显示外邦人的信息.
+     * */
+    public void showMyInfo(ActionEvent actionEvent) {
+        VBox vBox = new VBox(15);
+
+        Text t_name = new Text("姓名:  "+foreigner.getName());
+        t_name.setFont(new Font(15));
+        Text t_money = new Text("金币:  "+foreigner.getMoney());
+        t_money.setFont(new Font(15));
+        //判断票是否为空，为空则有效次数显示为0次
+        Text t_ticketTimes = new Text("票的有效次数:  " + (ticket==null ? 0 :ticket.getTimes()));
+        t_ticketTimes.setFont(new Font(15));
+
+        vBox.getChildren().addAll(t_name,t_money,t_ticketTimes);
+        vBox.setAlignment(Pos.CENTER_LEFT);
+        vBox.setPadding(new Insets(15));
+
+        DialogTool.showDialog("我的信息",vBox,"确定",null).showAndWait();
     }
 }
