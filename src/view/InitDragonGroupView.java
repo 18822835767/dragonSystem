@@ -8,6 +8,7 @@ import javafx.scene.control.TreeTableView;
 import javafx.util.Callback;
 import model.database.impl.DragonGroupDAOImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
