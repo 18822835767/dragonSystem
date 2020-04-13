@@ -35,17 +35,17 @@ import java.util.Optional;
  */
 public class DragonTrainerController {
     @FXML
-    TreeTableView<Dragon> dragonTreeTableView;
+    private TreeTableView<Dragon> dragonTreeTableView;
     @FXML
-    TreeTableView<DragonGroup> groupTreeTableView;
+    private TreeTableView<DragonGroup> groupTreeTableView;
     @FXML
-    TabPane tabPane;
+    private TabPane tabPane;
     @FXML
-    Button changeUser;
+    private Button changeUser;
     @FXML
-    Text text1;
+    private Text text1;
     @FXML
-    Text text2;
+    private Text text2;
 
     IDragonDAO iDragonDAO = DAOFactory.getDragonDAOInstance();
 

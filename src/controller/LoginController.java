@@ -38,11 +38,11 @@ public class LoginController {
     @FXML
     private CheckBox autoLogin;
 
-    IDragonMomDAO iDragonMomDAO = DAOFactory.getDragonMomDAOInstance();
+    private IDragonMomDAO iDragonMomDAO = DAOFactory.getDragonMomDAOInstance();
 
-    IDragonTrainerDAO iDragonTrainerDAO = DAOFactory.getDragonTrainerDAOInstance();
+    private IDragonTrainerDAO iDragonTrainerDAO = DAOFactory.getDragonTrainerDAOInstance();
 
-    IForeignerDAO iForeignerDAO = DAOFactory.getForeignerDAOInstance();
+    private IForeignerDAO iForeignerDAO = DAOFactory.getForeignerDAOInstance();
 
     public static final String dragonMomUrl = "view/DragonMom.fxml";
     public static final String dragonTrainerUrl = "view/DragonTrainer.fxml";

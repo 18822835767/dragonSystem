@@ -34,31 +34,31 @@ import java.util.*;
  */
 public class ForeignerController {
     @FXML
-    TreeTableView<Dragon> dragonTreeTableView;
+    private TreeTableView<Dragon> dragonTreeTableView;
     @FXML
-    TreeTableView<DragonGroup> groupTreeTableView;
+    private TreeTableView<DragonGroup> groupTreeTableView;
     @FXML
-    TabPane tabPane;
+    private TabPane tabPane;
     @FXML
-    Button changeUser;
+    private Button changeUser;
 
-    IDragonDAO iDragonDAO = DAOFactory.getDragonDAOInstance();
+    private IDragonDAO iDragonDAO = DAOFactory.getDragonDAOInstance();
 
-    IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
+    private IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
 
-    ITicketDAO iTicketDAO = DAOFactory.getTicketDAOInstance();
+    private ITicketDAO iTicketDAO = DAOFactory.getTicketDAOInstance();
 
-    IForeignerDAO iForeignerDAO = DAOFactory.getForeignerDAOInstance();
+    private IForeignerDAO iForeignerDAO = DAOFactory.getForeignerDAOInstance();
 
-    IDragonMomDAO iDragonMomDAO = DAOFactory.getDragonMomDAOInstance();
+    private IDragonMomDAO iDragonMomDAO = DAOFactory.getDragonMomDAOInstance();
 
-    TreeItem<Dragon> dragonRoot = new TreeItem<Dragon>(new Dragon());
+    private TreeItem<Dragon> dragonRoot = new TreeItem<Dragon>(new Dragon());
 
-    TreeItem<DragonGroup> groupRoot = new TreeItem<DragonGroup>(new DragonGroup());
+    private TreeItem<DragonGroup> groupRoot = new TreeItem<DragonGroup>(new DragonGroup());
 
-    Foreigner foreigner = null;
+    private Foreigner foreigner = null;
 
-    Ticket ticket = null;
+    private Ticket ticket = null;
 
     /**
      * 标志是否成功入园.

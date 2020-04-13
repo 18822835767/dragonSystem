@@ -37,7 +37,7 @@ public class DealBackTickets implements Initializable {
 
     private IDragonMomDAO iDragonMomDAO = DAOFactory.getDragonMomDAOInstance();
 
-    ObservableList<Ticket> listData = FXCollections.observableArrayList();//数据源
+    private ObservableList<Ticket> listData = FXCollections.observableArrayList();//数据源
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

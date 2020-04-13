@@ -43,35 +43,35 @@ import java.util.*;
  */
 public class DragonMomController{
     @FXML
-    TreeTableView<DragonTrainer> trainerTreeTableView;
+    private TreeTableView<DragonTrainer> trainerTreeTableView;
     @FXML
-    TreeTableView<DragonGroup> groupTreeTableView;
+    private TreeTableView<DragonGroup> groupTreeTableView;
     @FXML
-    TabPane tabPane;
+    private TabPane tabPane;
     @FXML
-    Button changeUser;
+    private Button changeUser;
 
-    DragonMom dragonMom = null;
+    private DragonMom dragonMom = null;
 
-    IDragonMomDAO iDragonMomDAO = DAOFactory.getDragonMomDAOInstance();
+    private IDragonMomDAO iDragonMomDAO = DAOFactory.getDragonMomDAOInstance();
 
-    IDragonTrainerDAO iDragonTrainerDAO = DAOFactory.getDragonTrainerDAOInstance();
+    private IDragonTrainerDAO iDragonTrainerDAO = DAOFactory.getDragonTrainerDAOInstance();
 
-    IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
+    private IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
 
-    ITicketDAO iTicketDAO = DAOFactory.getTicketDAOInstance();
+    private ITicketDAO iTicketDAO = DAOFactory.getTicketDAOInstance();
 
-    TreeItem<DragonTrainer> trainerRoot = new TreeItem<DragonTrainer>(new DragonTrainer());
+    private TreeItem<DragonTrainer> trainerRoot = new TreeItem<DragonTrainer>(new DragonTrainer());
 
-    TreeItem<DragonGroup> groupRoot = new TreeItem<DragonGroup>(new DragonGroup());
+    private TreeItem<DragonGroup> groupRoot = new TreeItem<DragonGroup>(new DragonGroup());
 
     /**
      * 因为多列树控件中删除一行时，需要是原来加载进去的那个TreeItem对象，所以这里先把TreeItem存起来.
      * 为表的更好地显示而加载。
      */
-    List<TreeItem<DragonTrainer>> trainerTreeItemList = new ArrayList<>();
+    private List<TreeItem<DragonTrainer>> trainerTreeItemList = new ArrayList<>();
 
-    List<TreeItem<DragonGroup>> groupTreeItemList = new ArrayList<>();
+    private List<TreeItem<DragonGroup>> groupTreeItemList = new ArrayList<>();
 
     /**
      * 默认先显示驯龙高手的信息
