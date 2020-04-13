@@ -246,12 +246,12 @@ public class DragonTrainerController {
                 //自定义的单选框，选择龙的训练状态
                 HBox h_training = new HBox(8);
                 String[] buttonName = {"true", "false"};
-                RadioButton[] trainButtons = SingleSelectionTool.singSelection(h_training, buttonName, dragonTraining ? 1 : 0);
+                RadioButton[] trainButtons = SingleSelectionTool.singSelection(h_training, buttonName, dragonTraining ? 0 : 1);
                 h_training.getChildren().addAll(trainButtons[0], trainButtons[1]);
 
                 //自定义的单选框，选择龙的健康状态
                 HBox h_healthy = new HBox(8);
-                RadioButton[] healthyButtons = SingleSelectionTool.singSelection(h_training, buttonName, dragonHealthy ? 1 : 0);
+                RadioButton[] healthyButtons = SingleSelectionTool.singSelection(h_training, buttonName, dragonHealthy ? 0 : 1);
                 h_healthy.getChildren().addAll(healthyButtons[0], healthyButtons[1]);
 
                 //给GridPane添加单选框

@@ -24,7 +24,7 @@ public class AddNodeForPane {
      *
      * @param pane 要添加控件的pane
      * @param promptTexts 所添加的TextFields的提示性文字
-     * @return 返回Map,键值对存储，调用者只需要map.put("promptTexts")即可获取相应的TextField
+     * @return 返回Map,键值对存储，调用者只需要map.get("promptTexts")即可获取相应的TextField
      * */
     public static Map<String,TextField> addTextFieldForPane(Pane pane, String [] promptTexts){
         Map<String,TextField> map = new HashMap<>();
@@ -48,7 +48,7 @@ public class AddNodeForPane {
      *
      * @param pane 要添加控件的pane
      * @param textContents Text中的文字
-     * @return 返回Map,键值对存储，调用者只需要map.put("textContents")即可获取相应的Text
+     * @return 返回Map,键值对存储，调用者只需要map.get("textContents")即可获取相应的Text
      * */
     public static Map<String,Text> addTextForPane(Pane pane,String [] textContents){
         int length = textContents.length;
@@ -74,7 +74,7 @@ public class AddNodeForPane {
      * @param gridPane 要添加的GridPane
      * @param labelTexts Label的文字
      * @param textFiledContents TextField中的内容
-     * @return 返回TextField[]
+     * @return 返回Map,键值对存储，调用者只需要map.get("labels[i].getText()")即可获取相应的Text
      * */
     public static Map<String,TextField> addForGridPane(GridPane gridPane,String[] labelTexts,String[] textFiledContents ){
         Map<String,TextField> map = new HashMap<>();
