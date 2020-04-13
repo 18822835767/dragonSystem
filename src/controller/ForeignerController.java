@@ -303,6 +303,7 @@ public class ForeignerController {
             SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date();
             String currentTime = timeFormat.format(date);//得出当前买票时间
+            double moneyTub = iDragonMomDAO.get().getMoneyTub();
 
             //因为本次入园，所以购买成功后有效次数立即-1。
             switch (comboBox.getValue()){
@@ -317,7 +318,7 @@ public class ForeignerController {
                         double balance = foreigner.getMoney() - Ticket.PRICE1;//用户剩余的钱
                         foreigner.setMoney(balance);//更新对象中的值
                         iForeignerDAO.update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
-                        iDragonMomDAO.update(Ticket.PRICE1);//更新数据库的金库
+                        iDragonMomDAO.update(moneyTub+Ticket.PRICE1);//更新数据库的金库
                     }else{
                         AlertTool.showAlert(Alert.AlertType.WARNING,"购买失败",null,"余额不足");
                         return false;
@@ -335,7 +336,7 @@ public class ForeignerController {
                         double balance = foreigner.getMoney() - Ticket.PRICE2;//外邦人剩余的钱
                         foreigner.setMoney(balance);//更新对象的值
                         iForeignerDAO.update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
-                        iDragonMomDAO.update(Ticket.PRICE2);//更新数据库的金库
+                        iDragonMomDAO.update(moneyTub+Ticket.PRICE2);//更新数据库的金库
                     }else{
                         AlertTool.showAlert(Alert.AlertType.WARNING,"购买失败",null,"余额不足");
                         return false;
@@ -353,7 +354,7 @@ public class ForeignerController {
                         double balance = foreigner.getMoney() - Ticket.PRICE3;//外邦人剩余的钱
                         foreigner.setMoney(balance);//更新对象的值
                         iForeignerDAO.update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
-                        iDragonMomDAO.update(Ticket.PRICE3);//更新数据库的金库
+                        iDragonMomDAO.update(moneyTub+Ticket.PRICE3);//更新数据库的金库
                     }else{
                         AlertTool.showAlert(Alert.AlertType.WARNING,"购买失败",null,"余额不足");
                         return false;
@@ -421,8 +422,8 @@ public class ForeignerController {
                         "取消").showAndWait();
 
                 if(result.isPresent() && result.get().getButtonData()== ButtonBar.ButtonData.OK_DONE){
-                    iTicketDAO.update(ticket.getTicketId(),true);
-                    ticket.setBacking(true);
+                    iTicketDAO.update(ticket.getTicketId(),true);//更新数据库的退票状态
+                    ticket.setBacking(true);//更新对象的值
                     AlertTool.showAlert(Alert.AlertType.INFORMATION,null,null,"已申请退票");
                 }
             }else{

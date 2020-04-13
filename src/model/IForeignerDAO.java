@@ -20,6 +20,11 @@ public interface IForeignerDAO {
      * */
     Foreigner get(String username,String password);
 
+    /**
+     * 通过外邦人的Id得到外邦人.
+     * */
+    Foreigner get(int foreignerId);
+
 //    /**
 //     * 得到所有的外邦人.
 //     * */

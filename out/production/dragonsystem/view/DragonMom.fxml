@@ -82,7 +82,7 @@
                                         <Font size="15.0" />
                                     </font>
                                 </Button>
-                                <Button text="退票处理"  prefWidth="100">
+                                <Button text="退票处理"  prefWidth="100" onAction="#dealBackTickets">
                                     <font>
                                         <Font size="15.0" />
                                     </font>

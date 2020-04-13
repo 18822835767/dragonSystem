@@ -3,19 +3,28 @@ package controller;
 import entity.DragonGroup;
 import entity.DragonMom;
 import entity.DragonTrainer;
+import entity.Ticket;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import model.IDragonGroupDAO;
+import model.IDragonMomDAO;
 import model.IDragonTrainerDAO;
+import model.ITicketDAO;
 import util.AddNodeForPane;
 import util.DAOFactory;
 import view.ChangeUser;
@@ -25,6 +34,7 @@ import widget.AlertTool;
 import widget.DialogTool;
 import widget.TextInputDialogTool;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -43,9 +53,13 @@ public class DragonMomController{
 
     DragonMom dragonMom = null;
 
+    IDragonMomDAO iDragonMomDAO = DAOFactory.getDragonMomDAOInstance();
+
     IDragonTrainerDAO iDragonTrainerDAO = DAOFactory.getDragonTrainerDAOInstance();
 
     IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
+
+    ITicketDAO iTicketDAO = DAOFactory.getTicketDAOInstance();
 
     TreeItem<DragonTrainer> trainerRoot = new TreeItem<DragonTrainer>(new DragonTrainer());
 
@@ -401,6 +415,7 @@ public class DragonMomController{
      * 点击事件，弹出弹窗显示金库中的钱.
      * */
     public void showMoneyTub(ActionEvent actionEvent) {
+        dragonMom = iDragonMomDAO.get();
         VBox vBox = new VBox();
         vBox.setPadding(new Insets(25));
         Text text = new Text("金库余额:"+dragonMom.getMoneyTub());
@@ -414,5 +429,25 @@ public class DragonMomController{
 
     public void setDragonMom(DragonMom dragonMom) {
         this.dragonMom = dragonMom;
+    }
+
+    /**
+     * 点击事件，处理外邦人的退票处理.
+     * */
+    public void dealBackTickets(ActionEvent actionEvent) {
+        try {
+            FXMLLoader fx = new FXMLLoader();
+            fx.setLocation(fx.getClassLoader().getResource("view/DealBackTickets.fxml"));
+            BorderPane borderPane = null;
+            borderPane = (BorderPane) fx.load();
+            Scene scene = new Scene(borderPane);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setWidth(400);
+            stage.setHeight(400);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

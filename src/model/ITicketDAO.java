@@ -2,6 +2,8 @@ package model;
 
 import entity.Ticket;
 
+import java.util.List;
+
 public interface ITicketDAO {
     /**
      * 通过具体的信息保存一张票.
@@ -33,4 +35,9 @@ public interface ITicketDAO {
      * @return Ticket实例对象
      * */
     Ticket get(int foreignerId);
+
+    /**
+     * 根据票是否处于退票状态来划分，得到ticket的List
+     * */
+    List<Ticket> getListByBacking(boolean back);
 }

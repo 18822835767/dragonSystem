@@ -8,6 +8,8 @@ import util.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TicketDAOImpl implements ITicketDAO{
     @Override
@@ -53,6 +55,33 @@ public class TicketDAOImpl implements ITicketDAO{
                         rs.getString("type"),rs.getString("buyTime"),rs.getInt("times"),backing);
                 return ticket;
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtils.close(null,ps, rs);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Ticket> getListByBacking(boolean back) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Ticket> tickets = new ArrayList<>();
+        int backing = back ? 1 : 0;
+        try {
+            conn = DBUtils.getConnection();
+            String sql = "select * from ticket where backing = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,backing);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Ticket ticket = new Ticket(rs.getInt("ticketId"),rs.getInt("foreignerId"),rs.getFloat("price"),
+                        rs.getString("type"),rs.getString("buyTime"),rs.getInt("times"),back);
+                tickets.add(ticket);
+            }
+            return tickets;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

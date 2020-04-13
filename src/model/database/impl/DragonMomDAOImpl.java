@@ -17,7 +17,7 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
     public int update(double money) {
         double moneyTub = get().getMoneyTub();
         String sql = "update dragonmom set moneyTub = ?";
-        return DBUtils.executeUpdate(sql,moneyTub+money);
+        return DBUtils.executeUpdate(sql,money);
     }
 
     @Override

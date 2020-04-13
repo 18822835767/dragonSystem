@@ -53,7 +53,31 @@ public class ForeignerDAOImpl implements IForeignerDAO {
         return null;
     }
 
-//    @Override
+    @Override
+    public Foreigner get(int foreignerId) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String sql = "select * from foreigner where foreignerId = ?";
+            conn = DBUtils.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,foreignerId);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                Foreigner foreigner = new Foreigner(rs.getInt("foreignerId"), rs.getString("username"),
+                        Encrypt.getEncrypt(rs.getString("password")),rs.getString("name"),rs.getInt("money"));
+                return foreigner;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBUtils.close(null,ps,rs);
+        }
+        return null;
+    }
+
+    //    @Override
 //    public List<String> getUserNameList() {
 //        List<String> userNameList = new ArrayList<>();
 //        Connection conn = null;
