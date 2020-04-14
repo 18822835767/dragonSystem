@@ -24,6 +24,7 @@ import model.IDragonTrainerDAO;
 import model.ITicketDAO;
 import util.PaneFilling;
 import util.DAOFactory;
+import util.ViewManage;
 import view.SwitchAccount;
 import util.table.DragonGroupTable;
 import util.table.DragonTrainerTable;
@@ -437,16 +438,7 @@ public class DragonMomController extends BaseController{
      * */
     public void dealBackTickets(ActionEvent actionEvent) {
         try {
-            FXMLLoader fx = new FXMLLoader();
-            fx.setLocation(fx.getClassLoader().getResource("view/DealBackTickets.fxml"));
-            BorderPane borderPane = null;
-            borderPane = (BorderPane) fx.load();
-            Scene scene = new Scene(borderPane);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setWidth(400);
-            stage.setHeight(400);
-            stage.show();
+            ViewManage.openView("view/DealBackTickets.fxml",null,400.0,400.0);
         } catch (IOException e) {
             e.printStackTrace();
         }

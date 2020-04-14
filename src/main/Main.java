@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import util.DBUtils;
+import util.ViewManage;
 
 import java.sql.Connection;
 
@@ -19,16 +20,9 @@ public class Main extends Application {
      * */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fx = new FXMLLoader();
-        fx.setLocation(fx.getClassLoader().getResource("view/login.fxml"));
-        Pane root = (Pane) fx.load();
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.setHeight(280);
-        primaryStage.setWidth(420);
-        primaryStage.show();
+        FXMLLoader fx = ViewManage.openView("view/login.fxml",null,420.0,280.0);
 
-        //这里是判断用户是否有保存登陆信息，自动登录
+        //这里是判断用户是否有保存登陆信息，有的话自动登录
         LoginController loginController= (LoginController)fx.getController();
         loginController.init();
     }

@@ -19,6 +19,7 @@ import model.IForeignerDAO;
 import util.PaneFilling;
 import util.DAOFactory;
 import util.Encrypt;
+import util.ViewManage;
 import widget.AlertTool;
 import widget.DialogTool;
 import widget.SingleValueTool;
@@ -130,7 +131,7 @@ public class LoginController {
         Boolean loginSuccess = false;
         String stageUrl = null;
         String stageTitle = null;
-        DragonMom dragonMom = null;
+        DragonMom dragonMom ;
         DragonTrainer dragonTrainer = null;
         Foreigner foreigner = null;
         if ((dragonMom = iDragonMomDAO.get(username, password) )!= null) {
@@ -148,17 +149,7 @@ public class LoginController {
         }
         if (loginSuccess) {
             //切换到对应人物的主界面
-            FXMLLoader fx = new FXMLLoader();
-            Stage stage = new Stage();
-            fx.setLocation(fx.getClassLoader().getResource(stageUrl));
-            HBox root = (HBox) fx.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle(stageTitle);
-            stage.setWidth(700);
-            stage.setHeight(500);
-
-            stage.show();
+            FXMLLoader fx = ViewManage.openView(stageUrl,stageTitle,700.0,500.0);
 
             //如果登陆的是龙妈
             if(dragonMom != null){
