@@ -25,14 +25,10 @@ public class DragonGroupTable {
      */
     public static void initGroupTreeTable(TreeTableView<DragonGroup> groupTreeTableView, String[] columnName,
                                           double[] columnPrefWidth, String[] columnId) {
-        //这里添加了多个列
+        //列的数量
         int columnNum = columnName.length;
-        TreeTableColumn<DragonGroup, DragonGroup> columns[] =new TreeTableColumn[columnNum];
-        for (int i = 0; i < columnNum; i++) {
-            columns[i] = new TreeTableColumn(columnName[i]);
-        }
-        groupTreeTableView.getColumns().addAll(columns);
 
+        //这里的警告实在不会解决...
         Callback cellValueFactory = new Callback() {
             @Override
             public Object call(Object o) {
@@ -40,20 +36,17 @@ public class DragonGroupTable {
                 return p.getValue().valueProperty();
             }
         };
-        for (int i = 0; i < columns.length; i++) {
-            columns[i].setCellValueFactory(cellValueFactory);
-        }
 
-        //设置列的宽度
-        for (int i = 0; i < columnNum; i++) {
-            columns[i].setPrefWidth(columnPrefWidth[i]);
-        }
-
-
-        //设置CellFactory,定义每一列单元格的显示
         for (int i = 0; i < columnNum; i++) {
             int finalI = i;
-            columns[i].setCellFactory((param) -> {
+            TreeTableColumn<DragonGroup,DragonGroup> treeTableColumn = new TreeTableColumn<>(columnName[i]);
+            //添加列
+            groupTreeTableView.getColumns().add(treeTableColumn);
+            treeTableColumn.setCellValueFactory(cellValueFactory);
+            //设置列的宽度
+            treeTableColumn.setPrefWidth(columnPrefWidth[i]);
+            //设置CellFactory,定义每一列单元格的显示
+            treeTableColumn.setCellFactory((param) -> {
                 return new DragonGroupTable.GroupTableTreeCell(columnId[finalI]);
             });
         }

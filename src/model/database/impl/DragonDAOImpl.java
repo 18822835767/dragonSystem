@@ -49,9 +49,8 @@ public class DragonDAOImpl implements IDragonDAO {
                 //boolean与int的值转换
                 boolean training = rs.getInt("training") == 1;
                 boolean healthy = rs.getInt("healthy") == 1;
-                Dragon dragon = new Dragon(rs.getInt("dragonId"), rs.getInt("dragonGroupId"), rs.getString("name"),
+                return new Dragon(rs.getInt("dragonId"), rs.getInt("dragonGroupId"), rs.getString("name"),
                         rs.getString("profile"), training, healthy, rs.getString("sex"), rs.getInt("age"));
-                return dragon;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -77,9 +76,8 @@ public class DragonDAOImpl implements IDragonDAO {
                 //boolean与int的值转换
                 boolean training = rs.getInt("training") == 1;
                 boolean healthy = rs.getInt("healthy") == 1;
-                Dragon dragon = new Dragon(rs.getInt("dragonId"), rs.getInt("dragonGroupId"), rs.getString("name"),
+                return new Dragon(rs.getInt("dragonId"), rs.getInt("dragonGroupId"), rs.getString("name"),
                         rs.getString("profile"), training, healthy, rs.getString("sex"), rs.getInt("age"));
-                return dragon;
             }
         } catch (SQLException e) {
             e.printStackTrace();

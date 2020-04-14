@@ -41,9 +41,8 @@ public class ForeignerDAOImpl implements IForeignerDAO {
             ps.setString(2,Encrypt.setEncrypt(password));
             rs = ps.executeQuery();
             if(rs.next()){
-                Foreigner foreigner = new Foreigner(rs.getInt("foreignerId"), rs.getString("username"),
+                return new Foreigner(rs.getInt("foreignerId"), rs.getString("username"),
                         Encrypt.getEncrypt(rs.getString("password")),rs.getString("name"),rs.getInt("money"));
-                return foreigner;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,9 +64,8 @@ public class ForeignerDAOImpl implements IForeignerDAO {
             ps.setInt(1,foreignerId);
             rs = ps.executeQuery();
             if(rs.next()){
-                Foreigner foreigner = new Foreigner(rs.getInt("foreignerId"), rs.getString("username"),
+                return new Foreigner(rs.getInt("foreignerId"), rs.getString("username"),
                         Encrypt.getEncrypt(rs.getString("password")),rs.getString("name"),rs.getInt("money"));
-                return foreigner;
             }
         } catch (SQLException e) {
             e.printStackTrace();

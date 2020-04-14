@@ -51,9 +51,8 @@ public class TicketDAOImpl implements ITicketDAO{
             rs = ps.executeQuery();
             if (rs.next()) {
                 boolean backing = rs.getInt("backing")==1;
-                Ticket ticket = new Ticket(rs.getInt("ticketId"),rs.getInt("foreignerId"),rs.getFloat("price"),
+                return new Ticket(rs.getInt("ticketId"),rs.getInt("foreignerId"),rs.getFloat("price"),
                         rs.getString("type"),rs.getString("buyTime"),rs.getInt("times"),backing);
-                return ticket;
             }
         } catch (Exception e) {
             e.printStackTrace();

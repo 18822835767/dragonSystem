@@ -17,7 +17,6 @@ public class TextInputDialogTool {
         input.setTitle(title);
         input.setHeaderText(headerText);
         input.setContentText(contextText);
-        Optional<String> result = input.showAndWait();
-        return result;
+        return input.showAndWait();
     }
 }

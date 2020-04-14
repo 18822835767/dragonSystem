@@ -1,5 +1,6 @@
 package util.table;
 
+import entity.DragonGroup;
 import entity.DragonTrainer;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableCell;
@@ -27,14 +28,10 @@ public class DragonTrainerTable {
      */
     public static void initTrainerTreeTable(TreeTableView<DragonTrainer> trainerTreeTableView, String [] columnName,
                                      double [] columnPrefWidth, String [] columnId) {
-        //这里添加了多个列
+        //列的数量
         int columnNum = columnName.length;
-        TreeTableColumn<DragonTrainer, DragonTrainer> columns[] = new TreeTableColumn[columnNum];
-        for(int i=0;i<columnNum;i++){
-            columns[i] = new TreeTableColumn(columnName[i]);
-        }
-        trainerTreeTableView.getColumns().addAll(columns);
 
+        //这里的警告实在不会解决...
         Callback cellValueFactory = new Callback() {
             @Override
             public Object call(Object o) {
@@ -42,21 +39,18 @@ public class DragonTrainerTable {
                 return p.getValue().valueProperty();
             }
         };
-        for (int i = 0; i < columns.length; i++) {
-            columns[i].setCellValueFactory(cellValueFactory);
-        }
 
-        //设置列的宽度
-        for(int i=0;i<columnNum;i++){
-            columns[i].setPrefWidth(columnPrefWidth[i]);
-        }
-
-
-        //设置CellFactory,定义每一列单元格的显示
-        for(int i=0;i<columnNum;i++){
+        for (int i = 0; i < columnNum; i++) {
             int finalI = i;
-            columns[i].setCellFactory((param) -> {
-                return new TrainerTableTreeCell(columnId[finalI]);
+            TreeTableColumn<DragonTrainer,DragonTrainer> treeTableColumn = new TreeTableColumn<>(columnName[i]);
+            //添加列
+            trainerTreeTableView.getColumns().add(treeTableColumn);
+            treeTableColumn.setCellValueFactory(cellValueFactory);
+            //设置列的宽度
+            treeTableColumn.setPrefWidth(columnPrefWidth[i]);
+            //设置CellFactory,定义每一列单元格的显示
+            treeTableColumn.setCellFactory((param) -> {
+                return new DragonTrainerTable.TrainerTableTreeCell(columnId[finalI]);
             });
         }
 

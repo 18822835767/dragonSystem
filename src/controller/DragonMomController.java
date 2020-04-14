@@ -133,7 +133,7 @@ public class DragonMomController extends BaseController{
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是族群不存在或者用户名已注册");
             } else {
                 DragonTrainer dragonTrainer = iDragonTrainerDAO.get(username, password);
-                TreeItem<DragonTrainer> treeItem = new TreeItem(dragonTrainer);
+                TreeItem<DragonTrainer> treeItem = new TreeItem<>(dragonTrainer);
                 trainerTreeItemList.add(treeItem);
                 trainerRoot.getChildren().add(treeItem);
             }

@@ -12,65 +12,58 @@
 <?import view.MyHBox?>
 <MyHBox xmlns:fx="http://java.sun.com/JSP/Page" fx:controller="controller.ForeignerController" prefHeight="600.0"
         prefWidth="600.0">
-    <children>
-        <VBox>
-            <children>
-                <Button fx:id="changeUser" text="切换账号" onAction="#switchAccount"/>
+    <VBox>
+        <Button fx:id="changeUser" text="切换账号" onAction="#switchAccount"/>
 
-                <TabPane fx:id="tabPane">
-                    <tabs>
+        <TabPane fx:id="tabPane">
+            <Tab text="龙">
+                <VBox alignment="CENTER" spacing="15">
+                    <padding>
+                        <Insets top="70.0"/>
+                    </padding>
+                    <Button text="查询" prefWidth="120" onAction="#queryDragon">
+                        <font>
+                            <Font size="15.0"/>
+                        </font>
+                    </Button>
+                </VBox>
+            </Tab>
 
-                        <Tab text="龙">
-                            <VBox alignment="CENTER" spacing="15">
-                                <padding>
-                                    <Insets top="70.0"/>
-                                </padding>
-                                <Button text="查询"  prefWidth="120" onAction="#queryDragon">
-                                    <font>
-                                        <Font size="15.0" />
-                                    </font>
-                                </Button>
-                            </VBox>
-                        </Tab>
+            <Tab text="族群">
+                <VBox alignment="CENTER" spacing="15">
+                    <padding>
+                        <Insets top="70.0"/>
+                    </padding>
+                    <Button text="查询" prefWidth="120" onAction="#queryDragonGroup">
+                        <font>
+                            <Font size="15.0"/>
+                        </font>
+                    </Button>
+                </VBox>
+            </Tab>
 
-                        <Tab text="族群">
-                            <VBox alignment="CENTER" spacing="15">
-                                <padding>
-                                    <Insets top="70.0"/>
-                                </padding>
-                                <Button text="查询" prefWidth="120" onAction="#queryDragonGroup">
-                                    <font>
-                                        <Font size="15.0" />
-                                    </font>
-                                </Button>
-                            </VBox>
-                        </Tab>
+            <Tab text="其它">
+                <VBox alignment="CENTER" spacing="18">
+                    <padding>
+                        <Insets top="70.0"/>
+                    </padding>
+                    <Button text="我的信息" prefWidth="100" onAction="#showMyInfo">
+                        <font>
+                            <Font size="15.0"/>
+                        </font>
+                    </Button>
+                    <Button text="我要退票" prefWidth="100" onAction="#backTicket">
+                        <font>
+                            <Font size="15.0"/>
+                        </font>
+                    </Button>
+                </VBox>
+            </Tab>
 
-                        <Tab text="其它">
-                           <VBox alignment="CENTER" spacing="18">
-                               <padding>
-                                   <Insets top="70.0"/>
-                               </padding>
-                               <Button text="我的信息" prefWidth="100" onAction="#showMyInfo">
-                                   <font>
-                                       <Font size="15.0" />
-                                   </font>
-                               </Button>
-                               <Button text="我要退票" prefWidth="100" onAction="#backTicket">
-                                   <font>
-                                       <Font size="15.0" />
-                                   </font>
-                               </Button>
-                           </VBox>
-                        </Tab>
+        </TabPane>
+    </VBox>
 
-                    </tabs>
-                </TabPane>
-            </children>
-        </VBox>
+    <TreeTableView fx:id="dragonTreeTableView" visible="false"/>
+    <TreeTableView fx:id="groupTreeTableView" visible="false"/>
 
-        <TreeTableView fx:id="dragonTreeTableView" visible="false"/>
-        <TreeTableView fx:id="groupTreeTableView" visible="false"/>
-
-    </children>
 </MyHBox>

@@ -7,9 +7,9 @@ public class Encrypt {
 
     public static String setEncrypt(String str){
         int strLen = str.length();//要加密的字符串长度
-        int strNum[] = new int[strLen];//字符串的每一位和key异或后变成整型，存放在这里
+        int[] strNum = new int[strLen];//字符串的每一位和key异或后变成整型，存放在这里
         String temp = "";//后面在字符串拼接时作为临时字符串使用
-        String result = "";//最终加密好的字符串放这里
+        StringBuilder result = new StringBuilder();//最终加密好的字符串放这里
 
         for(int i=0,j=0;i<strLen;i++,j++){
             if(j==key.length()){
@@ -26,15 +26,15 @@ public class Encrypt {
                     temp = "0"+strNum[i];
                 }
             }
-            result += temp;
+            result.append(temp);
         }
 
-        return result;
+        return result.toString();
     }
 
     public static String getEncrypt(String str){
-        char strChar[] = new char[str.length()/3];
-        String result = "";
+        char[] strChar = new char[str.length()/3];
+        StringBuilder result = new StringBuilder();
 
         for(int i=0,j=0;i<str.length()/3;i++,j++){
             if(j == key.length()){
@@ -42,10 +42,10 @@ public class Encrypt {
             }
             int n = Integer.parseInt(str.substring(i*3,i*3+3));
             strChar[i] = (char)((char)n^key.charAt(j));
-            result +=strChar[i];
+            result.append(strChar[i]);
         }
 
-        return result;
+        return result.toString();
     }
 
 }

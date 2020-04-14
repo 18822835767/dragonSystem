@@ -46,10 +46,9 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
             ps.setInt(1,dragonTrainerId);
             rs = ps.executeQuery();
             if (rs.next()) {
-                DragonTrainer dragonTrainer = new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
+                return new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
                         , rs.getString("name"), rs.getString("username"),
                         Encrypt.getEncrypt( rs.getString("password")));
-                return dragonTrainer;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,9 +72,8 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
             ps.setString(2,Encrypt.setEncrypt(password));
             rs = ps.executeQuery();
             if(rs.next()){
-                DragonTrainer dragonTrainer = new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
+                return new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
                         , rs.getString("name"), rs.getString("username"),Encrypt.getEncrypt( rs.getString("password")));
-                return dragonTrainer;
             }
         } catch (SQLException e) {
             e.printStackTrace();

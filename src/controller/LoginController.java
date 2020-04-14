@@ -123,7 +123,7 @@ public class LoginController {
      * @param password 输入的密码
      */
     public boolean changeView(String username, String password) throws IOException {
-        Boolean loginSuccess = false;
+        boolean loginSuccess = false;
         String stageUrl = null;
         String stageTitle = null;
         DragonMom dragonMom ;
@@ -295,7 +295,9 @@ public class LoginController {
             e.printStackTrace();
         } finally {
             try {
-                writer.close();
+                if (writer != null) {
+                    writer.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

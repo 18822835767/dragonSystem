@@ -31,9 +31,8 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             if(rs.next()){
-                DragonMom dragonMom = new DragonMom(rs.getInt("dragonMomId"), rs.getString("name"),
+                return new DragonMom(rs.getInt("dragonMomId"), rs.getString("name"),
                         rs.getString("username"), rs.getString("password"),rs.getFloat("moneyTub"));
-                return dragonMom;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,10 +58,8 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
             ps.setString(2, Encrypt.setEncrypt(password));
             rs = ps.executeQuery();
             if(rs.next()){
-                DragonMom dragonMom = new DragonMom(rs.getInt("dragonMomId"), rs.getString("name"),
-                        rs.getString("username"), Encrypt.getEncrypt(rs.getString("password")),
-                        rs.getFloat("moneyTub"));
-                return dragonMom;
+                return new DragonMom(rs.getInt("dragonMomId"), rs.getString("name"), rs.getString("username"),
+                        Encrypt.getEncrypt(rs.getString("password")), rs.getFloat("moneyTub"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

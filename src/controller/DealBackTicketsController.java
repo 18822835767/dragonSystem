@@ -46,9 +46,7 @@ public class DealBackTicketsController implements Initializable {
         //为listView设置数据源
         listView.setItems(listData);
 
-        for(int i=0;i<tickets.size();i++){
-            listData.add(tickets.get(i));
-        }
+        listData.addAll(tickets);
 
         //设置单元格生成器，负责每个单元格的显示
         listView.setCellFactory(new Callback<ListView<Ticket>, ListCell<Ticket>>() {

@@ -42,9 +42,8 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
             ps.setInt(1,dragonGroupId);
             rs =ps.executeQuery();
             if (rs.next()) {
-                DragonGroup dragonGroup = new DragonGroup(rs.getInt("dragonGroupId"),rs.getString("name"),
+                return new DragonGroup(rs.getInt("dragonGroupId"),rs.getString("name"),
                         rs.getString("profile"), rs.getString("location"),rs.getFloat("size"));
-                return dragonGroup;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,9 +65,8 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
             ps.setString(1,name);
             rs = ps.executeQuery();
             if (rs.next()) {
-                DragonGroup dragonGroup = new DragonGroup(rs.getInt("dragonGroupId"),rs.getString("name"),
+               return new DragonGroup(rs.getInt("dragonGroupId"),rs.getString("name"),
                         rs.getString("profile"), rs.getString("location"),rs.getFloat("size"));
-                return dragonGroup;
             }
         } catch (Exception e) {
             e.printStackTrace();
