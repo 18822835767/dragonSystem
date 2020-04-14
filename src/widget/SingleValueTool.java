@@ -9,8 +9,8 @@ import javafx.scene.text.Text;
 /**
  * 封装了一个单选框.
  */
-public class SingleSelectionTool {
-    private SingleSelectionTool() {
+public class SingleValueTool {
+    private SingleValueTool() {
 
     }
 

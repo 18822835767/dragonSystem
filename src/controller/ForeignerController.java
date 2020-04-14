@@ -16,11 +16,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import model.*;
-import util.AddNodeForPane;
+import util.PaneFilling;
 import util.DAOFactory;
-import view.ChangeUser;
-import view.InitDragonGroupView;
-import view.InitDragonView;
+import view.SwitchAccount;
+import util.table.DragonGroupTable;
+import util.table.DragonTable;
 import widget.AlertTool;
 import widget.DialogTool;
 import widget.TextInputDialogTool;
@@ -32,7 +32,7 @@ import java.util.*;
  * 外邦人的控制器，实现Initializable接口来初始化.
  * 为了使代码简洁，查询方法使用了自定义的工具类AddNodeForPane。
  */
-public class ForeignerController {
+public class ForeignerController extends BaseController{
     @FXML
     private TreeTableView<Dragon> dragonTreeTableView;
     @FXML
@@ -120,6 +120,8 @@ public class ForeignerController {
     /**
      * TabPane监听器，用户点击不同的Tab则切换不同的表的信息
      */
+    @FXML
+    @Override
     public void tabPaneListener() {
         tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
@@ -138,8 +140,10 @@ public class ForeignerController {
     /**
      * 切换用户.
      */
-    public void changeUser(ActionEvent actionEvent) {
-        ChangeUser.changeUser(changeUser);
+    @FXML
+    @Override
+    public void switchAccount(ActionEvent actionEvent) {
+        SwitchAccount.changeUser(changeUser);
     }
 
     /**
@@ -160,7 +164,7 @@ public class ForeignerController {
                     String[] textContents = {"龙的Id:" + dragon.getDragonId(), "名字:" + dragon.getName(),
                             "性别:" + dragon.getSex(), "简介:" + dragon.getProfile(), "是否在训练:" + dragon.isTraining(),
                             "是否健康:" + dragon.isHealthy()};
-                    AddNodeForPane.addTextForPane(vBox, textContents);
+                    PaneFilling.addText(vBox, textContents);
 
                     DialogTool.showDialog("龙的信息", vBox, "确定", null).showAndWait();
                 } else {
@@ -188,7 +192,7 @@ public class ForeignerController {
 
                     String[] textContents = {"名字:" + dragonGroup.getName(), "Id:" + dragonGroup.getId(),
                             "简介:" + dragonGroup.getProfile(), "大小:" + dragonGroup.getSize()};
-                    AddNodeForPane.addTextForPane(vBox, textContents);
+                    PaneFilling.addText(vBox, textContents);
 
                     DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
                 } else {
@@ -209,7 +213,7 @@ public class ForeignerController {
         String[] columnName = {"族群名字", "Id", "简介", "大小"};
         double[] columnPrefWidth = {120, 80, 120, 120, 80};
         String[] columnId = {"name", "Id", "profile", "size"};
-        InitDragonGroupView.initGroupTreeTable(groupTreeTableView, columnName, columnPrefWidth, columnId);
+        DragonGroupTable.initGroupTreeTable(groupTreeTableView, columnName, columnPrefWidth, columnId);
     }
 
     /**
@@ -219,7 +223,7 @@ public class ForeignerController {
      * 调用工具类
      */
     public void initGroupTreeData() {
-        InitDragonGroupView.initGroupTreeData(groupTreeTableView, groupRoot, groupTreeItemList);
+        DragonGroupTable.initGroupTreeData(groupTreeTableView, groupRoot, groupTreeItemList);
     }
 
     /**
@@ -232,7 +236,7 @@ public class ForeignerController {
         String[] columnName = {"名字", "Id", "性别", "简介", "训练", "健康"};
         double[] columnPrefWidth = {120, 80, 80, 120, 80, 80};
         String[] columnId = {"name", "Id", "sex", "profile", "training", "healthy"};
-        InitDragonView.initDragonTreeTable(dragonTreeTableView, columnName, columnPrefWidth, columnId);
+        DragonTable.initDragonTreeTable(dragonTreeTableView, columnName, columnPrefWidth, columnId);
     }
 
     /**
@@ -242,7 +246,7 @@ public class ForeignerController {
      * 调用工具类
      */
     public void initDragonTreeData() {
-        InitDragonView.initDragonTreeData(dragonTreeTableView, dragonRoot, dragonTreeItemList);
+        DragonTable.initDragonTreeData(dragonTreeTableView, dragonRoot, dragonTreeItemList);
     }
 
     /**

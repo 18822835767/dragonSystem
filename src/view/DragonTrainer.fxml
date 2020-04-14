@@ -12,7 +12,7 @@
     <children>
         <VBox>
             <children>
-                <Button fx:id="changeUser" text="切换账号" onAction="#changeUser"/>
+                <Button fx:id="changeUser" text="切换账号" onAction="#switchAccount"/>
 
                 <TabPane fx:id="tabPane">
                     <tabs>

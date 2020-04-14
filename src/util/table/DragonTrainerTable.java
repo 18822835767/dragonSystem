@@ -1,4 +1,4 @@
-package view;
+package util.table;
 
 import entity.DragonTrainer;
 import javafx.scene.control.TreeItem;
@@ -6,17 +6,21 @@ import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.util.Callback;
+import model.IDragonTrainerDAO;
 import model.database.impl.DragonGroupDAOImpl;
 import model.database.impl.DragonTrainerDAOImpl;
+import util.DAOFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 负责显示驯龙高手列表TreeTableView，封转成一个View的工具类.
+ * 负责驯龙高手列表TreeTableView的初始化(列名、列宽、数据)，封转成一个工具类.
  * 可以根据需要显示对应的列
  * */
-public class InitDragonTrainerView {
+public class DragonTrainerTable {
+    private static IDragonTrainerDAO iDragonTrainerDAO = DAOFactory.getDragonTrainerDAOInstance();
+
     /**
      * 驯龙高手表：
      * 设置列名、列宽
@@ -123,7 +127,7 @@ public class InitDragonTrainerView {
                                     TreeItem<DragonTrainer> trainerRoot) {
         trainerTreeItemList.clear();
         trainerRoot.getChildren().clear();
-        List<DragonTrainer> dragonTrainerList = new DragonTrainerDAOImpl().getList();
+        List<DragonTrainer> dragonTrainerList = iDragonTrainerDAO.getList();
         if (dragonTrainerList != null) {
             for (DragonTrainer dragonTrainer : dragonTrainerList) {
                 TreeItem<DragonTrainer> treeItem = new TreeItem<>(dragonTrainer);

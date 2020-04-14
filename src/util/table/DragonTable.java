@@ -1,4 +1,4 @@
-package view;
+package util.table;
 
 import entity.Dragon;
 import entity.DragonTrainer;
@@ -7,17 +7,21 @@ import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.util.Callback;
+import model.IDragonDAO;
 import model.database.impl.DragonDAOImpl;
 import model.database.impl.DragonGroupDAOImpl;
 import model.database.impl.DragonTrainerDAOImpl;
+import util.DAOFactory;
 
 import java.util.List;
 
 /**
- * 负责显示族群中龙的列表TreeTableView，封转成一个View的工具类.
+ * 负责族群中龙的列表TreeTableView的初始化(列名、列宽、数据)，封转成一个工具类.
  * 可以根据需要显示对应的列
  */
-public class InitDragonView {
+public class DragonTable {
+    private static IDragonDAO iDragonDAO = DAOFactory.getDragonDAOInstance();
+
     /**
      * 龙的表.
      * 设置列名、列宽
@@ -143,10 +147,10 @@ public class InitDragonView {
                                    TreeItem<Dragon> dragonRoot, int dragonGroupId) {
         dragonTreeItemList.clear();
         dragonRoot.getChildren().clear();
-        List<Dragon> dragonList = new DragonDAOImpl().getList(dragonGroupId);
+        List<Dragon> dragonList = iDragonDAO.getList(dragonGroupId);
         if (dragonList != null) {
             for (Dragon dragon : dragonList) {
-                TreeItem<Dragon> treeItem = new TreeItem(dragon);
+                TreeItem<Dragon> treeItem = new TreeItem<>(dragon);
                 dragonTreeItemList.add(treeItem);
                 dragonRoot.getChildren().add(treeItem);
             }
@@ -160,10 +164,10 @@ public class InitDragonView {
     public static void flushDragon(List<TreeItem<Dragon>> dragonTreeItemList, TreeItem<Dragon> dragonRoot) {
         dragonTreeItemList.clear();
         dragonRoot.getChildren().clear();
-        List<Dragon> dragonList = new DragonDAOImpl().getList();
+        List<Dragon> dragonList = iDragonDAO.getList();
         if (dragonList != null) {
             for (Dragon dragon : dragonList) {
-                TreeItem<Dragon> treeItem = new TreeItem(dragon);
+                TreeItem<Dragon> treeItem = new TreeItem<>(dragon);
                 dragonTreeItemList.add(treeItem);
                 dragonRoot.getChildren().add(treeItem);
             }

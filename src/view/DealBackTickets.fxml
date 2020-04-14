@@ -9,7 +9,7 @@
 <!--处理退票界面的fxml-->
 
 <?import entity.Ticket?>
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.DealBackTickets" prefHeight="400.0" prefWidth="600.0">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.DealBackTicketsController" prefHeight="400.0" prefWidth="600.0">
     <top>
         <HBox>
             <Button text="同意" onAction="#agree"/>

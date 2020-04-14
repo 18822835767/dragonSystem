@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 /**
  * 处理退票的控制器.
  * */
-public class DealBackTickets implements Initializable {
+public class DealBackTicketsController implements Initializable {
     @FXML
     ListView<Ticket> listView;
 
@@ -78,14 +78,11 @@ public class DealBackTickets implements Initializable {
                 iTicketDAO.update(ticket.getTicketId(),0);
                 //更新票的状态
                 iTicketDAO.update(ticket.getTicketId(),false);
-                //更新对象的值
-                ticket.setTimes(0);
-                ticket.setBacking(false);
 
                 iterator.remove();
             }
         }
-        listView.refresh();
+        listView.refresh();//刷新listView的显示
     }
 
     /**
@@ -98,13 +95,11 @@ public class DealBackTickets implements Initializable {
             if(ticket.isChecked()){
                 //更新票的状态
                 iTicketDAO.update(ticket.getTicketId(),false);
-                //更新对象的值
-                ticket.setBacking(false);
 
                 iterator.remove();
             }
         }
-        listView.refresh();
+        listView.refresh();//刷新listView的显示
     }
 
     /**

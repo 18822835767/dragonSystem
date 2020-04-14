@@ -14,8 +14,8 @@ import java.util.Map;
  * 由于增删查改有大量的语句本质上一样，都是为pane添加某种node，所以抽离出来作为一个工具类使用，提供不同的方法,从而使增删查改
  * 的方法更加简洁。
  * */
-public class AddNodeForPane {
-    private AddNodeForPane(){
+public class PaneFilling {
+    private PaneFilling(){
 
     }
 
@@ -26,7 +26,7 @@ public class AddNodeForPane {
      * @param promptTexts 所添加的TextFields的提示性文字
      * @return 返回Map,键值对存储，调用者只需要map.get("promptTexts")即可获取相应的TextField
      * */
-    public static Map<String,TextField> addTextFieldForPane(Pane pane, String [] promptTexts){
+    public static Map<String,TextField> addTextField(Pane pane, String [] promptTexts){
         Map<String,TextField> map = new HashMap<>();
         int length = promptTexts.length;
 
@@ -50,7 +50,7 @@ public class AddNodeForPane {
      * @param textContents Text中的文字
      * @return 返回Map,键值对存储，调用者只需要map.get("textContents")即可获取相应的Text
      * */
-    public static Map<String,Text> addTextForPane(Pane pane,String [] textContents){
+    public static Map<String,Text> addText(Pane pane, String [] textContents){
         int length = textContents.length;
         Map<String,Text> map = new HashMap<>();
 

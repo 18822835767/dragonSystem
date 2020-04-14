@@ -3,7 +3,6 @@ package controller;
 import entity.DragonGroup;
 import entity.DragonMom;
 import entity.DragonTrainer;
-import entity.Ticket;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -11,12 +10,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -25,11 +22,11 @@ import model.IDragonGroupDAO;
 import model.IDragonMomDAO;
 import model.IDragonTrainerDAO;
 import model.ITicketDAO;
-import util.AddNodeForPane;
+import util.PaneFilling;
 import util.DAOFactory;
-import view.ChangeUser;
-import view.InitDragonGroupView;
-import view.InitDragonTrainerView;
+import view.SwitchAccount;
+import util.table.DragonGroupTable;
+import util.table.DragonTrainerTable;
 import widget.AlertTool;
 import widget.DialogTool;
 import widget.TextInputDialogTool;
@@ -41,7 +38,7 @@ import java.util.*;
  * 为了可以初始化，所以继承接口Initializable.
  * 为了使代码简洁，CRUD使用了自定义的工具类AddNodeForPane。
  */
-public class DragonMomController{
+public class DragonMomController extends BaseController{
     @FXML
     private TreeTableView<DragonTrainer> trainerTreeTableView;
     @FXML
@@ -87,6 +84,8 @@ public class DragonMomController{
     /**
      * TabPane监听器，用户点击不同的Pane则切换不同的表的信息
      */
+    @FXML
+    @Override
     public void tabPaneListener() {
         tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
@@ -105,8 +104,10 @@ public class DragonMomController{
     /**
      * 切换账号切换为登陆界面.
      */
-    public void changeUser(ActionEvent actionEvent) {
-        ChangeUser.changeUser(changeUser);
+    @FXML
+    @Override
+    public void switchAccount(ActionEvent actionEvent) {
+        SwitchAccount.changeUser(changeUser);
     }
 
 
@@ -117,7 +118,7 @@ public class DragonMomController{
         VBox vBox = new VBox(10);
 
         String[] promptTexts = {"已存在的族群Id", "驯龙高手名字", "用户名", "密码"};
-        Map<String,TextField> map = AddNodeForPane.addTextFieldForPane(vBox, promptTexts);
+        Map<String,TextField> map = PaneFilling.addTextField(vBox, promptTexts);
 
         //使用了自定义控件，弹出弹窗
         Dialog<ButtonType> dialog = DialogTool.showDialog("添加驯龙高手信息", vBox, "确定", "取消");
@@ -187,7 +188,7 @@ public class DragonMomController{
                         "族群名字:" + iDragonTrainerDAO.get(dragonGroupId).getName(),
                         "族群Id:" + trainer.getDragonGroupId(), "用户名:" + trainer.getUsername(),
                         "密码:" + trainer.getPassword()};
-                AddNodeForPane.addTextForPane(vBox, textContents);
+                PaneFilling.addText(vBox, textContents);
 
                 DialogTool.showDialog("驯龙高手信息", vBox, "确定", null).showAndWait();
             } else {
@@ -213,7 +214,7 @@ public class DragonMomController{
                 String[] labelTexts = {"名字:", "族群Id:", "用户名:", "密码:"};
                 String[] textFiledContents = {trainer.getName(), String.valueOf(trainer.getDragonGroupId()),
                         trainer.getUsername(), trainer.getPassword()};
-                Map<String,TextField> map = AddNodeForPane.addForGridPane(gridPane, labelTexts, textFiledContents);
+                Map<String,TextField> map = PaneFilling.addForGridPane(gridPane, labelTexts, textFiledContents);
 
                 gridPane.setVgap(10);
 
@@ -231,7 +232,7 @@ public class DragonMomController{
                     if (items == 0) {//说明没有数据修改
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "可能用户名已存在");
                     } else {
-                        InitDragonTrainerView.flushTrainer(trainerTreeItemList, trainerRoot);
+                        DragonTrainerTable.flushTrainer(trainerTreeItemList, trainerRoot);
                     }
                 }
             } else {
@@ -247,7 +248,7 @@ public class DragonMomController{
         VBox vBox = new VBox(10);
 
         String[] promptTexts = {"族群名字", "简介", "地理位置", "大小"};
-        Map<String,TextField> map = AddNodeForPane.addTextFieldForPane(vBox, promptTexts);
+        Map<String,TextField> map = PaneFilling.addTextField(vBox, promptTexts);
 
         //使用了自定义控件
         Dialog<ButtonType> dialog = DialogTool.showDialog("添加族群高手信息", vBox, "确定", "取消");
@@ -313,7 +314,7 @@ public class DragonMomController{
 
                 String[] textContents = {"名字:" + group.getName(), "Id:" + group.getId(), "简介:" + group.getProfile(),
                         "地理位置:" + group.getLocation()};
-                AddNodeForPane.addTextForPane(vBox, textContents);
+                PaneFilling.addText(vBox, textContents);
 
                 DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
             } else {
@@ -339,7 +340,7 @@ public class DragonMomController{
                 String[] labelTexts = {"名字:", "简介:", "地理位置:", "大小:"};
                 String[] textFiledContents = {group.getName(), group.getProfile(), group.getLocation(),
                         String.valueOf(group.getSize())};
-                Map<String,TextField> map = AddNodeForPane.addForGridPane(gridPane, labelTexts, textFiledContents);
+                Map<String,TextField> map = PaneFilling.addForGridPane(gridPane, labelTexts, textFiledContents);
 
                 gridPane.setVgap(10);
 
@@ -357,7 +358,7 @@ public class DragonMomController{
                     if (items == 0) {//说明没有数据修改
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "可能是该名字已存在");
                     } else {
-                        InitDragonGroupView.flushGroup(groupTreeItemList, groupRoot);
+                        DragonGroupTable.flushGroup(groupTreeItemList, groupRoot);
                     }
                 }
             } else {
@@ -376,7 +377,7 @@ public class DragonMomController{
         String[] columnName = {"驯龙高手名字", "Id", "族群Id", "族群名字"};
         double[] columnPrefWidth = {150, 80, 80, 120};
         String[] columnId = {"name", "Id", "dragonGroupId", "dragonGroupName"};
-        InitDragonTrainerView.initTrainerTreeTable(trainerTreeTableView, columnName, columnPrefWidth, columnId);
+        DragonTrainerTable.initTrainerTreeTable(trainerTreeTableView, columnName, columnPrefWidth, columnId);
     }
 
     /**
@@ -386,7 +387,7 @@ public class DragonMomController{
      * 调用工具类
      */
     public void initTrainerTreeData() {
-        InitDragonTrainerView.initTrainerTreeData(trainerTreeTableView, trainerRoot, trainerTreeItemList);
+        DragonTrainerTable.initTrainerTreeData(trainerTreeTableView, trainerRoot, trainerTreeItemList);
     }
 
     /**
@@ -398,7 +399,7 @@ public class DragonMomController{
         String[] columnName = {"族群名字", "Id", "简介", "地理位置", "大小"};
         double[] columnPrefWidth = {120, 80, 120, 120, 80};
         String[] columnId = {"name", "Id", "profile", "location", "size"};
-        InitDragonGroupView.initGroupTreeTable(groupTreeTableView, columnName, columnPrefWidth, columnId);
+        DragonGroupTable.initGroupTreeTable(groupTreeTableView, columnName, columnPrefWidth, columnId);
     }
 
     /**
@@ -408,7 +409,7 @@ public class DragonMomController{
      * 调用工具类
      */
     public void initGroupTreeData() {
-        InitDragonGroupView.initGroupTreeData(groupTreeTableView, groupRoot, groupTreeItemList);
+        DragonGroupTable.initGroupTreeData(groupTreeTableView, groupRoot, groupTreeItemList);
     }
 
     /**

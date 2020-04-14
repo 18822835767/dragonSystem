@@ -13,8 +13,8 @@ import java.io.IOException;
  * 添加了切换账户的功能.
  * 因为多个控制器都要用到，所以抽离出来成为类中的一个静态方法。
  * */
-public class ChangeUser {
-    private ChangeUser(){
+public class SwitchAccount {
+    private SwitchAccount(){
 
     }
 
