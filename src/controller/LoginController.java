@@ -6,20 +6,17 @@ import entity.Foreigner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.IDragonMomDAO;
 import model.IDragonTrainerDAO;
 import model.IForeignerDAO;
 import util.PaneFilling;
 import util.DAOFactory;
 import util.Encrypt;
-import util.ViewManage;
+import util.ViewManager;
 import widget.AlertTool;
 import widget.DialogTool;
 import widget.SingleValueTool;
@@ -67,8 +64,7 @@ public class LoginController {
                 user = reader.readLine();
                 pass = reader.readLine();
                 changeView(user, Encrypt.getEncrypt(pass));//解密
-                Stage loginStage = (Stage) username.getScene().getWindow();
-                loginStage.close();
+                ViewManager.closeView(username);//关闭登录窗口
                 System.out.println("自动登录成功");
             }
         } catch (Exception e) {
@@ -109,8 +105,7 @@ public class LoginController {
                 }
 
                 //关闭登陆界面
-                Stage loginStage = (Stage) username.getScene().getWindow();
-                loginStage.close();
+                ViewManager.closeView(username);
             } else {
                 AlertTool.showAlert(Alert.AlertType.WARNING, null, "登陆失败", "用户名或密码输入错误");
             }
@@ -149,7 +144,7 @@ public class LoginController {
         }
         if (loginSuccess) {
             //切换到对应人物的主界面
-            FXMLLoader fx = ViewManage.openView(stageUrl,stageTitle,700.0,500.0);
+            FXMLLoader fx = ViewManager.openView(stageUrl,stageTitle,700.0,500.0);
 
             //如果登陆的是龙妈
             if(dragonMom != null){

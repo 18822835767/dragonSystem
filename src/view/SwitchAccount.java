@@ -1,12 +1,7 @@
 package view;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-import util.ViewManage;
+import util.ViewManager;
 
 import java.io.IOException;
 
@@ -26,11 +21,10 @@ public class SwitchAccount {
      * */
     public static void changeUser(Button button){
         try {
-            ViewManage.openView("view/login.fxml",null,420.0,280.0);
+            ViewManager.openView("view/login.fxml",null,420.0,280.0);
 
             //关闭之前的窗口
-            Stage oldStage = (Stage)button.getScene().getWindow();
-            oldStage.close();
+            ViewManager.closeView(button);
         } catch (IOException e) {
             e.printStackTrace();
         }

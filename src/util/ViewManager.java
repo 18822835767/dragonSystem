@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * View的管理器，负责View的打开与关闭.
  * */
-public class ViewManage {
+public class ViewManager {
     /**
      * 负责打开View.
      * */
@@ -35,6 +35,16 @@ public class ViewManage {
         stage.show();
 
         return fx;
+    }
+
+    /**
+     * 负责View的关闭.
+     *
+     * @param node 传入一个node，该node在View界面里.
+     * */
+    public static void closeView(Node node){
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
     }
 
 }

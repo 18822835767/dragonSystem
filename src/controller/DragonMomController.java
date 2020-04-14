@@ -7,24 +7,20 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.IDragonGroupDAO;
 import model.IDragonMomDAO;
 import model.IDragonTrainerDAO;
 import model.ITicketDAO;
 import util.PaneFilling;
 import util.DAOFactory;
-import util.ViewManage;
+import util.ViewManager;
 import view.SwitchAccount;
 import util.table.DragonGroupTable;
 import util.table.DragonTrainerTable;
@@ -438,7 +434,7 @@ public class DragonMomController extends BaseController{
      * */
     public void dealBackTickets(ActionEvent actionEvent) {
         try {
-            ViewManage.openView("view/DealBackTickets.fxml",null,400.0,400.0);
+            ViewManager.openView("view/DealBackTickets.fxml",null,400.0,400.0);
         } catch (IOException e) {
             e.printStackTrace();
         }
