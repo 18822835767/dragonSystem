@@ -10,6 +10,7 @@ import model.database.impl.DragonGroupDAOImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 负责显示族群列表TreeTableView，封转成一个View的工具类.
@@ -24,7 +25,7 @@ public class InitDragonGroupView {
                                           double[] columnPrefWidth, String[] columnId) {
         //这里添加了多个列
         int columnNum = columnName.length;
-        TreeTableColumn<DragonGroup, DragonGroup> columns[] = new TreeTableColumn[columnNum];
+        TreeTableColumn<DragonGroup, DragonGroup> columns[] =new TreeTableColumn[columnNum];
         for (int i = 0; i < columnNum; i++) {
             columns[i] = new TreeTableColumn(columnName[i]);
         }

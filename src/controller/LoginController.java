@@ -18,6 +18,7 @@ import model.IDragonTrainerDAO;
 import model.IForeignerDAO;
 import util.AddNodeForPane;
 import util.DAOFactory;
+import util.Encrypt;
 import widget.AlertTool;
 import widget.DialogTool;
 import widget.SingleSelectionTool;
@@ -58,12 +59,13 @@ public class LoginController {
         String user = null;
         String pass = null;
         try {
+            //判断是否要自动登录
             if (f.exists()) {
                 FileInputStream inputStream = new FileInputStream(f);
                 reader = new BufferedReader(new InputStreamReader(inputStream));
                 user = reader.readLine();
                 pass = reader.readLine();
-                changeView(user, pass);
+                changeView(user, Encrypt.getEncrypt(pass));//解密
                 Stage loginStage = (Stage) username.getScene().getWindow();
                 loginStage.close();
                 System.out.println("自动登录成功");
@@ -301,7 +303,7 @@ public class LoginController {
             writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f)));
             writer.write(user);
             writer.newLine();
-            writer.write(pass);
+            writer.write(Encrypt.setEncrypt(pass));//加密保存
             writer.flush();
         } catch (Exception e) {
             e.printStackTrace();
