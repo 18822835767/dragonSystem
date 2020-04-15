@@ -43,9 +43,6 @@ public class LoginController {
 
     private IForeignerDAO iForeignerDAO = DAOFactory.getForeignerDAOInstance();
 
-    public static final String dragonMomUrl = "view/DragonMom.fxml";
-    public static final String dragonTrainerUrl = "view/DragonTrainer.fxml";
-    public static final String foreignerUrl = "view/Foreigner.fxml";
     public static final String autoLoginFile = "autoLogin.txt";
 
     /**
@@ -130,15 +127,15 @@ public class LoginController {
         DragonTrainer dragonTrainer = null;
         Foreigner foreigner = null;
         if ((dragonMom = iDragonMomDAO.get(username, password) )!= null) {
-            stageUrl = dragonMomUrl;
+            stageUrl = ViewManager.momUrl;
             stageTitle = "龙妈您好";
             loginSuccess = true;
         } else if ((dragonTrainer = iDragonTrainerDAO.get(username, password)) != null) {
-            stageUrl = dragonTrainerUrl;
+            stageUrl = ViewManager.trainerUrl;
             stageTitle = "驯龙高手您好";
             loginSuccess = true;
         } else if ((foreigner = iForeignerDAO.get(username, password)) != null) {
-            stageUrl = foreignerUrl;
+            stageUrl = ViewManager.foreignerUrl;
             stageTitle = "外邦人您好";
             loginSuccess = true;
         }

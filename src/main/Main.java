@@ -18,7 +18,7 @@ public class Main extends Application {
      * */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fx = ViewManager.openView("view/login.fxml",null,420.0,280.0);
+        FXMLLoader fx = ViewManager.openView(ViewManager.loginUrl,null,420.0,280.0);
 
         //这里是判断用户是否有保存登陆信息，有的话自动登录
         LoginController loginController= (LoginController)fx.getController();

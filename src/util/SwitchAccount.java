@@ -21,9 +21,10 @@ public class SwitchAccount {
      * */
     public static void changeUser(Button button){
         try {
-            ViewManager.openView("view/login.fxml",null,420.0,280.0);
+            ViewManager.openView(ViewManager.loginUrl,null,420.0,280.0);
 
             //关闭之前的窗口
+            ViewManager.closeView(button);
         } catch (IOException e) {
             e.printStackTrace();
         }

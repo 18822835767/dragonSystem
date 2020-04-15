@@ -434,7 +434,7 @@ public class DragonMomController extends BaseController{
      * */
     public void dealBackTickets(ActionEvent actionEvent) {
         try {
-            ViewManager.openView("view/DealBackTickets.fxml",null,400.0,400.0);
+            ViewManager.openView(ViewManager.backTicketsUrl,null,400.0,400.0);
         } catch (IOException e) {
             e.printStackTrace();
         }
