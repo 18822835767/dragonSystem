@@ -115,7 +115,7 @@ public class DragonMomController extends BaseController{
         VBox vBox = new VBox(10);
 
         String[] promptTexts = {"已存在的族群Id", "驯龙高手名字", "用户名", "密码"};
-        Map<String,TextField> map = PaneFilling.addTextField(vBox, promptTexts);
+        Map<String,TextField> map = PaneFilling.getInstance().addTextField(vBox, promptTexts);
 
         //使用了自定义控件，弹出弹窗
         Dialog<ButtonType> dialog = DialogTool.showDialog("添加驯龙高手信息", vBox, "确定", "取消");
@@ -185,7 +185,7 @@ public class DragonMomController extends BaseController{
                         "族群名字:" + iDragonTrainerDAO.get(dragonGroupId).getName(),
                         "族群Id:" + trainer.getDragonGroupId(), "用户名:" + trainer.getUsername(),
                         "密码:" + trainer.getPassword()};
-                PaneFilling.addText(vBox, textContents);
+                PaneFilling.getInstance().addText(vBox, textContents);
 
                 DialogTool.showDialog("驯龙高手信息", vBox, "确定", null).showAndWait();
             } else {
@@ -211,7 +211,7 @@ public class DragonMomController extends BaseController{
                 String[] labelTexts = {"名字:", "族群Id:", "用户名:", "密码:"};
                 String[] textFiledContents = {trainer.getName(), String.valueOf(trainer.getDragonGroupId()),
                         trainer.getUsername(), trainer.getPassword()};
-                Map<String,TextField> map = PaneFilling.addForGridPane(gridPane, labelTexts, textFiledContents);
+                Map<String,TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFiledContents);
 
                 gridPane.setVgap(10);
 
@@ -245,7 +245,7 @@ public class DragonMomController extends BaseController{
         VBox vBox = new VBox(10);
 
         String[] promptTexts = {"族群名字", "简介", "地理位置", "大小"};
-        Map<String,TextField> map = PaneFilling.addTextField(vBox, promptTexts);
+        Map<String,TextField> map = PaneFilling.getInstance().addTextField(vBox, promptTexts);
 
         //使用了自定义控件
         Dialog<ButtonType> dialog = DialogTool.showDialog("添加族群高手信息", vBox, "确定", "取消");
@@ -311,7 +311,7 @@ public class DragonMomController extends BaseController{
 
                 String[] textContents = {"名字:" + group.getName(), "Id:" + group.getId(), "简介:" + group.getProfile(),
                         "地理位置:" + group.getLocation()};
-                PaneFilling.addText(vBox, textContents);
+                PaneFilling.getInstance().addText(vBox, textContents);
 
                 DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
             } else {
@@ -337,7 +337,7 @@ public class DragonMomController extends BaseController{
                 String[] labelTexts = {"名字:", "简介:", "地理位置:", "大小:"};
                 String[] textFiledContents = {group.getName(), group.getProfile(), group.getLocation(),
                         String.valueOf(group.getSize())};
-                Map<String,TextField> map = PaneFilling.addForGridPane(gridPane, labelTexts, textFiledContents);
+                Map<String,TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFiledContents);
 
                 gridPane.setVgap(10);
 

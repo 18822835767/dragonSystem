@@ -131,7 +131,7 @@ public class DragonTrainerController extends BaseController{
         VBox vBox = new VBox(10);
 
         String[] promotTexts = {"龙的名字", "龙的简介", "年龄"};
-        Map<String,TextField> map = PaneFilling.addTextField(vBox, promotTexts);
+        Map<String,TextField> map = PaneFilling.getInstance().addTextField(vBox, promotTexts);
 
         //自定义的单选框，选择龙的性别
         HBox h_sex = new HBox(10);
@@ -213,7 +213,7 @@ public class DragonTrainerController extends BaseController{
                 String[] textContents = {"龙的Id:" + dragon.getDragonId(), "名字:" + dragon.getName(),
                         "性别:" + dragon.getSex(), "年龄:" + dragon.getAge(), "简介:" + dragon.getProfile(),
                         "是否在训练:" + dragon.isTraining(), "是否健康:" + dragon.isHealthy()};
-                PaneFilling.addText(vBox, textContents);
+                PaneFilling.getInstance().addText(vBox, textContents);
 
                 DialogTool.showDialog("龙的信息", vBox, "确定", null).showAndWait();
             } else {
@@ -242,7 +242,7 @@ public class DragonTrainerController extends BaseController{
                 //先给GridPane添加一些Label和TextField
                 String[] labelTexts = {"名字:", "年龄", "简介:"};
                 String[] textFiledContents = {dragon.getName(), String.valueOf(dragon.getAge()), dragon.getProfile()};
-                Map<String,TextField> map = PaneFilling.addForGridPane(gridPane, labelTexts, textFiledContents);
+                Map<String,TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFiledContents);
 
                 Label l_training = new Label("训练中:");
                 Label l_healthy = new Label("健康:");
@@ -316,7 +316,7 @@ public class DragonTrainerController extends BaseController{
 
                 String[] promptTexts = {"名字:" + group.getName(), "Id:" + group.getId(), "简介:" + group.getProfile(),
                         "地理位置:" + group.getLocation(), "大小:" + group.getSize()};
-                PaneFilling.addText(vBox, promptTexts);
+                PaneFilling.getInstance().addText(vBox, promptTexts);
 
                 DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
             } else {
@@ -336,7 +336,7 @@ public class DragonTrainerController extends BaseController{
 
         String[] labelTexts = {"名字:", "简介:", "地理位置:", "大小:"};
         String[] textFieldContents = {group.getName(), group.getProfile(), group.getLocation(), String.valueOf(group.getSize())};
-        Map<String,TextField> map = PaneFilling.addForGridPane(gridPane, labelTexts, textFieldContents);
+        Map<String,TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFieldContents);
 
         gridPane.setVgap(10);
 

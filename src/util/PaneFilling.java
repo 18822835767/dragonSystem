@@ -5,6 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import model.database.impl.DragonDAOImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,12 +13,26 @@ import java.util.Map;
 /**
  * 为pane添加node,即为布局加载textField等控件.
  * 由于增删查改有大量的语句本质上一样，都是为pane添加某种node，所以抽离出来作为一个工具类使用，提供不同的方法,从而使增删查改
- * 的方法更加简洁。
+ * 的方法更加简洁。单例形式.
  * */
 public class PaneFilling {
+    private volatile static PaneFilling instance = null;
+
     private PaneFilling(){
 
     }
+
+    public static PaneFilling getInstance(){
+        if(instance == null){
+            synchronized (PaneFilling.class){
+                if(instance == null){
+                    instance = new PaneFilling();
+                }
+            }
+        }
+        return instance;
+    }
+
 
     /**
      * 为pane添加TextFields.
@@ -26,7 +41,7 @@ public class PaneFilling {
      * @param promptTexts 所添加的TextFields的提示性文字
      * @return 返回Map,键值对存储，调用者只需要map.get("promptTexts")即可获取相应的TextField
      * */
-    public static Map<String,TextField> addTextField(Pane pane, String [] promptTexts){
+    public Map<String,TextField> addTextField(Pane pane, String [] promptTexts){
         Map<String,TextField> map = new HashMap<>();
         int length = promptTexts.length;
 
@@ -50,7 +65,7 @@ public class PaneFilling {
      * @param textContents Text中的文字
      * @return 返回Map,键值对存储，调用者只需要map.get("textContents")即可获取相应的Text
      * */
-    public static Map<String,Text> addText(Pane pane, String [] textContents){
+    public Map<String,Text> addText(Pane pane, String [] textContents){
         int length = textContents.length;
         Map<String,Text> map = new HashMap<>();
 
@@ -76,7 +91,7 @@ public class PaneFilling {
      * @param textFiledContents TextField中的内容
      * @return 返回Map,键值对存储，调用者只需要map.get("labels[i].getText()")即可获取相应的Text
      * */
-    public static Map<String,TextField> addForGridPane(GridPane gridPane,String[] labelTexts,String[] textFiledContents ){
+    public Map<String,TextField> addForGridPane(GridPane gridPane,String[] labelTexts,String[] textFiledContents ){
         Map<String,TextField> map = new HashMap<>();
         int length = labelTexts.length;
         Label [] labels = new Label[length];

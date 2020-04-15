@@ -164,7 +164,7 @@ public class ForeignerController extends BaseController{
                     String[] textContents = {"龙的Id:" + dragon.getDragonId(), "名字:" + dragon.getName(),
                             "性别:" + dragon.getSex(), "简介:" + dragon.getProfile(), "是否在训练:" + dragon.isTraining(),
                             "是否健康:" + dragon.isHealthy()};
-                    PaneFilling.addText(vBox, textContents);
+                    PaneFilling.getInstance().addText(vBox, textContents);
 
                     DialogTool.showDialog("龙的信息", vBox, "确定", null).showAndWait();
                 } else {
@@ -192,7 +192,7 @@ public class ForeignerController extends BaseController{
 
                     String[] textContents = {"名字:" + dragonGroup.getName(), "Id:" + dragonGroup.getId(),
                             "简介:" + dragonGroup.getProfile(), "大小:" + dragonGroup.getSize()};
-                    PaneFilling.addText(vBox, textContents);
+                    PaneFilling.getInstance().addText(vBox, textContents);
 
                     DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
                 } else {

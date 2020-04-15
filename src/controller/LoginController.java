@@ -214,7 +214,7 @@ public class LoginController {
                 //调用工具类，加载布局中的数据
                 String[] labelTexts = {"名字:", "用户名", "密码"};
                 String[] textFieldContents = {"", "", ""};//使传入的两个数组长度相同
-                Map<String,TextField> map = PaneFilling.addForGridPane(gridPane, labelTexts, textFieldContents);
+                Map<String,TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFieldContents);
 
                 gridPane.setVgap(10);
 
@@ -243,7 +243,7 @@ public class LoginController {
                 //加载布局中的数据
                 String[] labelTexts = {"名字:", "用户名:", "密码:", "族群Id:"};
                 String[] textFieldContents = {"", "", "", ""};//使传入的两个数组长度相同。
-                Map<String,TextField> map = PaneFilling.addForGridPane(gridPane, labelTexts, textFieldContents);
+                Map<String,TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFieldContents);
 
                 gridPane.setVgap(10);
 
