@@ -14,7 +14,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 采取单例，节省资源.
+ * */
 public class ForeignerDAOImpl implements IForeignerDAO {
+    private volatile static ForeignerDAOImpl instance = null;
+
+    private ForeignerDAOImpl(){}
+
+    public static ForeignerDAOImpl getInstance(){
+        if(instance == null){
+            synchronized (ForeignerDAOImpl.class){
+                if(instance == null){
+                    instance = new ForeignerDAOImpl();
+                }
+            }
+        }
+        return instance;
+    }
+
     @Override
     public int save(String username, String password,String name) {
         String sql = "insert into foreigner(username,password,name) values(?,?,?)";

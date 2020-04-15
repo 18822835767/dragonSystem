@@ -14,7 +14,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 采取单例，节省资源.
+ * */
 public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
+    private volatile static DragonTrainerDAOImpl instance = null;
+
+    private DragonTrainerDAOImpl(){}
+
+    public static DragonTrainerDAOImpl getInstance(){
+        if(instance == null){
+            synchronized (DragonTrainerDAOImpl.class){
+                if(instance == null){
+                    instance = new DragonTrainerDAOImpl();
+                }
+            }
+        }
+        return instance;
+    }
+
     @Override
     public int save(int dragonGroupId, String name, String username, String password) {
         String sql = "insert into dragontrainer(dragonGroupId,name,username,password) values(?,?,?,?)";

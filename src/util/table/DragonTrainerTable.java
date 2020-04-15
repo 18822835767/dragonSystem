@@ -7,6 +7,7 @@ import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.util.Callback;
+import model.IDragonGroupDAO;
 import model.IDragonTrainerDAO;
 import model.database.impl.DragonGroupDAOImpl;
 import model.database.impl.DragonTrainerDAOImpl;
@@ -21,6 +22,8 @@ import java.util.List;
  * */
 public class DragonTrainerTable {
     private static IDragonTrainerDAO iDragonTrainerDAO = DAOFactory.getDragonTrainerDAOInstance();
+
+    private static IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
 
     /**
      * 驯龙高手表：
@@ -103,7 +106,7 @@ public class DragonTrainerTable {
                     case "dragonGroupName":
                         int dragonGroupId = item.getDragonGroupId();
                         //获得族群名字
-                        String dragonGroupName = new DragonGroupDAOImpl().get(dragonGroupId).getName();
+                        String dragonGroupName = iDragonGroupDAO.get(dragonGroupId).getName();
                         this.setText(dragonGroupName);
                         break;
                     default:

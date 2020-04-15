@@ -11,7 +11,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 因为该类频繁的需要用到，所以采取单例，节省资源.
+ * */
 public class DragonDAOImpl implements IDragonDAO {
+    private volatile static DragonDAOImpl instance = null;
+
+    private DragonDAOImpl(){}
+
+    public static DragonDAOImpl getInstance(){
+        if(instance == null){
+            synchronized (DragonDAOImpl.class){
+                if(instance == null){
+                    instance = new DragonDAOImpl();
+                }
+            }
+        }
+        return instance;
+    }
+
     @Override
     public int save(int dragonGroupId, String name, String profile, boolean training, boolean healthy, String sex, int age) {
         int isTraining = training ? 1 : 0;

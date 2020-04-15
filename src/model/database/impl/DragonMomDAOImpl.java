@@ -12,7 +12,25 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * 采取单例，节省资源.
+ * */
 public class DragonMomDAOImpl implements IDragonMomDAO {
+    private volatile static DragonMomDAOImpl instance = null;
+
+    private DragonMomDAOImpl(){}
+
+    public static DragonMomDAOImpl getInstance(){
+        if(instance == null){
+            synchronized (DragonMomDAOImpl.class){
+                if(instance == null){
+                    instance = new DragonMomDAOImpl();
+                }
+            }
+        }
+        return instance;
+    }
+
     @Override
     public int update(double money) {
         double moneyTub = get().getMoneyTub();

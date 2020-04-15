@@ -13,6 +13,10 @@ import java.io.IOException;
  * View的管理器，负责View的打开与关闭.
  * */
 public class ViewManager {
+    private ViewManager(){
+
+    }
+
     /**
      * 负责打开View.
      * */

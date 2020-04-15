@@ -11,7 +11,25 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 采取单例，节省资源.
+ * */
 public class TicketDAOImpl implements ITicketDAO{
+    private volatile static TicketDAOImpl instance = null;
+
+    private TicketDAOImpl(){}
+
+    public static TicketDAOImpl getInstance(){
+        if(instance == null){
+            synchronized (TicketDAOImpl.class){
+                if(instance == null){
+                    instance = new TicketDAOImpl();
+                }
+            }
+        }
+        return instance;
+    }
+
     @Override
     public int save(int foreignerId, double price, String type, String buyTime, int times,boolean back) {
         int backing = back ? 1 : 0;

@@ -10,7 +10,25 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 采取单例，节省资源.
+ * */
 public class DragonGroupDAOImpl implements IDragonGroupDAO {
+    private volatile static DragonGroupDAOImpl instance = null;
+
+    private DragonGroupDAOImpl(){}
+
+    public static DragonGroupDAOImpl getInstance(){
+        if(instance == null){
+            synchronized (DragonGroupDAOImpl.class){
+                if(instance == null){
+                    instance = new DragonGroupDAOImpl();
+                }
+            }
+        }
+        return instance;
+    }
+
     @Override
     public int save(String name, String profile, String location, double size) {
         String sql = "insert into dragongroup(name,profile,location,size) values(?,?,?,?)";

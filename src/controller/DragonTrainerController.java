@@ -117,7 +117,7 @@ public class DragonTrainerController extends BaseController{
      * 该控件显示族群的id和名字，那么就不用额外在列表里显示族群的有关信息了。
      */
     public void initText() {
-        DragonGroup dragonGroup = new DragonGroupDAOImpl().get(dragonGroupId);
+        DragonGroup dragonGroup = iDragonGroupDAO.get(dragonGroupId);
         text1.setText("\n族群ID: " + dragonGroup.getId() + "\n\n" + "族群名字: " + dragonGroup.getName());
         text2.setText("\n族群ID: " + dragonGroup.getId() + "\n\n" + "族群名字: " + dragonGroup.getName());
     }

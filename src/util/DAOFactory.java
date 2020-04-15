@@ -13,26 +13,26 @@ public class DAOFactory {
      * @return IDragonDAO的实现对象
      * */
     public static IDragonDAO getDragonDAOInstance(){
-        return new DragonDAOImpl();
+        return DragonDAOImpl.getInstance();
     }
 
     public static IDragonGroupDAO getDragonGroupDAOInstance(){
-        return new DragonGroupDAOImpl();
+        return DragonGroupDAOImpl.getInstance();
     }
 
     public static IDragonMomDAO getDragonMomDAOInstance(){
-        return new DragonMomDAOImpl();
+        return DragonMomDAOImpl.getInstance();
     }
 
     public static IDragonTrainerDAO getDragonTrainerDAOInstance(){
-        return new DragonTrainerDAOImpl();
+        return DragonTrainerDAOImpl.getInstance();
     }
 
     public static IForeignerDAO getForeignerDAOInstance(){
-        return new ForeignerDAOImpl();
+        return ForeignerDAOImpl.getInstance();
     }
 
     public static ITicketDAO getTicketDAOInstance(){
-        return new TicketDAOImpl();
+        return TicketDAOImpl.getInstance();
     }
 }
