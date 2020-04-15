@@ -13,10 +13,7 @@ import javafx.scene.text.Text;
 import model.IDragonMomDAO;
 import model.IDragonTrainerDAO;
 import model.IForeignerDAO;
-import util.PaneFilling;
-import util.DAOFactory;
-import util.Encrypt;
-import util.ViewManager;
+import util.*;
 import util.control.AlertTool;
 import util.control.DialogTool;
 import util.control.SingleValueTool;
@@ -123,10 +120,10 @@ public class LoginController {
         boolean loginSuccess = false;
         String stageUrl = null;
         String stageTitle = null;
-        DragonMom dragonMom ;
+        DragonMom dragonMom;
         DragonTrainer dragonTrainer = null;
         Foreigner foreigner = null;
-        if ((dragonMom = iDragonMomDAO.get(username, password) )!= null) {
+        if ((dragonMom = iDragonMomDAO.get(username, password)) != null) {
             stageUrl = ViewManager.momUrl;
             stageTitle = "龙妈您好";
             loginSuccess = true;
@@ -141,10 +138,10 @@ public class LoginController {
         }
         if (loginSuccess) {
             //切换到对应人物的主界面
-            FXMLLoader fx = ViewManager.openView(stageUrl,stageTitle,700.0,500.0);
+            FXMLLoader fx = ViewManager.openView(stageUrl, stageTitle, 700.0, 500.0);
 
             //如果登陆的是龙妈
-            if(dragonMom != null){
+            if (dragonMom != null) {
                 //得到龙妈的控制器，传入龙妈的实例对象
                 DragonMomController dragonMomController = (DragonMomController) fx.getController();
                 dragonMomController.setDragonMom(dragonMom);
@@ -177,19 +174,6 @@ public class LoginController {
      * 外邦人注册时默认的金钱为100元。
      */
     public void regist(ActionEvent actionEvent) {
-//        //获取当前已有的用户名，防止重复
-//        List<String> userList = new ArrayList<>();
-//        List<String> trainerUsers = new DragonTrainerDAOImpl().getUserNameList();
-//        List<String> foreignerUsers = new ForeignerDAOImpl().getUserNameList();
-//        userList.add(new DragonMomDAOImpl().getUsername());
-//        for(String user : trainerUsers){
-//            userList.add(user);
-//        }
-//        for(String user : foreignerUsers){
-//            userList.add(user);
-//        }
-//
-
         VBox vBox = new VBox(10);
         Text text = new Text("请选择注册的对象:");
         vBox.getChildren().add(text);
@@ -211,7 +195,7 @@ public class LoginController {
                 //调用工具类，加载布局中的数据
                 String[] labelTexts = {"名字:", "用户名", "密码"};
                 String[] textFieldContents = {"", "", ""};//使传入的两个数组长度相同
-                Map<String,TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFieldContents);
+                Map<String, TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFieldContents);
 
                 gridPane.setVgap(10);
 
@@ -222,25 +206,30 @@ public class LoginController {
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                     //保存用户数据，存入数据库
                     String name = map.get("名字:").getText().trim();
-                    String username =  map.get("用户名").getText().trim();
-                    String password =  map.get("密码").getText().trim();
+                    String username = map.get("用户名").getText().trim();
+                    String password = map.get("密码").getText().trim();
 
-                    int items = iForeignerDAO.save(username, password, name);
-
-                    if (items == 0) {//说明没有插入数据，错误弹窗提示
-                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是用户名已注册");
-                    } else {//错误弹窗提示
+                    if(!CheckValid.getInstance().isValidUsername(username)){
+                        //判断用户名是否已注册
+                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "用户名已注册");
+                        return ;
+                    }else if(CheckValid.getInstance().isEmpty(name,username,password)){
+                        //判断信息是否填写完整
+                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "信息填写不完整");
+                        return ;
+                    }else{  
+                        iForeignerDAO.save(username, password, name);
                         AlertTool.showAlert(Alert.AlertType.INFORMATION, null, null, "注册成功");
                     }
-
                 }
+
             } else if (radioButtons[1].isSelected()) {
                 GridPane gridPane = new GridPane();
 
                 //加载布局中的数据
                 String[] labelTexts = {"名字:", "用户名:", "密码:", "族群Id:"};
                 String[] textFieldContents = {"", "", "", ""};//使传入的两个数组长度相同。
-                Map<String,TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFieldContents);
+                Map<String, TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFieldContents);
 
                 gridPane.setVgap(10);
 
@@ -250,7 +239,7 @@ public class LoginController {
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                     String name = map.get("名字:").getText().trim();
                     String username = map.get("用户名:").getText().trim();
-                    String password = map.get( "密码:").getText().trim();
+                    String password = map.get("密码:").getText().trim();
                     int dragonGroupId = Integer.parseInt(map.get("族群Id:").getText().trim());
 
                     int items = iDragonTrainerDAO.save(dragonGroupId, name, username, password);

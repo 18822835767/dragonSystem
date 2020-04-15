@@ -128,28 +128,4 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         return null;
     }
 
-//    @Override
-//    public List<String> getUserNameList() {
-//        List<String> UserNameList = new ArrayList<>();
-//        Connection conn = null;
-//        PreparedStatement ps = null;
-//        ResultSet rs = null;
-//        String sql = "select * from dragontrainer";
-//        try {
-//            conn = DBUtils.getConnection();
-//            ps = conn.prepareStatement(sql);
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                DragonTrainer dragonTrainer = new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
-//                        , rs.getString("name"), rs.getString("username"), rs.getString("password"));
-//                UserNameList.add(dragonTrainer.getUsername());
-//            }
-//            return UserNameList;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            DBUtils.close(null,ps, rs);
-//        }
-//        return null;
-//    }
 }

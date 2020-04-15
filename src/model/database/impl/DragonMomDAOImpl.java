@@ -87,9 +87,4 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
         return null;
     }
 
-//    //可能没用
-//    @Override
-//    public String getUsername() {
-//        return get().getUsername();
-//    }
 }

@@ -124,6 +124,7 @@ public class DragonMomController extends BaseController{
         if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
             int dragonGroupId = Integer.parseInt(map.get("已存在的族群Id").getText().trim());
             String name = map.get("驯龙高手名字").getText();
+            System.out.println(name.equals(""));
             String username = map.get("用户名").getText().trim();
             String password = map.get("密码").getText().trim();
             //数据库保存数据,items记录影响的数据条数

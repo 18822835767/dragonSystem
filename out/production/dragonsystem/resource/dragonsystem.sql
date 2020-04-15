@@ -20,8 +20,8 @@ create table dragon(
 	profile varchar(255),
 	training int,
 	healthy int,
-	sex varchar(255),
-	age int,
+	sex varchar(255) not null,
+	age int not null,
 	foreign key(dragonGroupId) references dragongroup(dragonGroupId)
 );
 

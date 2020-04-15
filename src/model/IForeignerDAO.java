@@ -25,8 +25,8 @@ public interface IForeignerDAO {
      * */
     Foreigner get(int foreignerId);
 
-//    /**
-//     * 得到所有的外邦人.
-//     * */
-//    List<String> getUserNameList();
+    /**
+     * 得到所有的外邦人.
+     * */
+    List<Foreigner> getList();
 }
