@@ -36,7 +36,7 @@ public class ForeignerDAOImpl implements IForeignerDAO {
     @Override
     public int save(String username, String password,String name) {
         String sql = "insert into foreigner(username,password,name) values(?,?,?)";
-        return DBUtils.executeUpdate(sql,username, Encrypt.setEncrypt(password),name);
+        return DBUtils.executeUpdate(sql,username, Encrypt.getInstance().setEncrypt(password),name);
     }
 
     @Override
@@ -56,11 +56,12 @@ public class ForeignerDAOImpl implements IForeignerDAO {
             conn = DBUtils.getConnection();
             ps = conn.prepareStatement(sql);
             ps.setString(1,username);
-            ps.setString(2,Encrypt.setEncrypt(password));
+            ps.setString(2,Encrypt.getInstance().setEncrypt(password));
             rs = ps.executeQuery();
             if(rs.next()){
                 return new Foreigner(rs.getInt("foreignerId"), rs.getString("username"),
-                        Encrypt.getEncrypt(rs.getString("password")),rs.getString("name"),rs.getInt("money"));
+                        Encrypt.getInstance().getEncrypt(rs.getString("password")),rs.getString("name"),
+                        rs.getInt("money"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,7 +84,7 @@ public class ForeignerDAOImpl implements IForeignerDAO {
             rs = ps.executeQuery();
             if(rs.next()){
                 return new Foreigner(rs.getInt("foreignerId"), rs.getString("username"),
-                        Encrypt.getEncrypt(rs.getString("password")),rs.getString("name"),rs.getInt("money"));
+                        Encrypt.getInstance().getEncrypt(rs.getString("password")),rs.getString("name"),rs.getInt("money"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

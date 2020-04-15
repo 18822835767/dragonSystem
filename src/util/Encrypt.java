@@ -3,9 +3,24 @@ package util;
 import java.sql.SQLOutput;
 
 public class Encrypt {
-    private static String key = "key";
+    private volatile static Encrypt encrypt = null;
 
-    public static String setEncrypt(String str){
+    private Encrypt(){}
+
+    public static Encrypt getInstance(){
+        if(encrypt == null){
+            synchronized (Encrypt.class){
+                if(encrypt == null){
+                    encrypt = new Encrypt();
+                }
+            }
+        }
+        return encrypt;
+    }
+
+    private String key = "key";
+
+    public String setEncrypt(String str){
         int strLen = str.length();//要加密的字符串长度
         int[] strNum = new int[strLen];//字符串的每一位和key异或后变成整型，存放在这里
         String temp = "";//后面在字符串拼接时作为临时字符串使用
@@ -32,7 +47,7 @@ public class Encrypt {
         return result.toString();
     }
 
-    public static String getEncrypt(String str){
+    public String getEncrypt(String str){
         char[] strChar = new char[str.length()/3];
         StringBuilder result = new StringBuilder();
 
