@@ -13,16 +13,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.IDragonDAO;
 import model.IDragonGroupDAO;
-import model.database.impl.DragonGroupDAOImpl;
 import util.PaneFilling;
 import util.DAOFactory;
-import view.SwitchAccount;
+import util.SwitchAccount;
 import util.table.DragonGroupTable;
 import util.table.DragonTable;
-import widget.AlertTool;
-import widget.DialogTool;
-import widget.SingleValueTool;
-import widget.TextInputDialogTool;
+import util.control.AlertTool;
+import util.control.DialogTool;
+import util.control.SingleValueTool;
+import util.control.TextInputDialogTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,7 +135,7 @@ public class DragonTrainerController extends BaseController{
         //自定义的单选框，选择龙的性别
         HBox h_sex = new HBox(10);
         String[] buttonName = {"雄性", "雌性"};
-        RadioButton[] radioButtons = SingleValueTool.singSelection(h_sex, buttonName, 0);
+        RadioButton[] radioButtons = SingleValueTool.singleSelection(h_sex, buttonName, 0);
         h_sex.getChildren().addAll(radioButtons[0], radioButtons[1]);
 
 
@@ -250,12 +249,12 @@ public class DragonTrainerController extends BaseController{
                 //自定义的单选框，选择龙的训练状态
                 HBox h_training = new HBox(8);
                 String[] buttonName = {"true", "false"};
-                RadioButton[] trainButtons = SingleValueTool.singSelection(h_training, buttonName, dragonTraining ? 0 : 1);
+                RadioButton[] trainButtons = SingleValueTool.singleSelection(h_training, buttonName, dragonTraining ? 0 : 1);
                 h_training.getChildren().addAll(trainButtons[0], trainButtons[1]);
 
                 //自定义的单选框，选择龙的健康状态
                 HBox h_healthy = new HBox(8);
-                RadioButton[] healthyButtons = SingleValueTool.singSelection(h_training, buttonName, dragonHealthy ? 0 : 1);
+                RadioButton[] healthyButtons = SingleValueTool.singleSelection(h_training, buttonName, dragonHealthy ? 0 : 1);
                 h_healthy.getChildren().addAll(healthyButtons[0], healthyButtons[1]);
 
                 //给GridPane添加单选框

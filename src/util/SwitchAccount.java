@@ -1,4 +1,4 @@
-package view;
+package util;
 
 import javafx.scene.control.Button;
 import util.ViewManager;
@@ -24,7 +24,6 @@ public class SwitchAccount {
             ViewManager.openView("view/login.fxml",null,420.0,280.0);
 
             //关闭之前的窗口
-            ViewManager.closeView(button);
         } catch (IOException e) {
             e.printStackTrace();
         }

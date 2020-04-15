@@ -1,4 +1,4 @@
-package widget;
+package util.control;
 
 import javafx.scene.Node;
 import javafx.scene.control.ButtonBar;
@@ -9,7 +9,7 @@ import javafx.scene.control.DialogPane;
 /**
  * 这里将对话框Dialog封装成工具类
  * */
-public class DialogTool {
+public class DialogTool extends Dialog<ButtonType>{
     private DialogTool(){
 
     }

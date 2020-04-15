@@ -17,9 +17,9 @@ import util.PaneFilling;
 import util.DAOFactory;
 import util.Encrypt;
 import util.ViewManager;
-import widget.AlertTool;
-import widget.DialogTool;
-import widget.SingleValueTool;
+import util.control.AlertTool;
+import util.control.DialogTool;
+import util.control.SingleValueTool;
 
 import java.io.*;
 import java.util.Map;
@@ -199,7 +199,7 @@ public class LoginController {
 
         //使用自己封转好的单选框,选择注册对象
         String[] buttonName = {"外邦人", "驯龙高手"};
-        RadioButton[] radioButtons = SingleValueTool.singSelection(vBox, buttonName, 0);
+        RadioButton[] radioButtons = SingleValueTool.singleSelection(vBox, buttonName, 0);
 
         vBox.getChildren().addAll(radioButtons[0], radioButtons[1]);
 

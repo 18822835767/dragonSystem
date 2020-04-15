@@ -18,12 +18,12 @@ import javafx.scene.text.Text;
 import model.*;
 import util.PaneFilling;
 import util.DAOFactory;
-import view.SwitchAccount;
+import util.SwitchAccount;
 import util.table.DragonGroupTable;
 import util.table.DragonTable;
-import widget.AlertTool;
-import widget.DialogTool;
-import widget.TextInputDialogTool;
+import util.control.AlertTool;
+import util.control.DialogTool;
+import util.control.TextInputDialogTool;
 
 import java.text.SimpleDateFormat;
 import java.util.*;

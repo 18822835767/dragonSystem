@@ -1,4 +1,4 @@
-package widget;
+package util.control;
 
 import javafx.scene.control.Alert;
 /**

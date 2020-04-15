@@ -21,12 +21,12 @@ import model.ITicketDAO;
 import util.PaneFilling;
 import util.DAOFactory;
 import util.ViewManager;
-import view.SwitchAccount;
+import util.SwitchAccount;
 import util.table.DragonGroupTable;
 import util.table.DragonTrainerTable;
-import widget.AlertTool;
-import widget.DialogTool;
-import widget.TextInputDialogTool;
+import util.control.AlertTool;
+import util.control.DialogTool;
+import util.control.TextInputDialogTool;
 
 import java.io.IOException;
 import java.util.*;

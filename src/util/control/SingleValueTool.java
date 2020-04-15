@@ -1,4 +1,4 @@
-package widget;
+package util.control;
 
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -22,7 +22,7 @@ public class SingleValueTool {
      * @param defalutSelection 默认选中哪个单选按钮(下标)，不默认选中，则传入null。
      * @return 返回单选按钮的对象数组。
      */
-    public static RadioButton[] singSelection(Pane pane, String[] buttonName, Integer defalutSelection) {
+    public static RadioButton[] singleSelection(Pane pane, String[] buttonName, Integer defalutSelection) {
         int buttonNum = buttonName.length;//按钮的数量
 
         RadioButton[] radioButtons = new RadioButton[buttonNum];//按钮数组
