@@ -157,7 +157,7 @@ public class DragonTrainerController extends BaseController {
                 return;
             }
 
-            if (CheckValid.getInstance().isEmpty(name, profile, map.get("年龄").getText().trim())) {
+            if (CheckValid.isEmpty(name, profile, map.get("年龄").getText().trim())) {
                 //判断是否有空的信息
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "信息填写不完整");
                 return;
@@ -403,7 +403,7 @@ public class DragonTrainerController extends BaseController {
                 return;
             }
 
-            if (CheckValid.getInstance().isEmpty(name, profile, location, map.get("大小:").getText().trim())) {
+            if (CheckValid.isEmpty(name, profile, location, map.get("大小:").getText().trim())) {
                 //判断是否有空的信息
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "信息填写不完整");
                 return;

@@ -8,26 +8,13 @@ import model.IForeignerDAO;
 
 /**
  * 检测用户的输入是否合理.
- * 这里用单例合适吗?
  */
 public class CheckValid {
-    private volatile static CheckValid instance = null;
-    private IDragonMomDAO iDragonMomDAO = DAOFactory.getDragonMomDAOInstance();
-    private IDragonTrainerDAO iDragonTrainerDAO = DAOFactory.getDragonTrainerDAOInstance();
-    private IForeignerDAO iForeignerDAO = DAOFactory.getForeignerDAOInstance();
+    private static IDragonMomDAO iDragonMomDAO = DAOFactory.getDragonMomDAOInstance();
+    private static IDragonTrainerDAO iDragonTrainerDAO = DAOFactory.getDragonTrainerDAOInstance();
+    private static IForeignerDAO iForeignerDAO = DAOFactory.getForeignerDAOInstance();
 
     private CheckValid() {
-    }
-
-    public static CheckValid getInstance() {
-        if (instance == null) {
-            synchronized (CheckValid.class) {
-                if (instance == null) {
-                    instance = new CheckValid();
-                }
-            }
-        }
-        return instance;
     }
 
     /**
@@ -36,7 +23,7 @@ public class CheckValid {
      * @param params 字符串，可变参数
      * @return 布尔值
      */
-    public boolean isEmpty(String... params) {
+    public static boolean isEmpty(String... params) {
         for (int i = 0; i < params.length; i++) {
             if (params[i].equals("")) {
                 return true;
@@ -48,7 +35,7 @@ public class CheckValid {
     /**
      * 判断用户名是否重复(相对于所有用户而言).
      */
-    public boolean isValidUsername(String user) {
+    public static boolean isValidUsername(String user) {
         //是否和龙妈的用户名重复
         if (iDragonMomDAO.get().getPassword().equals(user)) {
             return false;

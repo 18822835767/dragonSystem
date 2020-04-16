@@ -209,11 +209,11 @@ public class LoginController {
                     String username = map.get("用户名").getText().trim();
                     String password = map.get("密码").getText().trim();
 
-                    if(CheckValid.getInstance().isEmpty(name,username,password)){
+                    if(CheckValid.isEmpty(name,username,password)){
                         //判断信息是否填写完整
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "信息填写不完整");
                         return ;
-                    }else if(!CheckValid.getInstance().isValidUsername(username)){
+                    }else if(!CheckValid.isValidUsername(username)){
                         //判断用户名是否已注册
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "用户名已注册");
                         return ;
@@ -250,8 +250,8 @@ public class LoginController {
                         return ;
                     }
 
-                    if(CheckValid.getInstance().isEmpty(name,username,password,map.get("族群Id:").getText().trim()) ||
-                            !CheckValid.getInstance().isValidUsername(username)){
+                    if(CheckValid.isEmpty(name,username,password,map.get("族群Id:").getText().trim()) ||
+                            !CheckValid.isValidUsername(username)){
                         //判断是否有空的信息以及用户名是否重复
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败","信息填写不完整" +
                                 "或者用户名已注册" );

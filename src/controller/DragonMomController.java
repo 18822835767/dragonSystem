@@ -131,8 +131,8 @@ public class DragonMomController extends BaseController {
                 return;
             }
 
-            if (CheckValid.getInstance().isEmpty(name, username, password, map.get("已存在的族群Id").getText().trim()) ||
-                    !CheckValid.getInstance().isValidUsername(username)) {
+            if (CheckValid.isEmpty(name, username, password, map.get("已存在的族群Id").getText().trim()) ||
+                    !CheckValid.isValidUsername(username)) {
                 //判断是否有空的信息以及用户名是否重复
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "信息填写不完整" +
                         "或者用户名已注册");
@@ -265,7 +265,7 @@ public class DragonMomController extends BaseController {
                         return;
                     }
 
-                    if (CheckValid.getInstance().isEmpty(name, password, map.get("族群Id:").getText().trim())) {
+                    if (CheckValid.isEmpty(name, password, map.get("族群Id:").getText().trim())) {
                         //判断是否有空的信息
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "信息填写不完整");
                         return;
@@ -310,7 +310,7 @@ public class DragonMomController extends BaseController {
                 return;
             }
 
-            if (CheckValid.getInstance().isEmpty(name, profile, location, map.get("地理位置").getText().trim())) {
+            if (CheckValid.isEmpty(name, profile, location, map.get("地理位置").getText().trim())) {
                 //判断是否有空的信息
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "信息填写不完整");
                 return;
@@ -437,7 +437,7 @@ public class DragonMomController extends BaseController {
                         return;
                     }
 
-                    if (CheckValid.getInstance().isEmpty(name, profile, location, map.get("大小:").getText().trim())) {
+                    if (CheckValid.isEmpty(name, profile, location, map.get("大小:").getText().trim())) {
                         //判断是否有空的信息
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "信息填写不完整");
                         return;
