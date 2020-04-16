@@ -74,6 +74,11 @@
                     <padding>
                         <Insets top="70.0"/>
                     </padding>
+                    <Button text="活动" prefWidth="50" onAction="#openActivity">
+                        <font>
+                            <Font size="15.0"/>
+                        </font>
+                    </Button>
                     <Button text="金库" prefWidth="50" onAction="#showMoneyTub">
                         <font>
                             <Font size="15.0"/>

@@ -8,6 +8,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -19,12 +20,14 @@ import model.*;
 import util.PaneFilling;
 import util.DAOFactory;
 import util.SwitchAccount;
+import util.ViewManager;
 import util.table.DragonGroupTable;
 import util.table.DragonTable;
 import util.control.AlertTool;
 import util.control.DialogTool;
 import util.control.TextInputDialogTool;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -152,7 +155,7 @@ public class ForeignerController extends BaseController {
     public void queryDragon(ActionEvent actionEvent) {
         if (enterSuccess) {
             //如果成功入园
-            Optional<String> result = TextInputDialogTool.textInputDialog("查询龙的信息",
+            Optional<String> result = TextInputDialogTool.showTextInput("查询龙的信息",
                     "请输入龙的Id", "Id:");
             if (result.isPresent()) {
                 int dragonId = 0;
@@ -189,7 +192,7 @@ public class ForeignerController extends BaseController {
     public void queryDragonGroup(ActionEvent actionEvent) {
         if (enterSuccess) {
             //如果成功入园
-            Optional<String> result = TextInputDialogTool.textInputDialog("查询族群信息",
+            Optional<String> result = TextInputDialogTool.showTextInput("查询族群信息",
                     "请输入族群的Id", "Id:");
             if (result.isPresent()) {
                 int dragonGroupId = 0;
@@ -454,5 +457,24 @@ public class ForeignerController extends BaseController {
             AlertTool.showAlert(Alert.AlertType.ERROR, null, null, "您尚未购票或者票的有效次数不足");
         }
 
+    }
+
+    /**
+     * 查看活动.
+     * */
+    public void showActivity(ActionEvent actionEvent) {
+        FXMLLoader fx = null;
+        try {
+            fx = ViewManager.openView(ViewManager.activityUrl, "活动信息", 600.0, 400.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(fx != null){
+            //得到控制器，隐藏"添加活动"的按钮
+            ActivityController activityController = (ActivityController) fx.getController();
+            activityController.getViewActivity().setVisible(true);
+            activityController.getAddActivity().setVisible(false);
+        }
     }
 }

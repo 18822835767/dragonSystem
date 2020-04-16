@@ -189,7 +189,7 @@ public class DragonTrainerController extends BaseController {
      * 注意要从treeItemList找到族群相匹配的treeItem,然后从树控件中移除
      */
     public void deleteDragon(ActionEvent actionEvent) {
-        Optional<String> result = TextInputDialogTool.textInputDialog("删除龙的信息",
+        Optional<String> result = TextInputDialogTool.showTextInput("删除龙的信息",
                 "请输入龙的Id", "Id:");
         //如果用户点击了确定按钮
         if (result.isPresent()) {
@@ -222,7 +222,7 @@ public class DragonTrainerController extends BaseController {
      * 查询龙的信息.
      */
     public void queryDragon(ActionEvent actionEvent) {
-        Optional<String> result = TextInputDialogTool.textInputDialog("查询龙的信息",
+        Optional<String> result = TextInputDialogTool.showTextInput("查询龙的信息",
                 "请输入龙的Id", "Id:");
         if (result.isPresent()) {
             int dragonId = 0;
@@ -255,7 +255,7 @@ public class DragonTrainerController extends BaseController {
      * 设置为性别不可改动。
      */
     public void changeDragon(ActionEvent actionEvent) {
-        Optional<String> result = TextInputDialogTool.textInputDialog(null, "请输入龙的Id",
+        Optional<String> result = TextInputDialogTool.showTextInput(null, "请输入龙的Id",
                 "Id:");
         if (result.isPresent()) {
             int dragonId = 0;
@@ -347,7 +347,7 @@ public class DragonTrainerController extends BaseController {
      * 可以查询所有族群的信息.
      */
     public void queryDragonGroup(ActionEvent actionEvent) {
-        Optional<String> result = TextInputDialogTool.textInputDialog("查询族群信息",
+        Optional<String> result = TextInputDialogTool.showTextInput("查询族群信息",
                 "请输入族群的Id", "Id:");
         if (result.isPresent()) {
             int dragonGroupId = 0;

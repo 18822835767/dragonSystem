@@ -3,7 +3,6 @@ package util;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -18,6 +17,7 @@ public class ViewManager {
     public static String trainerUrl = "view/DragonTrainer.fxml";
     public static String momUrl = "view/DragonMom.fxml";
     public static String backTicketsUrl = "view/DealBackTickets.fxml";
+    public static String activityUrl = "view/Activity.fxml";
 
     private ViewManager(){
 

@@ -57,6 +57,11 @@
                             <Font size="15.0"/>
                         </font>
                     </Button>
+                    <Button text="查看活动" prefWidth="100" onAction="#showActivity">
+                        <font>
+                            <Font size="15.0"/>
+                        </font>
+                    </Button>
                 </VBox>
             </Tab>
 

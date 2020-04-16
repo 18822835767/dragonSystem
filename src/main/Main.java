@@ -2,6 +2,7 @@ package main;
 import controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import util.CheckValid;
 import util.DBUtils;
@@ -24,6 +25,7 @@ public class Main extends Application {
         //这里是判断用户是否有保存登陆信息，有的话自动登录
         LoginController loginController= (LoginController)fx.getController();
         loginController.init();
+
     }
 
     /**

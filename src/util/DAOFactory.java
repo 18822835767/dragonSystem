@@ -35,4 +35,10 @@ public class DAOFactory {
     public static ITicketDAO getTicketDAOInstance(){
         return TicketDAOImpl.getInstance();
     }
+
+    public static IActivityDAO getActivityDAOInstance(){
+        return ActivityDAOImpl.getInstance();
+    }
+
+    public static IEvaluationDAO getEvaluationDAOInstance(){return EvaluationDAOImpl.getInstance();}
 }

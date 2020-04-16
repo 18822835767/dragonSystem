@@ -66,6 +66,28 @@ create table ticket(
     foreign key(foreignerId) references foreigner(foreignerId)
 );
 
+drop table if exists activity;
+create table activity(
+    activityId int primary key auto_increment,
+    dragonGroupId int,
+    name varchar(255),
+    content varchar(255),
+    startTime varchar(255),
+    overTime varchar(255),
+    foreign key(dragonGroupId) references dragongroup(dragonGroupId)
+);
+
+drop table if exists evaluation;
+create table evaluation(
+    evaluationId int primary key auto_increment,
+    dragonGroupId int,
+    foreignerId int,
+    rank int,
+    content varchar(255),
+    evaluateTime varchar(255),
+    foreign key(dragonGroupId) references dragongroup(dragonGroupId),
+    foreign key(foreignerId) references foreigner(foreignerId)
+);
 
 
 insert into dragonmom(name,username,password,moneyTub) values('mom','admin','090087074',0);#解密后密码是123

@@ -12,7 +12,7 @@ public class TextInputDialogTool {
 
     }
 
-    public static Optional<String> textInputDialog(String title,String headerText,String contextText){
+    public static Optional<String> showTextInput(String title, String headerText, String contextText){
         TextInputDialog input = new TextInputDialog();
         input.setTitle(title);
         input.setHeaderText(headerText);

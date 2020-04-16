@@ -135,7 +135,7 @@ public class DealBackTicketsController implements Initializable {
                         "   票的ID:"+item.getTicketId() + "   剩余有效次数:"+ item.getTimes()+"   退款:"+
                         item.getTimes()*Ticket.Back_Price);
                 checkBox.setFont(new Font(13));
-                checkBox.setSelected(item.isChecked());//默认情况下是补选中状态
+                checkBox.setSelected(item.isChecked());//默认情况下是不选中状态
                 this.setGraphic(checkBox);
                 checkBox.selectedProperty().addListener(new MyCheckBoxListener(item));//给CheckBox设置监听器
             }

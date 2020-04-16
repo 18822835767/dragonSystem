@@ -7,17 +7,16 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import model.IDragonGroupDAO;
-import model.IDragonMomDAO;
-import model.IDragonTrainerDAO;
-import model.ITicketDAO;
+import model.*;
 import util.*;
 import util.table.DragonGroupTable;
 import util.table.DragonTrainerTable;
@@ -51,6 +50,8 @@ public class DragonMomController extends BaseController {
     private IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
 
     private ITicketDAO iTicketDAO = DAOFactory.getTicketDAOInstance();
+
+    private IActivityDAO iActivityDAO = DAOFactory.getActivityDAOInstance();
 
     private TreeItem<DragonTrainer> trainerRoot = new TreeItem<DragonTrainer>(new DragonTrainer());
 
@@ -159,7 +160,7 @@ public class DragonMomController extends BaseController {
      * 从treeItemList找到驯龙高手相匹配的treeItem,然后从树控件中移除
      */
     public void deleteDragonTrainer(ActionEvent actionEvent) {
-        Optional<String> result = TextInputDialogTool.textInputDialog("删除驯龙高手信息",
+        Optional<String> result = TextInputDialogTool.showTextInput("删除驯龙高手信息",
                 "请输入驯龙高手的Id", "Id:");
         //如果用户点击了确定按钮
         if (result.isPresent()) {
@@ -192,7 +193,7 @@ public class DragonMomController extends BaseController {
      * 查询驯龙高手信息.
      */
     public void queryDragonTrainer(ActionEvent actionEvent) {
-        Optional<String> result = TextInputDialogTool.textInputDialog("查询驯龙高手信息",
+        Optional<String> result = TextInputDialogTool.showTextInput("查询驯龙高手信息",
                 "请输入驯龙高手的Id", "Id:");
         if (result.isPresent()) {
             int dragonTrainerId = 0;
@@ -227,7 +228,7 @@ public class DragonMomController extends BaseController {
      * 查询->显示原来信息->进行修改
      */
     public void changeDragonTrainer(ActionEvent actionEvent) {
-        Optional<String> result = TextInputDialogTool.textInputDialog(null, "请输入驯龙高手的Id",
+        Optional<String> result = TextInputDialogTool.showTextInput(null, "请输入驯龙高手的Id",
                 "Id:");
         if (result.isPresent()) {
             int dragonTrainerId = 0;
@@ -335,7 +336,7 @@ public class DragonMomController extends BaseController {
      * 注意要从treeItemList找到族群相匹配的treeItem,然后从树控件中移除
      */
     public void deleteDragonGroup(ActionEvent actionEvent) {
-        Optional<String> result = TextInputDialogTool.textInputDialog("删除族群信息",
+        Optional<String> result = TextInputDialogTool.showTextInput("删除族群信息",
                 "请输入族群的Id", "Id:");
         //如果用户点击了确定按钮
         if (result.isPresent()) {
@@ -368,7 +369,7 @@ public class DragonMomController extends BaseController {
      * 查询族群信息.
      */
     public void queryDragonGroup(ActionEvent actionEvent) {
-        Optional<String> result = TextInputDialogTool.textInputDialog("查询族群信息",
+        Optional<String> result = TextInputDialogTool.showTextInput("查询族群信息",
                 "请输入族群的Id", "Id:");
         if (result.isPresent()) {
             int dragonGroupId = 0;
@@ -400,7 +401,7 @@ public class DragonMomController extends BaseController {
      * flushGroup()方法是为了刷新一下显示和groupTreeItemList
      */
     public void changeDragonGroup(ActionEvent actionEvent) {
-        Optional<String> result = TextInputDialogTool.textInputDialog(null, "请输入族群的Id",
+        Optional<String> result = TextInputDialogTool.showTextInput(null, "请输入族群的Id",
                 "Id:");
         if (result.isPresent()) {
             int dragonGroupId = 0;
@@ -531,5 +532,26 @@ public class DragonMomController extends BaseController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 打开活动列表.
+     * */
+    public void openActivity(ActionEvent actionEvent) {
+        FXMLLoader fx = null;
+        try {
+            fx = ViewManager.openView(ViewManager.activityUrl,"活动信息",600.0,400.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(fx != null){
+            //得到控制器，隐藏"我要观看"的按钮
+            ActivityController activityController = (ActivityController) fx.getController();
+            activityController.getViewActivity().setVisible(false);
+            activityController.getAddActivity().setVisible(true);
+        }
+
+
     }
 }
