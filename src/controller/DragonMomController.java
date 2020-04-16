@@ -276,7 +276,7 @@ public class DragonMomController extends BaseController {
                     if (items == 0) {//说明没有数据修改
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "可能族群不存在");
                     } else {
-                        DragonTrainerTable.flushTrainer(trainerTreeItemList, trainerRoot);
+                        DragonTrainerTable.getInstance().flushTrainer(trainerTreeItemList, trainerRoot);
                     }
                 }
             } else {
@@ -448,7 +448,7 @@ public class DragonMomController extends BaseController {
                     if (items == 0) {//说明没有数据修改
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "可能是该名字已存在");
                     } else {
-                        DragonGroupTable.flushGroup(groupTreeItemList, groupRoot);
+                        DragonGroupTable.getInstance().flushGroup(groupTreeItemList, groupRoot);
                     }
                 }
             } else {
@@ -467,7 +467,7 @@ public class DragonMomController extends BaseController {
         String[] columnName = {"驯龙高手名字", "Id", "族群Id", "族群名字"};
         double[] columnPrefWidth = {150, 80, 80, 120};
         String[] columnId = {"name", "Id", "dragonGroupId", "dragonGroupName"};
-        DragonTrainerTable.initTrainerTreeTable(trainerTreeTableView, columnName, columnPrefWidth, columnId);
+        DragonTrainerTable.getInstance().initTrainerTreeTable(trainerTreeTableView, columnName, columnPrefWidth, columnId);
     }
 
     /**
@@ -477,7 +477,7 @@ public class DragonMomController extends BaseController {
      * 调用工具类
      */
     public void initTrainerTreeData() {
-        DragonTrainerTable.initTrainerTreeData(trainerTreeTableView, trainerRoot, trainerTreeItemList);
+        DragonTrainerTable.getInstance().initTrainerTreeData(trainerTreeTableView, trainerRoot, trainerTreeItemList);
     }
 
     /**
@@ -489,7 +489,7 @@ public class DragonMomController extends BaseController {
         String[] columnName = {"族群名字", "Id", "简介", "地理位置", "大小"};
         double[] columnPrefWidth = {120, 80, 120, 120, 80};
         String[] columnId = {"name", "Id", "profile", "location", "size"};
-        DragonGroupTable.initGroupTreeTable(groupTreeTableView, columnName, columnPrefWidth, columnId);
+        DragonGroupTable.getInstance().initGroupTreeTable(groupTreeTableView, columnName, columnPrefWidth, columnId);
     }
 
     /**
@@ -499,7 +499,7 @@ public class DragonMomController extends BaseController {
      * 调用工具类
      */
     public void initGroupTreeData() {
-        DragonGroupTable.initGroupTreeData(groupTreeTableView, groupRoot, groupTreeItemList);
+        DragonGroupTable.getInstance().initGroupTreeData(groupTreeTableView, groupRoot, groupTreeItemList);
     }
 
     /**

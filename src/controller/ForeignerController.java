@@ -227,7 +227,7 @@ public class ForeignerController extends BaseController {
         String[] columnName = {"族群名字", "Id", "简介", "大小"};
         double[] columnPrefWidth = {120, 80, 120, 120, 80};
         String[] columnId = {"name", "Id", "profile", "size"};
-        DragonGroupTable.initGroupTreeTable(groupTreeTableView, columnName, columnPrefWidth, columnId);
+        DragonGroupTable.getInstance().initGroupTreeTable(groupTreeTableView, columnName, columnPrefWidth, columnId);
     }
 
     /**
@@ -237,7 +237,7 @@ public class ForeignerController extends BaseController {
      * 调用工具类
      */
     public void initGroupTreeData() {
-        DragonGroupTable.initGroupTreeData(groupTreeTableView, groupRoot, groupTreeItemList);
+        DragonGroupTable.getInstance().initGroupTreeData(groupTreeTableView, groupRoot, groupTreeItemList);
     }
 
     /**
@@ -250,7 +250,7 @@ public class ForeignerController extends BaseController {
         String[] columnName = {"名字", "Id", "性别", "简介", "训练", "健康"};
         double[] columnPrefWidth = {120, 80, 80, 120, 80, 80};
         String[] columnId = {"name", "Id", "sex", "profile", "training", "healthy"};
-        DragonTable.initDragonTreeTable(dragonTreeTableView, columnName, columnPrefWidth, columnId);
+        DragonTable.getInstance().initDragonTreeTable(dragonTreeTableView, columnName, columnPrefWidth, columnId);
     }
 
     /**
@@ -260,7 +260,7 @@ public class ForeignerController extends BaseController {
      * 调用工具类
      */
     public void initDragonTreeData() {
-        DragonTable.initDragonTreeData(dragonTreeTableView, dragonRoot, dragonTreeItemList);
+        DragonTable.getInstance().initDragonTreeData(dragonTreeTableView, dragonRoot, dragonTreeItemList);
     }
 
     /**

@@ -9,6 +9,7 @@ import javafx.scene.control.TreeTableView;
 import javafx.util.Callback;
 import model.IDragonGroupDAO;
 import model.IDragonTrainerDAO;
+import model.database.impl.DragonDAOImpl;
 import model.database.impl.DragonGroupDAOImpl;
 import model.database.impl.DragonTrainerDAOImpl;
 import util.DAOFactory;
@@ -21,15 +22,30 @@ import java.util.List;
  * 可以根据需要显示对应的列
  * */
 public class DragonTrainerTable {
-    private static IDragonTrainerDAO iDragonTrainerDAO = DAOFactory.getDragonTrainerDAOInstance();
+    private volatile static DragonTrainerTable instance = null;
 
-    private static IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
+    private DragonTrainerTable(){}
+
+    public static DragonTrainerTable getInstance(){
+        if(instance == null){
+            synchronized (DragonTrainerTable.class){
+                if(instance == null){
+                    instance = new DragonTrainerTable();
+                }
+            }
+        }
+        return instance;
+    }
+
+    private IDragonTrainerDAO iDragonTrainerDAO = DAOFactory.getDragonTrainerDAOInstance();
+
+    private IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
 
     /**
      * 驯龙高手表：
      * 设置列名、列宽
      */
-    public static void initTrainerTreeTable(TreeTableView<DragonTrainer> trainerTreeTableView, String [] columnName,
+    public void initTrainerTreeTable(TreeTableView<DragonTrainer> trainerTreeTableView, String [] columnName,
                                      double [] columnPrefWidth, String [] columnId) {
         //列的数量
         int columnNum = columnName.length;
@@ -64,7 +80,7 @@ public class DragonTrainerTable {
      * 数据的显示。
      * 根节点进行了隐藏
      */
-    public static void initTrainerTreeData(TreeTableView<DragonTrainer> trainerTreeTableView, TreeItem<DragonTrainer> trainerRoot,
+    public void initTrainerTreeData(TreeTableView<DragonTrainer> trainerTreeTableView, TreeItem<DragonTrainer> trainerRoot,
                                            List<TreeItem<DragonTrainer>> trainerTreeItemList) {
         trainerTreeTableView.setRoot(trainerRoot);
         trainerTreeTableView.setShowRoot(false);
@@ -76,7 +92,7 @@ public class DragonTrainerTable {
      * 驯龙高手表：
      * 单元格内容的显示
      */
-    static class TrainerTableTreeCell extends TreeTableCell<DragonTrainer, DragonTrainer> {
+    class TrainerTableTreeCell extends TreeTableCell<DragonTrainer, DragonTrainer> {
         String columnID;
 
         public TrainerTableTreeCell(String columnID) {
@@ -120,7 +136,7 @@ public class DragonTrainerTable {
     /**
      * 刷新trainerTreeItemList(储存treeItem的)和trainerRoot
      */
-    public static void flushTrainer(List<TreeItem<DragonTrainer>> trainerTreeItemList,
+    public void flushTrainer(List<TreeItem<DragonTrainer>> trainerTreeItemList,
                                     TreeItem<DragonTrainer> trainerRoot) {
         trainerTreeItemList.clear();
         trainerRoot.getChildren().clear();

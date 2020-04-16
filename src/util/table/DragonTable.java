@@ -21,13 +21,27 @@ import java.util.List;
  * 可以根据需要显示对应的列
  */
 public class DragonTable {
-    private static IDragonDAO iDragonDAO = DAOFactory.getDragonDAOInstance();
+    private volatile static DragonTable instance = null;
+
+    private DragonTable(){}
+
+    public static DragonTable getInstance(){
+        if(instance == null){
+            synchronized (DragonTable.class){
+                if(instance == null){
+                    instance = new DragonTable();
+                }
+            }
+        }
+        return instance;
+    }
+    private IDragonDAO iDragonDAO = DAOFactory.getDragonDAOInstance();
 
     /**
      * 龙的表.
      * 设置列名、列宽
      */
-    public static void initDragonTreeTable(TreeTableView<Dragon> dragonTreeTableView, String[] columnName,
+    public void initDragonTreeTable(TreeTableView<Dragon> dragonTreeTableView, String[] columnName,
                                            double[] columnPrefWidth, String[] columnId) {
         //列的数量
         int columnNum = columnName.length;
@@ -63,7 +77,7 @@ public class DragonTable {
      * 根节点进行了隐藏
      * 对某个族群的龙操作
      */
-    public static void initDragonTreeData(TreeTableView<Dragon> dragonTreeTableView, TreeItem<Dragon> dragonRoot,
+    public void initDragonTreeData(TreeTableView<Dragon> dragonTreeTableView, TreeItem<Dragon> dragonRoot,
                                           List<TreeItem<Dragon>> dragonTreeItemList, int dragonGroupId) {
         dragonTreeTableView.setRoot(dragonRoot);
         dragonTreeTableView.setShowRoot(false);
@@ -77,7 +91,7 @@ public class DragonTable {
      * 根节点进行了隐藏
      * 重载，对所有的龙操作。
      */
-    public static void initDragonTreeData(TreeTableView<Dragon> dragonTreeTableView, TreeItem<Dragon> dragonRoot,
+    public void initDragonTreeData(TreeTableView<Dragon> dragonTreeTableView, TreeItem<Dragon> dragonRoot,
                                           List<TreeItem<Dragon>> dragonTreeItemList) {
         dragonTreeTableView.setRoot(dragonRoot);
         dragonTreeTableView.setShowRoot(false);
@@ -89,7 +103,7 @@ public class DragonTable {
      * 龙的表.
      * 单元格内容的显示
      */
-    static class DragonTableTreeCell extends TreeTableCell<Dragon, Dragon> {
+   class DragonTableTreeCell extends TreeTableCell<Dragon, Dragon> {
         String columnID;
 
         public DragonTableTreeCell(String columnID) {
@@ -137,7 +151,7 @@ public class DragonTable {
      * 刷新trainerTreeItemList(储存treeItem的)和trainerRoot.
      * 对某个族群的龙操作。
      */
-    public static void flushDragon(List<TreeItem<Dragon>> dragonTreeItemList,
+    public void flushDragon(List<TreeItem<Dragon>> dragonTreeItemList,
                                    TreeItem<Dragon> dragonRoot, int dragonGroupId) {
         dragonTreeItemList.clear();
         dragonRoot.getChildren().clear();
@@ -155,7 +169,7 @@ public class DragonTable {
      * 刷新trainerTreeItemList(储存treeItem的)和trainerRoot.
      * 对所有的龙操作。重载
      */
-    public static void flushDragon(List<TreeItem<Dragon>> dragonTreeItemList, TreeItem<Dragon> dragonRoot) {
+    public void flushDragon(List<TreeItem<Dragon>> dragonTreeItemList, TreeItem<Dragon> dragonRoot) {
         dragonTreeItemList.clear();
         dragonRoot.getChildren().clear();
         List<Dragon> dragonList = iDragonDAO.getList();

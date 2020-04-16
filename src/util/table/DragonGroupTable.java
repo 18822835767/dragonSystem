@@ -7,6 +7,7 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.util.Callback;
 import model.IDragonGroupDAO;
+import model.database.impl.DragonDAOImpl;
 import model.database.impl.DragonGroupDAOImpl;
 import util.DAOFactory;
 
@@ -17,13 +18,28 @@ import java.util.List;
  * 可以根据需要显示对应的列
  */
 public class DragonGroupTable {
-    private static IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
+    private volatile static DragonGroupTable instance = null;
+
+    private DragonGroupTable(){}
+
+    public static DragonGroupTable getInstance(){
+        if(instance == null){
+            synchronized (DragonGroupTable.class){
+                if(instance == null){
+                    instance = new DragonGroupTable();
+                }
+            }
+        }
+        return instance;
+    }
+
+    private IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
 
     /**
      * 族群表：
      * 设置列名、列宽
      */
-    public static void initGroupTreeTable(TreeTableView<DragonGroup> groupTreeTableView, String[] columnName,
+    public void initGroupTreeTable(TreeTableView<DragonGroup> groupTreeTableView, String[] columnName,
                                           double[] columnPrefWidth, String[] columnId) {
         //列的数量
         int columnNum = columnName.length;
@@ -58,7 +74,7 @@ public class DragonGroupTable {
      * 数据的显示。
      * 根节点进行了隐藏
      */
-    public static void initGroupTreeData(TreeTableView<DragonGroup> groupTreeTableView, TreeItem<DragonGroup> groupRoot,
+    public void initGroupTreeData(TreeTableView<DragonGroup> groupTreeTableView, TreeItem<DragonGroup> groupRoot,
                                          List<TreeItem<DragonGroup>> groupTreeItemList) {
         groupTreeTableView.setRoot(groupRoot);
         groupTreeTableView.setShowRoot(false);
@@ -70,7 +86,7 @@ public class DragonGroupTable {
      * 族群表：
      * 单元格内容的显示
      */
-    static class GroupTableTreeCell extends TreeTableCell<DragonGroup, DragonGroup> {
+    class GroupTableTreeCell extends TreeTableCell<DragonGroup, DragonGroup> {
         String columnID;
 
         public GroupTableTreeCell(String columnID) {
@@ -115,7 +131,7 @@ public class DragonGroupTable {
     /**
      * 刷新groupTreeItemList(储存treeItem的)和groupRoot
      */
-    public static void flushGroup(List<TreeItem<DragonGroup>> groupTreeItemList, TreeItem<DragonGroup> groupRoot) {
+    public void flushGroup(List<TreeItem<DragonGroup>> groupTreeItemList, TreeItem<DragonGroup> groupRoot) {
         groupTreeItemList.clear();
         groupRoot.getChildren().clear();
         List<DragonGroup> dragonGroupList = iDragonGroupDAO.getList();
