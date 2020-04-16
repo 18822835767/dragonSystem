@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.IDragonDAO;
 import model.IDragonGroupDAO;
+import util.CheckValid;
 import util.PaneFilling;
 import util.DAOFactory;
 import util.SwitchAccount;
@@ -32,7 +33,7 @@ import java.util.Optional;
  * 驯龙高手的控制器.
  * 为了使代码简洁，CRUD使用了自定义的工具类AddNodeForPane。
  */
-public class DragonTrainerController extends BaseController{
+public class DragonTrainerController extends BaseController {
     @FXML
     private TreeTableView<Dragon> dragonTreeTableView;
     @FXML
@@ -130,7 +131,7 @@ public class DragonTrainerController extends BaseController{
         VBox vBox = new VBox(10);
 
         String[] promotTexts = {"龙的名字", "龙的简介", "年龄"};
-        Map<String,TextField> map = PaneFilling.getInstance().addTextField(vBox, promotTexts);
+        Map<String, TextField> map = PaneFilling.getInstance().addTextField(vBox, promotTexts);
 
         //自定义的单选框，选择龙的性别
         HBox h_sex = new HBox(10);
@@ -148,7 +149,20 @@ public class DragonTrainerController extends BaseController{
             //从信息框中得到信息并存入数据库
             String name = map.get("龙的名字").getText();
             String profile = map.get("龙的简介").getText().trim();
-            int age = Integer.parseInt(map.get("年龄").getText().trim());
+            int age = 0;
+            try {
+                age = Integer.parseInt(map.get("年龄").getText().trim());
+            } catch (Exception e) {
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "非法输入");
+                return;
+            }
+
+            if (CheckValid.getInstance().isEmpty(name, profile, map.get("年龄").getText().trim())) {
+                //判断是否有空的信息
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "信息填写不完整");
+                return;
+            }
+
             String sex = null;
             if (radioButtons[0].isSelected()) {
                 sex = radioButtons[0].getText();
@@ -157,9 +171,9 @@ public class DragonTrainerController extends BaseController{
             }
             int items = iDragonDAO.save(dragonGroupId, name, profile, false, true, sex, age);//数据库保存数据
 
-            if(items == 0){//说明没有插入数据
-                AlertTool.showAlert(Alert.AlertType.WARNING,"错误","添加失败","可能是该名字已存在");
-            }else{
+            if (items == 0) {//说明没有插入数据
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是该名字已存在");
+            } else {
                 //通过族群id和名字来获取龙的实例
                 Dragon dragon = iDragonDAO.get(dragonGroupId, name);
                 TreeItem<Dragon> treeItem = new TreeItem<>(dragon);
@@ -179,13 +193,20 @@ public class DragonTrainerController extends BaseController{
                 "请输入龙的Id", "Id:");
         //如果用户点击了确定按钮
         if (result.isPresent()) {
-            int dragonId = Integer.parseInt(result.get().trim());
+            int dragonId = 0;
+            try {
+                dragonId = Integer.parseInt(result.get().trim());
+            } catch (Exception e) {
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "删除失败", "非法输入");
+                return;
+            }
+
             Dragon dragon = iDragonDAO.get(dragonId);
             int items = iDragonDAO.delete(dragonId);
 
-            if(items == 0){
-                AlertTool.showAlert(Alert.AlertType.WARNING,"错误","删除失败","可能是没有与id匹配的龙");
-            }else{
+            if (items == 0) {
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "删除失败", "可能是没有与id匹配的龙");
+            } else {
                 for (TreeItem<Dragon> treeItem : dragonTreeItemList) {
                     if (treeItem.getValue().getDragonId() == dragonId) {
                         dragonTreeItemList.remove(treeItem);
@@ -204,7 +225,14 @@ public class DragonTrainerController extends BaseController{
         Optional<String> result = TextInputDialogTool.textInputDialog("查询龙的信息",
                 "请输入龙的Id", "Id:");
         if (result.isPresent()) {
-            int dragonId = Integer.parseInt(result.get());
+            int dragonId = 0;
+            try {
+                dragonId = Integer.parseInt(result.get());
+            } catch (Exception e) {
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "查询失败", "非法输入");
+                return;
+            }
+
             Dragon dragon = iDragonDAO.get(dragonId);
             if (dragon != null) {
                 VBox vBox = new VBox(10);
@@ -230,7 +258,14 @@ public class DragonTrainerController extends BaseController{
         Optional<String> result = TextInputDialogTool.textInputDialog(null, "请输入龙的Id",
                 "Id:");
         if (result.isPresent()) {
-            int dragonId = Integer.parseInt(result.get());
+            int dragonId = 0;
+            try {
+                dragonId = Integer.parseInt(result.get());
+            } catch (Exception e) {
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "非法输入");
+                return;
+            }
+
             Dragon dragon = iDragonDAO.get(dragonId);
             if (dragon != null) {
                 GridPane gridPane = new GridPane();
@@ -241,7 +276,7 @@ public class DragonTrainerController extends BaseController{
                 //先给GridPane添加一些Label和TextField
                 String[] labelTexts = {"名字:", "年龄", "简介:"};
                 String[] textFiledContents = {dragon.getName(), String.valueOf(dragon.getAge()), dragon.getProfile()};
-                Map<String,TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFiledContents);
+                Map<String, TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFiledContents);
 
                 Label l_training = new Label("训练中:");
                 Label l_healthy = new Label("健康:");
@@ -271,7 +306,14 @@ public class DragonTrainerController extends BaseController{
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                     //从弹框得到信息并保存进数据库
                     String name = map.get("名字:").getText().trim();
-                    int age = Integer.parseInt(map.get("年龄").getText().trim());
+                    int age = 0;
+                    try {
+                        age = Integer.parseInt(map.get("年龄").getText().trim());
+                    } catch (Exception e) {
+                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "非法输入");
+                        return;
+                    }
+
                     String profile = map.get("简介:").getText().trim();
                     boolean training;
                     boolean healthy;
@@ -288,9 +330,9 @@ public class DragonTrainerController extends BaseController{
 
                     int items = iDragonDAO.update(dragonId, dragonGroupId, name, profile, training, healthy, age);
 
-                    if(items == 0){//说明没有数据修改
-                        AlertTool.showAlert(Alert.AlertType.WARNING,"错误","修改失败","可能是该名字已存在");
-                    }else{
+                    if (items == 0) {//说明没有数据修改
+                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "可能是该名字已存在");
+                    } else {
                         DragonTable.flushDragon(dragonTreeItemList, dragonRoot, dragonGroupId);
                     }
                 }
@@ -308,7 +350,14 @@ public class DragonTrainerController extends BaseController{
         Optional<String> result = TextInputDialogTool.textInputDialog("查询族群信息",
                 "请输入族群的Id", "Id:");
         if (result.isPresent()) {
-            int dragonGroupId = Integer.parseInt(result.get());
+            int dragonGroupId = 0;
+            try {
+                dragonGroupId = Integer.parseInt(result.get());
+            } catch (Exception e) {
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "查询失败", "非法输入");
+                return;
+            }
+
             DragonGroup group = iDragonGroupDAO.get(dragonGroupId);
             if (group != null) {
                 VBox vBox = new VBox(10);
@@ -335,7 +384,7 @@ public class DragonTrainerController extends BaseController{
 
         String[] labelTexts = {"名字:", "简介:", "地理位置:", "大小:"};
         String[] textFieldContents = {group.getName(), group.getProfile(), group.getLocation(), String.valueOf(group.getSize())};
-        Map<String,TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFieldContents);
+        Map<String, TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFieldContents);
 
         gridPane.setVgap(10);
 
@@ -346,13 +395,25 @@ public class DragonTrainerController extends BaseController{
             String name = map.get("名字:").getText().trim();
             String profile = map.get("简介:").getText().trim();
             String location = map.get("地理位置:").getText().trim();
-            double size = Double.parseDouble(map.get("大小:").getText().trim());
+            double size = 0;
+            try {
+                size = Double.parseDouble(map.get("大小:").getText().trim());
+            } catch (Exception e) {
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "非法输入");
+                return;
+            }
+
+            if (CheckValid.getInstance().isEmpty(name, profile, location, map.get("大小:").getText().trim())) {
+                //判断是否有空的信息
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "信息填写不完整");
+                return;
+            }
 
             int items = iDragonGroupDAO.update(name, profile, location, size, dragonGroupId);
 
-            if(items == 0){//说明没有数据修改
-                AlertTool.showAlert(Alert.AlertType.WARNING,"错误","修改失败","可能是该名字已存在");
-            }else{
+            if (items == 0) {//说明没有数据修改
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "可能是该名字已存在");
+            } else {
                 DragonGroupTable.flushGroup(groupTreeItemList, groupRoot);
             }
         }

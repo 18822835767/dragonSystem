@@ -32,7 +32,7 @@ import java.util.*;
  * 外邦人的控制器，实现Initializable接口来初始化.
  * 为了使代码简洁，查询方法使用了自定义的工具类AddNodeForPane。
  */
-public class ForeignerController extends BaseController{
+public class ForeignerController extends BaseController {
     @FXML
     private TreeTableView<Dragon> dragonTreeTableView;
     @FXML
@@ -64,7 +64,6 @@ public class ForeignerController extends BaseController{
      * 标志是否成功入园.
      */
     boolean enterSuccess = false;
-
 
 
     /**
@@ -110,7 +109,7 @@ public class ForeignerController extends BaseController{
         }
 
         //若买票成功，默认先显示“龙”的表
-        if(enterSuccess){
+        if (enterSuccess) {
             dragonTreeTableView.setVisible(true);
         }
 
@@ -151,12 +150,20 @@ public class ForeignerController extends BaseController{
      * 外邦人看不到属性:年龄。
      */
     public void queryDragon(ActionEvent actionEvent) {
-        if(enterSuccess){
+        if (enterSuccess) {
             //如果成功入园
             Optional<String> result = TextInputDialogTool.textInputDialog("查询龙的信息",
                     "请输入龙的Id", "Id:");
             if (result.isPresent()) {
-                int dragonId = Integer.parseInt(result.get());
+                int dragonId = 0;
+
+                try {
+                    dragonId = Integer.parseInt(result.get());
+                } catch (Exception e) {
+                    AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "查询失败", "非法输入");
+                    return;
+                }
+
                 Dragon dragon = iDragonDAO.get(dragonId);
                 if (dragon != null) {
                     VBox vBox = new VBox(10);
@@ -171,7 +178,7 @@ public class ForeignerController extends BaseController{
                     //自定义控件
                     AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该龙的信息");
                 }
-        }
+            }
         }
     }
 
@@ -180,12 +187,19 @@ public class ForeignerController extends BaseController{
      * 外邦人看不到属性:地理位置。
      */
     public void queryDragonGroup(ActionEvent actionEvent) {
-        if(enterSuccess){
+        if (enterSuccess) {
             //如果成功入园
             Optional<String> result = TextInputDialogTool.textInputDialog("查询族群信息",
                     "请输入族群的Id", "Id:");
             if (result.isPresent()) {
-                int dragonGroupId = Integer.parseInt(result.get());
+                int dragonGroupId = 0;
+                try {
+                    dragonGroupId = Integer.parseInt(result.get());
+                } catch (Exception e) {
+                    AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "查询失败", "非法输入");
+                    return;
+                }
+
                 DragonGroup dragonGroup = iDragonGroupDAO.get(dragonGroupId);
                 if (dragonGroup != null) {
                     VBox vBox = new VBox(10);
@@ -251,7 +265,7 @@ public class ForeignerController extends BaseController{
 
     /**
      * 买票函数.
-     * */
+     */
     public boolean buyTicketView() {
         //买票窗口
         AnchorPane anchorPane = new AnchorPane();
@@ -280,7 +294,7 @@ public class ForeignerController extends BaseController{
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
 
-                switch (newValue){
+                switch (newValue) {
                     case Ticket.TYPE1:
                         info.setText("价钱:" + Ticket.PRICE1 + "\n有效次数:" + Ticket.TIMES1);
                         break;
@@ -310,11 +324,10 @@ public class ForeignerController extends BaseController{
             double moneyTub = iDragonMomDAO.get().getMoneyTub();
 
             //因为本次入园，所以购买成功后有效次数立即-1。
-            switch (comboBox.getValue()){
-                case Ticket.TYPE1:
-                {
+            switch (comboBox.getValue()) {
+                case Ticket.TYPE1: {
                     //如果用户买了一等票
-                    if(foreigner.getMoney() >= Ticket.PRICE1){
+                    if (foreigner.getMoney() >= Ticket.PRICE1) {
                         //如果用户余额足够
                         iTicketDAO.save(foreigner.getForeignerId(), Ticket.PRICE1, Ticket.TYPE1, currentTime,
                                 Ticket.TIMES1 - 1, false);
@@ -322,17 +335,16 @@ public class ForeignerController extends BaseController{
                         double balance = foreigner.getMoney() - Ticket.PRICE1;//用户剩余的钱
                         foreigner.setMoney(balance);//更新对象中的值
                         iForeignerDAO.update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
-                        iDragonMomDAO.update(moneyTub+Ticket.PRICE1);//更新数据库的金库
-                    }else{
-                        AlertTool.showAlert(Alert.AlertType.WARNING,"购买失败",null,"余额不足");
+                        iDragonMomDAO.update(moneyTub + Ticket.PRICE1);//更新数据库的金库
+                    } else {
+                        AlertTool.showAlert(Alert.AlertType.WARNING, "购买失败", null, "余额不足");
                         return false;
                     }
                     break;
                 }
-                case Ticket.TYPE2:
-                {
+                case Ticket.TYPE2: {
                     //如果用户购买了二等票
-                    if(foreigner.getMoney() >= Ticket.PRICE2){
+                    if (foreigner.getMoney() >= Ticket.PRICE2) {
                         //如果用户余额足够
                         iTicketDAO.save(foreigner.getForeignerId(), Ticket.PRICE2, Ticket.TYPE2, currentTime,
                                 Ticket.TIMES2 - 1, false);
@@ -340,17 +352,16 @@ public class ForeignerController extends BaseController{
                         double balance = foreigner.getMoney() - Ticket.PRICE2;//外邦人剩余的钱
                         foreigner.setMoney(balance);//更新对象的值
                         iForeignerDAO.update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
-                        iDragonMomDAO.update(moneyTub+Ticket.PRICE2);//更新数据库的金库
-                    }else{
-                        AlertTool.showAlert(Alert.AlertType.WARNING,"购买失败",null,"余额不足");
+                        iDragonMomDAO.update(moneyTub + Ticket.PRICE2);//更新数据库的金库
+                    } else {
+                        AlertTool.showAlert(Alert.AlertType.WARNING, "购买失败", null, "余额不足");
                         return false;
                     }
                     break;
                 }
-                case Ticket.TYPE3:
-                {
+                case Ticket.TYPE3: {
                     //如果用户购买了三等票
-                    if(foreigner.getMoney() >= Ticket.PRICE3){
+                    if (foreigner.getMoney() >= Ticket.PRICE3) {
                         //如果用户余额足够
                         iTicketDAO.save(foreigner.getForeignerId(), Ticket.PRICE3, Ticket.TYPE3, currentTime,
                                 Ticket.TIMES3 - 1, false);
@@ -358,9 +369,9 @@ public class ForeignerController extends BaseController{
                         double balance = foreigner.getMoney() - Ticket.PRICE3;//外邦人剩余的钱
                         foreigner.setMoney(balance);//更新对象的值
                         iForeignerDAO.update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
-                        iDragonMomDAO.update(moneyTub+Ticket.PRICE3);//更新数据库的金库
-                    }else{
-                        AlertTool.showAlert(Alert.AlertType.WARNING,"购买失败",null,"余额不足");
+                        iDragonMomDAO.update(moneyTub + Ticket.PRICE3);//更新数据库的金库
+                    } else {
+                        AlertTool.showAlert(Alert.AlertType.WARNING, "购买失败", null, "余额不足");
                         return false;
                     }
                     break;
@@ -384,32 +395,32 @@ public class ForeignerController extends BaseController{
 
     /**
      * 点击事件。弹出弹窗显示外邦人的信息.
-     * */
+     */
     public void showMyInfo(ActionEvent actionEvent) {
         VBox vBox = new VBox(15);
 
-        Text t_name = new Text("姓名:  "+foreigner.getName());
+        Text t_name = new Text("姓名:  " + foreigner.getName());
         t_name.setFont(new Font(15));
-        Text t_money = new Text("金币:  "+foreigner.getMoney());
+        Text t_money = new Text("金币:  " + foreigner.getMoney());
         t_money.setFont(new Font(15));
         //判断票是否为空，为空则有效次数显示为0次
-        Text t_ticketTimes = new Text("票的有效次数:  " + (ticket==null ? 0 :ticket.getTimes()));
+        Text t_ticketTimes = new Text("票的有效次数:  " + (ticket == null ? 0 : ticket.getTimes()));
         t_ticketTimes.setFont(new Font(15));
 
-        vBox.getChildren().addAll(t_name,t_money,t_ticketTimes);
+        vBox.getChildren().addAll(t_name, t_money, t_ticketTimes);
         vBox.setAlignment(Pos.CENTER_LEFT);
         vBox.setPadding(new Insets(15));
 
-        DialogTool.showDialog("我的信息",vBox,"确定",null).showAndWait();
+        DialogTool.showDialog("我的信息", vBox, "确定", null).showAndWait();
     }
 
     /**
      * 申请退票的点击事件
-     * */
+     */
     public void backTicket(ActionEvent actionEvent) {
         //可以申请退票的条件
-        if((ticket != null) && (ticket.getTimes() > 0)){
-            if(!ticket.isBacking()){
+        if ((ticket != null) && (ticket.getTimes() > 0)) {
+            if (!ticket.isBacking()) {
                 //有票且票的有效次数大于0
                 VBox vBox = new VBox(10);
 
@@ -418,29 +429,29 @@ public class ForeignerController extends BaseController{
                 Text t_ask = new Text("您确定退票吗?");
                 t_ask.setFont(new Font(15));
 
-                vBox.getChildren().addAll(t_times,t_ask);
+                vBox.getChildren().addAll(t_times, t_ask);
                 vBox.setAlignment(Pos.CENTER_LEFT);
                 vBox.setPadding(new Insets(10));
 
-                Optional<ButtonType> result = DialogTool.showDialog("退票",vBox,"确定",
+                Optional<ButtonType> result = DialogTool.showDialog("退票", vBox, "确定",
                         "取消").showAndWait();
 
-                if(result.isPresent() && result.get().getButtonData()== ButtonBar.ButtonData.OK_DONE){
-                    iTicketDAO.update(ticket.getTicketId(),true);//更新数据库的退票状态
+                if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+                    iTicketDAO.update(ticket.getTicketId(), true);//更新数据库的退票状态
                     ticket.setBacking(true);//更新对象的值
-                    AlertTool.showAlert(Alert.AlertType.INFORMATION,null,null,"已申请退票");
+                    AlertTool.showAlert(Alert.AlertType.INFORMATION, null, null, "已申请退票");
                 }
-            }else{
+            } else {
                 //之前已经申请过退票
-                AlertTool.showAlert(Alert.AlertType.INFORMATION,null,null,"退票处理中，请耐心等待");
+                AlertTool.showAlert(Alert.AlertType.INFORMATION, null, null, "退票处理中，请耐心等待");
             }
 
         }
 
         //无法申请退票
-        if(ticket == null || ticket.getTimes()==0){
+        if (ticket == null || ticket.getTimes() == 0) {
             //没票或者票的有效次数不够
-            AlertTool.showAlert(Alert.AlertType.ERROR,null,null,"您尚未购票或者票的有效次数不足");
+            AlertTool.showAlert(Alert.AlertType.ERROR, null, null, "您尚未购票或者票的有效次数不足");
         }
 
     }

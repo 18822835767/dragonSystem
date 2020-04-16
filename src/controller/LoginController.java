@@ -209,18 +209,19 @@ public class LoginController {
                     String username = map.get("用户名").getText().trim();
                     String password = map.get("密码").getText().trim();
 
-                    if(!CheckValid.getInstance().isValidUsername(username)){
-                        //判断用户名是否已注册
-                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "用户名已注册");
-                        return ;
-                    }else if(CheckValid.getInstance().isEmpty(name,username,password)){
+                    if(CheckValid.getInstance().isEmpty(name,username,password)){
                         //判断信息是否填写完整
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "信息填写不完整");
                         return ;
-                    }else{  
+                    }else if(!CheckValid.getInstance().isValidUsername(username)){
+                        //判断用户名是否已注册
+                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "用户名已注册");
+                        return ;
+                    }else{
                         iForeignerDAO.save(username, password, name);
                         AlertTool.showAlert(Alert.AlertType.INFORMATION, null, null, "注册成功");
                     }
+
                 }
 
             } else if (radioButtons[1].isSelected()) {
@@ -240,13 +241,27 @@ public class LoginController {
                     String name = map.get("名字:").getText().trim();
                     String username = map.get("用户名:").getText().trim();
                     String password = map.get("密码:").getText().trim();
-                    int dragonGroupId = Integer.parseInt(map.get("族群Id:").getText().trim());
+                    int dragonGroupId = 0;
+                    try{
+                        //输入的ID是否为整数
+                        dragonGroupId = Integer.parseInt(map.get("族群Id:").getText().trim());
+                    }catch (Exception e){
+                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "非法输入");
+                        return ;
+                    }
+
+                    if(CheckValid.getInstance().isEmpty(name,username,password,map.get("族群Id:").getText().trim()) ||
+                            !CheckValid.getInstance().isValidUsername(username)){
+                        //判断是否有空的信息以及用户名是否重复
+                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败","信息填写不完整" +
+                                "或者用户名已注册" );
+                        return ;
+                    }
 
                     int items = iDragonTrainerDAO.save(dragonGroupId, name, username, password);
 
                     if (items == 0) {//说明没有插入数据，错误弹窗提示
-                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是族群不存在" +
-                                "或者用户名已注册");
+                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "可能是族群不存在");
                     } else {
                         AlertTool.showAlert(Alert.AlertType.INFORMATION, null, null, "注册成功");
                     }

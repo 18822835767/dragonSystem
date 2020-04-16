@@ -31,21 +31,6 @@ public class CheckValid {
     }
 
     /**
-     * 检测用户的输入是否为正整数.
-     *
-     * @param str 字符串
-     * @return 布尔值
-     */
-    public boolean isNumber(String str) {
-        for (int i = 0; i < str.length(); i++) {
-            if (!Character.isDigit(str.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * 判断是否有空字符串.
      *
      * @param params 字符串，可变参数

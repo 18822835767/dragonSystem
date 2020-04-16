@@ -18,7 +18,7 @@ public interface IDragonTrainerDAO {
     /**
      * 通过具体信息来更新驯龙高手.
      * */
-    int update(int id,int dragonGroupId,String name,String username,String password);
+    int update(int id,int dragonGroupId,String name,String password);
 
     /**
      * 通过id来得到驯龙高手.
