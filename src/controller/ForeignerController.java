@@ -17,7 +17,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import model.*;
-import util.PaneFilling;
 import util.DAOFactory;
 import util.SwitchAccount;
 import util.ViewManager;
@@ -171,10 +170,14 @@ public class ForeignerController extends BaseController {
                 if (dragon != null) {
                     VBox vBox = new VBox(10);
 
-                    String[] textContents = {"龙的Id:" + dragon.getDragonId(), "名字:" + dragon.getName(),
-                            "性别:" + dragon.getSex(), "简介:" + dragon.getProfile(), "是否在训练:" + dragon.isTraining(),
-                            "是否健康:" + dragon.isHealthy()};
-                    PaneFilling.getInstance().addText(vBox, textContents);
+                    Text t_id = new Text("龙的Id:" + dragon.getDragonId());
+                    Text t_name = new Text("名字:" + dragon.getName());
+                    Text t_sex = new Text("性别:" + dragon.getSex());
+                    Text t_profile = new Text( "简介:" + dragon.getProfile());
+                    Text t_training = new Text("是否在训练:" + dragon.isTraining());
+                    Text t_healthy = new Text("是否健康:" + dragon.isHealthy());
+
+                    vBox.getChildren().addAll(t_id,t_name,t_sex,t_profile,t_training,t_healthy);
 
                     DialogTool.showDialog("龙的信息", vBox, "确定", null).showAndWait();
                 } else {
@@ -207,9 +210,12 @@ public class ForeignerController extends BaseController {
                 if (dragonGroup != null) {
                     VBox vBox = new VBox(10);
 
-                    String[] textContents = {"名字:" + dragonGroup.getName(), "Id:" + dragonGroup.getId(),
-                            "简介:" + dragonGroup.getProfile(), "大小:" + dragonGroup.getSize()};
-                    PaneFilling.getInstance().addText(vBox, textContents);
+                    Text t_name = new Text("名字:" + dragonGroup.getName());
+                    Text t_id = new Text(  "Id:" + dragonGroup.getId());
+                    Text t_profile = new Text("简介:" + dragonGroup.getProfile());
+                    Text t_size = new Text("大小:" + dragonGroup.getSize());
+
+                    vBox.getChildren().addAll(t_name,t_id,t_profile,t_size);
 
                     DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
                 } else {
@@ -475,6 +481,7 @@ public class ForeignerController extends BaseController {
             ActivityController activityController = (ActivityController) fx.getController();
             activityController.getViewActivity().setVisible(true);
             activityController.getAddActivity().setVisible(false);
+            //传入外邦人实例
             activityController.setForeigner(foreigner);
         }
     }

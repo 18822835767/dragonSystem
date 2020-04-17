@@ -47,7 +47,7 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
 
     @Override
     public int update(int id, int dragonGroupId, String name, String password) {
-        String sql = "update dragontrainer set dragonGroupId=?,name=?,username=?,password=? where dragonTrainerId = ?";
+        String sql = "update dragontrainer set dragonGroupId=?,name=?,password=? where dragonTrainerId = ?";
         return DBUtils.executeUpdate(sql,dragonGroupId,name,Encrypt.getInstance().setEncrypt(password),id);
     }
 

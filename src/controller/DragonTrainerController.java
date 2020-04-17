@@ -14,7 +14,6 @@ import javafx.scene.text.Text;
 import model.IDragonDAO;
 import model.IDragonGroupDAO;
 import util.CheckValid;
-import util.PaneFilling;
 import util.DAOFactory;
 import util.SwitchAccount;
 import util.table.DragonGroupTable;
@@ -243,10 +242,15 @@ public class DragonTrainerController extends BaseController {
             if (dragon != null) {
                 VBox vBox = new VBox(10);
 
-                String[] textContents = {"龙的Id:" + dragon.getDragonId(), "名字:" + dragon.getName(),
-                        "性别:" + dragon.getSex(), "年龄:" + dragon.getAge(), "简介:" + dragon.getProfile(),
-                        "是否在训练:" + dragon.isTraining(), "是否健康:" + dragon.isHealthy()};
-                PaneFilling.getInstance().addText(vBox, textContents);
+                Text t_id = new Text("龙的Id:" + dragon.getDragonId());
+                Text t_name = new Text("名字:" + dragon.getName());
+                Text t_sex = new Text("性别:" + dragon.getSex());
+                Text t_age = new Text("年龄:" + dragon.getAge());
+                Text t_profile = new Text( "简介:" + dragon.getProfile());
+                Text t_training = new Text("是否在训练:" + dragon.isTraining());
+                Text t_healthy = new Text("是否健康:" + dragon.isHealthy());
+
+                vBox.getChildren().addAll(t_id,t_name,t_sex,t_age,t_profile,t_training,t_healthy);
 
                 DialogTool.showDialog("龙的信息", vBox, "确定", null).showAndWait();
             } else {
@@ -276,16 +280,18 @@ public class DragonTrainerController extends BaseController {
             if (dragon != null) {
                 GridPane gridPane = new GridPane();
 
-                boolean dragonTraining = dragon.isTraining();//标记龙未修改前的训练状态
-                boolean dragonHealthy = dragon.isHealthy();//标记龙未修改前的健康状态
-
-                //先给GridPane添加一些Label和TextField
-                String[] labelTexts = {"名字:", "年龄", "简介:"};
-                String[] textFiledContents = {dragon.getName(), String.valueOf(dragon.getAge()), dragon.getProfile()};
-                Map<String, TextField> textFieldMap = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFiledContents);
-
+                Label l_name = new Label("名字:");
+                Label l_age = new Label("年龄");
+                Label l_profile = new Label("简介:");
                 Label l_training = new Label("训练中:");
                 Label l_healthy = new Label("健康:");
+
+                TextField t_name = new TextField(dragon.getName());
+                TextField t_age = new TextField(String.valueOf(dragon.getAge()));
+                TextField t_profile = new TextField( dragon.getProfile());
+
+                boolean dragonTraining = dragon.isTraining();//标记龙未修改前的训练状态
+                boolean dragonHealthy = dragon.isHealthy();//标记龙未修改前的健康状态
 
                 //自定义的单选框，选择龙的训练状态
                 HBox h_training = new HBox(8);
@@ -298,7 +304,13 @@ public class DragonTrainerController extends BaseController {
                 Map<String,RadioButton> healthyMap = SingleValueTool.singleSelection(buttonName, dragonHealthy ? 0 : 1);
                 h_healthy.getChildren().addAll(healthyMap.get("true"), healthyMap.get("false"));
 
-                //给GridPane添加单选框
+                //给GridPane添加控件
+                gridPane.add(l_name, 0, 0);
+                gridPane.add(t_name, 1, 0);
+                gridPane.add(l_age, 0, 1);
+                gridPane.add(t_age, 1, 1);
+                gridPane.add(l_profile, 0, 2);
+                gridPane.add(t_profile, 1, 2);
                 gridPane.add(l_training, 0, 3);
                 gridPane.add(h_training, 1, 3);
                 gridPane.add(l_healthy, 0, 4);
@@ -311,16 +323,16 @@ public class DragonTrainerController extends BaseController {
 
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                     //从弹框得到信息并保存进数据库
-                    String name = textFieldMap.get("名字:").getText().trim();
+                    String name = t_name.getText().trim();
                     int age = 0;
                     try {
-                        age = Integer.parseInt(textFieldMap.get("年龄").getText().trim());
+                        age = Integer.parseInt(t_age.getText().trim());
                     } catch (Exception e) {
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "非法输入");
                         return;
                     }
 
-                    String profile = textFieldMap.get("简介:").getText().trim();
+                    String profile = t_profile.getText().trim();
                     boolean training;
                     boolean healthy;
                     if (trainingMap.get("true").isSelected()) {
@@ -368,9 +380,13 @@ public class DragonTrainerController extends BaseController {
             if (group != null) {
                 VBox vBox = new VBox(10);
 
-                String[] promptTexts = {"名字:" + group.getName(), "Id:" + group.getId(), "简介:" + group.getProfile(),
-                        "地理位置:" + group.getLocation(), "大小:" + group.getSize()};
-                PaneFilling.getInstance().addText(vBox, promptTexts);
+                Text t_name = new Text("名字:" + group.getName());
+                Text t_id = new Text( "Id:" + group.getId());
+                Text t_profile = new Text("简介:" + group.getProfile());
+                Text t_location = new Text("地理位置:" + group.getLocation());
+                Text t_size = new Text("大小:" + group.getSize());
+
+                vBox.getChildren().addAll(t_name,t_id,t_profile,t_location,t_size);
 
                 DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
             } else {
@@ -388,9 +404,24 @@ public class DragonTrainerController extends BaseController {
 
         GridPane gridPane = new GridPane();
 
-        String[] labelTexts = {"名字:", "简介:", "地理位置:", "大小:"};
-        String[] textFieldContents = {group.getName(), group.getProfile(), group.getLocation(), String.valueOf(group.getSize())};
-        Map<String, TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFieldContents);
+        Label l_name = new Label("名字:");
+        Label l_profile = new Label( "简介:");
+        Label l_location = new Label("地理位置:");
+        Label l_size = new Label("大小:");
+
+        TextField t_name = new TextField(group.getName());
+        TextField t_profile = new TextField(group.getProfile());
+        TextField t_location = new TextField(group.getLocation());
+        TextField t_size = new TextField(String.valueOf(group.getSize()));
+
+        gridPane.add(l_name,0,0);
+        gridPane.add(t_name,1,0);
+        gridPane.add(l_profile,0,1);
+        gridPane.add(t_profile,1,1);
+        gridPane.add(l_location,0,2);
+        gridPane.add(t_location,1,2);
+        gridPane.add(l_size,0,3);
+        gridPane.add(t_size,1,3);
 
         gridPane.setVgap(10);
 
@@ -398,18 +429,18 @@ public class DragonTrainerController extends BaseController {
                 null).showAndWait();
 
         if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-            String name = map.get("名字:").getText().trim();
-            String profile = map.get("简介:").getText().trim();
-            String location = map.get("地理位置:").getText().trim();
+            String name = t_name.getText().trim();
+            String profile = t_profile.getText().trim();
+            String location = t_location.getText().trim();
             double size = 0;
             try {
-                size = Double.parseDouble(map.get("大小:").getText().trim());
+                size = Double.parseDouble(t_size.getText().trim());
             } catch (Exception e) {
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "非法输入");
                 return;
             }
 
-            if (CheckValid.isEmpty(name, profile, location, map.get("大小:").getText().trim())) {
+            if (CheckValid.isEmpty(name, profile, location, t_size.getText().trim())) {
                 //判断是否有空的信息
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "信息填写不完整");
                 return;

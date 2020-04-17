@@ -218,11 +218,14 @@ public class DragonMomController extends BaseController {
                 int dragonGroupId = trainer.getDragonGroupId();
                 VBox vBox = new VBox(10);
 
-                String[] textContents = {"名字:" + trainer.getName(), "Id:" + dragonGroupId,
-                        "族群名字:" + iDragonTrainerDAO.get(dragonGroupId).getName(),
-                        "族群Id:" + trainer.getDragonGroupId(), "用户名:" + trainer.getUsername(),
-                        "密码:" + trainer.getPassword()};
-                PaneFilling.getInstance().addText(vBox, textContents);
+                Text t_trainerName = new Text("名字:" + trainer.getName());
+                Text t_id = new Text("Id:" + dragonGroupId);
+                Text t_groupName = new Text("族群名字:" + iDragonTrainerDAO.get(dragonGroupId).getName());
+                Text t_groupId = new Text("族群Id:" + trainer.getDragonGroupId());
+                Text t_username = new Text("用户名:" + trainer.getUsername());
+                Text t_password = new Text("密码:" + trainer.getPassword());
+
+                vBox.getChildren().addAll(t_trainerName,t_id,t_groupName,t_groupId,t_username,t_password);
 
                 DialogTool.showDialog("驯龙高手信息", vBox, "确定", null).showAndWait();
             } else {
@@ -253,10 +256,20 @@ public class DragonMomController extends BaseController {
             if (trainer != null) {
                 GridPane gridPane = new GridPane();
 
-                String[] labelTexts = {"名字:", "族群Id:", "密码:"};
-                String[] textFiledContents = {trainer.getName(), String.valueOf(trainer.getDragonGroupId()),
-                        trainer.getUsername(), trainer.getPassword()};
-                Map<String, TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFiledContents);
+                Label l_name = new Label("名字:");
+                Label l_id = new Label("族群Id:");
+                Label l_password = new Label("密码:");
+
+                TextField t_name = new TextField(trainer.getName());
+                TextField t_id = new TextField(String.valueOf(trainer.getDragonGroupId()));
+                TextField t_password = new TextField(trainer.getPassword());
+
+                gridPane.add(l_name,0,0);
+                gridPane.add(t_name,1,0);
+                gridPane.add(l_id,0,1);
+                gridPane.add(t_id,1,1);
+                gridPane.add(l_password,0,2);
+                gridPane.add(t_password,1,2);
 
                 gridPane.setVgap(10);
 
@@ -264,18 +277,18 @@ public class DragonMomController extends BaseController {
                         null).showAndWait();
 
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-                    String name = map.get("名字:").getText().trim();
-                    String password = map.get("密码:").getText().trim();
+                    String name = t_name.getText().trim();
+                    String password = t_password.getText().trim();
                     int dragonGroupId = 0;
                     try {
                         //输入的ID是否为整数
-                        dragonGroupId = Integer.parseInt(map.get("族群Id:").getText().trim());
+                        dragonGroupId = Integer.parseInt(t_id.getText().trim());
                     } catch (Exception e) {
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "非法输入");
                         return;
                     }
 
-                    if (CheckValid.isEmpty(name, password, map.get("族群Id:").getText().trim())) {
+                    if (CheckValid.isEmpty(name, password,t_id.getText().trim())) {
                         //判断是否有空的信息
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "信息填写不完整");
                         return;
@@ -402,9 +415,12 @@ public class DragonMomController extends BaseController {
             if (group != null) {
                 VBox vBox = new VBox(10);
 
-                String[] textContents = {"名字:" + group.getName(), "Id:" + group.getId(), "简介:" + group.getProfile(),
-                        "地理位置:" + group.getLocation()};
-                PaneFilling.getInstance().addText(vBox, textContents);
+                Text t_name = new Text("名字:" + group.getName());
+                Text t_id = new Text( "Id:" + group.getId());
+                Text t_profile = new Text("简介:" + group.getProfile());
+                Text t_location = new Text( "地理位置:" + group.getLocation());
+
+                vBox.getChildren().addAll(t_name,t_id,t_profile,t_location);
 
                 DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
             } else {
@@ -434,10 +450,24 @@ public class DragonMomController extends BaseController {
             if (group != null) {
                 GridPane gridPane = new GridPane();
 
-                String[] labelTexts = {"名字:", "简介:", "地理位置:", "大小:"};
-                String[] textFiledContents = {group.getName(), group.getProfile(), group.getLocation(),
-                        String.valueOf(group.getSize())};
-                Map<String, TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFiledContents);
+                Label l_name = new Label("名字:");
+                Label l_profile = new Label( "简介:");
+                Label l_location = new Label("地理位置:");
+                Label l_size = new Label("大小:");
+
+                TextField t_name = new TextField(group.getName());
+                TextField t_profile = new TextField(group.getProfile());
+                TextField t_location = new TextField(group.getLocation());
+                TextField t_size = new TextField(String.valueOf(group.getSize()));
+
+                gridPane.add(l_name,0,0);
+                gridPane.add(t_name,1,0);
+                gridPane.add(l_profile,0,1);
+                gridPane.add(t_profile,1,1);
+                gridPane.add(l_location,0,2);
+                gridPane.add(t_location,1,2);
+                gridPane.add(l_size,0,3);
+                gridPane.add(t_size,1,3);
 
                 gridPane.setVgap(10);
 
@@ -445,18 +475,18 @@ public class DragonMomController extends BaseController {
                         null).showAndWait();
 
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-                    String name = map.get("名字:").getText().trim();
-                    String profile = map.get("简介:").getText().trim();
-                    String location = map.get("地理位置:").getText().trim();
+                    String name = t_name.getText().trim();
+                    String profile = t_profile.getText().trim();
+                    String location = t_location.getText().trim();
                     double size = 0;
                     try {
-                        size = Double.parseDouble(map.get("大小:").getText().trim());
+                        size = Double.parseDouble(t_size.getText().trim());
                     } catch (Exception e) {
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "非法输入");
                         return;
                     }
 
-                    if (CheckValid.isEmpty(name, profile, location, map.get("大小:").getText().trim())) {
+                    if (CheckValid.isEmpty(name, profile, location, t_size.getText().trim())) {
                         //判断是否有空的信息
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "信息填写不完整");
                         return;
