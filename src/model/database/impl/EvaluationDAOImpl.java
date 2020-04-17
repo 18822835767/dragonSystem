@@ -36,6 +36,12 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
     }
 
     @Override
+    public int delete(int foreignerId, int evaluationId) {
+        String sql = "delete from evaluation where foreignerId = ? and evaluationId = ?";
+        return DBUtils.executeUpdate(sql,foreignerId,evaluationId);
+    }
+
+    @Override
     public List<Evaluation> getList(int foreignerId) {
         List<Evaluation> evaluationList = new ArrayList<>();
         Connection conn = null;

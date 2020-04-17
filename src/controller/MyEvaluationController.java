@@ -3,17 +3,24 @@ package controller;
 import entity.Dragon;
 import entity.DragonTrainer;
 import entity.Evaluation;
+import entity.Foreigner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableView;
+import model.IEvaluationDAO;
+import util.DAOFactory;
+import util.control.AlertTool;
+import util.control.TextInputDialogTool;
 import util.table.DragonTrainerTable;
 import util.table.EvaluationTable;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -27,6 +34,10 @@ public class MyEvaluationController implements Initializable {
 
     private TreeItem<Evaluation> root = new TreeItem<Evaluation>(new Evaluation());
 
+    private IEvaluationDAO iEvaluationDAO = DAOFactory.getEvaluationDAOInstance();
+
+    private Foreigner foreigner = null;//查看"评价"的外邦人的实例
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initTreeTable();
@@ -38,7 +49,32 @@ public class MyEvaluationController implements Initializable {
     }
 
     public void deleteMyEvaluation(ActionEvent actionEvent) {
+        Optional<String> result = TextInputDialogTool.showTextInput("删除评价",
+                "请输入评价的Id", "Id:");
+        //如果用户点击了确定按钮
+        if (result.isPresent()) {
+            int evaluationId = 0;
+            try {
+                evaluationId = Integer.parseInt(result.get().trim());
+            } catch (Exception e) {
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "删除失败", "非法输入");
+                return;
+            }
 
+            int items = iEvaluationDAO.delete(foreigner.getForeignerId(),evaluationId);
+
+            if (items == 0) {
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "删除失败", "查找不到您的评论信息");
+            } else {
+                for (TreeItem<Evaluation> treeItem : treeItemList) {
+                    if (treeItem.getValue().getEvaluationId() == evaluationId) {
+                        treeItemList.remove(treeItem);
+                        root.getChildren().remove(treeItem);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -63,5 +99,7 @@ public class MyEvaluationController implements Initializable {
         EvaluationTable.getInstance().initTreeData(treeTableView, root, treeItemList);
     }
 
-
+    public void setForeigner(Foreigner foreigner) {
+        this.foreigner = foreigner;
+    }
 }

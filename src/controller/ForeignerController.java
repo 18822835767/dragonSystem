@@ -491,7 +491,12 @@ public class ForeignerController extends BaseController {
      * */
     public void showMyEvaluation(ActionEvent actionEvent) {
         try {
-            ViewManager.openView(ViewManager.myEvaluationUrl,"评价界面",600.0,400.0);
+            FXMLLoader fx = ViewManager.openView(ViewManager.myEvaluationUrl,"评价界面",600.0,
+                    400.0);
+
+            //为控制器传入foreigner实例
+            MyEvaluationController controller = (MyEvaluationController)fx.getController();
+            controller.setForeigner(foreigner);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -63,7 +63,7 @@ public class DragonTrainerController extends BaseController {
 
     /**
      * 因为多列树控件中删除一行时，需要是原来加载进去的那个TreeItem对象，所以这里先把TreeItem存起来.
-     * 为了表的显示而加载。
+     * 当删除一个实例时，表中的数据也可以得到更新。为了表的显示而加载。
      */
     List<TreeItem<Dragon>> dragonTreeItemList = new ArrayList<>();
 
