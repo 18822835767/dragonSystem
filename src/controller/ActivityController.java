@@ -74,6 +74,11 @@ public class ActivityController implements Initializable {
 
             Activity activity = iActivityDAO.getById(Integer.parseInt(result.get().trim()));
 
+            if(activity == null){
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "查询失败", "无该活动");
+                return ;
+            }
+
             TextArea t_content = new TextArea();//展示活动内容
             t_content.setEditable(false);
             t_content.setText("活动内容: " + activity.getContent());

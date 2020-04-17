@@ -153,7 +153,7 @@ public class LoginController {
                 DragonTrainerController dragonTrainerController = (DragonTrainerController) fx.getController();
                 int dragonGroupId = dragonTrainer.getDragonGroupId();
                 dragonTrainerController.setDragonGroupId(dragonGroupId);
-                dragonTrainerController.Init();
+                dragonTrainerController.init();
             }
             //如果登陆的是外邦人
             if (foreigner != null) {

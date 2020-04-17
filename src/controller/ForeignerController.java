@@ -497,6 +497,7 @@ public class ForeignerController extends BaseController {
             //为控制器传入foreigner实例
             MyEvaluationController controller = (MyEvaluationController)fx.getController();
             controller.setForeigner(foreigner);
+            controller.init();
         } catch (IOException e) {
             e.printStackTrace();
         }

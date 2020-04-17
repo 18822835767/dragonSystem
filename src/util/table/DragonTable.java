@@ -73,9 +73,10 @@ public class DragonTable {
 
     /**
      * 龙的表.
-     * 数据的显示。
+     * 初始化数据时，显示某个族群内的龙。
      * 根节点进行了隐藏
      * 对某个族群的龙操作
+     * 即给"驯龙高手"提供.
      */
     public void initDragonTreeData(TreeTableView<Dragon> dragonTreeTableView, TreeItem<Dragon> dragonRoot,
                                           List<TreeItem<Dragon>> dragonTreeItemList, int dragonGroupId) {
@@ -87,9 +88,10 @@ public class DragonTable {
 
     /**
      * 龙的表.
-     * 数据的显示。
+     * 初始化数据时，显示所有的龙.
      * 根节点进行了隐藏
      * 重载，对所有的龙操作。
+     * 即给"外邦人"提供.
      */
     public void initDragonTreeData(TreeTableView<Dragon> dragonTreeTableView, TreeItem<Dragon> dragonRoot,
                                           List<TreeItem<Dragon>> dragonTreeItemList) {

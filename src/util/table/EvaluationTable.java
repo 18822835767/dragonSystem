@@ -73,14 +73,32 @@ public class EvaluationTable {
      * 评价表：
      * 数据的显示。
      * 根节点进行了隐藏
+     * 初始化数据时，显示所有的评价，为"龙妈"提供.
      */
-    public void initTreeData(TreeTableView<Evaluation> evaluationTreeTableView, TreeItem<Evaluation> evaluationRoot,
-                             List<TreeItem<Evaluation>> evaluationTreeItemList) {
-        evaluationTreeTableView.setRoot(evaluationRoot);
-        evaluationTreeTableView.setShowRoot(false);
+    public void initTreeData(TreeTableView<Evaluation> treeTableView, TreeItem<Evaluation> root,
+                             List<TreeItem<Evaluation>> treeItemList) {
+        treeTableView.setRoot(root);
+        treeTableView.setShowRoot(false);
 
-        flushEvaluation(evaluationTreeItemList, evaluationRoot);
+        flushEvaluation(treeItemList, root);
     }
+
+    /**
+     * 评价表：
+     * 数据的显示。
+     * 根节点进行了隐藏
+     * 初始化数据时，仅显示外邦人的评价，为"外邦人"提供.
+     */
+    public void initTreeData(TreeTableView<Evaluation> treeTableView, TreeItem<Evaluation> root,
+                             List<TreeItem<Evaluation>> treeItemList,int foreignerId) {
+        treeTableView.setRoot(root);
+        treeTableView.setShowRoot(false);
+
+        flushEvaluation(treeItemList, root,foreignerId);
+    }
+
+
+
 
     /**
      * 评价表：
@@ -155,12 +173,31 @@ public class EvaluationTable {
     }
 
     /**
+     * 该方法针对于查找的数据是"所有评价"，即龙妈.
      * 刷新groupTreeItemList(储存treeItem的)和groupRoot
      */
     public void flushEvaluation(List<TreeItem<Evaluation>> evaluationTreeItemList, TreeItem<Evaluation> evaluationRoot) {
         evaluationTreeItemList.clear();
         evaluationRoot.getChildren().clear();
         List<Evaluation> evaluationList = iEvaluationDAO.getList();
+        if (evaluationList != null) {
+            for (Evaluation evaluation : evaluationList) {
+                TreeItem<Evaluation> treeItem = new TreeItem<>(evaluation);
+                evaluationTreeItemList.add(treeItem);
+                evaluationRoot.getChildren().add(treeItem);
+            }
+        }
+    }
+
+    /**
+     * 重载，该方法针对的是查找"个人评价",即外邦人.
+     * 刷新groupTreeItemList(储存treeItem的)和groupRoot
+     */
+    public void flushEvaluation(List<TreeItem<Evaluation>> evaluationTreeItemList, TreeItem<Evaluation> evaluationRoot,
+                                int foreignerId) {
+        evaluationTreeItemList.clear();
+        evaluationRoot.getChildren().clear();
+        List<Evaluation> evaluationList = iEvaluationDAO.getList(foreignerId);
         if (evaluationList != null) {
             for (Evaluation evaluation : evaluationList) {
                 TreeItem<Evaluation> treeItem = new TreeItem<>(evaluation);

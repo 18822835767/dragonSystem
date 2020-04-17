@@ -73,7 +73,7 @@ public class DragonTrainerController extends BaseController {
      * 初始化.
      * 默认先显示龙的信息。
      */
-    public void Init() {
+    public void init() {
         initDragonTreeTable();
         initDragonTreeData();
         initGroupTreeTable();

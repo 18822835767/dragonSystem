@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 /**
  * 外邦人“评价”页面的控制器.
  * */
-public class MyEvaluationController implements Initializable {
+public class MyEvaluationController{
     @FXML
     private TreeTableView<Evaluation> treeTableView;
 
@@ -38,8 +38,8 @@ public class MyEvaluationController implements Initializable {
 
     private Foreigner foreigner = null;//查看"评价"的外邦人的实例
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    public void init() {
         initTreeTable();
         initTreeData();
     }
@@ -96,7 +96,7 @@ public class MyEvaluationController implements Initializable {
      * 调用工具类
      */
     public void initTreeData() {
-        EvaluationTable.getInstance().initTreeData(treeTableView, root, treeItemList);
+        EvaluationTable.getInstance().initTreeData(treeTableView, root, treeItemList,foreigner.getForeignerId());
     }
 
     public void setForeigner(Foreigner foreigner) {

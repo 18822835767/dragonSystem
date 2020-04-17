@@ -51,8 +51,8 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
         try {
             conn = DBUtils.getConnection();
             ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
             ps.setInt(1,foreignerId);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Evaluation evaluation = new Evaluation(rs.getInt("evaluationId"),rs.getInt("activityId"),
                         rs.getInt("foreignerId"),rs.getInt("rank"),rs.getString("content"),rs.getString("evaluateTime"));
