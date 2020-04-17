@@ -485,4 +485,11 @@ public class ForeignerController extends BaseController {
             activityController.setForeigner(foreigner);
         }
     }
+
+    /**
+     * 展示我的评价.
+     * */
+    public void showEvaluation(ActionEvent actionEvent) {
+
+    }
 }

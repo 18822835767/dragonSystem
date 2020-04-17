@@ -111,7 +111,10 @@ public class ActivityController implements Initializable {
                     String content = t_evaluation.getText();//获取评价内容
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-                    iEvaluationDAO.save(activityId,foreigner.getForeignerId(),rank,content,dateFormat.format(new Date()));
+                    int items = iEvaluationDAO.save(activityId,foreigner.getForeignerId(),rank,content,
+                            dateFormat.format(new Date()));
+
+                    AlertTool.showAlert(Alert.AlertType.INFORMATION,"提示",null,"评价成功");
                 }
 
 

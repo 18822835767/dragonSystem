@@ -62,6 +62,11 @@
                             <Font size="15.0"/>
                         </font>
                     </Button>
+                    <Button text="我的评价" prefWidth="100" onAction="#showEvaluation">
+                        <font>
+                            <Font size="15.0"/>
+                        </font>
+                    </Button>
                 </VBox>
             </Tab>
 

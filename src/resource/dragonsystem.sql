@@ -91,15 +91,27 @@ create table evaluation(
 
 
 insert into dragonmom(name,username,password,moneyTub) values('mom','admin','090087074',0);#解密后密码是123
+
 insert into dragongroup(name,profile,location,size) values('bawanglongguan','no','shenzhen','100.0');
 insert into dragongroup(name,profile,location,size) values('konglongguan','no','shenzhen','100.0');
 insert into dragongroup(name,profile,location,size) values('shenlongguan','no','shenzhen','100.0');
+
 insert into dragontrainer(dragonGroupId,username,password,name) values(1,'hhh','090087074','noname');#解密后密码是123
-insert into dragontrainer(dragonGroupId,username,password,name) values(1,'hhh2','090087074','noname');#解密后密码是123
-insert into dragontrainer(dragonGroupId,username,password,name) values(1,'hhh3','090087074','noname');#解密后密码是123
+insert into dragontrainer(dragonGroupId,username,password,name) values(2,'hhh2','090087074','noname');#解密后密码是123
+insert into dragontrainer(dragonGroupId,username,password,name) values(3,'hhh3','090087074','noname');#解密后密码是123
+
 insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1,'a','no',0,1,'n',15);
 insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1,'b','no',0,1,'n',18);
 insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1,'c','no',0,1,'n',20);
+
+insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(2,'aa','no',0,1,'n',15);
+insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(2,'bb','no',0,1,'n',18);
+insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(2,'cc','no',0,1,'n',20);
+
+insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(3,'aaa','no',0,1,'n',15);
+insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(3,'bbb','no',0,1,'n',18);
+insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(3,'ccc','no',0,1,'n',20);
+
 insert into foreigner(username, password, name, money) values('yoyo','090087074','no1',100);#解密后密码是123
 insert into foreigner(username, password, name, money) values('yoyo2','090087074','no2',100);#解密后密码是123
 insert into foreigner(username, password, name, money) values('yoyo3','090087074','no3',100);#解密后密码是123

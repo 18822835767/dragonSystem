@@ -206,11 +206,10 @@ public class DragonTrainerController extends BaseController {
                 return;
             }
 
-            Dragon dragon = iDragonDAO.get(dragonId);
-            int items = iDragonDAO.delete(dragonId);
+            int items = iDragonDAO.delete(dragonId,dragonGroupId);
 
             if (items == 0) {
-                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "删除失败", "可能是没有与id匹配的龙");
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "删除失败", "该族群内查找不到该龙");
             } else {
                 for (TreeItem<Dragon> treeItem : dragonTreeItemList) {
                     if (treeItem.getValue().getDragonId() == dragonId) {
@@ -238,7 +237,7 @@ public class DragonTrainerController extends BaseController {
                 return;
             }
 
-            Dragon dragon = iDragonDAO.get(dragonId);
+            Dragon dragon = iDragonDAO.get(dragonId,dragonGroupId);
             if (dragon != null) {
                 VBox vBox = new VBox(10);
 
@@ -276,7 +275,7 @@ public class DragonTrainerController extends BaseController {
                 return;
             }
 
-            Dragon dragon = iDragonDAO.get(dragonId);
+            Dragon dragon = iDragonDAO.get(dragonId,dragonGroupId);
             if (dragon != null) {
                 GridPane gridPane = new GridPane();
 
@@ -355,7 +354,7 @@ public class DragonTrainerController extends BaseController {
                     }
                 }
             } else {
-                AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该龙的信息");
+                AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "族群内查询不到该龙的信息");
             }
         }
 

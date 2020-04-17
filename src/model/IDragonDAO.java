@@ -11,9 +11,9 @@ public interface IDragonDAO {
     int save(int dragonGroupId, String name, String profile, boolean training, boolean healthy, String sex, int age);
 
     /**
-     * 通过龙的id(主键)来删除一条龙.
+     * 通过龙的id(主键)+族群id来删除一条龙.
      * */
-    int delete(int id);
+    int delete(int dragonId,int dragonGroupId);
 
     /**
      * 通过具体的信息，来更新一条龙.
@@ -31,9 +31,17 @@ public interface IDragonDAO {
     /**
      * 根据龙的id来找某条龙.
      *
-     * @param id 龙的id
+     * @param dragonId 龙的id
      * */
-    Dragon get(int id);
+    Dragon get(int dragonId);
+
+    /**
+     * 根据龙的id+族群Id来找某条龙.
+     *
+     * @param dragonId 龙的id
+     * @param dragonGroupId 龙所在的族群Id
+     * */
+    Dragon get(int dragonId,int dragonGroupId);
 
     /**
      * 通过族群id找到某个族群的龙.

@@ -39,9 +39,9 @@ public class DragonDAOImpl implements IDragonDAO {
     }
 
     @Override
-    public int delete(int dragonId) {
-        String sql = "delete from dragon where dragonId = ?";
-        return DBUtils.executeUpdate(sql, dragonId);
+    public int delete(int dragonId,int dragonGroupId) {
+        String sql = "delete from dragon where dragonId = ? and dragonGroupId = ?";
+        return DBUtils.executeUpdate(sql, dragonId,dragonGroupId);
     }
 
     @Override
@@ -62,6 +62,33 @@ public class DragonDAOImpl implements IDragonDAO {
             String sql = "select * from dragon where dragonId = ?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, dragonId);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                //boolean与int的值转换
+                boolean training = rs.getInt("training") == 1;
+                boolean healthy = rs.getInt("healthy") == 1;
+                return new Dragon(rs.getInt("dragonId"), rs.getInt("dragonGroupId"), rs.getString("name"),
+                        rs.getString("profile"), training, healthy, rs.getString("sex"), rs.getInt("age"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBUtils.close(null, ps, rs);
+        }
+        return null;
+    }
+
+    @Override
+    public Dragon get(int dragonId,int dragonGroupId) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            String sql = "select * from dragon where dragonId = ? and dragonGroupId = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, dragonId);
+            ps.setInt(2,dragonGroupId);
             rs = ps.executeQuery();
             if (rs.next()) {
                 //boolean与int的值转换
