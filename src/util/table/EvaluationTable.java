@@ -164,6 +164,9 @@ public class EvaluationTable {
                         });
                         this.setGraphic(content);
                         break;
+                    case "rank":
+                        this.setText(String.valueOf(item.getRank()));
+                        break;
                     default:
                         break;
                 }

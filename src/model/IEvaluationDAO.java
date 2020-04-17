@@ -19,6 +19,20 @@ public interface IEvaluationDAO {
     int delete(int foreignerId,int evaluationId);
 
     /**
+     * 更新一条评价.
+     *
+     * @param evaluateTime "评价"的Id
+     * @param rank "评价"的等级
+     * @param evaluateTime 评价的时间
+     * */
+    int update(int evaluationId,int rank,String content,String evaluateTime);
+
+    /**
+     * 通过评价的Id+外邦人Id得到实例.
+     * */
+    Evaluation get(int foreignerId, int evaluationId);
+
+    /**
      * 通过外邦人的Id找到评价.
      * */
     List<Evaluation> getList(int foreignerId);
