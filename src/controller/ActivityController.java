@@ -3,6 +3,7 @@ package controller;
 import entity.Activity;
 import entity.DragonGroup;
 import entity.Foreigner;
+import entity.Ticket;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,6 +22,7 @@ import util.control.TextInputDialogTool;
 import util.table.ActivityTable;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ActivityController implements Initializable {
@@ -86,10 +88,11 @@ public class ActivityController implements Initializable {
                 VBox vBox = new VBox(10);
 
                 HBox hBox = new HBox(5);
-                String[] buttonName = {"5","4","3","2","1"};
-                Map<String,RadioButton> map = SingleValueTool.singleSelection(buttonName,0);
-                hBox.getChildren().addAll(new Label("等级:"),map.get("5"),map.get("4"),map.get("3"),map.get("2"),
-                        map.get("1"));
+                Label l_hint = new Label("等级评价: ");
+                ComboBox<String> comboBox = new ComboBox<>();
+                comboBox.getItems().addAll("5", "4", "3","2","1");//添加选项
+                comboBox.setValue("5");//默认值
+                hBox.getChildren().addAll(l_hint,comboBox);
 
                 TextArea t_evaluation = new TextArea();//用户的评论内容
                 t_evaluation.setPromptText("说点什么吧");
@@ -99,7 +102,17 @@ public class ActivityController implements Initializable {
 
                 vBox.getChildren().addAll(hBox,t_evaluation);
 
-                DialogTool.showDialog("评价",vBox,"确定","取消").showAndWait();
+                Optional<ButtonType> decision = DialogTool.showDialog("评价",vBox,"确定",
+                        "取消").showAndWait();
+
+                if(decision.isPresent() && decision.get().getButtonData() == ButtonBar.ButtonData.OK_DONE){
+                    //如果用户在评价页面点击了"确定"
+                    int rank = Integer.parseInt(comboBox.getValue());//评价等级
+                    String content = t_evaluation.getText();//获取评价内容
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+                    iEvaluationDAO.save(activityId,foreigner.getForeignerId(),rank,content,dateFormat.format(new Date()));
+                }
 
 
             }
