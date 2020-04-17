@@ -82,27 +82,10 @@
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/Item.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/MP3.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/VideoGame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/ActivityController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/ActivityController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/DragonMomController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/DragonMomController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/DragonTrainerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/DragonTrainerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/ForeignerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/ForeignerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/entity/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/entity/Evaluation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/database/impl/EvaluationDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/model/database/impl/EvaluationDAOImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/resource/dragonsystem.sql" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/resource/dragonsystem.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/util/control/SingleValueTool.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/util/control/SingleValueTool.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/view/DragonMom.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/view/DragonMom.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/ActivityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ActivityController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/DragonMomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DragonMomController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/DragonTrainerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DragonTrainerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/ForeignerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ForeignerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/Evaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Evaluation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/IEvaluationDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/IEvaluationDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/database/impl/EvaluationDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/impl/EvaluationDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resource/dragonsystem.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/dragonsystem.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/control/SingleValueTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/control/SingleValueTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/DragonMom.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/DragonMom.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/coins/Coin.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/discussion34.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/notebook/NoteBook.class" beforeDir="false" />
@@ -419,22 +402,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1587028773273" />
-    <state width="1493" height="207" key="GridCell.Tab.0.bottom" timestamp="1587096842621">
+    <state width="1493" height="207" key="GridCell.Tab.0.bottom" timestamp="1587097630002">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587096842621" />
-    <state width="1493" height="207" key="GridCell.Tab.0.center" timestamp="1587096842621">
+    <state width="1493" height="207" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587097630002" />
+    <state width="1493" height="207" key="GridCell.Tab.0.center" timestamp="1587097630002">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587096842621" />
-    <state width="1493" height="207" key="GridCell.Tab.0.left" timestamp="1587096842621">
+    <state width="1493" height="207" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587097630002" />
+    <state width="1493" height="207" key="GridCell.Tab.0.left" timestamp="1587097630002">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587096842621" />
-    <state width="1493" height="207" key="GridCell.Tab.0.right" timestamp="1587096842621">
+    <state width="1493" height="207" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587097630002" />
+    <state width="1493" height="207" key="GridCell.Tab.0.right" timestamp="1587097630002">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="207" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587096842621" />
+    <state width="1493" height="207" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587097630002" />
     <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1587025516269">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

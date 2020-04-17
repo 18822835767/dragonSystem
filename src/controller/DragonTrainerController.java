@@ -130,8 +130,13 @@ public class DragonTrainerController extends BaseController {
     public void addDragon(ActionEvent actionEvent) {
         VBox vBox = new VBox(10);
 
-        String[] promotTexts = {"龙的名字", "龙的简介", "年龄"};
-        Map<String, TextField> textFieldMap = PaneFilling.getInstance().addTextField(vBox, promotTexts);
+        TextField t_name = new TextField();
+        TextField t_profile = new TextField();
+        TextField t_age = new TextField();
+
+        t_name.setPromptText("龙的名字");
+        t_profile.setPromptText("龙的简介");
+        t_age.setPromptText("年龄");
 
         //自定义的单选框，选择龙的性别
         HBox h_sex = new HBox(10);
@@ -140,35 +145,36 @@ public class DragonTrainerController extends BaseController {
         h_sex.getChildren().addAll(buttonMap.get("雄性"),buttonMap.get("雌性"));
 
 
-        vBox.getChildren().add(h_sex);
+        vBox.getChildren().addAll(t_name,t_profile,t_age,h_sex);
 
         Dialog<ButtonType> dialog = DialogTool.showDialog("龙的信息", vBox, "确定", "取消");
         Optional<ButtonType> result = dialog.showAndWait();
 
         if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
             //从信息框中得到信息并存入数据库
-            String name = textFieldMap.get("龙的名字").getText();
-            String profile = textFieldMap.get("龙的简介").getText().trim();
+            String name = t_name.getText().trim();
+            String profile = t_profile.getText().trim();
+            String sex = null;
             int age = 0;
             try {
-                age = Integer.parseInt(textFieldMap.get("年龄").getText().trim());
+                age = Integer.parseInt(t_age.getText().trim());
             } catch (Exception e) {
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "非法输入");
                 return;
             }
 
-            if (CheckValid.isEmpty(name, profile, textFieldMap.get("年龄").getText().trim())) {
+            if (CheckValid.isEmpty(name, profile,t_age.getText().trim())) {
                 //判断是否有空的信息
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "信息填写不完整");
                 return;
             }
 
-            String sex = null;
             if (buttonMap.get("雄性").isSelected()) {
                 sex = buttonMap.get("雄性").getText();
             } else if (buttonMap.get("雌性").isSelected()) {
                 sex = buttonMap.get("雌性").getText();
             }
+
             int items = iDragonDAO.save(dragonGroupId, name, profile, false, true, sex, age);//数据库保存数据
 
             if (items == 0) {//说明没有插入数据

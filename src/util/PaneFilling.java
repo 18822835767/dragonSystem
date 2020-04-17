@@ -33,39 +33,13 @@ public class PaneFilling {
         return instance;
     }
 
-
-    /**
-     * 为pane添加TextFields.
-     *
-     * @param pane 要添加控件的pane
-     * @param promptTexts 所添加的TextFields的提示性文字
-     * @return 返回Map,键值对存储，调用者只需要map.get("promptTexts")即可获取相应的TextField
-     * */
-    public Map<String,TextField> addTextField(Pane pane, String [] promptTexts){
-        Map<String,TextField> map = new HashMap<>();
-        int length = promptTexts.length;
-
-        TextField[] textFields = new TextField[length];
-
-        for(int i=0;i<length;i++){
-            textFields[i] = new TextField();
-            if(promptTexts[i] != null){
-                textFields[i].setPromptText(promptTexts[i]);
-            }
-            pane.getChildren().add(textFields[i]);
-            map.put(promptTexts[i],textFields[i]);
-        }
-        return map;
-    }
-
     /**
      * 为pane添加Text.
      *
      * @param pane 要添加控件的pane
      * @param textContents Text中的文字
-     * @return 返回Map,键值对存储，调用者只需要map.get("textContents")即可获取相应的Text
      * */
-    public Map<String,Text> addText(Pane pane, String [] textContents){
+    public void addText(Pane pane, String [] textContents){
         int length = textContents.length;
         Map<String,Text> map = new HashMap<>();
 
@@ -79,7 +53,6 @@ public class PaneFilling {
             pane.getChildren().add(texts[i]);
             map.put(textContents[i],texts[i]);
         }
-        return map;
     }
 
     /**

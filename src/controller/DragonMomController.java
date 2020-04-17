@@ -112,27 +112,36 @@ public class DragonMomController extends BaseController {
     public void addDragonTrainer(ActionEvent actionEvent) {
         VBox vBox = new VBox(10);
 
-        String[] promptTexts = {"已存在的族群Id", "驯龙高手名字", "用户名", "密码"};
-        Map<String, TextField> map = PaneFilling.getInstance().addTextField(vBox, promptTexts);
+        TextField t_groupId = new TextField();
+        TextField t_name = new TextField();
+        TextField t_username = new TextField();
+        TextField t_password = new TextField();
+
+        t_groupId.setPromptText("已存在的族群Id");
+        t_name.setPromptText("驯龙高手名字");
+        t_username.setPromptText("用户名");
+        t_password.setPromptText("密码");
+
+        vBox.getChildren().addAll(t_groupId,t_name,t_username,t_password );
 
         //使用了自定义控件，弹出弹窗
         Dialog<ButtonType> dialog = DialogTool.showDialog("添加驯龙高手信息", vBox, "确定", "取消");
         Optional<ButtonType> result = dialog.showAndWait();
         //如果用户点击了确定按钮
         if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-            String name = map.get("驯龙高手名字").getText();
-            String username = map.get("用户名").getText().trim();
-            String password = map.get("密码").getText().trim();
+            String name =t_name.getText();
+            String username = t_username.getText().trim();
+            String password = t_password.getText().trim();
             int dragonGroupId = 0;
             try {
                 //判读输入的ID是否为整数
-                dragonGroupId = Integer.parseInt(map.get("已存在的族群Id").getText().trim());
+                dragonGroupId = Integer.parseInt(t_groupId.getText().trim());
             } catch (Exception e) {
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "非法输入");
                 return;
             }
 
-            if (CheckValid.isEmpty(name, username, password, map.get("已存在的族群Id").getText().trim()) ||
+            if (CheckValid.isEmpty(name, username, password, t_groupId.getText().trim()) ||
                     !CheckValid.isValidUsername(username)) {
                 //判断是否有空的信息以及用户名是否重复
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "信息填写不完整" +
@@ -292,26 +301,35 @@ public class DragonMomController extends BaseController {
     public void addDragonGroup(ActionEvent actionEvent) {
         VBox vBox = new VBox(10);
 
-        String[] promptTexts = {"族群名字", "简介", "地理位置", "大小"};
-        Map<String, TextField> map = PaneFilling.getInstance().addTextField(vBox, promptTexts);
+        TextField t_name = new TextField();
+        TextField t_profile = new TextField();
+        TextField t_location = new TextField();
+        TextField t_size = new TextField();
+
+        t_name.setPromptText("族群名字");
+        t_profile.setPromptText("简介");
+        t_location.setPromptText("地理位置");
+        t_size.setPromptText("大小");
+
+        vBox.getChildren().addAll(t_name,t_profile,t_location,t_size);
 
         //使用了自定义控件
         Dialog<ButtonType> dialog = DialogTool.showDialog("添加族群高手信息", vBox, "确定", "取消");
         Optional<ButtonType> result = dialog.showAndWait();
         //如果用户点击了确定按钮
         if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-            String name = map.get("族群名字").getText().trim();
-            String profile = map.get("简介").getText().trim();
-            String location = map.get("地理位置").getText().trim();
+            String name = t_name.getText().trim();
+            String profile = t_profile.getText().trim();
+            String location = t_location.getText().trim();
             double size = 0;
             try {
-                size = Double.parseDouble(map.get("大小").getText().trim());
+                size = Double.parseDouble(t_size.getText().trim());
             } catch (Exception e) {
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "非法输入");
                 return;
             }
 
-            if (CheckValid.isEmpty(name, profile, location, map.get("地理位置").getText().trim())) {
+            if (CheckValid.isEmpty(name, profile, location, t_location.getText().trim())) {
                 //判断是否有空的信息
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "信息填写不完整");
                 return;
