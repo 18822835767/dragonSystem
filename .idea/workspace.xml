@@ -82,23 +82,11 @@
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/Item.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/MP3.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/VideoGame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/ActivityController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/ActivityController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/DragonMomController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/DragonMomController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/DragonTrainerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/DragonTrainerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/ForeignerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/ForeignerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/entity/Evaluation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/entity/Evaluation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/IEvaluationDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/model/IEvaluationDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/database/impl/EvaluationDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/model/database/impl/EvaluationDAOImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/util/ViewManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/util/ViewManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/view/DragonMom.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/view/DragonMom.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/view/Foreigner.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/view/Foreigner.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/ActivityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ActivityController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/ForeignerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ForeignerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/MyEvaluationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MyEvaluationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/Evaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Evaluation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/ViewManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/ViewManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/table/EvaluationTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/table/EvaluationTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MyEvaluation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MyEvaluation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/database/impl/DragonMomDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/impl/DragonMomDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/database/impl/DragonTrainerDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/impl/DragonTrainerDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/database/impl/ForeignerDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/impl/ForeignerDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/Encrypt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/Encrypt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/coins/Coin.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/discussion34.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/notebook/NoteBook.class" beforeDir="false" />

@@ -73,11 +73,11 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
             conn = DBUtils.getConnection();
             ps = conn.prepareStatement(sql);
             ps.setString(1,username);
-            ps.setString(2, Encrypt.getInstance().setEncrypt(password));
+            ps.setString(2, Encrypt.setEncrypt(password));
             rs = ps.executeQuery();
             if(rs.next()){
                 return new DragonMom(rs.getInt("dragonMomId"), rs.getString("name"), rs.getString("username"),
-                        Encrypt.getInstance().getEncrypt(rs.getString("password")), rs.getFloat("moneyTub"));
+                        Encrypt.getEncrypt(rs.getString("password")), rs.getFloat("moneyTub"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

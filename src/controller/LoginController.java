@@ -57,7 +57,7 @@ public class LoginController {
                 reader = new BufferedReader(new InputStreamReader(inputStream));
                 user = reader.readLine();
                 pass = reader.readLine();
-                changeView(user, Encrypt.getInstance().getEncrypt(pass));//解密
+                changeView(user, Encrypt.getEncrypt(pass));//解密
                 ViewManager.closeView(username);//关闭登录窗口
                 System.out.println("自动登录成功");
             }
@@ -314,7 +314,7 @@ public class LoginController {
             writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f)));
             writer.write(user);
             writer.newLine();
-            writer.write(Encrypt.getInstance().setEncrypt(pass));//加密保存
+            writer.write(Encrypt.setEncrypt(pass));//加密保存
             writer.flush();
         } catch (Exception e) {
             e.printStackTrace();
