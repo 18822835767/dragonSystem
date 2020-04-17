@@ -180,22 +180,22 @@ public class LoginController {
 
         //使用自己封转好的单选框,选择注册对象
         String[] buttonName = {"外邦人", "驯龙高手"};
-        RadioButton[] radioButtons = SingleValueTool.singleSelection(vBox, buttonName, 0);
+        Map<String,RadioButton> buttonMap = SingleValueTool.singleSelection(buttonName, 0);
 
-        vBox.getChildren().addAll(radioButtons[0], radioButtons[1]);
+        vBox.getChildren().addAll(buttonMap.get("外邦人"), buttonMap.get("驯龙高手"));
 
         //封转好的自定义控件
         Dialog<ButtonType> dialog = DialogTool.showDialog("注册", vBox, "确定", null);
         Optional<ButtonType> result = dialog.showAndWait();
         //如果用户点击了确定按钮
         if (result.isPresent()) {
-            if (radioButtons[0].isSelected()) {
+            if (buttonMap.get("外邦人").isSelected()) {
                 GridPane gridPane = new GridPane();
 
                 //调用工具类，加载布局中的数据
                 String[] labelTexts = {"名字:", "用户名", "密码"};
                 String[] textFieldContents = {"", "", ""};//使传入的两个数组长度相同
-                Map<String, TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFieldContents);
+                Map<String, TextField> textFieldMap = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFieldContents);
 
                 gridPane.setVgap(10);
 
@@ -205,9 +205,9 @@ public class LoginController {
 
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                     //保存用户数据，存入数据库
-                    String name = map.get("名字:").getText().trim();
-                    String username = map.get("用户名").getText().trim();
-                    String password = map.get("密码").getText().trim();
+                    String name = textFieldMap.get("名字:").getText().trim();
+                    String username = textFieldMap.get("用户名").getText().trim();
+                    String password = textFieldMap.get("密码").getText().trim();
 
                     if(CheckValid.isEmpty(name,username,password)){
                         //判断信息是否填写完整
@@ -224,13 +224,14 @@ public class LoginController {
 
                 }
 
-            } else if (radioButtons[1].isSelected()) {
+            } else if (buttonMap.get("驯龙高手").isSelected()) {
                 GridPane gridPane = new GridPane();
 
                 //加载布局中的数据
                 String[] labelTexts = {"名字:", "用户名:", "密码:", "族群Id:"};
                 String[] textFieldContents = {"", "", "", ""};//使传入的两个数组长度相同。
-                Map<String, TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFieldContents);
+                Map<String, TextField> textFieldmap = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts,
+                        textFieldContents);
 
                 gridPane.setVgap(10);
 
@@ -238,19 +239,19 @@ public class LoginController {
                         null).showAndWait();
 
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-                    String name = map.get("名字:").getText().trim();
-                    String username = map.get("用户名:").getText().trim();
-                    String password = map.get("密码:").getText().trim();
+                    String name = textFieldmap.get("名字:").getText().trim();
+                    String username = textFieldmap.get("用户名:").getText().trim();
+                    String password = textFieldmap.get("密码:").getText().trim();
                     int dragonGroupId = 0;
                     try{
                         //输入的ID是否为整数
-                        dragonGroupId = Integer.parseInt(map.get("族群Id:").getText().trim());
+                        dragonGroupId = Integer.parseInt(textFieldmap.get("族群Id:").getText().trim());
                     }catch (Exception e){
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "非法输入");
                         return ;
                     }
 
-                    if(CheckValid.isEmpty(name,username,password,map.get("族群Id:").getText().trim()) ||
+                    if(CheckValid.isEmpty(name,username,password,textFieldmap.get("族群Id:").getText().trim()) ||
                             !CheckValid.isValidUsername(username)){
                         //判断是否有空的信息以及用户名是否重复
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败","信息填写不完整" +

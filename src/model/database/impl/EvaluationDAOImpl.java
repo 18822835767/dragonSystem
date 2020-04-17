@@ -21,8 +21,8 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
 
 
     @Override
-    public int save(int dragonGroupId, int foreignerId, int rank, String content, String evaluateTime) {
-        String sql = "insert into evaluation(dragonGroupId,foreignerId,rank,content,evaluateTime) values(?,?,?,?,?)";
-        return DBUtils.executeUpdate(sql,dragonGroupId,foreignerId,rank,content,evaluateTime);
+    public int save(int activityId, int foreignerId, int rank, String content, String evaluateTime) {
+        String sql = "insert into evaluation(activityId,foreignerId,rank,content,evaluateTime) values(?,?,?,?,?)";
+        return DBUtils.executeUpdate(sql, activityId,foreignerId,rank,content,evaluateTime);
     }
 }

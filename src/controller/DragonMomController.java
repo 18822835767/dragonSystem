@@ -537,7 +537,7 @@ public class DragonMomController extends BaseController {
     /**
      * 打开活动列表.
      * */
-    public void openActivity(ActionEvent actionEvent) {
+    public void showActivity(ActionEvent actionEvent) {
         FXMLLoader fx = null;
         try {
             fx = ViewManager.openView(ViewManager.activityUrl,"活动信息",600.0,400.0);

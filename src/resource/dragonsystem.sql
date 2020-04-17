@@ -80,12 +80,12 @@ create table activity(
 drop table if exists evaluation;
 create table evaluation(
     evaluationId int primary key auto_increment,
-    dragonGroupId int,
+    activityId int,
     foreignerId int,
     rank int,
     content varchar(255),
     evaluateTime varchar(255),
-    foreign key(dragonGroupId) references dragongroup(dragonGroupId),
+    foreign key(activityId) references Activity(activityId),
     foreign key(foreignerId) references foreigner(foreignerId)
 );
 

@@ -131,13 +131,13 @@ public class DragonTrainerController extends BaseController {
         VBox vBox = new VBox(10);
 
         String[] promotTexts = {"龙的名字", "龙的简介", "年龄"};
-        Map<String, TextField> map = PaneFilling.getInstance().addTextField(vBox, promotTexts);
+        Map<String, TextField> textFieldMap = PaneFilling.getInstance().addTextField(vBox, promotTexts);
 
         //自定义的单选框，选择龙的性别
         HBox h_sex = new HBox(10);
         String[] buttonName = {"雄性", "雌性"};
-        RadioButton[] radioButtons = SingleValueTool.singleSelection(h_sex, buttonName, 0);
-        h_sex.getChildren().addAll(radioButtons[0], radioButtons[1]);
+        Map<String,RadioButton> buttonMap = SingleValueTool.singleSelection(buttonName, 0);
+        h_sex.getChildren().addAll(buttonMap.get("雄性"),buttonMap.get("雌性"));
 
 
         vBox.getChildren().add(h_sex);
@@ -147,27 +147,27 @@ public class DragonTrainerController extends BaseController {
 
         if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
             //从信息框中得到信息并存入数据库
-            String name = map.get("龙的名字").getText();
-            String profile = map.get("龙的简介").getText().trim();
+            String name = textFieldMap.get("龙的名字").getText();
+            String profile = textFieldMap.get("龙的简介").getText().trim();
             int age = 0;
             try {
-                age = Integer.parseInt(map.get("年龄").getText().trim());
+                age = Integer.parseInt(textFieldMap.get("年龄").getText().trim());
             } catch (Exception e) {
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "非法输入");
                 return;
             }
 
-            if (CheckValid.isEmpty(name, profile, map.get("年龄").getText().trim())) {
+            if (CheckValid.isEmpty(name, profile, textFieldMap.get("年龄").getText().trim())) {
                 //判断是否有空的信息
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "信息填写不完整");
                 return;
             }
 
             String sex = null;
-            if (radioButtons[0].isSelected()) {
-                sex = radioButtons[0].getText();
-            } else if (radioButtons[1].isSelected()) {
-                sex = radioButtons[1].getText();
+            if (buttonMap.get("雄性").isSelected()) {
+                sex = buttonMap.get("雄性").getText();
+            } else if (buttonMap.get("雌性").isSelected()) {
+                sex = buttonMap.get("雌性").getText();
             }
             int items = iDragonDAO.save(dragonGroupId, name, profile, false, true, sex, age);//数据库保存数据
 
@@ -276,7 +276,7 @@ public class DragonTrainerController extends BaseController {
                 //先给GridPane添加一些Label和TextField
                 String[] labelTexts = {"名字:", "年龄", "简介:"};
                 String[] textFiledContents = {dragon.getName(), String.valueOf(dragon.getAge()), dragon.getProfile()};
-                Map<String, TextField> map = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFiledContents);
+                Map<String, TextField> textFieldMap = PaneFilling.getInstance().addForGridPane(gridPane, labelTexts, textFiledContents);
 
                 Label l_training = new Label("训练中:");
                 Label l_healthy = new Label("健康:");
@@ -284,13 +284,13 @@ public class DragonTrainerController extends BaseController {
                 //自定义的单选框，选择龙的训练状态
                 HBox h_training = new HBox(8);
                 String[] buttonName = {"true", "false"};
-                RadioButton[] trainButtons = SingleValueTool.singleSelection(h_training, buttonName, dragonTraining ? 0 : 1);
-                h_training.getChildren().addAll(trainButtons[0], trainButtons[1]);
+                Map<String,RadioButton> trainingMap = SingleValueTool.singleSelection(buttonName, dragonTraining ? 0 : 1);
+                h_training.getChildren().addAll(trainingMap.get("true"), trainingMap.get("false"));
 
                 //自定义的单选框，选择龙的健康状态
                 HBox h_healthy = new HBox(8);
-                RadioButton[] healthyButtons = SingleValueTool.singleSelection(h_training, buttonName, dragonHealthy ? 0 : 1);
-                h_healthy.getChildren().addAll(healthyButtons[0], healthyButtons[1]);
+                Map<String,RadioButton> healthyMap = SingleValueTool.singleSelection(buttonName, dragonHealthy ? 0 : 1);
+                h_healthy.getChildren().addAll(healthyMap.get("true"), healthyMap.get("false"));
 
                 //给GridPane添加单选框
                 gridPane.add(l_training, 0, 3);
@@ -305,24 +305,24 @@ public class DragonTrainerController extends BaseController {
 
                 if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                     //从弹框得到信息并保存进数据库
-                    String name = map.get("名字:").getText().trim();
+                    String name = textFieldMap.get("名字:").getText().trim();
                     int age = 0;
                     try {
-                        age = Integer.parseInt(map.get("年龄").getText().trim());
+                        age = Integer.parseInt(textFieldMap.get("年龄").getText().trim());
                     } catch (Exception e) {
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "非法输入");
                         return;
                     }
 
-                    String profile = map.get("简介:").getText().trim();
+                    String profile = textFieldMap.get("简介:").getText().trim();
                     boolean training;
                     boolean healthy;
-                    if (trainButtons[0].isSelected()) {
+                    if (trainingMap.get("true").isSelected()) {
                         training = true;
                     } else {
                         training = false;
                     }
-                    if (healthyButtons[0].isSelected()) {
+                    if (healthyMap.get("true").isSelected()) {
                         healthy = true;
                     } else {
                         healthy = false;

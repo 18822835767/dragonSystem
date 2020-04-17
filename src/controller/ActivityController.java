@@ -2,25 +2,26 @@ package controller;
 
 import entity.Activity;
 import entity.DragonGroup;
+import entity.Foreigner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import model.IActivityDAO;
+import model.IEvaluationDAO;
 import util.DAOFactory;
 import util.control.AlertTool;
 import util.control.DialogTool;
+import util.control.SingleValueTool;
 import util.control.TextInputDialogTool;
 import util.table.ActivityTable;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ActivityController implements Initializable {
     @FXML
@@ -30,11 +31,23 @@ public class ActivityController implements Initializable {
     @FXML
     private Button addActivity;
 
-    IActivityDAO iActivityDAO = DAOFactory.getActivityDAOInstance();
+    private IActivityDAO iActivityDAO = DAOFactory.getActivityDAOInstance();
+
+    private IEvaluationDAO iEvaluationDAO = DAOFactory.getEvaluationDAOInstance();
 
     private TreeItem<Activity> activityRoot = new TreeItem<Activity>(new Activity());
 
-    List<TreeItem<Activity>> activityTreeItemList = new ArrayList<>();
+    private List<TreeItem<Activity>> activityTreeItemList = new ArrayList<>();
+
+    /**
+     * 表明外邦人要观看的活动.
+     * */
+    private Activity activity = null;
+
+    /**
+     * 表明是哪一个外邦人.
+     * */
+    private Foreigner foreigner = null;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -43,7 +56,7 @@ public class ActivityController implements Initializable {
     }
 
     /**
-     * 查看活动内容.
+     * "观看活动"->外邦人.
      * */
     @FXML
     public void viewActivity(ActionEvent actionEvent) {
@@ -59,7 +72,7 @@ public class ActivityController implements Initializable {
 
             Activity activity = iActivityDAO.getById(Integer.parseInt(result.get().trim()));
 
-            TextArea t_content = new TextArea();//展示文本内容
+            TextArea t_content = new TextArea();//展示活动内容
             t_content.setEditable(false);
             t_content.setText("活动内容: " + activity.getContent());
             t_content.setWrapText(true);
@@ -70,13 +83,31 @@ public class ActivityController implements Initializable {
 
             if(choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE){
                 //用户点击了"去评价"
+                VBox vBox = new VBox(10);
+
+                HBox hBox = new HBox(5);
+                String[] buttonName = {"5","4","3","2","1"};
+                Map<String,RadioButton> map = SingleValueTool.singleSelection(buttonName,0);
+                hBox.getChildren().addAll(new Label("等级:"),map.get("5"),map.get("4"),map.get("3"),map.get("2"),
+                        map.get("1"));
+
+                TextArea t_evaluation = new TextArea();//用户的评论内容
+                t_evaluation.setPromptText("说点什么吧");
+                t_evaluation.setWrapText(true);
+                t_evaluation.setPrefColumnCount(25);//设置框的大小
+
+
+                vBox.getChildren().addAll(hBox,t_evaluation);
+
+                DialogTool.showDialog("评价",vBox,"确定","取消").showAndWait();
+
 
             }
         }
     }
 
     /**
-     * 添加活动.
+     * "添加活动"->龙妈.
      * */
     public void addActivity(ActionEvent actionEvent) {
         VBox vBox = new VBox(10);
@@ -152,6 +183,12 @@ public class ActivityController implements Initializable {
         return addActivity;
     }
 
+    /**
+     * 传入外邦人的实例.
+     * */
+    public void setForeigner(Foreigner foreigner) {
+        this.foreigner = foreigner;
+    }
 
 
 }

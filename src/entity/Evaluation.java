@@ -5,7 +5,7 @@ package entity;
  * */
 public class Evaluation {
     private int evaluationId;//评价的Id，可能没用
-    private int dragonGroupId;//可能没用
+    private int activityId;//活动Id
     private int foreignerId;//可能没用
     private int rank;
     private String content;
@@ -13,7 +13,7 @@ public class Evaluation {
 
     public Evaluation(int evaluationId, int dragonGroupId, int foreignerId, int rank, String content, String evaluateTime) {
         this.evaluationId = evaluationId;
-        this.dragonGroupId = dragonGroupId;
+        this.activityId = dragonGroupId;
         this.foreignerId = foreignerId;
         this.rank = rank;
         this.content = content;
@@ -44,12 +44,12 @@ public class Evaluation {
         this.evaluateTime = evaluateTime;
     }
 
-    public int getDragonGroupId() {
-        return dragonGroupId;
+    public int getActivityId() {
+        return activityId;
     }
 
-    public void setDragonGroupId(int dragonGroupId) {
-        this.dragonGroupId = dragonGroupId;
+    public void setActivityId(int activityId) {
+        this.activityId = activityId;
     }
 
     public int getForeignerId() {

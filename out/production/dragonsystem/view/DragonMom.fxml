@@ -74,7 +74,7 @@
                     <padding>
                         <Insets top="70.0"/>
                     </padding>
-                    <Button text="活动" prefWidth="50" onAction="#openActivity">
+                    <Button text="活动" prefWidth="50" onAction="#showActivity">
                         <font>
                             <Font size="15.0"/>
                         </font>

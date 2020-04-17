@@ -475,6 +475,7 @@ public class ForeignerController extends BaseController {
             ActivityController activityController = (ActivityController) fx.getController();
             activityController.getViewActivity().setVisible(true);
             activityController.getAddActivity().setVisible(false);
+            activityController.setForeigner(foreigner);
         }
     }
 }
