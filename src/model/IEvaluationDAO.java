@@ -14,4 +14,9 @@ public interface IEvaluationDAO {
      * 通过外邦人的Id找到评价.
      * */
     List<Evaluation> getList(int foreignerId);
+
+    /**
+     * 得到所有的"评价"列表.
+     * */
+    List<Evaluation> getList();
 }

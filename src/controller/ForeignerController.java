@@ -489,7 +489,7 @@ public class ForeignerController extends BaseController {
     /**
      * 展示我的评价.
      * */
-    public void showEvaluation(ActionEvent actionEvent) {
+    public void showMyEvaluation(ActionEvent actionEvent) {
 
     }
 }

@@ -33,7 +33,7 @@ public class ActivityTable {
     private IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
 
     /**
-     * 族群表：
+     * 活动表：
      * 设置列名、列宽
      */
     public void initActivityTable(TreeTableView<Activity> activityTreeTableView, String[] columnName,
@@ -66,7 +66,7 @@ public class ActivityTable {
     }
 
     /**
-     * 族群表：
+     * 活动表：
      * 数据的显示。
      * 根节点进行了隐藏
      */
@@ -79,7 +79,7 @@ public class ActivityTable {
     }
 
     /**
-     * 族群表：
+     * 活动表：
      * 单元格内容的显示
      */
     class ActivityTableTreeCell extends TreeTableCell<Activity, Activity> {

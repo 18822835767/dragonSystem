@@ -89,6 +89,11 @@
                             <Font size="15.0"/>
                         </font>
                     </Button>
+                    <Button text="查看评价" prefWidth="100" onAction="#showAllEvaluation">
+                        <font>
+                            <Font size="15.0"/>
+                        </font>
+                    </Button>
                 </VBox>
             </Tab>
 

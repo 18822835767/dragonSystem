@@ -12,7 +12,7 @@ import java.io.IOException;
  * View的管理器，负责View的打开与关闭.
  * */
 public class ViewManager {
-    public static String loginUrl = "view/login.fxml";
+    public static String loginUrl = "view/Login.fxml";
     public static String foreignerUrl = "view/Foreigner.fxml";
     public static String trainerUrl = "view/DragonTrainer.fxml";
     public static String momUrl = "view/DragonMom.fxml";

@@ -41,6 +41,32 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
+        String sql = "select * from evaluation where foreignerId = ?";
+        try {
+            conn = DBUtils.getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            ps.setInt(1,foreignerId);
+            while (rs.next()) {
+                Evaluation evaluation = new Evaluation(rs.getInt("evaluationId"),rs.getInt("activityId"),
+                        rs.getInt("foreignerId"),rs.getInt("rank"),rs.getString("content"),rs.getString("evaluateTime"));
+                evaluationList.add(evaluation);
+            }
+            return evaluationList;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtils.close(null,ps, rs);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Evaluation> getList() {
+        List<Evaluation> evaluationList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         String sql = "select * from evaluation";
         try {
             conn = DBUtils.getConnection();

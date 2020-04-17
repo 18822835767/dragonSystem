@@ -602,4 +602,11 @@ public class DragonMomController extends BaseController {
 
 
     }
+
+    /**
+     * 打开(所有)评价的界面
+     * */
+    public void showAllEvaluation(ActionEvent actionEvent) {
+
+    }
 }
