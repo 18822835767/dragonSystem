@@ -165,6 +165,7 @@ public class ActivityController implements Initializable {
                 //说明数据插入成功
                 AlertTool.showAlert(Alert.AlertType.INFORMATION,null,"添加成功",null);
             }
+
         }
 
     }
@@ -190,6 +191,7 @@ public class ActivityController implements Initializable {
     public void initActivityTreeData() {
         ActivityTable.getInstance().initActivityTreeData(treeTableView, activityRoot, activityTreeItemList);
     }
+
 
     public Button getViewActivity() {
         return viewActivity;

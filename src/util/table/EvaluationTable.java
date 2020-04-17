@@ -1,13 +1,15 @@
 package util.table;
 
 import entity.Evaluation;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableCell;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
+import javafx.event.EventHandler;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
+import model.IActivityDAO;
+import model.IDragonGroupDAO;
 import model.IEvaluationDAO;
 import util.DAOFactory;
+import util.control.DialogTool;
 
 import java.util.List;
 
@@ -29,12 +31,16 @@ public class EvaluationTable {
 
     private IEvaluationDAO iEvaluationDAO = DAOFactory.getEvaluationDAOInstance();
 
+    private IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
+
+    private IActivityDAO iActivityDAO = DAOFactory.getActivityDAOInstance();
+
     /**
      * 评价表：
      * 设置列名、列宽
      */
-    public void initEvaluationTable(TreeTableView<Evaluation> evaluationTreeTableView, String[] columnName,
-                                    double[] columnPrefWidth, String[] columnId) {
+    public void initTreeTable(TreeTableView<Evaluation> evaluationTreeTableView, String[] columnName,
+                              double[] columnPrefWidth, String[] columnId) {
         //列的数量
         int columnNum = columnName.length;
 
@@ -48,6 +54,7 @@ public class EvaluationTable {
 
         for (int i = 0; i < columnNum; i++) {
             int finalI = i;
+            //设置列
             TreeTableColumn<Evaluation,Evaluation> treeTableColumn = new TreeTableColumn<>(columnName[i]);
             //添加列
             evaluationTreeTableView.getColumns().add(treeTableColumn);
@@ -67,8 +74,8 @@ public class EvaluationTable {
      * 数据的显示。
      * 根节点进行了隐藏
      */
-    public void initEvaluationTreeData(TreeTableView<Evaluation> evaluationTreeTableView, TreeItem<Evaluation> evaluationRoot,
-                                     List<TreeItem<Evaluation>> evaluationTreeItemList) {
+    public void initTreeData(TreeTableView<Evaluation> evaluationTreeTableView, TreeItem<Evaluation> evaluationRoot,
+                             List<TreeItem<Evaluation>> evaluationTreeItemList) {
         evaluationTreeTableView.setRoot(evaluationRoot);
         evaluationTreeTableView.setShowRoot(false);
 
@@ -98,7 +105,47 @@ public class EvaluationTable {
                 setGraphic(null);
 
                 switch (columnID) {
+                    case "evaluationId":
+                        this.setText(String.valueOf(item.getEvaluationId()));
+                        break;
+//                    case "foreignerId":
+//                        break;
+//                    case "foreignerName":
+//                        break;
+                    case "groupName":
+                        //评价Id->活动Id->族群Id->族群名字
+                        this.setText(iDragonGroupDAO.get(iActivityDAO.getById(item.getActivityId()).getDragonGroupId()).
+                                getName());
+                        break;
+                    case "activityId":
+                        this.setText(String.valueOf(item.getActivityId()));
+                        break;
+                    case  "activityName":
+                        this.setText(iActivityDAO.getById(item.getActivityId()).getName());
+                        break;
+                    case "content":
+                        //展示评价内容(一行)
+                        TextArea content = new TextArea();
+                        content.setText(item.getContent());
+                        content.setEditable(false);
+                        content.setPrefRowCount(1);
 
+                        content.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                            @Override
+                            public void handle(MouseEvent event) {
+                                if(event.getClickCount() == 2){
+                                    //双击评价内容可以放大查看
+                                    TextArea text = new TextArea();
+                                    text.setText(item.getContent());
+                                    text.setEditable(false);
+                                    text.setPrefColumnCount(15);
+                                    text.setWrapText(true);
+                                    DialogTool.showDialog("评价内容",text,"确定",null).showAndWait();
+                                }
+                            }
+                        });
+                        this.setGraphic(content);
+                        break;
                     default:
                         break;
                 }

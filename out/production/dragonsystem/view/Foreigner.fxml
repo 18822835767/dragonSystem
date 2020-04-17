@@ -62,7 +62,7 @@
                             <Font size="15.0"/>
                         </font>
                     </Button>
-                    <Button text="我的评价" prefWidth="100" onAction="#showEvaluation">
+                    <Button text="我的评价" prefWidth="100" onAction="#showMyEvaluation">
                         <font>
                             <Font size="15.0"/>
                         </font>

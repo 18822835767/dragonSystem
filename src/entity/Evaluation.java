@@ -11,6 +11,9 @@ public class Evaluation {
     private String content;
     private String evaluateTime;//评价的时间
 
+    public Evaluation() {
+    }
+
     public Evaluation(int evaluationId, int dragonGroupId, int foreignerId, int rank, String content, String evaluateTime) {
         this.evaluationId = evaluationId;
         this.activityId = dragonGroupId;

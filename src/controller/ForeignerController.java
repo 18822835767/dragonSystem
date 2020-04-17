@@ -490,6 +490,10 @@ public class ForeignerController extends BaseController {
      * 展示我的评价.
      * */
     public void showMyEvaluation(ActionEvent actionEvent) {
-
+        try {
+            ViewManager.openView(ViewManager.myEvaluationUrl,"评价界面",600.0,400.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
