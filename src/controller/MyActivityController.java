@@ -69,7 +69,8 @@ public class MyActivityController implements Initializable {
                 return;
             }
 
-            Activity activity = iActivityDAO.getById(Integer.parseInt(result.get().trim()));
+            //外邦人只可以找到有效期范围内的活动
+            Activity activity = iActivityDAO.getByTimeAndId(Integer.parseInt(result.get().trim()),LocalDate.now());
 
             if (activity == null) {
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "查询失败", "目前无该活动");

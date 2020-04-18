@@ -36,7 +36,7 @@ public class ActivityDAOImpl implements IActivityDAO {
     }
 
     @Override
-    public Activity getById(int id) {
+    public Activity getById(int activityId) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -44,11 +44,41 @@ public class ActivityDAOImpl implements IActivityDAO {
             conn = DBUtils.getConnection();
             String sql = "select * from activity where activityId = ?";
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, activityId);
             rs = ps.executeQuery();
             if (rs.next()) {
                 return new Activity(rs.getInt("activityId"),rs.getInt("dragonGroupId"),rs.getString("name"),
                         rs.getString("content"),rs.getString("startTime"),rs.getString("overTime"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBUtils.close(null, ps, rs);
+        }
+        return null;
+    }
+
+    @Override
+    public Activity getByTimeAndId(int activityId, LocalDate time) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            String sql = "select * from activity where activityId = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, activityId);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                Activity activity = new Activity(rs.getInt("activityId"),rs.getInt("dragonGroupId"),rs.getString("name"),
+                        rs.getString("content"),rs.getString("startTime"),rs.getString("overTime"));
+
+                LocalDate startTime = LocalDate.parse(activity.getStartTime());
+                LocalDate overTime = LocalDate.parse(activity.getOverTime());
+
+                if(!((time.isBefore(startTime) || time.isAfter(overTime)))){
+                    return activity;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

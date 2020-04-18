@@ -14,7 +14,12 @@ public interface IActivityDAO {
     /**
      * 通过活动的Id来得到活动.
      * */
-    Activity getById(int id);
+    Activity getById(int activityId);
+
+    /**
+     * 通过活动的Id和时间来得到活动，在有效期内的活动才会返回.
+     * */
+    Activity getByTimeAndId(int activityId,LocalDate time);
 
     /**
      * 得到有效期内的活动.
