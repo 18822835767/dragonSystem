@@ -28,7 +28,10 @@ import java.time.LocalDate;
 import java.time.MonthDay;
 import java.util.*;
 
-public class ActivityController implements Initializable {
+/**
+ * 外邦人打开活动界面时对应的控制器.
+ * */
+public class MyActivityController implements Initializable {
     @FXML
     private TreeTableView<Activity> treeTableView;
     @FXML
@@ -211,6 +214,8 @@ public class ActivityController implements Initializable {
             } else {
                 //说明数据插入成功
                 AlertTool.showAlert(Alert.AlertType.INFORMATION, null, "添加成功", null);
+                //刷新下活动列表
+                ActivityTable.getInstance().flushActivity(activityTreeItemList,activityRoot);
             }
 
         }

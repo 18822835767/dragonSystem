@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--当外邦人点击查看活动时会打开这个View-->
+<BorderPane xmlns:fx="http://www.adobe.com/2006/flex-config" fx:controller="controller.MyActivityController"
+            prefHeight="400.0" prefWidth="600.0">
+    <top>
+        <HBox>
+            <Button fx:id="addActivity" text="添加活动" onAction="#addActivity"/>
+            <Button fx:id="viewActivity" text="我要观看" onAction="#viewActivity"/>
+        </HBox>
+    </top>
+
+    <center>
+        <TreeTableView fx:id="treeTableView"/>
+    </center>
+
+</BorderPane>

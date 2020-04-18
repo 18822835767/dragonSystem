@@ -471,14 +471,14 @@ public class ForeignerController extends BaseController {
     public void showActivity(ActionEvent actionEvent) {
         FXMLLoader fx = null;
         try {
-            fx = ViewManager.openView(ViewManager.activityUrl, "活动信息", 600.0, 400.0);
+            fx = ViewManager.openView(ViewManager.myActivityUrl, "活动信息", 600.0, 400.0);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         if(fx != null){
             //得到控制器，隐藏"添加活动"的按钮
-            ActivityController activityController = (ActivityController) fx.getController();
+            MyActivityController activityController = (MyActivityController) fx.getController();
             activityController.getViewActivity().setVisible(true);
             activityController.getAddActivity().setVisible(false);
             //传入外邦人实例

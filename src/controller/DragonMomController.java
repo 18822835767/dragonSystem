@@ -12,7 +12,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -588,14 +587,14 @@ public class DragonMomController extends BaseController {
     public void showActivity(ActionEvent actionEvent) {
         FXMLLoader fx = null;
         try {
-            fx = ViewManager.openView(ViewManager.activityUrl,"活动信息",600.0,400.0);
+            fx = ViewManager.openView(ViewManager.myActivityUrl,"活动信息",600.0,400.0);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         if(fx != null){
             //得到控制器，隐藏"我要观看"的按钮
-            ActivityController activityController = (ActivityController) fx.getController();
+            MyActivityController activityController = (MyActivityController) fx.getController();
             activityController.getViewActivity().setVisible(false);
             activityController.getAddActivity().setVisible(true);
         }

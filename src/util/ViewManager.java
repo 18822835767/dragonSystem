@@ -17,7 +17,8 @@ public class ViewManager {
     public static String trainerUrl = "view/DragonTrainer.fxml";
     public static String momUrl = "view/DragonMom.fxml";
     public static String backTicketsUrl = "view/DealBackTickets.fxml";
-    public static String activityUrl = "view/Activity.fxml";
+    public static String myActivityUrl = "view/MyActivity.fxml";
+    public static String momActivityController = "view/MomActivity.fxml";
     public static String myEvaluationUrl = "view/MyEvaluation.fxml";
     public static String momEvaluationUrl = "view/MomEvaluation.fxml";
 
