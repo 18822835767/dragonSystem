@@ -48,8 +48,8 @@ public class LoginController {
     public void init() {
         File f = new File(autoLoginFile);
         BufferedReader reader = null;
-        String user = null;
-        String pass = null;
+        String user;
+        String pass;
         try {
             //判断是否要自动登录
             if (f.exists()) {
@@ -180,36 +180,37 @@ public class LoginController {
 
         //使用自己封转好的单选框,选择注册对象
         String[] buttonName = {"外邦人", "驯龙高手"};
-        Map<String,RadioButton> buttonMap = SingleValueTool.singleSelection(buttonName, 0);
+        Map<String, RadioButton> buttonMap = SingleValueTool.singleSelection(buttonName, 0);
 
         vBox.getChildren().addAll(buttonMap.get("外邦人"), buttonMap.get("驯龙高手"));
 
         //封转好的自定义控件
         Dialog<ButtonType> dialog = DialogTool.showDialog("注册", vBox, "确定", null);
         Optional<ButtonType> result = dialog.showAndWait();
-        //如果用户点击了确定按钮
+        //如果用户点击了注册的“确定”按钮
         if (result.isPresent()) {
+            //“外邦人”和“驯龙高手”注册时都要输入的信息
+            GridPane gridPane = new GridPane();
+
+            Label l_name = new Label("名字:");
+            Label l_username = new Label("用户名:");
+            Label l_password = new Label("密码:");
+
+            TextField t_name = new TextField();
+            TextField t_username = new TextField();
+            TextField t_password = new TextField();
+
+            gridPane.add(l_name, 0, 0);
+            gridPane.add(t_name, 1, 0);
+            gridPane.add(l_username, 0, 1);
+            gridPane.add(t_username, 1, 1);
+            gridPane.add(l_password, 0, 2);
+            gridPane.add(t_password, 1, 2);
+
+            gridPane.setVgap(10);
+
             if (buttonMap.get("外邦人").isSelected()) {
-                GridPane gridPane = new GridPane();
-
-                Label l_name = new Label("名字:");
-                Label l_username = new Label("用户名:");
-                Label l_password = new Label("密码:");
-
-                TextField t_name = new TextField();
-                TextField t_username = new TextField();
-                TextField t_password = new TextField();
-
-                gridPane.add(l_name,0,0);
-                gridPane.add(t_name,1,0);
-                gridPane.add(l_username,0,1);
-                gridPane.add(t_username,1,1);
-                gridPane.add(l_password,0,2);
-                gridPane.add(t_password,1,2);
-
-                gridPane.setVgap(10);
-
-                //弹出弹窗
+                //弹出弹窗。除了名字，用户名，密码之外，外邦人不需要输入额外的信息。
                 Optional<ButtonType> choice = DialogTool.showDialog("注册信息", gridPane, "确定",
                         null).showAndWait();
 
@@ -219,15 +220,14 @@ public class LoginController {
                     String username = t_username.getText().trim();
                     String password = t_password.getText().trim();
 
-                    if(CheckValid.isEmpty(name,username,password)){
+                    if (CheckValid.isEmpty(name, username, password)) {
                         //判断信息是否填写完整
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "信息填写不完整");
-                        return ;
-                    }else if(!CheckValid.isValidUsername(username)){
+                    } else if (!CheckValid.isValidUsername(username)) {
                         //判断用户名是否已注册
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "用户名已注册");
-                        return ;
-                    }else{
+                    } else {
+                        //成功注册
                         iForeignerDAO.save(username, password, name);
                         AlertTool.showAlert(Alert.AlertType.INFORMATION, null, null, "注册成功");
                     }
@@ -235,28 +235,13 @@ public class LoginController {
                 }
 
             } else if (buttonMap.get("驯龙高手").isSelected()) {
-                GridPane gridPane = new GridPane();
-
-                Label l_name = new Label("名字:");
-                Label l_username = new Label("用户名:");
-                Label l_password = new Label("密码:");
+                //除了名字，用户名，密码之外，外邦人需要额外输入族群Id.
                 Label l_groupId = new Label("族群Id:");
 
-                TextField t_name = new TextField();
-                TextField t_username = new TextField();
-                TextField t_password = new TextField();
                 TextField t_groupId = new TextField();
 
-                gridPane.add(l_name,0,0);
-                gridPane.add(t_name,1,0);
-                gridPane.add(l_username,0,1);
-                gridPane.add(t_username,1,1);
-                gridPane.add(l_password,0,2);
-                gridPane.add(t_password,1,2);
-                gridPane.add(l_groupId,0,3);
-                gridPane.add(t_groupId,1,3);
-
-                gridPane.setVgap(10);
+                gridPane.add(l_groupId, 0, 3);
+                gridPane.add(t_groupId, 1, 3);
 
                 Optional<ButtonType> choice = DialogTool.showDialog("注册信息", gridPane, "确定",
                         null).showAndWait();
@@ -266,20 +251,20 @@ public class LoginController {
                     String username = t_username.getText().trim();
                     String password = t_password.getText().trim();
                     int dragonGroupId = 0;
-                    try{
+                    try {
                         //输入的ID是否为整数
                         dragonGroupId = Integer.parseInt(t_groupId.getText().trim());
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "非法输入");
-                        return ;
+                        return;
                     }
 
-                    if(CheckValid.isEmpty(name,username,password,t_groupId.getText().trim()) ||
-                            !CheckValid.isValidUsername(username)){
+                    if (CheckValid.isEmpty(name, username, password, t_groupId.getText().trim()) ||
+                            !CheckValid.isValidUsername(username)) {
                         //判断是否有空的信息以及用户名是否重复
-                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败","信息填写不完整" +
-                                "或者用户名已注册" );
-                        return ;
+                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "信息填写不完整" +
+                                "或者用户名已注册");
+                        return;
                     }
 
                     int items = iDragonTrainerDAO.save(dragonGroupId, name, username, password);
@@ -289,7 +274,6 @@ public class LoginController {
                     } else {
                         AlertTool.showAlert(Alert.AlertType.INFORMATION, null, null, "注册成功");
                     }
-
                 }
             }
         }

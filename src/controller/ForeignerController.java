@@ -89,7 +89,7 @@ public class ForeignerController extends BaseController {
 
         tabPaneListener();
 
-        //初始化信物
+        //初始化信物实例.
         ticket = iTicketDAO.get(foreigner.getForeignerId());
 
         //有信物的情况下
@@ -173,11 +173,11 @@ public class ForeignerController extends BaseController {
                     Text t_id = new Text("龙的Id:" + dragon.getDragonId());
                     Text t_name = new Text("名字:" + dragon.getName());
                     Text t_sex = new Text("性别:" + dragon.getSex());
-                    Text t_profile = new Text( "简介:" + dragon.getProfile());
+                    Text t_profile = new Text("简介:" + dragon.getProfile());
                     Text t_training = new Text("是否在训练:" + dragon.isTraining());
                     Text t_healthy = new Text("是否健康:" + dragon.isHealthy());
 
-                    vBox.getChildren().addAll(t_id,t_name,t_sex,t_profile,t_training,t_healthy);
+                    vBox.getChildren().addAll(t_id, t_name, t_sex, t_profile, t_training, t_healthy);
 
                     DialogTool.showDialog("龙的信息", vBox, "确定", null).showAndWait();
                 } else {
@@ -211,11 +211,11 @@ public class ForeignerController extends BaseController {
                     VBox vBox = new VBox(10);
 
                     Text t_name = new Text("名字:" + dragonGroup.getName());
-                    Text t_id = new Text(  "Id:" + dragonGroup.getId());
+                    Text t_id = new Text("Id:" + dragonGroup.getId());
                     Text t_profile = new Text("简介:" + dragonGroup.getProfile());
                     Text t_size = new Text("大小:" + dragonGroup.getSize());
 
-                    vBox.getChildren().addAll(t_name,t_id,t_profile,t_size);
+                    vBox.getChildren().addAll(t_name, t_id, t_profile, t_size);
 
                     DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
                 } else {
@@ -235,7 +235,7 @@ public class ForeignerController extends BaseController {
     public void initGroupTreeTable() {
         String[] columnName = {"族群名字", "Id", "简介", "大小"};
         double[] columnPrefWidth = {120, 80, 120, 120, 80};
-        String[] columnId = {DragonGroupTable.NAME,DragonGroupTable.ID,DragonGroupTable.PROFILE, DragonGroupTable.SIZE};
+        String[] columnId = {DragonGroupTable.NAME, DragonGroupTable.ID, DragonGroupTable.PROFILE, DragonGroupTable.SIZE};
         DragonGroupTable.getInstance().initGroupTreeTable(groupTreeTableView, columnName, columnPrefWidth, columnId);
     }
 
@@ -258,8 +258,8 @@ public class ForeignerController extends BaseController {
     public void initDragonTreeTable() {
         String[] columnName = {"名字", "Id", "性别", "简介", "训练", "健康"};
         double[] columnPrefWidth = {120, 80, 80, 120, 80, 80};
-        String[] columnId = {DragonTable.NAME,DragonTable.ID, DragonTable.SEX,DragonTable.PROFILE,
-                DragonTable.TRAINING,DragonTable.HEALTHY};
+        String[] columnId = {DragonTable.NAME, DragonTable.ID, DragonTable.SEX, DragonTable.PROFILE,
+                DragonTable.TRAINING, DragonTable.HEALTHY};
         DragonTable.getInstance().initDragonTreeTable(dragonTreeTableView, columnName, columnPrefWidth, columnId);
     }
 
@@ -274,7 +274,7 @@ public class ForeignerController extends BaseController {
     }
 
     /**
-     * 买票函数.
+     * 买票方法.
      */
     public boolean buyTicketView() {
         //买票窗口
@@ -468,7 +468,7 @@ public class ForeignerController extends BaseController {
 
     /**
      * 查看活动.
-     * */
+     */
     public void showActivity(ActionEvent actionEvent) {
         FXMLLoader fx = null;
         try {
@@ -477,7 +477,7 @@ public class ForeignerController extends BaseController {
             e.printStackTrace();
         }
 
-        if(fx != null){
+        if (fx != null) {
             //得到控制器
             MyActivityController activityController = (MyActivityController) fx.getController();
             //传入外邦人实例
@@ -487,14 +487,14 @@ public class ForeignerController extends BaseController {
 
     /**
      * 展示我的评价.
-     * */
+     */
     public void showMyEvaluation(ActionEvent actionEvent) {
         try {
-            FXMLLoader fx = ViewManager.openView(ViewManager.myEvaluationUrl,"评价界面",600.0,
+            FXMLLoader fx = ViewManager.openView(ViewManager.myEvaluationUrl, "评价界面", 600.0,
                     400.0);
 
             //为控制器传入foreigner实例
-            MyEvaluationController controller = (MyEvaluationController)fx.getController();
+            MyEvaluationController controller = (MyEvaluationController) fx.getController();
             controller.setForeigner(foreigner);
             controller.init();
         } catch (IOException e) {
