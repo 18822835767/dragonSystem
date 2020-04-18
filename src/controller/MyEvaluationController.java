@@ -62,7 +62,7 @@ public class MyEvaluationController{
             Evaluation evaluation = iEvaluationDAO.get(foreigner.getForeignerId(),evaluationId);
 
             if(evaluation != null){
-                //童虎修改评价
+                //同意修改评价
                 VBox vBox = new VBox(10);
 
                 HBox hBox = new HBox(5);
@@ -87,6 +87,7 @@ public class MyEvaluationController{
                     if(CheckValid.isEmpty(content.getText().trim())){
                         AlertTool.showAlert(Alert.AlertType.WARNING,null, "修改失败", "评价不能为空噢");
                         return;
+
                     }
 
                     //用户点击了确定后
@@ -95,6 +96,8 @@ public class MyEvaluationController{
                             dateFormat.format(new Date()));
 
                     AlertTool.showAlert(Alert.AlertType.INFORMATION,null, "修改成功", null);
+
+                    EvaluationTable.getInstance().flushEvaluation(treeItemList,root,foreigner.getForeignerId());
                 }
             }else{
                 AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查找不到该评价");

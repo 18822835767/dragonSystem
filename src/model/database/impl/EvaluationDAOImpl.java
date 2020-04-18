@@ -43,7 +43,7 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
 
     @Override
     public int update(int evaluationId, int rank, String content, String evaluateTime) {
-        String sql = "update evaluation set rank = ? and content = ? and evaluateTime = ? where evaluationId = ?";
+        String sql = "update evaluation set rank = ?,content = ?,evaluateTime = ? where evaluationId = ?";
         return DBUtils.executeUpdate(sql,rank,content,evaluateTime,evaluationId);
     }
 
