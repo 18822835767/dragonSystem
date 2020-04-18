@@ -37,7 +37,7 @@ public class ActivityDAOImpl implements IActivityDAO {
 
     @Override
     public Activity getById(int activityId) {
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -60,7 +60,7 @@ public class ActivityDAOImpl implements IActivityDAO {
 
     @Override
     public Activity getByTimeAndId(int activityId, LocalDate time) {
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -91,7 +91,7 @@ public class ActivityDAOImpl implements IActivityDAO {
     @Override
     public List<Activity> getValidList(LocalDate time) {
         List<Activity> activities = new ArrayList<>();
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -121,7 +121,7 @@ public class ActivityDAOImpl implements IActivityDAO {
     @Override
     public List<Activity> getList() {
         List<Activity> activities = new ArrayList<>();
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {

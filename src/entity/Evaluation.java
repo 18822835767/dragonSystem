@@ -27,10 +27,6 @@ public class Evaluation {
         return rank;
     }
 
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
-
     public String getContent() {
         return content;
     }
@@ -39,20 +35,8 @@ public class Evaluation {
         this.content = content;
     }
 
-    public String getEvaluateTime() {
-        return evaluateTime;
-    }
-
-    public void setEvaluateTime(String evaluateTime) {
-        this.evaluateTime = evaluateTime;
-    }
-
     public int getActivityId() {
         return activityId;
-    }
-
-    public void setActivityId(int activityId) {
-        this.activityId = activityId;
     }
 
     public int getForeignerId() {
@@ -67,7 +51,4 @@ public class Evaluation {
         return evaluationId;
     }
 
-    public void setEvaluationId(int evaluationId) {
-        this.evaluationId = evaluationId;
-    }
 }

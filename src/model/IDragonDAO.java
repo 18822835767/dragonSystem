@@ -55,5 +55,5 @@ public interface IDragonDAO {
      *
      * @return 龙的List
      * */
-    public List<Dragon> getList();
+    List<Dragon> getList();
 }

@@ -143,7 +143,7 @@ public class DragonTrainerController extends BaseController {
         //自定义的单选框，选择龙的性别
         HBox h_sex = new HBox(10);
         String[] buttonName = {"雄性", "雌性"};
-        Map<String, RadioButton> buttonMap = SingleValueTool.singleSelection(buttonName, 0);
+        Map<String, RadioButton> buttonMap = SingleValueTool.singleValue(buttonName, 0);
         h_sex.getChildren().addAll(buttonMap.get("雄性"), buttonMap.get("雌性"));
 
 
@@ -300,12 +300,12 @@ public class DragonTrainerController extends BaseController {
                 //自定义的单选框，选择龙的训练状态
                 HBox h_training = new HBox(8);
                 String[] buttonName = {"true", "false"};
-                Map<String, RadioButton> trainingMap = SingleValueTool.singleSelection(buttonName, dragonTraining ? 0 : 1);
+                Map<String, RadioButton> trainingMap = SingleValueTool.singleValue(buttonName, dragonTraining ? 0 : 1);
                 h_training.getChildren().addAll(trainingMap.get("true"), trainingMap.get("false"));
 
                 //自定义的单选框，选择龙的健康状态
                 HBox h_healthy = new HBox(8);
-                Map<String, RadioButton> healthyMap = SingleValueTool.singleSelection(buttonName, dragonHealthy ? 0 : 1);
+                Map<String, RadioButton> healthyMap = SingleValueTool.singleValue(buttonName, dragonHealthy ? 0 : 1);
                 h_healthy.getChildren().addAll(healthyMap.get("true"), healthyMap.get("false"));
 
                 //给GridPane添加控件

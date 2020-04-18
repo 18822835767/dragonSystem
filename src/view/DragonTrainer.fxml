@@ -2,11 +2,11 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.text.Font?>
 <?import javafx.geometry.Insets?>
 <?import view.MyHBox?>
 <?import javafx.scene.text.Text?>
+
 <MyHBox xmlns:fx="http://cxf.apache.org/jaxws" fx:controller="controller.DragonTrainerController" prefHeight="600.0"
         prefWidth="600.0">
     <VBox>

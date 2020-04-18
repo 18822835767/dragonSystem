@@ -43,16 +43,8 @@ public class Activity {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
     public String getOverTime() {
         return overTime;
-    }
-
-    public void setOverTime(String overTime) {
-        this.overTime = overTime;
     }
 
     public int getDragonGroupId() {
@@ -65,18 +57,6 @@ public class Activity {
 
     public int getActivityId() {
         return activityId;
-    }
-
-    public void setActivityId(int activityId) {
-        this.activityId = activityId;
-    }
-
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked(boolean checked) {
-        this.checked = checked;
     }
 
 }

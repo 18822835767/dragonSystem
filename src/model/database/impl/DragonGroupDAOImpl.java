@@ -47,10 +47,12 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
         return DBUtils.executeUpdate(sql,name,profile,location,size,id);
     }
 
-    //根据id找某个族群
+    /**
+     * 根据id找某个族群
+     * */
     @Override
     public DragonGroup get(int dragonGroupId) {
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -71,9 +73,12 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
         return null;
     }
 
+    /**
+     * 根据族群名字来找族群(族群名字是唯一的)
+     * */
     @Override
     public DragonGroup get(String name) {
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -95,14 +100,12 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
     }
 
     /**
-     * 根据族群名字来找族群，数据库中设置族群名字为unique
+     * 找到所有的族群.
      * */
-
-    //找到所有的族群
     @Override
     public List<DragonGroup> getList() {
         List<DragonGroup> dragonGroupList = new ArrayList<>();
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         String sql = "select * from dragongroup";

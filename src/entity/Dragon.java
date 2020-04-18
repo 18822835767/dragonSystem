@@ -45,32 +45,16 @@ public class Dragon {
         return training;
     }
 
-    public void setTraining(boolean training) {
-        this.training = training;
-    }
-
     public boolean isHealthy() {
         return healthy;
-    }
-
-    public void setHealthy(boolean healthy) {
-        this.healthy = healthy;
     }
 
     public String getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
     public int getAge() {
         return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public int getDragonId() {

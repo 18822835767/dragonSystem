@@ -54,7 +54,7 @@ public class DragonDAOImpl implements IDragonDAO {
 
     @Override
     public Dragon get(int dragonId) {
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -80,7 +80,7 @@ public class DragonDAOImpl implements IDragonDAO {
 
     @Override
     public Dragon get(int dragonId,int dragonGroupId) {
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -107,7 +107,7 @@ public class DragonDAOImpl implements IDragonDAO {
 
     @Override
     public Dragon get(int dragonGroupId,String name) {
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -132,11 +132,13 @@ public class DragonDAOImpl implements IDragonDAO {
         return null;
     }
 
-    //找到某个族群的龙
+    /**
+     * 通过族群Id找到某个族群的龙
+     * */
     @Override
     public List<Dragon> getList(int dragonGroupId) {
         List<Dragon> dragonList = new ArrayList<>();
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -166,7 +168,7 @@ public class DragonDAOImpl implements IDragonDAO {
     @Override
     public List<Dragon> getList() {
         List<Dragon> dragonList = new ArrayList<>();
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {

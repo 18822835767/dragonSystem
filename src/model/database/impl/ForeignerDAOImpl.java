@@ -1,12 +1,9 @@
 package model.database.impl;
 
-import entity.DragonMom;
-import entity.DragonTrainer;
 import entity.Foreigner;
 import model.IForeignerDAO;
 import util.DBUtils;
 import util.Encrypt;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,7 +46,7 @@ public class ForeignerDAOImpl implements IForeignerDAO {
     //用户名和密码查询
     @Override
     public Foreigner get(String username, String password) {
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -74,7 +71,7 @@ public class ForeignerDAOImpl implements IForeignerDAO {
 
     @Override
     public Foreigner get(int foreignerId) {
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -98,7 +95,7 @@ public class ForeignerDAOImpl implements IForeignerDAO {
     @Override
     public List<Foreigner> getList() {
         List<Foreigner> foreigners = new ArrayList<>();
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {

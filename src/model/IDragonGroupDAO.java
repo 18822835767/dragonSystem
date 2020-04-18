@@ -23,7 +23,7 @@ public interface IDragonGroupDAO {
     /**
      * 根据id来找到某个族群.
      * */
-    DragonGroup get(int id);//根据id找某个族群
+    DragonGroup get(int id);
 
     /**
      * 根据族群名字来找族群.

@@ -35,8 +35,4 @@ public interface IDragonTrainerDAO {
      * */
     List<DragonTrainer> getList();
 
-//    /**
-//     * 得到所有的驯龙高手的账号.
-//     * */
-//    List<String> getUserNameList();
 }

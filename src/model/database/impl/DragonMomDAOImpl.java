@@ -1,19 +1,16 @@
 package model.database.impl;
 
-import entity.Dragon;
 import entity.DragonMom;
-import entity.DragonTrainer;
 import model.IDragonMomDAO;
 import util.DBUtils;
 import util.Encrypt;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * 采取单例，节省资源.
+ * 采取单例，延迟加载.
  * */
 public class DragonMomDAOImpl implements IDragonMomDAO {
     private volatile static DragonMomDAOImpl instance = null;
@@ -33,14 +30,13 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
 
     @Override
     public int update(double money) {
-        double moneyTub = get().getMoneyTub();
         String sql = "update dragonmom set moneyTub = ?";
         return DBUtils.executeUpdate(sql,money);
     }
 
     @Override
     public DragonMom get() {
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         String sql = "select * from dragonmom";
@@ -65,7 +61,7 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
      * */
     @Override
     public DragonMom get(String username, String password) {
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         String sql = "select * from dragonmom where username = ? and password = ?";

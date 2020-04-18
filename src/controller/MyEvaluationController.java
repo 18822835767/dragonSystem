@@ -33,7 +33,6 @@ public class MyEvaluationController{
 
     private Foreigner foreigner = null;//查看"评价"的外邦人的实例
 
-
     public void init() {
         initTreeTable();
         initTreeData();
@@ -60,6 +59,7 @@ public class MyEvaluationController{
                 //同意修改评价
                 VBox vBox = new VBox(10);
 
+                //等级评价
                 HBox hBox = new HBox(5);
                 Label l_hint = new Label("等级评价: ");
                 ComboBox<String> comboBox = new ComboBox<>();
@@ -67,11 +67,11 @@ public class MyEvaluationController{
                 comboBox.setValue(String.valueOf(evaluation.getRank()));//默认值
                 hBox.getChildren().addAll(l_hint,comboBox);
 
+                //内容评价
                 TextArea content = new TextArea();//用户的评论内容
                 content.setText(evaluation.getContent());
                 content.setWrapText(true);
                 content.setPrefColumnCount(25);//设置框的大小
-
 
                 vBox.getChildren().addAll(hBox,content);
 
@@ -82,7 +82,6 @@ public class MyEvaluationController{
                     if(CheckValid.isEmpty(content.getText().trim())){
                         AlertTool.showAlert(Alert.AlertType.WARNING,null, "修改失败", "评价不能为空噢");
                         return;
-
                     }
 
                     //用户点击了确定后
@@ -92,6 +91,7 @@ public class MyEvaluationController{
 
                     AlertTool.showAlert(Alert.AlertType.INFORMATION,null, "修改成功", null);
 
+                    //刷新显示评价信息
                     EvaluationTable.getInstance().flushEvaluation(treeItemList,root,foreigner.getForeignerId());
                 }
             }else{
@@ -118,7 +118,7 @@ public class MyEvaluationController{
 
             int items = iEvaluationDAO.delete(foreigner.getForeignerId(),evaluationId);
 
-            if (items == 0) {
+            if (items == 0) {//说明没有删除信息
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "删除失败", "查找不到您的评论信息");
             } else {
                 for (TreeItem<Evaluation> treeItem : treeItemList) {

@@ -14,15 +14,7 @@ public class DragonMom extends Person {
         this.moneyTub = moneyTub;
     }
 
-    public DragonMom(){
-
-    }
-
     public double getMoneyTub() {
         return moneyTub;
-    }
-
-    public int getDragonMomId() {
-        return dragonMomId;
     }
 }

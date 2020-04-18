@@ -1,7 +1,5 @@
 package util;
 
-import java.sql.SQLOutput;
-
 public class Encrypt {
     private static String key = "key";
 

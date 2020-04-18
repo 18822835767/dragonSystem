@@ -41,12 +41,14 @@ public class CheckValid {
             return false;
         }
 
+        //是否和驯龙高手用户名重复
         for (DragonTrainer trainer : iDragonTrainerDAO.getList()) {
             if (trainer.getUsername().equals(user)) {
                 return false;
             }
         }
 
+        //是否和外邦人用户名重复
         for (Foreigner foreigner : iForeignerDAO.getList()) {
             if (foreigner.getUsername().equals(user)) {
                 return false;

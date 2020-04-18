@@ -58,7 +58,7 @@ public class TicketDAOImpl implements ITicketDAO{
 
     @Override
     public Ticket get(int foreignerId) {
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -82,7 +82,7 @@ public class TicketDAOImpl implements ITicketDAO{
 
     @Override
     public List<Ticket> getListByBacking(boolean back) {
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<Ticket> tickets = new ArrayList<>();

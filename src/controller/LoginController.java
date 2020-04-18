@@ -180,7 +180,7 @@ public class LoginController {
 
         //使用自己封转好的单选框,选择注册对象
         String[] buttonName = {"外邦人", "驯龙高手"};
-        Map<String, RadioButton> buttonMap = SingleValueTool.singleSelection(buttonName, 0);
+        Map<String, RadioButton> buttonMap = SingleValueTool.singleValue(buttonName, 0);
 
         vBox.getChildren().addAll(buttonMap.get("外邦人"), buttonMap.get("驯龙高手"));
 

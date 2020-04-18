@@ -12,10 +12,6 @@ public class Foreigner extends Person {
         this.money = money;
     }
 
-    public Foreigner(){
-
-    }
-
     public int getForeignerId() {
         return foreignerId;
     }

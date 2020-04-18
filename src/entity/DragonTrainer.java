@@ -18,7 +18,6 @@ public class DragonTrainer extends Person {
 
     }
 
-
     public int getDragonTrainerId() {
         return dragonTrainerId;
     }

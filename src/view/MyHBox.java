@@ -22,6 +22,5 @@ public class MyHBox extends HBox {
         getChildren().get(1).resizeRelocate(w*0.3,0,w*0.7,h);
 
         getChildren().get(2).resizeRelocate(w*0.3,0,w*0.7,h);
-
     }
 }

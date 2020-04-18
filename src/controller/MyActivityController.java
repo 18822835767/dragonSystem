@@ -96,7 +96,6 @@ public class MyActivityController implements Initializable {
      * 外邦人"评价"时要调用的方法.
      **/
     public void remark(int activityId) {
-
         //如果用户已有该活动的评价记录，就不可以重复评价.
         if (iEvaluationDAO.getByActivityId(foreigner.getForeignerId(), activityId) != null) {
             AlertTool.showAlert(Alert.AlertType.INFORMATION, null, null, "您已经评价过了");
@@ -105,6 +104,7 @@ public class MyActivityController implements Initializable {
 
         VBox vBox = new VBox(10);
 
+        //评价等级的选择
         HBox hBox = new HBox(5);
         Label l_hint = new Label("等级评价: ");
         ComboBox<String> comboBox = new ComboBox<>();
@@ -112,6 +112,7 @@ public class MyActivityController implements Initializable {
         comboBox.setValue("5");//默认值
         hBox.getChildren().addAll(l_hint, comboBox);
 
+        //评价内容
         TextArea t_evaluation = new TextArea();//用户的评论内容
         t_evaluation.setPromptText("说点什么吧");
         t_evaluation.setWrapText(true);
@@ -119,12 +120,12 @@ public class MyActivityController implements Initializable {
 
         vBox.getChildren().addAll(hBox, t_evaluation);
 
+        //评价信息框
         Optional<ButtonType> decision = DialogTool.showDialog("评价", vBox, "确定",
                 "取消").showAndWait();
 
         //用户提交评价时
         if (decision.isPresent() && decision.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-
             if (t_evaluation.getText().trim().equals("")) {
                 AlertTool.showAlert(Alert.AlertType.INFORMATION, "提示", "评价失败", "评价内容不能为空噢");
                 return;

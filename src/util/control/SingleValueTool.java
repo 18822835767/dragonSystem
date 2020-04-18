@@ -24,7 +24,7 @@ public class SingleValueTool {
      * @param defalutSelection 默认选中哪个单选按钮(下标)，不默认选中，则传入null。
      * @return 返回Map<String,RadioButton>。
      */
-    public static Map<String,RadioButton> singleSelection(String[] buttonName, Integer defalutSelection) {
+    public static Map<String,RadioButton> singleValue(String[] buttonName, Integer defalutSelection) {
         int buttonNum = buttonName.length;//按钮的数量
 
         Map<String,RadioButton> map = new HashMap<>();

@@ -1,12 +1,9 @@
 package model.database.impl;
 
-import entity.Dragon;
-import entity.DragonGroup;
 import entity.DragonTrainer;
 import model.IDragonTrainerDAO;
 import util.DBUtils;
 import util.Encrypt;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -51,10 +48,12 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         return DBUtils.executeUpdate(sql,dragonGroupId,name,Encrypt.setEncrypt(password),id);
     }
 
-    //id查询
+    /**
+     * id查询.
+     * */
     @Override
     public DragonTrainer get(int dragonTrainerId) {
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -76,10 +75,12 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         return null;
     }
 
-    //用户名和密码查询
+    /**
+     * 用户名和密码查询.
+     * */
     @Override
     public DragonTrainer get(String username, String password) {
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -102,11 +103,13 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         return null;
     }
 
-    //找到所有的驯龙高手
+    /**
+     * 找到所有的驯龙高手。
+     * */
     @Override
     public List<DragonTrainer> getList() {
         List<DragonTrainer> dragonTrainerList = new ArrayList<>();
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         String sql = "select * from dragontrainer";

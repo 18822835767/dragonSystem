@@ -82,8 +82,39 @@
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/Item.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/MP3.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/VideoGame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/ForeignerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ForeignerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/DragonTrainerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DragonTrainerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/MyActivityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MyActivityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/MyEvaluationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MyEvaluationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Activity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Dragon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Dragon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/DragonMom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/DragonMom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/DragonTrainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/DragonTrainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Evaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Evaluation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Foreigner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Foreigner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Ticket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/IDragonDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/IDragonDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/IDragonGroupDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/IDragonGroupDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/IDragonMomDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/IDragonMomDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/IDragonTrainerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/IDragonTrainerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/database/impl/ActivityDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/impl/ActivityDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/database/impl/DragonDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/impl/DragonDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/database/impl/DragonGroupDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/impl/DragonGroupDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/database/impl/DragonMomDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/impl/DragonMomDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/database/impl/DragonTrainerDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/impl/DragonTrainerDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/database/impl/EvaluationDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/impl/EvaluationDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/database/impl/ForeignerDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/impl/ForeignerDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/database/impl/TicketDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/impl/TicketDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/CheckValid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/CheckValid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/Encrypt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/Encrypt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/control/SingleValueTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/control/SingleValueTool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/DealBackTickets.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/DealBackTickets.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/DragonTrainer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/DragonTrainer.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/Foreigner.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Foreigner.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/Login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MomActivity.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MomActivity.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MomEvaluation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MomEvaluation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MyHBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MyHBox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/coins/Coin.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/discussion34.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/notebook/NoteBook.class" beforeDir="false" />
@@ -350,7 +381,7 @@
       <workItem from="1586951033373" duration="13214000" />
       <workItem from="1587014295606" duration="24865000" />
       <workItem from="1587176973392" duration="9468000" />
-      <workItem from="1587210087247" duration="4288000" />
+      <workItem from="1587210087247" duration="5199000" />
     </task>
     <servers />
   </component>

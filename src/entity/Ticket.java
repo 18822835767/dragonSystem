@@ -42,30 +42,6 @@ public class Ticket {
         this.backing = backing;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getBuyTime() {
-        return buyTime;
-    }
-
-    public void setBuyTime(String buyTime) {
-        this.buyTime = buyTime;
-    }
-
     public int getTimes() {
         return times;
     }

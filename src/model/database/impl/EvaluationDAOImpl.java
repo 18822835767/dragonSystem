@@ -1,12 +1,8 @@
 package model.database.impl;
 
-import entity.Activity;
-import entity.DragonTrainer;
 import entity.Evaluation;
 import model.IEvaluationDAO;
 import util.DBUtils;
-import util.Encrypt;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -56,7 +52,7 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
 
     @Override
     public Evaluation getByEvalutionId(int foreignerId, int evaluationId) {
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -80,7 +76,7 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
 
     @Override
     public Evaluation getByActivityId(int foreignerId, int activityId) {
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -105,7 +101,7 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
     @Override
     public List<Evaluation> getList(int foreignerId) {
         List<Evaluation> evaluationList = new ArrayList<>();
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         String sql = "select * from evaluation where foreignerId = ?";
@@ -131,7 +127,7 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
     @Override
     public List<Evaluation> getList() {
         List<Evaluation> evaluationList = new ArrayList<>();
-        Connection conn = null;
+        Connection conn;
         PreparedStatement ps = null;
         ResultSet rs = null;
         String sql = "select * from evaluation";
