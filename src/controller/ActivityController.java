@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.util.Callback;
 import model.IActivityDAO;
 import model.IEvaluationDAO;
 import util.DAOFactory;
@@ -23,6 +24,8 @@ import util.table.ActivityTable;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.MonthDay;
 import java.util.*;
 
 public class ActivityController implements Initializable {
@@ -155,7 +158,7 @@ public class ActivityController implements Initializable {
         TextField t_name = new TextField();
         TextArea t_content = new TextArea();
         DatePicker d_startTime = new DatePicker();
-        DatePicker d_overTime = new DatePicker();
+        DatePicker d_endTime = new DatePicker();
 
         t_groupId.setPromptText("族群Id");
         t_name.setPromptText("活动名字");
@@ -164,11 +167,32 @@ public class ActivityController implements Initializable {
         t_content.setWrapText(true);//自动换行
         d_startTime.setEditable(false);
         d_startTime.setPromptText("开始时间");
-        d_overTime.setEditable(false);
-        d_overTime.setPromptText("结束时间");
+        d_endTime.setEditable(false);
+        d_endTime.setPromptText("结束时间");
 
+        //设置"活动结束时间"在"活动开始时间"之后，或者同一天
+        d_endTime.setDayCellFactory(new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                DateCell cell = new DateCell(){
+                    @Override
+                    public void updateItem(LocalDate item,boolean empty){
+                        super.updateItem(item, empty);
 
-        vBox.getChildren().addAll(t_groupId, t_name, t_content, d_startTime, d_overTime);
+                        if(d_startTime.getValue() == null){
+                            setDisable(true);
+                        }else{
+                            if(item.isBefore(d_startTime.getValue())){
+                                setDisable(true);
+                            }
+                        }
+                    }
+                };
+                return cell;
+            }
+        });
+
+        vBox.getChildren().addAll(t_groupId, t_name, t_content, d_startTime, d_endTime);
 
         Optional<ButtonType> result = DialogTool.showDialog("添加活动", vBox, "确定", null).showAndWait();
 
@@ -177,7 +201,7 @@ public class ActivityController implements Initializable {
             String name = t_name.getText().trim();
             String content = t_content.getText().trim();
             String startTime = d_startTime.getValue().toString();
-            String overTime = d_overTime.getValue().toString();
+            String overTime = d_endTime.getValue().toString();
 
             int items = iActivityDAO.save(groupId, name, content, startTime, overTime);
 
