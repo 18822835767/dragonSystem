@@ -152,7 +152,8 @@ public class MyActivityController implements Initializable {
     public void initActivityTreeTable() {
         String[] columnName = {"活动Id", "活动名字", "举办的族群", "开始时间", "结束时间"};
         double[] columnPrefWidth = {80, 120, 120, 100, 100};
-        String[] columnId = {"activityId", "activityName", "groupName", "startTime", "overTime"};
+        String[] columnId = {ActivityTable.ACTIVITY_ID,ActivityTable.ACTIVITY_NAME,ActivityTable.GROUP_NAME,
+                ActivityTable.START_TIME, ActivityTable.OVER_TIME};
         ActivityTable.getInstance().initActivityTable(treeTableView, columnName, columnPrefWidth, columnId);
     }
 

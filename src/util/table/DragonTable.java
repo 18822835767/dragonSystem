@@ -1,5 +1,6 @@
 package util.table;
 
+import com.sun.source.tree.IfTree;
 import entity.Dragon;
 import entity.DragonGroup;
 import entity.DragonTrainer;
@@ -23,26 +24,39 @@ import java.util.List;
 public class DragonTable {
     private volatile static DragonTable instance = null;
 
-    private DragonTable(){}
+    private DragonTable() {
+    }
 
-    public static DragonTable getInstance(){
-        if(instance == null){
-            synchronized (DragonTable.class){
-                if(instance == null){
+    public static DragonTable getInstance() {
+        if (instance == null) {
+            synchronized (DragonTable.class) {
+                if (instance == null) {
                     instance = new DragonTable();
                 }
             }
         }
         return instance;
     }
+
     private IDragonDAO iDragonDAO = DAOFactory.getDragonDAOInstance();
+
+    /**
+     * 一系列columnID常量.
+     * */
+    public static final String ID = "Id";
+    public static final String NAME = "name";
+    public static final String SEX = "sex";
+    public static final String AGE = "age";
+    public static final String PROFILE = "profile";
+    public static final String TRAINING = "training";
+    public static final String HEALTHY = "healthy";
 
     /**
      * 龙的表.
      * 设置列名、列宽
      */
     public void initDragonTreeTable(TreeTableView<Dragon> dragonTreeTableView, String[] columnName,
-                                           double[] columnPrefWidth, String[] columnId) {
+                                    double[] columnPrefWidth, String[] columnId) {
         //列的数量
         int columnNum = columnName.length;
 
@@ -57,7 +71,7 @@ public class DragonTable {
 
         for (int i = 0; i < columnNum; i++) {
             int finalI = i;
-            TreeTableColumn<Dragon,Dragon> treeTableColumn = new TreeTableColumn<>(columnName[i]);
+            TreeTableColumn<Dragon, Dragon> treeTableColumn = new TreeTableColumn<>(columnName[i]);
             //添加列
             dragonTreeTableView.getColumns().add(treeTableColumn);
             treeTableColumn.setCellValueFactory(cellValueFactory);
@@ -79,7 +93,7 @@ public class DragonTable {
      * 即给"驯龙高手"提供.
      */
     public void initDragonTreeData(TreeTableView<Dragon> dragonTreeTableView, TreeItem<Dragon> dragonRoot,
-                                          List<TreeItem<Dragon>> dragonTreeItemList, int dragonGroupId) {
+                                   List<TreeItem<Dragon>> dragonTreeItemList, int dragonGroupId) {
         dragonTreeTableView.setRoot(dragonRoot);
         dragonTreeTableView.setShowRoot(false);
 
@@ -94,7 +108,7 @@ public class DragonTable {
      * 即给"外邦人"提供.
      */
     public void initDragonTreeData(TreeTableView<Dragon> dragonTreeTableView, TreeItem<Dragon> dragonRoot,
-                                          List<TreeItem<Dragon>> dragonTreeItemList) {
+                                   List<TreeItem<Dragon>> dragonTreeItemList) {
         dragonTreeTableView.setRoot(dragonRoot);
         dragonTreeTableView.setShowRoot(false);
 
@@ -105,7 +119,7 @@ public class DragonTable {
      * 龙的表.
      * 单元格内容的显示
      */
-   class DragonTableTreeCell extends TreeTableCell<Dragon, Dragon> {
+    class DragonTableTreeCell extends TreeTableCell<Dragon, Dragon> {
         String columnID;
 
         public DragonTableTreeCell(String columnID) {
@@ -123,25 +137,25 @@ public class DragonTable {
                 setGraphic(null);
 
                 switch (columnID) {
-                    case "Id":
+                    case ID:
                         setText(String.valueOf(item.getDragonId()));
                         break;
-                    case "name":
+                    case NAME:
                         setText(item.getName());
                         break;
-                    case "sex":
+                    case SEX:
                         setText(String.valueOf(item.getSex()));
                         break;
-                    case "age":
+                    case AGE:
                         setText(String.valueOf(item.getAge()));
                         break;
-                    case "profile":
+                    case PROFILE:
                         setText(item.getProfile());
                         break;
-                    case "training":
+                    case TRAINING:
                         setText(String.valueOf(item.isTraining()));
                         break;
-                    case "healthy":
+                    case HEALTHY:
                         setText(String.valueOf(item.isHealthy()));
                         break;
                 }
@@ -154,7 +168,7 @@ public class DragonTable {
      * 对某个族群的龙操作。
      */
     public void flushDragon(List<TreeItem<Dragon>> dragonTreeItemList,
-                                   TreeItem<Dragon> dragonRoot, int dragonGroupId) {
+                            TreeItem<Dragon> dragonRoot, int dragonGroupId) {
         dragonTreeItemList.clear();
         dragonRoot.getChildren().clear();
         List<Dragon> dragonList = iDragonDAO.getList(dragonGroupId);

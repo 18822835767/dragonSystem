@@ -140,7 +140,8 @@ public class MyEvaluationController{
     public void initTreeTable() {
         String[] columnName = {"评价Id", "举办族群", "活动Id", "活动名字","评价内容","评价等级"};
         double[] columnPrefWidth = {50, 80, 75, 100,150,70};
-        String[] columnId = {"evaluationId", "groupName", "activityId", "activityName","content","rank"};
+        String[] columnId = {EvaluationTable.EVALUATION_ID,EvaluationTable.GROUP_NAME,EvaluationTable.ACTIVITY_ID,
+                EvaluationTable.ACTIVITY_NAME,EvaluationTable.CONTENT,EvaluationTable.RANK};
         EvaluationTable.getInstance().initTreeTable(treeTableView, columnName, columnPrefWidth, columnId);
     }
 

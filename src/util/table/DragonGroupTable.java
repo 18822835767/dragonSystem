@@ -36,6 +36,15 @@ public class DragonGroupTable {
     private IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
 
     /**
+     * 一系列columnID常量.
+     * */
+    public static final String NAME = "name";
+    public static final String ID = "Id";
+    public static final String PROFILE = "profile";
+    public static final String LOCATION = "location";
+    public static final String SIZE = "size";
+
+    /**
      * 族群表：
      * 设置列名、列宽
      */
@@ -105,19 +114,19 @@ public class DragonGroupTable {
                 setGraphic(null);
 
                 switch (columnID) {
-                    case "name":
+                    case NAME:
                         setText(item.getName());
                         break;
-                    case "Id":
+                    case ID:
                         setText(String.valueOf(item.getId()));
                         break;
-                    case "profile":
+                    case PROFILE:
                         setText(item.getProfile());
                         break;
-                    case "location":
+                    case LOCATION:
                         setText(item.getLocation());
                         break;
-                    case "size":
+                    case SIZE:
                         setText(String.valueOf(item.getSize()));
                         break;
                     default:

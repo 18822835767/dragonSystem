@@ -1,7 +1,8 @@
 package base;
+
 /**
  * 龙妈，驯龙高手，外邦人的父类.
- * */
+ */
 public abstract class Person {
     private String name;
     private String username;
@@ -13,7 +14,7 @@ public abstract class Person {
         this.password = password;
     }
 
-    public Person(){
+    public Person() {
 
     }
 

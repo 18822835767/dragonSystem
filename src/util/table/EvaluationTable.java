@@ -39,6 +39,17 @@ public class EvaluationTable {
     private IForeignerDAO iForeignerDAO = DAOFactory.getForeignerDAOInstance();
 
     /**
+     * 一系列的columnID常量.
+     * */
+    public static final String EVALUATION_ID = "evaluationId";
+    public static final String FOREIGNER_NAME = "foreignerName";
+    public static final String GROUP_NAME = "groupName";
+    public static final String ACTIVITY_ID = "activityId";
+    public static final String ACTIVITY_NAME =  "activityName";
+    public static final String CONTENT = "content";
+    public static final String RANK = "rank";
+
+    /**
      * 评价表：
      * 设置列名、列宽
      */
@@ -126,24 +137,24 @@ public class EvaluationTable {
                 setGraphic(null);
 
                 switch (columnID) {
-                    case "evaluationId":
+                    case EVALUATION_ID:
                         this.setText(String.valueOf(item.getEvaluationId()));
                         break;
-                    case "foreignerName":
+                    case FOREIGNER_NAME:
                         this.setText(iForeignerDAO.get(item.getForeignerId()).getName());
                         break;
-                    case "groupName":
+                    case GROUP_NAME:
                         //评价Id->活动Id->族群Id->族群名字
                         this.setText(iDragonGroupDAO.get(iActivityDAO.getById(item.getActivityId()).getDragonGroupId()).
                                 getName());
                         break;
-                    case "activityId":
+                    case ACTIVITY_ID:
                         this.setText(String.valueOf(item.getActivityId()));
                         break;
-                    case  "activityName":
+                    case  ACTIVITY_NAME:
                         this.setText(iActivityDAO.getById(item.getActivityId()).getName());
                         break;
-                    case "content":
+                    case CONTENT:
                         //展示评价内容(一行)
                         TextArea content = new TextArea();
                         content.setText(item.getContent());
@@ -166,7 +177,7 @@ public class EvaluationTable {
                         });
                         this.setGraphic(content);
                         break;
-                    case "rank":
+                    case RANK:
                         this.setText(String.valueOf(item.getRank()));
                         break;
                     default:

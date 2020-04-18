@@ -7,7 +7,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -22,7 +21,6 @@ import util.table.DragonTrainerTable;
 import util.control.AlertTool;
 import util.control.DialogTool;
 import util.control.TextInputDialogTool;
-
 import java.io.IOException;
 import java.util.*;
 
@@ -117,14 +115,14 @@ public class DragonMomController extends BaseController {
         t_username.setPromptText("用户名");
         t_password.setPromptText("密码");
 
-        vBox.getChildren().addAll(t_groupId,t_name,t_username,t_password );
+        vBox.getChildren().addAll(t_groupId, t_name, t_username, t_password);
 
         //使用了自定义控件，弹出弹窗
         Dialog<ButtonType> dialog = DialogTool.showDialog("添加驯龙高手信息", vBox, "确定", "取消");
         Optional<ButtonType> result = dialog.showAndWait();
         //如果用户点击了确定按钮
         if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-            String name =t_name.getText();
+            String name = t_name.getText();
             String username = t_username.getText().trim();
             String password = t_password.getText().trim();
             int dragonGroupId = 0;
@@ -220,7 +218,7 @@ public class DragonMomController extends BaseController {
                 Text t_username = new Text("用户名:" + trainer.getUsername());
                 Text t_password = new Text("密码:" + trainer.getPassword());
 
-                vBox.getChildren().addAll(t_trainerName,t_id,t_groupName,t_groupId,t_username,t_password);
+                vBox.getChildren().addAll(t_trainerName, t_id, t_groupName, t_groupId, t_username, t_password);
 
                 DialogTool.showDialog("驯龙高手信息", vBox, "确定", null).showAndWait();
             } else {
@@ -232,7 +230,7 @@ public class DragonMomController extends BaseController {
 
     /**
      * 修改驯龙高手信息.
-     * 查询->显示原来信息->进行修改
+     * 基本思路：查询->显示原来信息->进行修改
      */
     public void changeDragonTrainer(ActionEvent actionEvent) {
         Optional<String> result = TextInputDialogTool.showTextInput(null, "请输入驯龙高手的Id",
@@ -259,12 +257,12 @@ public class DragonMomController extends BaseController {
                 TextField t_id = new TextField(String.valueOf(trainer.getDragonGroupId()));
                 TextField t_password = new TextField(trainer.getPassword());
 
-                gridPane.add(l_name,0,0);
-                gridPane.add(t_name,1,0);
-                gridPane.add(l_id,0,1);
-                gridPane.add(t_id,1,1);
-                gridPane.add(l_password,0,2);
-                gridPane.add(t_password,1,2);
+                gridPane.add(l_name, 0, 0);
+                gridPane.add(t_name, 1, 0);
+                gridPane.add(l_id, 0, 1);
+                gridPane.add(t_id, 1, 1);
+                gridPane.add(l_password, 0, 2);
+                gridPane.add(t_password, 1, 2);
 
                 gridPane.setVgap(10);
 
@@ -283,7 +281,7 @@ public class DragonMomController extends BaseController {
                         return;
                     }
 
-                    if (CheckValid.isEmpty(name, password,t_id.getText().trim())) {
+                    if (CheckValid.isEmpty(name, password, t_id.getText().trim())) {
                         //判断是否有空的信息
                         AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "信息填写不完整");
                         return;
@@ -319,7 +317,7 @@ public class DragonMomController extends BaseController {
         t_location.setPromptText("地理位置");
         t_size.setPromptText("大小");
 
-        vBox.getChildren().addAll(t_name,t_profile,t_location,t_size);
+        vBox.getChildren().addAll(t_name, t_profile, t_location, t_size);
 
         //使用了自定义控件
         Dialog<ButtonType> dialog = DialogTool.showDialog("添加族群高手信息", vBox, "确定", "取消");
@@ -411,11 +409,11 @@ public class DragonMomController extends BaseController {
                 VBox vBox = new VBox(10);
 
                 Text t_name = new Text("名字:" + group.getName());
-                Text t_id = new Text( "Id:" + group.getId());
+                Text t_id = new Text("Id:" + group.getId());
                 Text t_profile = new Text("简介:" + group.getProfile());
-                Text t_location = new Text( "地理位置:" + group.getLocation());
+                Text t_location = new Text("地理位置:" + group.getLocation());
 
-                vBox.getChildren().addAll(t_name,t_id,t_profile,t_location);
+                vBox.getChildren().addAll(t_name, t_id, t_profile, t_location);
 
                 DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
             } else {
@@ -427,6 +425,7 @@ public class DragonMomController extends BaseController {
 
     /**
      * 修改族群信息.
+     * 基本思路：查询->显示原来信息->进行修改
      * flushGroup()方法是为了刷新一下显示和groupTreeItemList
      */
     public void changeDragonGroup(ActionEvent actionEvent) {
@@ -446,7 +445,7 @@ public class DragonMomController extends BaseController {
                 GridPane gridPane = new GridPane();
 
                 Label l_name = new Label("名字:");
-                Label l_profile = new Label( "简介:");
+                Label l_profile = new Label("简介:");
                 Label l_location = new Label("地理位置:");
                 Label l_size = new Label("大小:");
 
@@ -455,14 +454,14 @@ public class DragonMomController extends BaseController {
                 TextField t_location = new TextField(group.getLocation());
                 TextField t_size = new TextField(String.valueOf(group.getSize()));
 
-                gridPane.add(l_name,0,0);
-                gridPane.add(t_name,1,0);
-                gridPane.add(l_profile,0,1);
-                gridPane.add(t_profile,1,1);
-                gridPane.add(l_location,0,2);
-                gridPane.add(t_location,1,2);
-                gridPane.add(l_size,0,3);
-                gridPane.add(t_size,1,3);
+                gridPane.add(l_name, 0, 0);
+                gridPane.add(t_name, 1, 0);
+                gridPane.add(l_profile, 0, 1);
+                gridPane.add(t_profile, 1, 1);
+                gridPane.add(l_location, 0, 2);
+                gridPane.add(t_location, 1, 2);
+                gridPane.add(l_size, 0, 3);
+                gridPane.add(t_size, 1, 3);
 
                 gridPane.setVgap(10);
 
@@ -510,7 +509,8 @@ public class DragonMomController extends BaseController {
     public void initTrainerTreeTable() {
         String[] columnName = {"驯龙高手名字", "Id", "族群Id", "族群名字"};
         double[] columnPrefWidth = {150, 80, 80, 120};
-        String[] columnId = {"name", "Id", "dragonGroupId", "dragonGroupName"};
+        String[] columnId = {DragonTrainerTable.NAME, DragonTrainerTable.ID,
+                DragonTrainerTable.DRAGON_GROUP_ID, DragonTrainerTable.DRAGON_GROUP_NAME};
         DragonTrainerTable.getInstance().initTrainerTreeTable(trainerTreeTableView, columnName, columnPrefWidth, columnId);
     }
 
@@ -532,7 +532,8 @@ public class DragonMomController extends BaseController {
     public void initGroupTreeTable() {
         String[] columnName = {"族群名字", "Id", "简介", "地理位置", "大小"};
         double[] columnPrefWidth = {120, 80, 120, 120, 80};
-        String[] columnId = {"name", "Id", "profile", "location", "size"};
+        String[] columnId = {DragonGroupTable.NAME, DragonGroupTable.ID,DragonGroupTable.PROFILE,
+                DragonGroupTable.LOCATION, DragonGroupTable.SIZE};
         DragonGroupTable.getInstance().initGroupTreeTable(groupTreeTableView, columnName, columnPrefWidth, columnId);
     }
 
@@ -579,10 +580,10 @@ public class DragonMomController extends BaseController {
 
     /**
      * 打开活动列表.
-     * */
+     */
     public void showActivity(ActionEvent actionEvent) {
         try {
-            ViewManager.openView(ViewManager.momActivityUrl,"活动信息",600.0,400.0);
+            ViewManager.openView(ViewManager.momActivityUrl, "活动信息", 600.0, 400.0);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -591,10 +592,10 @@ public class DragonMomController extends BaseController {
 
     /**
      * 打开(所有)评价的界面
-     * */
+     */
     public void showAllEvaluation(ActionEvent actionEvent) {
         try {
-            ViewManager.openView(ViewManager.momEvaluationUrl,"评价信息",730.0,450.0);
+            ViewManager.openView(ViewManager.momEvaluationUrl, "评价信息", 730.0, 450.0);
         } catch (IOException e) {
             e.printStackTrace();
         }

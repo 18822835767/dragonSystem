@@ -42,6 +42,14 @@ public class DragonTrainerTable {
     private IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
 
     /**
+     * 一系列columnID常量.
+     * */
+    public static final String NAME = "name";
+    public static final String ID = "Id";
+    public static final String DRAGON_GROUP_ID = "dragonGroupId";
+    public static final String DRAGON_GROUP_NAME = "dragonGroupName";
+
+    /**
      * 驯龙高手表：
      * 设置列名、列宽
      */
@@ -110,16 +118,16 @@ public class DragonTrainerTable {
                 setGraphic(null);
 
                 switch (columnID){
-                    case "name":
+                    case NAME:
                         this.setText(item.getName());
                         break;
-                    case "Id":
+                    case ID:
                         this.setText(String.valueOf(item.getDragonTrainerId()));
                         break;
-                    case "dragonGroupId":
+                    case DRAGON_GROUP_ID:
                         this.setText(String.valueOf(item.getDragonGroupId()));
                         break;
-                    case "dragonGroupName":
+                    case DRAGON_GROUP_NAME:
                         int dragonGroupId = item.getDragonGroupId();
                         //获得族群名字
                         String dragonGroupName = iDragonGroupDAO.get(dragonGroupId).getName();

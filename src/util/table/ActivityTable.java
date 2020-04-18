@@ -34,6 +34,15 @@ public class ActivityTable {
     private IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
 
     /**
+     * 一系列columnID常量.
+     * */
+    public static final String GROUP_NAME = "groupName";
+    public static final String ACTIVITY_ID = "activityId";
+    public static final String ACTIVITY_NAME = "activityName";
+    public static final String START_TIME = "startTime";
+    public static final String OVER_TIME = "overTime";
+
+    /**
      * 活动表：
      * 设置列名、列宽
      */
@@ -118,19 +127,19 @@ public class ActivityTable {
                 setGraphic(null);
 
                 switch (columnID) {
-                    case "groupName":
+                    case GROUP_NAME:
                         setText(iDragonGroupDAO.get(item.getDragonGroupId()).getName());
                         break;
-                    case "activityId":
+                    case ACTIVITY_ID:
                         setText(String.valueOf(item.getActivityId()));
                         break;
-                    case "activityName":
+                    case ACTIVITY_NAME:
                         setText(item.getName());
                         break;
-                    case "startTime":
+                    case START_TIME:
                         setText(item.getStartTime());
                         break;
-                    case "overTime":
+                    case OVER_TIME:
                         setText(String.valueOf(item.getOverTime()));
                         break;
                     default:
