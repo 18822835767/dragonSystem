@@ -11,7 +11,7 @@
             prefHeight="400.0" prefWidth="600.0">
     <top>
         <HBox>
-            <Button fx:id="addActivity" text="添加活动" onAction="#addActivity"/>
+            <Button text="添加活动" onAction="#addActivity"/>
         </HBox>
     </top>
 

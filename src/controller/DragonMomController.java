@@ -587,18 +587,10 @@ public class DragonMomController extends BaseController {
     public void showActivity(ActionEvent actionEvent) {
         FXMLLoader fx = null;
         try {
-            fx = ViewManager.openView(ViewManager.myActivityUrl,"活动信息",600.0,400.0);
+            fx = ViewManager.openView(ViewManager.momActivityUrl,"活动信息",600.0,400.0);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        if(fx != null){
-            //得到控制器，隐藏"我要观看"的按钮
-            MyActivityController activityController = (MyActivityController) fx.getController();
-            activityController.getViewActivity().setVisible(false);
-            activityController.getAddActivity().setVisible(true);
-        }
-
 
     }
 

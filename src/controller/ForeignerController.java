@@ -477,10 +477,8 @@ public class ForeignerController extends BaseController {
         }
 
         if(fx != null){
-            //得到控制器，隐藏"添加活动"的按钮
+            //得到控制器
             MyActivityController activityController = (MyActivityController) fx.getController();
-            activityController.getViewActivity().setVisible(true);
-            activityController.getAddActivity().setVisible(false);
             //传入外邦人实例
             activityController.setForeigner(foreigner);
         }
