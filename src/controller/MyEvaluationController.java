@@ -1,12 +1,9 @@
 package controller;
 
-import entity.Dragon;
-import entity.DragonTrainer;
 import entity.Evaluation;
 import entity.Foreigner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -16,10 +13,8 @@ import util.DAOFactory;
 import util.control.AlertTool;
 import util.control.DialogTool;
 import util.control.TextInputDialogTool;
-import util.table.DragonTrainerTable;
 import util.table.EvaluationTable;
 
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -59,7 +54,7 @@ public class MyEvaluationController{
                 return;
             }
 
-            Evaluation evaluation = iEvaluationDAO.get(foreigner.getForeignerId(),evaluationId);
+            Evaluation evaluation = iEvaluationDAO.getByEvalutionId(foreigner.getForeignerId(),evaluationId);
 
             if(evaluation != null){
                 //同意修改评价

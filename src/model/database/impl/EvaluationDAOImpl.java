@@ -1,5 +1,6 @@
 package model.database.impl;
 
+import entity.Activity;
 import entity.DragonTrainer;
 import entity.Evaluation;
 import model.IEvaluationDAO;
@@ -48,7 +49,7 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
     }
 
     @Override
-    public Evaluation get(int foreignerId, int evaluationId) {
+    public Evaluation getByEvalutionId(int foreignerId, int evaluationId) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -58,6 +59,30 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
             ps = conn.prepareStatement(sql);
             ps.setInt(1,foreignerId);
             ps.setInt(2,evaluationId);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Evaluation(rs.getInt("evaluationId"),rs.getInt("activityId"),rs.getInt("foreignerId"),
+                        rs.getInt("rank"),rs.getString("content"),rs.getString("evaluateTime"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtils.close(null,ps, rs);
+        }
+        return null;
+    }
+
+    @Override
+    public Evaluation getByActivityId(int foreignerId, int activityId) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            String sql = "select * from evaluation where foreignerId = ? and activityId = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,foreignerId);
+            ps.setInt(2, activityId);
             rs = ps.executeQuery();
             if (rs.next()) {
                 return new Evaluation(rs.getInt("evaluationId"),rs.getInt("activityId"),rs.getInt("foreignerId"),

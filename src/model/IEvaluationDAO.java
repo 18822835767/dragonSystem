@@ -30,7 +30,12 @@ public interface IEvaluationDAO {
     /**
      * 通过评价的Id+外邦人Id得到实例.
      * */
-    Evaluation get(int foreignerId, int evaluationId);
+    Evaluation getByEvalutionId(int foreignerId, int evaluationId);
+
+    /**
+     * 通过外邦人Id+活动Id得到实例.
+     * */
+    Evaluation getByActivityId(int foreignerId, int activityId);
 
     /**
      * 通过外邦人的Id找到评价.
