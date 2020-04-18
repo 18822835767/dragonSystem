@@ -6,6 +6,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.MomEvaluationController" prefHeight="400.0" prefWidth="600.0">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="controller.MomEvaluationController" prefHeight="450.0"
+      prefWidth="730.0">
+    <Button text="删除评价" prefWidth="80" onAction="#deleteEvaluation"/>
 
-</AnchorPane>
+    <TreeTableView fx:id="treeTableView"/>
+</VBox>

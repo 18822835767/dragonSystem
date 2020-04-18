@@ -8,6 +8,7 @@ import javafx.util.Callback;
 import model.IActivityDAO;
 import model.IDragonGroupDAO;
 import model.IEvaluationDAO;
+import model.IForeignerDAO;
 import util.DAOFactory;
 import util.control.DialogTool;
 
@@ -34,6 +35,8 @@ public class EvaluationTable {
     private IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
 
     private IActivityDAO iActivityDAO = DAOFactory.getActivityDAOInstance();
+
+    private IForeignerDAO iForeignerDAO = DAOFactory.getForeignerDAOInstance();
 
     /**
      * 评价表：
@@ -126,10 +129,9 @@ public class EvaluationTable {
                     case "evaluationId":
                         this.setText(String.valueOf(item.getEvaluationId()));
                         break;
-//                    case "foreignerId":
-//                        break;
-//                    case "foreignerName":
-//                        break;
+                    case "foreignerName":
+                        this.setText(iForeignerDAO.get(item.getForeignerId()).getName());
+                        break;
                     case "groupName":
                         //评价Id->活动Id->族群Id->族群名字
                         this.setText(iDragonGroupDAO.get(iActivityDAO.getById(item.getActivityId()).getDragonGroupId()).

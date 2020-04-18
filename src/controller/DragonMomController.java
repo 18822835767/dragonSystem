@@ -48,10 +48,6 @@ public class DragonMomController extends BaseController {
 
     private IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
 
-    private ITicketDAO iTicketDAO = DAOFactory.getTicketDAOInstance();
-
-    private IActivityDAO iActivityDAO = DAOFactory.getActivityDAOInstance();
-
     private TreeItem<DragonTrainer> trainerRoot = new TreeItem<DragonTrainer>(new DragonTrainer());
 
     private TreeItem<DragonGroup> groupRoot = new TreeItem<DragonGroup>(new DragonGroup());
@@ -585,9 +581,8 @@ public class DragonMomController extends BaseController {
      * 打开活动列表.
      * */
     public void showActivity(ActionEvent actionEvent) {
-        FXMLLoader fx = null;
         try {
-            fx = ViewManager.openView(ViewManager.momActivityUrl,"活动信息",600.0,400.0);
+            ViewManager.openView(ViewManager.momActivityUrl,"活动信息",600.0,400.0);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -598,6 +593,10 @@ public class DragonMomController extends BaseController {
      * 打开(所有)评价的界面
      * */
     public void showAllEvaluation(ActionEvent actionEvent) {
-
+        try {
+            ViewManager.openView(ViewManager.momEvaluationUrl,"评价信息",730.0,450.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -11,12 +11,17 @@ public interface IEvaluationDAO {
     int save(int activityId, int foreignerId, int rank, String content, String evaluateTime);
 
     /**
-     * 删除一条评价.
+     * 删除一条评价(外邦人使用).
      *
      * @param foreignerId 外邦人Id
      * @param evaluationId "评价"Id
      * */
     int delete(int foreignerId,int evaluationId);
+
+    /**
+     * 删除一条评价(龙妈使用).
+     * */
+    int delete(int evaluationId);
 
     /**
      * 更新一条评价.
