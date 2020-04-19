@@ -41,4 +41,8 @@ public class DAOFactory {
     }
 
     public static IEvaluationDAO getEvaluationDAOInstance(){return EvaluationDAOImpl.getInstance();}
+
+    public static IAccountDAO getAccountDAOInstance(){
+        return AccountDAOImpl.getInstance();
+    }
 }

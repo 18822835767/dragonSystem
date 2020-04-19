@@ -1,9 +1,6 @@
 package controller;
 
-import entity.Dragon;
-import entity.DragonGroup;
-import entity.Foreigner;
-import entity.Ticket;
+import entity.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -28,6 +25,7 @@ import util.control.TextInputDialogTool;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -54,9 +52,12 @@ public class ForeignerController extends BaseController {
 
     private IDragonMomDAO iDragonMomDAO = DAOFactory.getDragonMomDAOInstance();
 
+    private IAccountDAO iAccountDAO = DAOFactory.getAccountDAOInstance();
+
     private TreeItem<Dragon> dragonRoot = new TreeItem<Dragon>(new Dragon());
 
     private TreeItem<DragonGroup> groupRoot = new TreeItem<DragonGroup>(new DragonGroup());
+
 
     private Foreigner foreigner = null;
 
@@ -316,6 +317,9 @@ public class ForeignerController extends BaseController {
                         foreigner.setMoney(balance);//更新对象中的值
                         iForeignerDAO.update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
                         iDragonMomDAO.update(moneyTub + Ticket.PRICE1);//更新数据库的金库
+
+                        //保存账目
+                        iAccountDAO.save(foreigner.getForeignerId(),Ticket.PRICE1, LocalDate.now().toString(), Account.purchase);
                     } else {
                         AlertTool.showAlert(Alert.AlertType.WARNING, "购买失败", null, "余额不足");
                         return false;
@@ -333,6 +337,9 @@ public class ForeignerController extends BaseController {
                         foreigner.setMoney(balance);//更新对象的值
                         iForeignerDAO.update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
                         iDragonMomDAO.update(moneyTub + Ticket.PRICE2);//更新数据库的金库
+
+                        //保存账目
+                        iAccountDAO.save(foreigner.getForeignerId(),Ticket.PRICE2, LocalDate.now().toString(), Account.purchase);
                     } else {
                         AlertTool.showAlert(Alert.AlertType.WARNING, "购买失败", null, "余额不足");
                         return false;
@@ -350,6 +357,9 @@ public class ForeignerController extends BaseController {
                         foreigner.setMoney(balance);//更新对象的值
                         iForeignerDAO.update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
                         iDragonMomDAO.update(moneyTub + Ticket.PRICE3);//更新数据库的金库
+
+                        //保存账目
+                        iAccountDAO.save(foreigner.getForeignerId(),Ticket.PRICE3, LocalDate.now().toString(), Account.purchase);
                     } else {
                         AlertTool.showAlert(Alert.AlertType.WARNING, "购买失败", null, "余额不足");
                         return false;
@@ -518,6 +528,23 @@ public class ForeignerController extends BaseController {
 
             //为控制器传入foreigner实例
             MyEvaluationController controller = (MyEvaluationController) fx.getController();
+            controller.setForeigner(foreigner);
+            controller.init();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 展示我的账目(信物的购买与退货).
+     * */
+    public void showMyAccount(ActionEvent actionEvent) {
+        try {
+            FXMLLoader fx = ViewManager.openView(ViewManager.myAccountUrl, "账目界面", 600.0,
+                    400.0);
+
+            //为控制器传入foreigner实例
+            MyAccountController controller = (MyAccountController) fx.getController();
             controller.setForeigner(foreigner);
             controller.init();
         } catch (IOException e) {

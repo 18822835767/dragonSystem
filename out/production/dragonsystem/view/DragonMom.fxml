@@ -94,6 +94,11 @@
                             <Font size="15.0"/>
                         </font>
                     </Button>
+                    <Button text="查看账目" prefWidth="100" onAction="#showAllAccount">
+                        <font>
+                            <Font size="15.0"/>
+                        </font>
+                    </Button>
                 </VBox>
             </Tab>
 

@@ -21,6 +21,7 @@ public class ViewManager {
     public static String momActivityUrl = "view/MomActivity.fxml";
     public static String myEvaluationUrl = "view/MyEvaluation.fxml";
     public static String momEvaluationUrl = "view/MomEvaluation.fxml";
+    public static String myAccountUrl = "view/MyAccount.fxml";
 
     private ViewManager(){
 

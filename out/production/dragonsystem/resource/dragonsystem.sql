@@ -89,6 +89,16 @@ create table evaluation(
     foreign key(foreignerId) references foreigner(foreignerId)
 );
 
+drop table if exists account;
+create table account(
+    accountId int primary key auto_increment,
+    foreignerId int,
+    money float ,
+    createTime char(10),
+    status char(2),
+    foreign key(foreignerId) references foreigner(foreignerId)
+);
+
 
 insert into dragonmom(name,username,password,moneyTub) values('mom','admin','090087074',0);#解密后密码是123
 

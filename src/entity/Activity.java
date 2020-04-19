@@ -4,13 +4,12 @@ package entity;
  * 活动的实体类.
  * */
 public class Activity {
-    private int activityId;//活动的Id，可能没用
-    private int dragonGroupId;//可能没用
+    private int activityId;
+    private int dragonGroupId;
     private String name;
     private String content;
     private String startTime;
     private String overTime;
-    private boolean checked = false;//后面用于标记是否被checkBox选中
 
     public Activity(int activityId, int dragonGroupId, String name, String content, String startTime, String overTime) {
         this.name = name;

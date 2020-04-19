@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<!--外邦人显示账目时对应的控制器-->
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.MyAccountController" prefHeight="400.0" prefWidth="600.0">
+
+    <top>
+        <HBox>
+            <Button text="显示所有"/>
+            <Button text="只看购买"/>
+            <Button text="只看退款"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ListView fx:id="listView"/>
+    </center>
+</BorderPane >

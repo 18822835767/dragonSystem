@@ -59,7 +59,7 @@ public class ForeignerDAOImpl implements IForeignerDAO {
             if (rs.next()) {
                 return new Foreigner(rs.getInt("foreignerId"), rs.getString("username"),
                         Encrypt.getEncrypt(rs.getString("password")), rs.getString("name"),
-                        rs.getInt("money"));
+                        rs.getFloat("money"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

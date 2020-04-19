@@ -619,4 +619,11 @@ public class DragonMomController extends BaseController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 查看所有的账目.
+     * */
+    public void showAllAccount(ActionEvent actionEvent) {
+
+    }
 }
