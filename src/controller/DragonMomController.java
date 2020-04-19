@@ -457,7 +457,7 @@ public class DragonMomController extends BaseController {
             //找族群
             DragonGroup group = iDragonGroupDAO.get(dragonGroupId);
 
-            //没找到的情况下
+            //没找到的情况下，修改信息
             if (group == null) {
                 AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");
                 return;

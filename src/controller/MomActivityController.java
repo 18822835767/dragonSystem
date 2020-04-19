@@ -45,6 +45,7 @@ public class MomActivityController implements Initializable {
      * "添加活动"->龙妈.
      */
     public void addActivity(ActionEvent actionEvent) {
+        //负责显示添加活动的界面
         VBox vBox = new VBox(10);
 
         TextField t_groupId = new TextField();
@@ -89,6 +90,7 @@ public class MomActivityController implements Initializable {
 
         Optional<ButtonType> result = DialogTool.showDialog("添加活动", vBox, "确定", null).showAndWait();
 
+        //负责数据的更新
         if (result.isPresent()) {
             int groupId = 0;
             try{

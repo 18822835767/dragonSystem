@@ -294,7 +294,7 @@ public class DragonTrainerController extends BaseController {
                 return;
             }
 
-            //找到的情况下
+            //找到的情况下，修改信息
             GridPane gridPane = new GridPane();
 
             Label l_name = new Label("名字:");

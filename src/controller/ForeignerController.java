@@ -104,10 +104,10 @@ public class ForeignerController extends BaseController {
 
                 enterSuccess = true;
             } else {//有效次数不够，需要重新买票。
-                enterSuccess = buyTicketView();
+                enterSuccess = buyTicket();
             }
         } else {//从没买过票的情况。购买信物。
-            enterSuccess = buyTicketView();
+            enterSuccess = buyTicket();
         }
 
         //若买票成功，默认先显示“龙”的表
@@ -291,56 +291,11 @@ public class ForeignerController extends BaseController {
     /**
      * 买票方法.
      */
-    public boolean buyTicketView() {
-        //买票窗口
-        AnchorPane anchorPane = new AnchorPane();
-
+    public boolean buyTicket() {
         ComboBox<String> comboBox = new ComboBox<>();
-        comboBox.getItems().addAll(Ticket.TYPE1, Ticket.TYPE2, Ticket.TYPE3);//添加选项
+        Optional<ButtonType> result = buyTicketView(comboBox);
 
-        comboBox.setEditable(false);//不可编辑
-
-        Text t_balance = new Text("您的余额:" + foreigner.getMoney());//外邦人的余额
-
-        Text info = new Text("价钱:" + "\n有效次数:");//显示票的有关信息
-
-        anchorPane.getChildren().addAll(t_balance, comboBox, info);
-
-        AnchorPane.setTopAnchor(t_balance, 5.0);
-        AnchorPane.setLeftAnchor(t_balance, 5.0);
-        AnchorPane.setTopAnchor(info, 20.0);
-        AnchorPane.setLeftAnchor(info, 150.0);
-        AnchorPane.setRightAnchor(info, 20.0);
-        AnchorPane.setTopAnchor(comboBox, 25.0);
-        AnchorPane.setLeftAnchor(comboBox, 15.0);
-
-        //监听器,对于票的信息进行展示(票价+有效次数)
-        comboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
-
-                switch (newValue) {
-                    case Ticket.TYPE1:
-                        info.setText("价钱:" + Ticket.PRICE1 + "\n有效次数:" + Ticket.TIMES1);
-                        break;
-                    case Ticket.TYPE2:
-                        info.setText("价钱:" + Ticket.PRICE2 + "\n有效次数:" + Ticket.TIMES2);
-                        break;
-                    case Ticket.TYPE3:
-                        info.setText("价钱:" + Ticket.PRICE3 + "\n有效次数:" + Ticket.TIMES3);
-                        break;
-                    default:
-                        break;
-
-                }
-            }
-        });
-
-        //弹出买票信息的窗口
-        Optional<ButtonType> result = DialogTool.showDialog("请买票", anchorPane, "确定",
-                null).showAndWait();
-
-        //如果外邦人选择了买票
+        //如果外邦人选择了买票。主要负责数据的更新
         if (result.isPresent() && comboBox.getValue() != null) {
             iTicketDAO.delete(foreigner.getForeignerId());//删除以前的票。以前没有票也不影响.
             SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -411,6 +366,57 @@ public class ForeignerController extends BaseController {
         }
 
         return false;
+    }
+
+    /**
+     * 主要负责买票窗口的显示，显示的有票的类型，票价，不负责数据的更新与处理.
+     *
+     * @param comboBox 传入的下拉菜单
+     * @return 返回用户的选择
+     */
+    public Optional<ButtonType> buyTicketView(ComboBox<String> comboBox) {
+        //买票窗口
+        AnchorPane anchorPane = new AnchorPane();
+
+        comboBox.getItems().addAll(Ticket.TYPE1, Ticket.TYPE2, Ticket.TYPE3);//添加选项
+        comboBox.setEditable(false);//不可编辑
+        Text t_balance = new Text("您的余额:" + foreigner.getMoney());//外邦人的余额
+        Text info = new Text("价钱:" + "\n有效次数:");//显示票的有关信息
+
+        anchorPane.getChildren().addAll(t_balance, comboBox, info);
+
+        AnchorPane.setTopAnchor(t_balance, 5.0);
+        AnchorPane.setLeftAnchor(t_balance, 5.0);
+        AnchorPane.setTopAnchor(info, 20.0);
+        AnchorPane.setLeftAnchor(info, 150.0);
+        AnchorPane.setRightAnchor(info, 20.0);
+        AnchorPane.setTopAnchor(comboBox, 25.0);
+        AnchorPane.setLeftAnchor(comboBox, 15.0);
+
+        //监听器,对于票的信息进行展示(票价+有效次数)
+        comboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+
+                switch (newValue) {
+                    case Ticket.TYPE1:
+                        info.setText("价钱:" + Ticket.PRICE1 + "\n有效次数:" + Ticket.TIMES1);
+                        break;
+                    case Ticket.TYPE2:
+                        info.setText("价钱:" + Ticket.PRICE2 + "\n有效次数:" + Ticket.TIMES2);
+                        break;
+                    case Ticket.TYPE3:
+                        info.setText("价钱:" + Ticket.PRICE3 + "\n有效次数:" + Ticket.TIMES3);
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+        });
+        //弹出买票信息的窗口
+        return DialogTool.showDialog("请买票", anchorPane, "确定",
+                null).showAndWait();
     }
 
 
