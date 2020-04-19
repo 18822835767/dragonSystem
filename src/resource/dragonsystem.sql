@@ -90,6 +90,7 @@ create table evaluation(
 );
 
 
+
 insert into dragonmom(name,username,password,moneyTub) values('mom','admin','090087074',0);#解密后密码是123
 
 insert into dragongroup(name,profile,location,size) values('bawanglongguan','no','shenzhen','100.0');
