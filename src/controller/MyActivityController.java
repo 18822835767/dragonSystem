@@ -147,8 +147,8 @@ public class MyActivityController implements Initializable {
 
     /**
      * 活动表.
-     * 设置列名、列宽
      * 调用工具类
+     * 设置列名、列宽
      */
     public void initActivityTreeTable() {
         String[] columnName = {"活动Id", "活动名字", "举办的族群", "开始时间", "结束时间"};
@@ -160,9 +160,9 @@ public class MyActivityController implements Initializable {
 
     /**
      * 活动表.
+     * 调用工具类
      * 数据的显示。
      * 根节点进行了隐藏
-     * 调用工具类
      */
     public void initActivityTreeData() {
         ActivityTable.getInstance().initValidActivityTreeData(treeTableView, activityRoot, activityTreeItemList,LocalDate.now());
@@ -174,6 +174,5 @@ public class MyActivityController implements Initializable {
     public void setForeigner(Foreigner foreigner) {
         this.foreigner = foreigner;
     }
-
 
 }

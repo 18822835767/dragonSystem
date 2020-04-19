@@ -79,7 +79,7 @@ public class ActivityTable {
      * 活动表：
      * 数据的显示。
      * 根节点进行了隐藏
-     * 仅显示所有的活动。
+     * 显示所有的活动。
      */
     public void initActivityTreeData(TreeTableView<Activity> activityTreeTableView, TreeItem<Activity> activityRoot,
                                      List<TreeItem<Activity>> activityTreeItemList) {
@@ -94,7 +94,7 @@ public class ActivityTable {
      * 活动表：
      * 数据的显示。
      * 根节点进行了隐藏
-     * 仅显示传入的有效时间内的活动。
+     * 仅显示有效时间内的活动。
      */
     public void initValidActivityTreeData(TreeTableView<Activity> activityTreeTableView, TreeItem<Activity> activityRoot,
                                   List<TreeItem<Activity>> activityTreeItemList,LocalDate localDate) {
@@ -151,13 +151,12 @@ public class ActivityTable {
     }
 
     /**
-     * 刷新显示有效日期内的活动.
+     * 刷新显示所有的的活动.
      */
-    public void flushValidActivity(List<TreeItem<Activity>> activityTreeItemList, TreeItem<Activity> activityRoot,
-                                   LocalDate localDate) {
+    public void flushActivity(List<TreeItem<Activity>> activityTreeItemList, TreeItem<Activity> activityRoot) {
         activityTreeItemList.clear();
         activityRoot.getChildren().clear();
-        List<Activity> activityList = iActivityDAO.getValidList(localDate);
+        List<Activity> activityList = iActivityDAO.getList();
         if (activityList != null) {
             for (Activity activity : activityList) {
                 TreeItem<Activity> treeItem = new TreeItem<>(activity);
@@ -168,12 +167,13 @@ public class ActivityTable {
     }
 
     /**
-     * 刷新显示所有的的活动.
+     * 刷新显示有效日期内的活动.
      */
-    public void flushActivity(List<TreeItem<Activity>> activityTreeItemList, TreeItem<Activity> activityRoot) {
+    public void flushValidActivity(List<TreeItem<Activity>> activityTreeItemList, TreeItem<Activity> activityRoot,
+                                   LocalDate localDate) {
         activityTreeItemList.clear();
         activityRoot.getChildren().clear();
-        List<Activity> activityList = iActivityDAO.getList();
+        List<Activity> activityList = iActivityDAO.getValidList(localDate);
         if (activityList != null) {
             for (Activity activity : activityList) {
                 TreeItem<Activity> treeItem = new TreeItem<>(activity);

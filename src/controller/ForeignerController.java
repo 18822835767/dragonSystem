@@ -152,39 +152,45 @@ public class ForeignerController extends BaseController {
      * 外邦人看不到属性:年龄。
      */
     public void queryDragon(ActionEvent actionEvent) {
-        if (enterSuccess) {
-            //如果成功入园
-            Optional<String> result = TextInputDialogTool.showTextInput("查询龙的信息",
-                    "请输入龙的Id", "Id:");
-            if (result.isPresent()) {
-                int dragonId = 0;
+        if (!enterSuccess) {
+            return;
+        }
 
-                try {
-                    dragonId = Integer.parseInt(result.get());
-                } catch (Exception e) {
-                    AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "查询失败", "非法输入");
-                    return;
-                }
+        //如果成功入园
+        Optional<String> result = TextInputDialogTool.showTextInput("查询龙的信息",
+                "请输入龙的Id", "Id:");
+        if (result.isPresent()) {
+            int dragonId = 0;
 
-                Dragon dragon = iDragonDAO.get(dragonId);
-                if (dragon != null) {
-                    VBox vBox = new VBox(10);
-
-                    Text t_id = new Text("龙的Id:" + dragon.getDragonId());
-                    Text t_name = new Text("名字:" + dragon.getName());
-                    Text t_sex = new Text("性别:" + dragon.getSex());
-                    Text t_profile = new Text("简介:" + dragon.getProfile());
-                    Text t_training = new Text("是否在训练:" + dragon.isTraining());
-                    Text t_healthy = new Text("是否健康:" + dragon.isHealthy());
-
-                    vBox.getChildren().addAll(t_id, t_name, t_sex, t_profile, t_training, t_healthy);
-
-                    DialogTool.showDialog("龙的信息", vBox, "确定", null).showAndWait();
-                } else {
-                    //自定义控件
-                    AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该龙的信息");
-                }
+            try {
+                dragonId = Integer.parseInt(result.get());
+            } catch (Exception e) {
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "查询失败", "非法输入");
+                return;
             }
+
+            //找龙
+            Dragon dragon = iDragonDAO.get(dragonId);
+
+            //没找到的情况下
+            if (dragon == null) {
+                AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该龙的信息");
+                return;
+            }
+
+            //找到的情况下
+            VBox vBox = new VBox(10);
+
+            Text t_id = new Text("龙的Id:" + dragon.getDragonId());
+            Text t_name = new Text("名字:" + dragon.getName());
+            Text t_sex = new Text("性别:" + dragon.getSex());
+            Text t_profile = new Text("简介:" + dragon.getProfile());
+            Text t_training = new Text("是否在训练:" + dragon.isTraining());
+            Text t_healthy = new Text("是否健康:" + dragon.isHealthy());
+
+            vBox.getChildren().addAll(t_id, t_name, t_sex, t_profile, t_training, t_healthy);
+
+            DialogTool.showDialog("龙的信息", vBox, "确定", null).showAndWait();
         }
     }
 
@@ -193,37 +199,46 @@ public class ForeignerController extends BaseController {
      * 外邦人看不到属性:地理位置。
      */
     public void queryDragonGroup(ActionEvent actionEvent) {
-        if (enterSuccess) {
-            //如果成功入园
-            Optional<String> result = TextInputDialogTool.showTextInput("查询族群信息",
-                    "请输入族群的Id", "Id:");
-            if (result.isPresent()) {
-                int dragonGroupId = 0;
-                try {
-                    dragonGroupId = Integer.parseInt(result.get());
-                } catch (Exception e) {
-                    AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "查询失败", "非法输入");
-                    return;
-                }
-
-                DragonGroup dragonGroup = iDragonGroupDAO.get(dragonGroupId);
-                if (dragonGroup != null) {
-                    VBox vBox = new VBox(10);
-
-                    Text t_name = new Text("名字:" + dragonGroup.getName());
-                    Text t_id = new Text("Id:" + dragonGroup.getId());
-                    Text t_profile = new Text("简介:" + dragonGroup.getProfile());
-                    Text t_size = new Text("大小:" + dragonGroup.getSize());
-
-                    vBox.getChildren().addAll(t_name, t_id, t_profile, t_size);
-
-                    DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
-                } else {
-                    //自定义控件
-                    AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");
-                }
-            }
+        if (!enterSuccess) {
+            return;
         }
+
+        //如果成功入园
+        Optional<String> result = TextInputDialogTool.showTextInput("查询族群信息",
+                "请输入族群的Id", "Id:");
+        if (result.isPresent()) {
+            int dragonGroupId = 0;
+            try {
+                dragonGroupId = Integer.parseInt(result.get());
+            } catch (Exception e) {
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "查询失败", "非法输入");
+                return;
+            }
+
+            //找族群
+            DragonGroup dragonGroup = iDragonGroupDAO.get(dragonGroupId);
+
+            //没找到的情况下
+            if (dragonGroup == null) {
+                AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");
+                return;
+            }
+
+            //找到的情况下
+            VBox vBox = new VBox(10);
+
+            Text t_name = new Text("名字:" + dragonGroup.getName());
+            Text t_id = new Text("Id:" + dragonGroup.getId());
+            Text t_profile = new Text("简介:" + dragonGroup.getProfile());
+            Text t_size = new Text("大小:" + dragonGroup.getSize());
+
+            vBox.getChildren().addAll(t_name, t_id, t_profile, t_size);
+
+            DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
+
+
+        }
+
     }
 
     /**
@@ -470,18 +485,20 @@ public class ForeignerController extends BaseController {
      * 查看活动.
      */
     public void showActivity(ActionEvent actionEvent) {
-        FXMLLoader fx = null;
-        try {
-            fx = ViewManager.openView(ViewManager.myActivityUrl, "活动信息", 600.0, 400.0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        if (enterSuccess) {
+            FXMLLoader fx = null;
+            try {
+                fx = ViewManager.openView(ViewManager.myActivityUrl, "活动信息", 600.0, 400.0);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        if (fx != null) {
-            //得到控制器
-            MyActivityController activityController = (MyActivityController) fx.getController();
-            //传入外邦人实例
-            activityController.setForeigner(foreigner);
+            if (fx != null) {
+                //得到控制器
+                MyActivityController activityController = (MyActivityController) fx.getController();
+                //传入外邦人实例
+                activityController.setForeigner(foreigner);
+            }
         }
     }
 

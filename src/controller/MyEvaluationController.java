@@ -31,7 +31,10 @@ public class MyEvaluationController{
 
     private IEvaluationDAO iEvaluationDAO = DAOFactory.getEvaluationDAOInstance();
 
-    private Foreigner foreigner = null;//查看"评价"的外邦人的实例
+    /**
+     * 查看"评价"的外邦人的实例.
+     * */
+    private Foreigner foreigner = null;
 
     public void init() {
         initTreeTable();

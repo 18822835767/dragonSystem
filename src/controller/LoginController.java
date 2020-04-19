@@ -81,7 +81,6 @@ public class LoginController {
         //从输入框和密码框中得到账号密码
         String user = username.getText().trim();
         String pass = password.getText().trim();
-
         try {
 
             //调用方法判断登陆用户是谁
@@ -95,14 +94,13 @@ public class LoginController {
                     if (f.exists()) {
                         f.delete();
                     }
-
                 }
-
                 //关闭登陆界面
                 ViewManager.closeView(username);
             } else {
                 AlertTool.showAlert(Alert.AlertType.WARNING, null, "登陆失败", "用户名或密码输入错误");
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,7 +109,7 @@ public class LoginController {
     /**
      * 从登录界面切换到各个用户的主界面.
      * 如果登陆的是驯龙高手，则将族群id传入驯龙高手的控制器中，以便得到驯龙高手所在的族群id，从而得到驯龙高手所在的族群，
-     * 然后再调用驯龙高手控制器的方法进行初始化。
+     * 然后再调用驯龙高手控制器的方法进行初始化,其他类似。
      *
      * @param username 输入的用户名
      * @param password 输入的密码
@@ -187,6 +185,7 @@ public class LoginController {
         //封转好的自定义控件
         Dialog<ButtonType> dialog = DialogTool.showDialog("注册", vBox, "确定", null);
         Optional<ButtonType> result = dialog.showAndWait();
+
         //如果用户点击了注册的“确定”按钮
         if (result.isPresent()) {
             //“外邦人”和“驯龙高手”注册时都要输入的信息
@@ -312,5 +311,4 @@ public class LoginController {
             }
         }
     }
-
 }

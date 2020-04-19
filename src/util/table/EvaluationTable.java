@@ -111,9 +111,6 @@ public class EvaluationTable {
         flushEvaluation(treeItemList, root,foreignerId);
     }
 
-
-
-
     /**
      * 评价表：
      * 单元格内容的显示

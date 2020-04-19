@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <!--处理退票界面的fxml-->
-
-<?import entity.Ticket?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.DealBackTicketsController" prefHeight="400.0" prefWidth="600.0">
     <top>
         <HBox>

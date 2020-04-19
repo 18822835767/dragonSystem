@@ -241,25 +241,30 @@ public class DragonTrainerController extends BaseController {
                 return;
             }
 
+            //找龙
             Dragon dragon = iDragonDAO.get(dragonId, dragonGroupId);
-            if (dragon != null) {
-                VBox vBox = new VBox(10);
 
-                Text t_id = new Text("龙的Id:" + dragon.getDragonId());
-                Text t_name = new Text("名字:" + dragon.getName());
-                Text t_sex = new Text("性别:" + dragon.getSex());
-                Text t_age = new Text("年龄:" + dragon.getAge());
-                Text t_profile = new Text("简介:" + dragon.getProfile());
-                Text t_training = new Text("是否在训练:" + dragon.isTraining());
-                Text t_healthy = new Text("是否健康:" + dragon.isHealthy());
-
-                vBox.getChildren().addAll(t_id, t_name, t_sex, t_age, t_profile, t_training, t_healthy);
-
-                DialogTool.showDialog("龙的信息", vBox, "确定", null).showAndWait();
-            } else {
-                //自定义控件
+            //没找到的情况下
+            if (dragon == null) {
                 AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该龙的信息");
+                return;
             }
+
+            //找到的情况下
+            VBox vBox = new VBox(10);
+
+            Text t_id = new Text("龙的Id:" + dragon.getDragonId());
+            Text t_name = new Text("名字:" + dragon.getName());
+            Text t_sex = new Text("性别:" + dragon.getSex());
+            Text t_age = new Text("年龄:" + dragon.getAge());
+            Text t_profile = new Text("简介:" + dragon.getProfile());
+            Text t_training = new Text("是否在训练:" + dragon.isTraining());
+            Text t_healthy = new Text("是否健康:" + dragon.isHealthy());
+
+            vBox.getChildren().addAll(t_id, t_name, t_sex, t_age, t_profile, t_training, t_healthy);
+
+            DialogTool.showDialog("龙的信息", vBox, "确定", null).showAndWait();
+
         }
     }
 
@@ -280,87 +285,93 @@ public class DragonTrainerController extends BaseController {
                 return;
             }
 
+            //找龙
             Dragon dragon = iDragonDAO.get(dragonId, dragonGroupId);
-            if (dragon != null) {
-                GridPane gridPane = new GridPane();
 
-                Label l_name = new Label("名字:");
-                Label l_age = new Label("年龄");
-                Label l_profile = new Label("简介:");
-                Label l_training = new Label("训练中:");
-                Label l_healthy = new Label("健康:");
-
-                TextField t_name = new TextField(dragon.getName());
-                TextField t_age = new TextField(String.valueOf(dragon.getAge()));
-                TextField t_profile = new TextField(dragon.getProfile());
-
-                boolean dragonTraining = dragon.isTraining();//记录龙未修改前的训练状态
-                boolean dragonHealthy = dragon.isHealthy();//记录龙未修改前的健康状态
-
-                //自定义的单选框，选择龙的训练状态
-                HBox h_training = new HBox(8);
-                String[] buttonName = {"true", "false"};
-                Map<String, RadioButton> trainingMap = SingleValueTool.singleValue(buttonName, dragonTraining ? 0 : 1);
-                h_training.getChildren().addAll(trainingMap.get("true"), trainingMap.get("false"));
-
-                //自定义的单选框，选择龙的健康状态
-                HBox h_healthy = new HBox(8);
-                Map<String, RadioButton> healthyMap = SingleValueTool.singleValue(buttonName, dragonHealthy ? 0 : 1);
-                h_healthy.getChildren().addAll(healthyMap.get("true"), healthyMap.get("false"));
-
-                //给GridPane添加控件
-                gridPane.add(l_name, 0, 0);
-                gridPane.add(t_name, 1, 0);
-                gridPane.add(l_age, 0, 1);
-                gridPane.add(t_age, 1, 1);
-                gridPane.add(l_profile, 0, 2);
-                gridPane.add(t_profile, 1, 2);
-                gridPane.add(l_training, 0, 3);
-                gridPane.add(h_training, 1, 3);
-                gridPane.add(l_healthy, 0, 4);
-                gridPane.add(h_healthy, 1, 4);
-
-                gridPane.setVgap(10);
-
-                Optional<ButtonType> choice = DialogTool.showDialog("修改龙的信息", gridPane, "确定",
-                        null).showAndWait();
-
-                if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-                    //从弹框得到信息并保存进数据库
-                    String name = t_name.getText().trim();
-                    int age = 0;
-                    try {
-                        age = Integer.parseInt(t_age.getText().trim());
-                    } catch (Exception e) {
-                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "非法输入");
-                        return;
-                    }
-
-                    String profile = t_profile.getText().trim();
-                    boolean training;
-                    boolean healthy;
-                    if (trainingMap.get("true").isSelected()) {
-                        training = true;
-                    } else {
-                        training = false;
-                    }
-                    if (healthyMap.get("true").isSelected()) {
-                        healthy = true;
-                    } else {
-                        healthy = false;
-                    }
-
-                    int items = iDragonDAO.update(dragonId, dragonGroupId, name, profile, training, healthy, age);
-
-                    if (items == 0) {//说明没有数据修改
-                        AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "可能是该名字已存在");
-                    } else {
-                        DragonTable.getInstance().flushDragon(dragonTreeItemList, dragonRoot, dragonGroupId);
-                    }
-                }
-            } else {
+            //没找到的情况下
+            if (dragon == null) {
                 AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "族群内查询不到该龙的信息");
+                return;
             }
+
+            //找到的情况下
+            GridPane gridPane = new GridPane();
+
+            Label l_name = new Label("名字:");
+            Label l_age = new Label("年龄");
+            Label l_profile = new Label("简介:");
+            Label l_training = new Label("训练中:");
+            Label l_healthy = new Label("健康:");
+
+            TextField t_name = new TextField(dragon.getName());
+            TextField t_age = new TextField(String.valueOf(dragon.getAge()));
+            TextField t_profile = new TextField(dragon.getProfile());
+
+            boolean dragonTraining = dragon.isTraining();//记录龙未修改前的训练状态
+            boolean dragonHealthy = dragon.isHealthy();//记录龙未修改前的健康状态
+
+            //自定义的单选框，选择龙的训练状态
+            HBox h_training = new HBox(8);
+            String[] buttonName = {"true", "false"};
+            Map<String, RadioButton> trainingMap = SingleValueTool.singleValue(buttonName, dragonTraining ? 0 : 1);
+            h_training.getChildren().addAll(trainingMap.get("true"), trainingMap.get("false"));
+
+            //自定义的单选框，选择龙的健康状态
+            HBox h_healthy = new HBox(8);
+            Map<String, RadioButton> healthyMap = SingleValueTool.singleValue(buttonName, dragonHealthy ? 0 : 1);
+            h_healthy.getChildren().addAll(healthyMap.get("true"), healthyMap.get("false"));
+
+            //给GridPane添加控件
+            gridPane.add(l_name, 0, 0);
+            gridPane.add(t_name, 1, 0);
+            gridPane.add(l_age, 0, 1);
+            gridPane.add(t_age, 1, 1);
+            gridPane.add(l_profile, 0, 2);
+            gridPane.add(t_profile, 1, 2);
+            gridPane.add(l_training, 0, 3);
+            gridPane.add(h_training, 1, 3);
+            gridPane.add(l_healthy, 0, 4);
+            gridPane.add(h_healthy, 1, 4);
+
+            gridPane.setVgap(10);
+
+            Optional<ButtonType> choice = DialogTool.showDialog("修改龙的信息", gridPane, "确定",
+                    null).showAndWait();
+
+            if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+                //从弹框得到信息并保存进数据库
+                String name = t_name.getText().trim();
+                int age = 0;
+                try {
+                    age = Integer.parseInt(t_age.getText().trim());
+                } catch (Exception e) {
+                    AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "非法输入");
+                    return;
+                }
+
+                String profile = t_profile.getText().trim();
+                boolean training;
+                boolean healthy;
+                if (trainingMap.get("true").isSelected()) {
+                    training = true;
+                } else {
+                    training = false;
+                }
+                if (healthyMap.get("true").isSelected()) {
+                    healthy = true;
+                } else {
+                    healthy = false;
+                }
+
+                int items = iDragonDAO.update(dragonId, dragonGroupId, name, profile, training, healthy, age);
+
+                if (items == 0) {//说明没有数据修改
+                    AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "修改失败", "可能是该名字已存在");
+                } else {
+                    DragonTable.getInstance().flushDragon(dragonTreeItemList, dragonRoot, dragonGroupId);
+                }
+            }
+
         }
 
     }
@@ -380,23 +391,27 @@ public class DragonTrainerController extends BaseController {
                 return;
             }
 
+            //找族群
             DragonGroup group = iDragonGroupDAO.get(dragonGroupId);
-            if (group != null) {
-                VBox vBox = new VBox(10);
 
-                Text t_name = new Text("名字:" + group.getName());
-                Text t_id = new Text("Id:" + group.getId());
-                Text t_profile = new Text("简介:" + group.getProfile());
-                Text t_location = new Text("地理位置:" + group.getLocation());
-                Text t_size = new Text("大小:" + group.getSize());
-
-                vBox.getChildren().addAll(t_name, t_id, t_profile, t_location, t_size);
-
-                DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
-            } else {
-                //自定义控件
+            //没找到的情况下
+            if (group == null) {
                 AlertTool.showAlert(Alert.AlertType.ERROR, null, "错误提示", "查询不到该族群的信息");
+                return;
             }
+
+            //找到的情况下
+            VBox vBox = new VBox(10);
+
+            Text t_name = new Text("名字:" + group.getName());
+            Text t_id = new Text("Id:" + group.getId());
+            Text t_profile = new Text("简介:" + group.getProfile());
+            Text t_location = new Text("地理位置:" + group.getLocation());
+            Text t_size = new Text("大小:" + group.getSize());
+
+            vBox.getChildren().addAll(t_name, t_id, t_profile, t_location, t_size);
+
+            DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
         }
     }
 
@@ -470,7 +485,7 @@ public class DragonTrainerController extends BaseController {
         String[] columnName = {"族群名字", "Id", "简介", "地理位置", "大小"};
         double[] columnPrefWidth = {120, 80, 120, 120, 80};
         String[] columnId = {DragonGroupTable.NAME, DragonGroupTable.ID, DragonGroupTable.PROFILE,
-                DragonGroupTable.LOCATION,DragonGroupTable.SIZE};
+                DragonGroupTable.LOCATION, DragonGroupTable.SIZE};
         DragonGroupTable.getInstance().initGroupTreeTable(groupTreeTableView, columnName, columnPrefWidth, columnId);
     }
 
@@ -492,7 +507,7 @@ public class DragonTrainerController extends BaseController {
     public void initDragonTreeTable() {
         String[] columnName = {"Id", "名字", "性别", "年龄", "简介", "训练", "健康"};
         double[] columnPrefWidth = {80, 120, 80, 80, 120, 80, 80};
-        String[] columnId = {DragonTable.ID,DragonTable.NAME,DragonTable.SEX, DragonTable.AGE,
+        String[] columnId = {DragonTable.ID, DragonTable.NAME, DragonTable.SEX, DragonTable.AGE,
                 DragonTable.PROFILE, DragonTable.TRAINING, DragonTable.HEALTHY};
         DragonTable.getInstance().initDragonTreeTable(dragonTreeTableView, columnName, columnPrefWidth, columnId);
     }

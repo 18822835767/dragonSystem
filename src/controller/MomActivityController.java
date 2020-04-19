@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import model.IActivityDAO;
 import model.IEvaluationDAO;
+import util.CheckValid;
 import util.DAOFactory;
 import util.control.AlertTool;
 import util.control.DialogTool;
@@ -89,9 +90,22 @@ public class MomActivityController implements Initializable {
         Optional<ButtonType> result = DialogTool.showDialog("添加活动", vBox, "确定", null).showAndWait();
 
         if (result.isPresent()) {
-            int groupId = Integer.parseInt(t_groupId.getText().trim());
+            int groupId = 0;
+            try{
+                groupId = Integer.parseInt(t_groupId.getText().trim());
+            }catch (Exception e){
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "非法输入");
+                return;
+            }
+
             String name = t_name.getText().trim();
             String content = t_content.getText().trim();
+
+            if(CheckValid.isEmpty(name,content) || d_startTime.getValue()==null || d_endTime.getValue() == null){
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "信息填写不完整");
+                return;
+            }
+
             String startTime = d_startTime.getValue().toString();
             String overTime = d_endTime.getValue().toString();
 

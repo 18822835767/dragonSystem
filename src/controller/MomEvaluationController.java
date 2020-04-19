@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * 龙马打开"评价"页面时对应的控制器.
+ * */
 public class MomEvaluationController implements Initializable {
     @FXML
     private TreeTableView<Evaluation> treeTableView;

@@ -20,7 +20,7 @@ create table dragon(
 	profile varchar(255),
 	training int,
 	healthy int,
-	sex varchar(255) not null,
+	sex char(2) not null,
 	age int not null,
 	foreign key(dragonGroupId) references dragongroup(dragonGroupId)
 );
@@ -72,8 +72,8 @@ create table activity(
     dragonGroupId int,
     name varchar(255),
     content varchar(255),
-    startTime varchar(255),
-    overTime varchar(255),
+    startTime char(10),
+    overTime char(10),
     foreign key(dragonGroupId) references dragongroup(dragonGroupId)
 );
 
@@ -84,7 +84,7 @@ create table evaluation(
     foreignerId int,
     rank int,
     content varchar(255),
-    evaluateTime varchar(255),
+    evaluateTime char(10),
     foreign key(activityId) references Activity(activityId),
     foreign key(foreignerId) references foreigner(foreignerId)
 );
@@ -100,17 +100,17 @@ insert into dragontrainer(dragonGroupId,username,password,name) values(1,'hhh','
 insert into dragontrainer(dragonGroupId,username,password,name) values(2,'hhh2','090087074','noname');#解密后密码是123
 insert into dragontrainer(dragonGroupId,username,password,name) values(3,'hhh3','090087074','noname');#解密后密码是123
 
-insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1,'a','no',0,1,'n',15);
-insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1,'b','no',0,1,'n',18);
-insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1,'c','no',0,1,'n',20);
+insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1,'a','no',0,1,'xs',15);
+insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1,'b','no',0,1,'xs',18);
+insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(1,'c','no',0,1,'xs',20);
 
-insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(2,'aa','no',0,1,'n',15);
-insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(2,'bb','no',0,1,'n',18);
-insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(2,'cc','no',0,1,'n',20);
+insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(2,'aa','no',0,1,'cx',15);
+insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(2,'bb','no',0,1,'cx',18);
+insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(2,'cc','no',0,1,'cx',20);
 
-insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(3,'aaa','no',0,1,'n',15);
-insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(3,'bbb','no',0,1,'n',18);
-insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(3,'ccc','no',0,1,'n',20);
+insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(3,'aaa','no',0,1,'xs',15);
+insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(3,'bbb','no',0,1,'xs',18);
+insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(3,'ccc','no',0,1,'xs',20);
 
 insert into foreigner(username, password, name, money) values('yoyo','090087074','no1',100);#解密后密码是123
 insert into foreigner(username, password, name, money) values('yoyo2','090087074','no2',100);#解密后密码是123

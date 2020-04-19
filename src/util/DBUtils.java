@@ -16,7 +16,7 @@ public class DBUtils {
     }
 
     /**
-     * 负责驱动，只执行一次.
+     * 负责驱动与连接，只执行一次.
      * */
     static {
         try {
