@@ -9,9 +9,9 @@
 
     <top>
         <HBox>
-            <Button text="显示所有"/>
-            <Button text="只看购买"/>
-            <Button text="只看退款"/>
+            <Button text="显示所有" onAction="#showAllMyAccount"/>
+            <Button text="只看购买" onAction="#showMyPurchaseAccount"/>
+            <Button text="只看退款" onAction="#showMyRefundAccount"/>
         </HBox>
     </top>
 

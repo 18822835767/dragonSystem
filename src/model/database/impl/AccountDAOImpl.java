@@ -34,6 +34,33 @@ public class AccountDAOImpl implements IAccountDAO {
     }
 
     @Override
+    public List<Account> getForeignerListByStatus(int foreignerId, String status) {
+        List<Account> accounts = new ArrayList<>();
+        Connection conn;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            String sql = "select * from account where foreignerId = ? and status = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,foreignerId);
+            ps.setString(2,status);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Account account = new Account(rs.getInt("accountId"),rs.getInt("foreignerId"),rs.getFloat("money"),
+                        rs.getString("createTime"),rs.getString("status"));
+                accounts.add(account);
+            }
+            return accounts;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBUtils.close(null, ps, rs);
+        }
+        return null;
+    }
+
+    @Override
     public List<Account> getListById(int foreignerId) {
         List<Account> accounts = new ArrayList<>();
         Connection conn;
@@ -44,6 +71,32 @@ public class AccountDAOImpl implements IAccountDAO {
             String sql = "select * from account where foreignerId = ?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1,foreignerId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Account account = new Account(rs.getInt("accountId"),rs.getInt("foreignerId"),rs.getFloat("money"),
+                        rs.getString("createTime"),rs.getString("status"));
+                accounts.add(account);
+            }
+            return accounts;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBUtils.close(null, ps, rs);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Account> getAllListByStatus(String status) {
+        List<Account> accounts = new ArrayList<>();
+        Connection conn;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            String sql = "select * from account where status = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,status);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Account account = new Account(rs.getInt("accountId"),rs.getInt("foreignerId"),rs.getFloat("money"),

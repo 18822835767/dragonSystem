@@ -1,7 +1,6 @@
 package util;
 
 import javafx.scene.control.Button;
-import util.ViewManager;
 
 import java.io.IOException;
 
@@ -21,7 +20,7 @@ public class SwitchAccount {
      * */
     public static void changeUser(Button button){
         try {
-            ViewManager.openView(ViewManager.loginUrl,null,420.0,280.0);
+            ViewManager.openView(ViewManager.LOGIN_URL,null,420.0,280.0);
 
             //关闭之前的窗口
             ViewManager.closeView(button);

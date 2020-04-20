@@ -2,9 +2,7 @@ package main;
 import controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import util.CheckValid;
 import util.DBUtils;
 import util.ViewManager;
 
@@ -20,7 +18,7 @@ public class Main extends Application {
      * */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fx = ViewManager.openView(ViewManager.loginUrl,null,420.0,280.0);
+        FXMLLoader fx = ViewManager.openView(ViewManager.LOGIN_URL,null,420.0,280.0);
 
         //这里是判断用户是否有保存登陆信息，有的话自动登录
         LoginController loginController= (LoginController)fx.getController();

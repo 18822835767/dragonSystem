@@ -13,8 +13,8 @@ public class Account {
     /**
      * 表示购买/退款.
      * */
-    public static final String purchase = "购买";
-    public static final String refund = "退款";
+    public static final String PURCHASE = "购买";
+    public static final String REFUND = "退款";
 
     public Account(int accountId, int foreignerId, double money, String createTime, String status) {
         this.accountId = accountId;

@@ -122,15 +122,15 @@ public class LoginController {
         DragonTrainer dragonTrainer = null;
         Foreigner foreigner = null;
         if ((dragonMom = iDragonMomDAO.get(username, password)) != null) {
-            stageUrl = ViewManager.momUrl;
+            stageUrl = ViewManager.MOM_URL;
             stageTitle = "龙妈您好";
             loginSuccess = true;
         } else if ((dragonTrainer = iDragonTrainerDAO.get(username, password)) != null) {
-            stageUrl = ViewManager.trainerUrl;
+            stageUrl = ViewManager.TRAINER_URL;
             stageTitle = "驯龙高手您好";
             loginSuccess = true;
         } else if ((foreigner = iForeignerDAO.get(username, password)) != null) {
-            stageUrl = ViewManager.foreignerUrl;
+            stageUrl = ViewManager.FOREIGNER_URL;
             stageTitle = "外邦人您好";
             loginSuccess = true;
         }

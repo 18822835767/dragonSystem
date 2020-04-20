@@ -1,5 +1,6 @@
 package controller;
 
+import entity.Account;
 import entity.Ticket;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,11 +14,13 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
+import model.IAccountDAO;
 import model.IDragonMomDAO;
 import model.IForeignerDAO;
 import model.ITicketDAO;
 import util.DAOFactory;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -34,6 +37,8 @@ public class DealBackTicketsController implements Initializable {
     private static IForeignerDAO iForeignerDAO = DAOFactory.getForeignerDAOInstance();
 
     private IDragonMomDAO iDragonMomDAO = DAOFactory.getDragonMomDAOInstance();
+
+    private IAccountDAO iAccountDAO = DAOFactory.getAccountDAOInstance();
 
     private ObservableList<Ticket> listData = FXCollections.observableArrayList();//数据源
 
@@ -76,6 +81,8 @@ public class DealBackTicketsController implements Initializable {
                 iTicketDAO.update(ticket.getTicketId(), false);
 
                 iterator.remove();
+
+                iAccountDAO.save(foreignerId,renewMoney, LocalDate.now().toString(), Account.REFUND);
             }
         }
         listView.refresh();//刷新listView的显示
@@ -127,6 +134,7 @@ public class DealBackTicketsController implements Initializable {
 
             if (item == null) {
                 this.setGraphic(null);
+                this.setText(null);
             } else {
                 CheckBox checkBox = new CheckBox();
                 checkBox.setText("持票者:" + iForeignerDAO.get(item.getForeignerId()).getName() +

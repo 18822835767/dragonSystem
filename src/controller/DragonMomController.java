@@ -591,7 +591,7 @@ public class DragonMomController extends BaseController {
      */
     public void dealBackTickets(ActionEvent actionEvent) {
         try {
-            ViewManager.openView(ViewManager.backTicketsUrl, null, 400.0, 400.0);
+            ViewManager.openView(ViewManager.BACK_TICKETS_URL, null, 400.0, 400.0);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -602,7 +602,7 @@ public class DragonMomController extends BaseController {
      */
     public void showActivity(ActionEvent actionEvent) {
         try {
-            ViewManager.openView(ViewManager.momActivityUrl, "活动信息", 600.0, 400.0);
+            ViewManager.openView(ViewManager.MOM_ACTIVITY_URL, "活动信息", 600.0, 400.0);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -614,7 +614,7 @@ public class DragonMomController extends BaseController {
      */
     public void showAllEvaluation(ActionEvent actionEvent) {
         try {
-            ViewManager.openView(ViewManager.momEvaluationUrl, "评价信息", 730.0, 450.0);
+            ViewManager.openView(ViewManager.MOM_EVALUATION_URL, "评价信息", 730.0, 450.0);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -624,6 +624,10 @@ public class DragonMomController extends BaseController {
      * 查看所有的账目.
      * */
     public void showAllAccount(ActionEvent actionEvent) {
-
+        try {
+            ViewManager.openView(ViewManager.MOM_ACCOUNT_URL, "账目信息", 730.0, 450.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

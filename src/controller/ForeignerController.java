@@ -319,7 +319,7 @@ public class ForeignerController extends BaseController {
                         iDragonMomDAO.update(moneyTub + Ticket.PRICE1);//更新数据库的金库
 
                         //保存账目
-                        iAccountDAO.save(foreigner.getForeignerId(),Ticket.PRICE1, LocalDate.now().toString(), Account.purchase);
+                        iAccountDAO.save(foreigner.getForeignerId(),Ticket.PRICE1, LocalDate.now().toString(), Account.PURCHASE);
                     } else {
                         AlertTool.showAlert(Alert.AlertType.WARNING, "购买失败", null, "余额不足");
                         return false;
@@ -339,7 +339,7 @@ public class ForeignerController extends BaseController {
                         iDragonMomDAO.update(moneyTub + Ticket.PRICE2);//更新数据库的金库
 
                         //保存账目
-                        iAccountDAO.save(foreigner.getForeignerId(),Ticket.PRICE2, LocalDate.now().toString(), Account.purchase);
+                        iAccountDAO.save(foreigner.getForeignerId(),Ticket.PRICE2, LocalDate.now().toString(), Account.PURCHASE);
                     } else {
                         AlertTool.showAlert(Alert.AlertType.WARNING, "购买失败", null, "余额不足");
                         return false;
@@ -359,7 +359,7 @@ public class ForeignerController extends BaseController {
                         iDragonMomDAO.update(moneyTub + Ticket.PRICE3);//更新数据库的金库
 
                         //保存账目
-                        iAccountDAO.save(foreigner.getForeignerId(),Ticket.PRICE3, LocalDate.now().toString(), Account.purchase);
+                        iAccountDAO.save(foreigner.getForeignerId(),Ticket.PRICE3, LocalDate.now().toString(), Account.PURCHASE);
                     } else {
                         AlertTool.showAlert(Alert.AlertType.WARNING, "购买失败", null, "余额不足");
                         return false;
@@ -504,7 +504,7 @@ public class ForeignerController extends BaseController {
         if (enterSuccess) {
             FXMLLoader fx = null;
             try {
-                fx = ViewManager.openView(ViewManager.myActivityUrl, "活动信息", 600.0, 400.0);
+                fx = ViewManager.openView(ViewManager.MY_ACTIVITY_URL, "活动信息", 600.0, 400.0);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -523,7 +523,7 @@ public class ForeignerController extends BaseController {
      */
     public void showMyEvaluation(ActionEvent actionEvent) {
         try {
-            FXMLLoader fx = ViewManager.openView(ViewManager.myEvaluationUrl, "评价界面", 600.0,
+            FXMLLoader fx = ViewManager.openView(ViewManager.MY_EVALUATION_URL, "评价界面", 600.0,
                     400.0);
 
             //为控制器传入foreigner实例
@@ -540,7 +540,7 @@ public class ForeignerController extends BaseController {
      * */
     public void showMyAccount(ActionEvent actionEvent) {
         try {
-            FXMLLoader fx = ViewManager.openView(ViewManager.myAccountUrl, "账目界面", 600.0,
+            FXMLLoader fx = ViewManager.openView(ViewManager.MY_ACCOUNT_URL, "账目界面", 600.0,
                     400.0);
 
             //为控制器传入foreigner实例

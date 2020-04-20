@@ -12,16 +12,17 @@ import java.io.IOException;
  * View的管理器，负责View的打开与关闭.
  * */
 public class ViewManager {
-    public static String loginUrl = "view/Login.fxml";
-    public static String foreignerUrl = "view/Foreigner.fxml";
-    public static String trainerUrl = "view/DragonTrainer.fxml";
-    public static String momUrl = "view/DragonMom.fxml";
-    public static String backTicketsUrl = "view/DealBackTickets.fxml";
-    public static String myActivityUrl = "view/MyActivity.fxml";
-    public static String momActivityUrl = "view/MomActivity.fxml";
-    public static String myEvaluationUrl = "view/MyEvaluation.fxml";
-    public static String momEvaluationUrl = "view/MomEvaluation.fxml";
-    public static String myAccountUrl = "view/MyAccount.fxml";
+    public static final String LOGIN_URL = "view/Login.fxml";
+    public static final String FOREIGNER_URL = "view/Foreigner.fxml";
+    public static final String TRAINER_URL = "view/DragonTrainer.fxml";
+    public static final String MOM_URL = "view/DragonMom.fxml";
+    public static final String BACK_TICKETS_URL = "view/DealBackTickets.fxml";
+    public static final String MY_ACTIVITY_URL = "view/MyActivity.fxml";
+    public static final String MOM_ACTIVITY_URL = "view/MomActivity.fxml";
+    public static final String MY_EVALUATION_URL = "view/MyEvaluation.fxml";
+    public static final String MOM_EVALUATION_URL = "view/MomEvaluation.fxml";
+    public static final String MY_ACCOUNT_URL = "view/MyAccount.fxml";
+    public static final String MOM_ACCOUNT_URL = "view/MomAccount.fxml";
 
     private ViewManager(){
 
