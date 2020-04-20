@@ -152,6 +152,7 @@ public class ForeignerController extends BaseController {
      * 通过id来查询龙的信息.
      * 外邦人看不到属性:年龄。
      */
+    @FXML
     public void queryDragon(ActionEvent actionEvent) {
         if (!enterSuccess) {
             return;
@@ -199,6 +200,7 @@ public class ForeignerController extends BaseController {
      * 对族群的信息进行查询.
      * 外邦人看不到属性:地理位置。
      */
+    @FXML
     public void queryDragonGroup(ActionEvent actionEvent) {
         if (!enterSuccess) {
             return;
@@ -437,6 +439,7 @@ public class ForeignerController extends BaseController {
     /**
      * 点击事件。弹出弹窗显示外邦人的信息.
      */
+    @FXML
     public void showMyInfo(ActionEvent actionEvent) {
         VBox vBox = new VBox(15);
 
@@ -458,6 +461,7 @@ public class ForeignerController extends BaseController {
     /**
      * 申请退票的点击事件
      */
+    @FXML
     public void backTicket(ActionEvent actionEvent) {
         //可以申请退票的条件
         if ((ticket != null) && (ticket.getTimes() > 0)) {
@@ -500,6 +504,7 @@ public class ForeignerController extends BaseController {
     /**
      * 查看活动.
      */
+    @FXML
     public void showActivity(ActionEvent actionEvent) {
         if (enterSuccess) {
             FXMLLoader fx = null;
@@ -521,6 +526,7 @@ public class ForeignerController extends BaseController {
     /**
      * 展示我的评价.
      */
+    @FXML
     public void showMyEvaluation(ActionEvent actionEvent) {
         try {
             FXMLLoader fx = ViewManager.openView(ViewManager.MY_EVALUATION_URL, "评价界面", 600.0,
@@ -538,6 +544,7 @@ public class ForeignerController extends BaseController {
     /**
      * 展示我的账目(信物的购买与退货).
      * */
+    @FXML
     public void showMyAccount(ActionEvent actionEvent) {
         try {
             FXMLLoader fx = ViewManager.openView(ViewManager.MY_ACCOUNT_URL, "账目界面", 600.0,

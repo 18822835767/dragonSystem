@@ -82,35 +82,14 @@
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/Item.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/MP3.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/VideoGame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/DealBackTicketsController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/DealBackTicketsController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/DealBackTicketsController$MyCheckBoxListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/DealBackTicketsController$MyCheckBoxListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/DealBackTicketsController$MyListCell.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/DealBackTicketsController$MyListCell.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/DealBackTicketsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/DealBackTicketsController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/DragonMomController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/DragonMomController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/ForeignerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/ForeignerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/MyAccountController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/MyAccountController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/MyAccountController$MyListCell.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/MyAccountController$MyListCell.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/MyAccountController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/MyAccountController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/entity/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/entity/Account.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/main/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/IAccountDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/model/IAccountDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/database/impl/AccountDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/model/database/impl/AccountDAOImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/util/SwitchAccount.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/util/SwitchAccount.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/util/ViewManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/util/ViewManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/view/MyAccount.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/view/MyAccount.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/DealBackTicketsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DealBackTicketsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/DragonMomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DragonMomController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/DragonTrainerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DragonTrainerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/ForeignerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ForeignerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/MyAccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MyAccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/IAccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/IAccountDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/database/impl/AccountDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/impl/AccountDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/SwitchAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/SwitchAccount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/ViewManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/ViewManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/MyAccount.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MyAccount.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/MomActivityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MomActivityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/MomEvaluationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MomEvaluationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/MyEvaluationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MyEvaluationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/coins/Coin.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/discussion34.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/notebook/NoteBook.class" beforeDir="false" />
@@ -382,7 +361,7 @@
       <workItem from="1587225349831" duration="127000" />
       <workItem from="1587263908029" duration="14297000" />
       <workItem from="1587296753647" duration="5270000" />
-      <workItem from="1587348738152" duration="2805000" />
+      <workItem from="1587348738152" duration="4444000" />
     </task>
     <servers />
   </component>

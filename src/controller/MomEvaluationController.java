@@ -41,6 +41,7 @@ public class MomEvaluationController implements Initializable {
     /**
      * 龙妈删除评价.
      * */
+    @FXML
     public void deleteEvaluation(ActionEvent actionEvent) {
         Optional<String> result = TextInputDialogTool.showTextInput("删除评价",
                 "请输入评价的Id", "Id:");

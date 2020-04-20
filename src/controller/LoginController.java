@@ -77,6 +77,7 @@ public class LoginController {
     /**
      * 登录按钮的点击事件.
      */
+    @FXML
     public void login(ActionEvent actionEvent) {
         //从输入框和密码框中得到账号密码
         String user = username.getText().trim();
@@ -171,6 +172,7 @@ public class LoginController {
      * 通过自己封转好的单选框来选择注册对象。
      * 外邦人注册时默认的金钱为100元。
      */
+    @FXML
     public void regist(ActionEvent actionEvent) {
         VBox vBox = new VBox(10);
         Text text = new Text("请选择注册的对象:");

@@ -129,6 +129,7 @@ public class DragonTrainerController extends BaseController {
      * 添加龙的时候，默认龙是健康的，且不在训练状态。
      * 使用了自己封转好的单选框来选择龙的性别。
      */
+    @FXML
     public void addDragon(ActionEvent actionEvent) {
         VBox vBox = new VBox(10);
 
@@ -197,6 +198,7 @@ public class DragonTrainerController extends BaseController {
      * 为族群删除龙.
      * 注意要从treeItemList找到族群相匹配的treeItem,然后从树控件中移除
      */
+    @FXML
     public void deleteDragon(ActionEvent actionEvent) {
         Optional<String> result = TextInputDialogTool.showTextInput("删除龙的信息",
                 "请输入龙的Id", "Id:");
@@ -229,6 +231,7 @@ public class DragonTrainerController extends BaseController {
     /**
      * 查询龙的信息.
      */
+    @FXML
     public void queryDragon(ActionEvent actionEvent) {
         Optional<String> result = TextInputDialogTool.showTextInput("查询龙的信息",
                 "请输入龙的Id", "Id:");
@@ -273,6 +276,7 @@ public class DragonTrainerController extends BaseController {
      * 设置为性别不可改动。
      * 基本思路：查询->显示原来信息->进行修改
      */
+    @FXML
     public void changeDragon(ActionEvent actionEvent) {
         Optional<String> result = TextInputDialogTool.showTextInput(null, "请输入龙的Id",
                 "Id:");
@@ -379,6 +383,7 @@ public class DragonTrainerController extends BaseController {
     /**
      * 可以查询所有族群的信息.
      */
+    @FXML
     public void queryDragonGroup(ActionEvent actionEvent) {
         Optional<String> result = TextInputDialogTool.showTextInput("查询族群信息",
                 "请输入族群的Id", "Id:");
@@ -419,6 +424,7 @@ public class DragonTrainerController extends BaseController {
      * 对我的族群信息进行修改.
      * 基本思路：查询->显示原来信息->进行修改
      */
+    @FXML
     public void changeDragonGroup(ActionEvent actionEvent) {
         DragonGroup group = iDragonGroupDAO.get(dragonGroupId);
 

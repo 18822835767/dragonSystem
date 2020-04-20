@@ -1,7 +1,7 @@
 package util;
 
 public class Encrypt {
-    private static String key = "key";
+    private static final String key = "key";
 
     public static String setEncrypt(String str){
         int strLen = str.length();//要加密的字符串长度

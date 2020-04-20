@@ -103,6 +103,7 @@ public class DragonMomController extends BaseController {
     /**
      * 添加驯龙高手信息.
      */
+    @FXML
     public void addDragonTrainer(ActionEvent actionEvent) {
         VBox vBox = new VBox(10);
 
@@ -162,6 +163,7 @@ public class DragonMomController extends BaseController {
      * 删除驯龙高手信息.
      * 从treeItemList找到驯龙高手相匹配的treeItem,然后从树控件中移除
      */
+    @FXML
     public void deleteDragonTrainer(ActionEvent actionEvent) {
         Optional<String> result = TextInputDialogTool.showTextInput("删除驯龙高手信息",
                 "请输入驯龙高手的Id", "Id:");
@@ -195,6 +197,7 @@ public class DragonMomController extends BaseController {
     /**
      * 查询驯龙高手信息.
      */
+    @FXML
     public void queryDragonTrainer(ActionEvent actionEvent) {
         Optional<String> result = TextInputDialogTool.showTextInput("查询驯龙高手信息",
                 "请输入驯龙高手的Id", "Id:");
@@ -237,6 +240,7 @@ public class DragonMomController extends BaseController {
      * 修改驯龙高手信息.
      * 基本思路：查询->显示原来信息->进行修改
      */
+    @FXML
     public void changeDragonTrainer(ActionEvent actionEvent) {
         Optional<String> result = TextInputDialogTool.showTextInput(null, "请输入驯龙高手的Id",
                 "Id:");
@@ -314,6 +318,7 @@ public class DragonMomController extends BaseController {
     /**
      * 添加族群信息.
      */
+    @FXML
     public void addDragonGroup(ActionEvent actionEvent) {
         VBox vBox = new VBox(10);
 
@@ -369,6 +374,7 @@ public class DragonMomController extends BaseController {
      * 删除族群信息.
      * 注意要从treeItemList找到族群相匹配的treeItem,然后从树控件中移除
      */
+    @FXML
     public void deleteDragonGroup(ActionEvent actionEvent) {
         Optional<String> result = TextInputDialogTool.showTextInput("删除族群信息",
                 "请输入族群的Id", "Id:");
@@ -402,6 +408,7 @@ public class DragonMomController extends BaseController {
     /**
      * 查询族群信息.
      */
+    @FXML
     public void queryDragonGroup(ActionEvent actionEvent) {
         Optional<String> result = TextInputDialogTool.showTextInput("查询族群信息",
                 "请输入族群的Id", "Id:");
@@ -442,6 +449,7 @@ public class DragonMomController extends BaseController {
      * 基本思路：查询->显示原来信息->进行修改
      * flushGroup()方法是为了刷新一下显示和groupTreeItemList
      */
+    @FXML
     public void changeDragonGroup(ActionEvent actionEvent) {
         Optional<String> result = TextInputDialogTool.showTextInput(null, "请输入族群的Id",
                 "Id:");
@@ -569,6 +577,7 @@ public class DragonMomController extends BaseController {
     /**
      * 点击事件，弹出弹窗显示金库中的钱.
      */
+    @FXML
     public void showMoneyTub(ActionEvent actionEvent) {
         dragonMom = iDragonMomDAO.get();
         VBox vBox = new VBox();
@@ -589,6 +598,7 @@ public class DragonMomController extends BaseController {
     /**
      * 点击事件，处理外邦人的退票处理.
      */
+    @FXML
     public void dealBackTickets(ActionEvent actionEvent) {
         try {
             ViewManager.openView(ViewManager.BACK_TICKETS_URL, null, 400.0, 400.0);
@@ -600,6 +610,7 @@ public class DragonMomController extends BaseController {
     /**
      * 打开活动列表.
      */
+    @FXML
     public void showActivity(ActionEvent actionEvent) {
         try {
             ViewManager.openView(ViewManager.MOM_ACTIVITY_URL, "活动信息", 600.0, 400.0);
@@ -612,6 +623,7 @@ public class DragonMomController extends BaseController {
     /**
      * 打开(所有)评价的界面
      */
+    @FXML
     public void showAllEvaluation(ActionEvent actionEvent) {
         try {
             ViewManager.openView(ViewManager.MOM_EVALUATION_URL, "评价信息", 730.0, 450.0);
@@ -623,6 +635,7 @@ public class DragonMomController extends BaseController {
     /**
      * 查看所有的账目.
      * */
+    @FXML
     public void showAllAccount(ActionEvent actionEvent) {
         try {
             ViewManager.openView(ViewManager.MOM_ACCOUNT_URL, "账目信息", 730.0, 450.0);

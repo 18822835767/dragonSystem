@@ -44,6 +44,7 @@ public class MyEvaluationController {
     /**
      * 外邦人修改评价.
      */
+    @FXML
     public void changeMyEvaluation(ActionEvent actionEvent) {
         Optional<String> result = TextInputDialogTool.showTextInput(null, "请输入评价的Id",
                 "Id:");
@@ -110,6 +111,7 @@ public class MyEvaluationController {
     /**
      * 外邦人删除评价.
      */
+    @FXML
     public void deleteMyEvaluation(ActionEvent actionEvent) {
         Optional<String> result = TextInputDialogTool.showTextInput("删除评价",
                 "请输入评价的Id", "Id:");

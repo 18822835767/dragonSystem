@@ -63,6 +63,7 @@ public class DealBackTicketsController implements Initializable {
     /**
      * 同意退票的按钮点击事件.
      */
+    @FXML
     public void agree(ActionEvent actionEvent) {
         Iterator<Ticket> iterator = listData.iterator();
         while (iterator.hasNext()) {
@@ -91,6 +92,7 @@ public class DealBackTicketsController implements Initializable {
     /**
      * 拒绝退票的点击事件.
      */
+    @FXML
     public void refuse(ActionEvent actionEvent) {
         Iterator<Ticket> iterator = listData.iterator();
         while (iterator.hasNext()) {
@@ -108,6 +110,7 @@ public class DealBackTicketsController implements Initializable {
     /**
      * 点击事件,同意所有的退票.
      */
+    @FXML
     public void agreeAll(ActionEvent actionEvent) {
         for (Ticket ticket : listData) {
             ticket.setChecked(true);
@@ -118,6 +121,7 @@ public class DealBackTicketsController implements Initializable {
     /**
      * 点击事件，拒绝所有的退票.
      */
+    @FXML
     public void refuseAll(ActionEvent actionEvent) {
         for (Ticket ticket : listData) {
             ticket.setChecked(true);

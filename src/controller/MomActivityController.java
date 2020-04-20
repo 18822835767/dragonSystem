@@ -44,6 +44,7 @@ public class MomActivityController implements Initializable {
     /**
      * "添加活动"->龙妈.
      */
+    @FXML
     public void addActivity(ActionEvent actionEvent) {
         //负责显示添加活动的界面
         VBox vBox = new VBox(10);
