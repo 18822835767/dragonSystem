@@ -1,10 +1,9 @@
 package util;
 
-import model.database.MyDataSource;
+import model.database.ConnectionProxy;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ResourceBundle;
 
 /**
  * JDBC工具包
@@ -13,7 +12,7 @@ public class DBUtils {
     /**
      * 初始化一个连接池对象.
      * */
-    private static DataSource dataSource = new MyDataSource();
+    private static DataSource dataSource = new ConnectionProxy();
 
     private DBUtils() {
     }
