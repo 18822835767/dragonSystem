@@ -31,7 +31,7 @@ public class ActivityTable {
 
     private IActivityDAO iActivityDAO = DAOFactory.getActivityDAOInstance();
 
-    private IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
+    private static IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
 
     /**
      * 一系列columnID常量.
@@ -108,7 +108,7 @@ public class ActivityTable {
      * 活动表：
      * 单元格内容的显示
      */
-    class ActivityTableTreeCell extends TreeTableCell<Activity, Activity> {
+    private static class ActivityTableTreeCell extends TreeTableCell<Activity, Activity> {
         String columnID;
 
         public ActivityTableTreeCell(String columnID) {

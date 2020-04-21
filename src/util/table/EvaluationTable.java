@@ -32,11 +32,11 @@ public class EvaluationTable {
 
     private IEvaluationDAO iEvaluationDAO = DAOFactory.getEvaluationDAOInstance();
 
-    private IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
+    private static IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
 
-    private IActivityDAO iActivityDAO = DAOFactory.getActivityDAOInstance();
+    private static IActivityDAO iActivityDAO = DAOFactory.getActivityDAOInstance();
 
-    private IForeignerDAO iForeignerDAO = DAOFactory.getForeignerDAOInstance();
+    private static IForeignerDAO iForeignerDAO = DAOFactory.getForeignerDAOInstance();
 
     /**
      * 一系列的columnID常量.
@@ -115,7 +115,7 @@ public class EvaluationTable {
      * 评价表：
      * 单元格内容的显示
      */
-    class EvaluationTableTreeCell extends TreeTableCell<Evaluation, Evaluation> {
+    private static class EvaluationTableTreeCell extends TreeTableCell<Evaluation, Evaluation> {
         String columnID;
 
         public EvaluationTableTreeCell(String columnID) {

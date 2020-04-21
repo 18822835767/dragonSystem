@@ -1,4 +1,4 @@
-package model.database.impl;
+package model.impl;
 
 import entity.Account;
 import model.IAccountDAO;
@@ -30,13 +30,13 @@ public class AccountDAOImpl implements IAccountDAO {
     @Override
     public int save(int foreignerId, double money, String createTime, String status) {
         String sql = "insert into account(foreignerId,money,createTime,status) values(?,?,?,?) ";
-        return DBUtils.executeUpdate(sql,foreignerId,money,createTime,status);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,foreignerId,money,createTime,status);
     }
 
     @Override
     public List<Account> getForeignerListByStatus(int foreignerId, String status) {
         List<Account> accounts = new ArrayList<>();
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -55,7 +55,7 @@ public class AccountDAOImpl implements IAccountDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null, ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }
@@ -63,7 +63,7 @@ public class AccountDAOImpl implements IAccountDAO {
     @Override
     public List<Account> getListById(int foreignerId) {
         List<Account> accounts = new ArrayList<>();
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -81,7 +81,7 @@ public class AccountDAOImpl implements IAccountDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null, ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }
@@ -89,7 +89,7 @@ public class AccountDAOImpl implements IAccountDAO {
     @Override
     public List<Account> getAllListByStatus(String status) {
         List<Account> accounts = new ArrayList<>();
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -107,7 +107,7 @@ public class AccountDAOImpl implements IAccountDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null, ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }
@@ -115,7 +115,7 @@ public class AccountDAOImpl implements IAccountDAO {
     @Override
     public List<Account> getAllList() {
         List<Account> accounts = new ArrayList<>();
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -132,7 +132,7 @@ public class AccountDAOImpl implements IAccountDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null, ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }

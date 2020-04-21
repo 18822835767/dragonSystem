@@ -7,8 +7,6 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.util.Callback;
 import model.IDragonGroupDAO;
-import model.database.impl.DragonDAOImpl;
-import model.database.impl.DragonGroupDAOImpl;
 import util.DAOFactory;
 
 import java.util.List;
@@ -72,7 +70,7 @@ public class DragonGroupTable {
             treeTableColumn.setPrefWidth(columnPrefWidth[i]);
             //设置CellFactory,定义每一列单元格的显示
             treeTableColumn.setCellFactory((param) -> {
-                return new DragonGroupTable.GroupTableTreeCell(columnId[finalI]);
+                return new GroupTableTreeCell(columnId[finalI]);
             });
         }
 
@@ -95,7 +93,7 @@ public class DragonGroupTable {
      * 族群表：
      * 单元格内容的显示
      */
-    class GroupTableTreeCell extends TreeTableCell<DragonGroup, DragonGroup> {
+    private static class GroupTableTreeCell extends TreeTableCell<DragonGroup, DragonGroup> {
         String columnID;
 
         public GroupTableTreeCell(String columnID) {

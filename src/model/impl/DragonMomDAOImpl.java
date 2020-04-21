@@ -1,4 +1,4 @@
-package model.database.impl;
+package model.impl;
 
 import entity.DragonMom;
 import model.IDragonMomDAO;
@@ -31,12 +31,12 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
     @Override
     public int update(double money) {
         String sql = "update dragonmom set moneyTub = ?";
-        return DBUtils.executeUpdate(sql,money);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,money);
     }
 
     @Override
     public DragonMom get() {
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         String sql = "select * from dragonmom";
@@ -51,7 +51,7 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            DBUtils.close(null,ps,rs);
+            DBUtils.close(conn,ps,rs);
         }
         return null;
     }
@@ -61,7 +61,7 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
      * */
     @Override
     public DragonMom get(String username, String password) {
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         String sql = "select * from dragonmom where username = ? and password = ?";
@@ -78,7 +78,7 @@ public class DragonMomDAOImpl implements IDragonMomDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            DBUtils.close(null,ps,rs);
+            DBUtils.close(conn,ps,rs);
         }
         return null;
     }

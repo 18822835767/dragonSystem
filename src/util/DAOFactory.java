@@ -1,7 +1,7 @@
 package util;
 
 import model.*;
-import model.database.impl.*;
+import model.impl.*;
 
 /**
  *工厂类，向外提供静态的方法来产生DAO实例

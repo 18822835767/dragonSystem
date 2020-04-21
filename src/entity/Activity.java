@@ -11,6 +11,8 @@ public class Activity {
     private String startTime;
     private String overTime;
 
+    public Activity() {}
+
     public Activity(int activityId, int dragonGroupId, String name, String content, String startTime, String overTime) {
         this.name = name;
         this.content = content;
@@ -19,8 +21,6 @@ public class Activity {
         this.dragonGroupId = dragonGroupId;
         this.activityId = activityId;
     }
-
-    public Activity() {}
 
     public String getName() {
         return name;

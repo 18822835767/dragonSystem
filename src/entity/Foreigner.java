@@ -6,6 +6,8 @@ public class Foreigner extends Person {
     private int foreignerId;
     private double money;
 
+    public Foreigner(){}
+
     public Foreigner(int foreignerId, String username, String password,String name,double money) {
         super(name, username, password);
         this.foreignerId = foreignerId;

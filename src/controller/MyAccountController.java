@@ -11,7 +11,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
 import model.IAccountDAO;
-import model.IForeignerDAO;
 import util.DAOFactory;
 
 import java.util.List;
@@ -22,8 +21,6 @@ import java.util.List;
 public class MyAccountController {
     @FXML
     private ListView<Account> listView;
-
-    private static IForeignerDAO iForeignerDAO = DAOFactory.getForeignerDAOInstance();
 
     private static IAccountDAO iAccountDAO = DAOFactory.getAccountDAOInstance();
 
@@ -55,7 +52,7 @@ public class MyAccountController {
     /**
      * 负责单元格的显示.
      * */
-    static class  MyListCell extends ListCell<Account>{
+    private static class  MyListCell extends ListCell<Account>{
         @Override
         public void updateItem(Account item, boolean empty) {
             super.updateItem(item, empty);

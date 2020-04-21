@@ -1,4 +1,4 @@
-package model.database.impl;
+package model.impl;
 
 import entity.Dragon;
 import model.IDragonDAO;
@@ -35,13 +35,13 @@ public class DragonDAOImpl implements IDragonDAO {
         int isTraining = training ? 1 : 0;
         int isHealthy = healthy ? 1 : 0;
         String sql = "insert into dragon(dragonGroupId,name,profile,training,healthy,sex,age) values(?,?,?,?,?,?,?)";
-        return DBUtils.executeUpdate(sql, dragonGroupId,name,profile,isTraining,isHealthy,sex,age);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql, dragonGroupId,name,profile,isTraining,isHealthy,sex,age);
     }
 
     @Override
     public int delete(int dragonId,int dragonGroupId) {
         String sql = "delete from dragon where dragonId = ? and dragonGroupId = ?";
-        return DBUtils.executeUpdate(sql, dragonId,dragonGroupId);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql, dragonId,dragonGroupId);
     }
 
     @Override
@@ -49,12 +49,12 @@ public class DragonDAOImpl implements IDragonDAO {
         int isTraining = training ? 1 : 0;
         int isHealthy = healthy ? 1 : 0;
         String sql = "update dragon set name = ?,profile = ?,training = ?,healthy = ?,age = ? where dragonId = ?";
-        return DBUtils.executeUpdate(sql, name,profile,isTraining,isHealthy,age,id);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql, name,profile,isTraining,isHealthy,age,id);
     }
 
     @Override
     public Dragon get(int dragonId) {
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -73,14 +73,14 @@ public class DragonDAOImpl implements IDragonDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null, ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }
 
     @Override
     public Dragon get(int dragonId,int dragonGroupId) {
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -100,14 +100,14 @@ public class DragonDAOImpl implements IDragonDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null, ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }
 
     @Override
     public Dragon get(int dragonGroupId,String name) {
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -127,7 +127,7 @@ public class DragonDAOImpl implements IDragonDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null, ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }
@@ -138,7 +138,7 @@ public class DragonDAOImpl implements IDragonDAO {
     @Override
     public List<Dragon> getList(int dragonGroupId) {
         List<Dragon> dragonList = new ArrayList<>();
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -159,7 +159,7 @@ public class DragonDAOImpl implements IDragonDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null, ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }
@@ -168,7 +168,7 @@ public class DragonDAOImpl implements IDragonDAO {
     @Override
     public List<Dragon> getList() {
         List<Dragon> dragonList = new ArrayList<>();
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -188,7 +188,7 @@ public class DragonDAOImpl implements IDragonDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null, ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }

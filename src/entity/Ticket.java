@@ -32,6 +32,8 @@ public class Ticket {
     public static final int TIMES2 = 5;
     public static final int TIMES3 = 1;
 
+    public Ticket(){}
+
     public Ticket(int ticketId, int foreignerId, double price, String type, String buyTime, int times, boolean backing) {
         this.ticketId = ticketId;
         this.foreignerId = foreignerId;

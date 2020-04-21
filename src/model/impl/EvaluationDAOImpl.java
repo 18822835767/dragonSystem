@@ -1,4 +1,4 @@
-package model.database.impl;
+package model.impl;
 
 import entity.Evaluation;
 import model.IEvaluationDAO;
@@ -29,30 +29,30 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
     @Override
     public int save(int activityId, int foreignerId, int rank, String content, String evaluateTime) {
         String sql = "insert into evaluation(activityId,foreignerId,rank,content,evaluateTime) values(?,?,?,?,?)";
-        return DBUtils.executeUpdate(sql, activityId,foreignerId,rank,content,evaluateTime);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql, activityId,foreignerId,rank,content,evaluateTime);
     }
 
     @Override
     public int delete(int foreignerId, int evaluationId) {
         String sql = "delete from evaluation where foreignerId = ? and evaluationId = ?";
-        return DBUtils.executeUpdate(sql,foreignerId,evaluationId);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,foreignerId,evaluationId);
     }
 
     @Override
     public int delete(int evaluationId) {
         String sql = "delete from evaluation where evaluationId = ?";
-        return DBUtils.executeUpdate(sql,evaluationId);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,evaluationId);
     }
 
     @Override
     public int update(int evaluationId, int rank, String content, String evaluateTime) {
         String sql = "update evaluation set rank = ?,content = ?,evaluateTime = ? where evaluationId = ?";
-        return DBUtils.executeUpdate(sql,rank,content,evaluateTime,evaluationId);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,rank,content,evaluateTime,evaluationId);
     }
 
     @Override
     public Evaluation getByEvalutionId(int foreignerId, int evaluationId) {
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -69,14 +69,14 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null,ps, rs);
+            DBUtils.close(conn,ps, rs);
         }
         return null;
     }
 
     @Override
     public Evaluation getByActivityId(int foreignerId, int activityId) {
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -93,7 +93,7 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null,ps, rs);
+            DBUtils.close(conn,ps, rs);
         }
         return null;
     }
@@ -101,7 +101,7 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
     @Override
     public List<Evaluation> getList(int foreignerId) {
         List<Evaluation> evaluationList = new ArrayList<>();
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         String sql = "select * from evaluation where foreignerId = ?";
@@ -119,7 +119,7 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null,ps, rs);
+            DBUtils.close(conn,ps, rs);
         }
         return null;
     }
@@ -127,7 +127,7 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
     @Override
     public List<Evaluation> getList() {
         List<Evaluation> evaluationList = new ArrayList<>();
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         String sql = "select * from evaluation";
@@ -144,7 +144,7 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null,ps, rs);
+            DBUtils.close(conn,ps, rs);
         }
         return null;
     }

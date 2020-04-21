@@ -1,6 +1,5 @@
-package model.database.impl;
+package model.impl;
 
-import entity.Dragon;
 import entity.DragonGroup;
 import model.IDragonGroupDAO;
 import util.DBUtils;
@@ -32,19 +31,19 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
     @Override
     public int save(String name, String profile, String location, double size) {
         String sql = "insert into dragongroup(name,profile,location,size) values(?,?,?,?)";
-        return DBUtils.executeUpdate(sql,name,profile,location,size);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,name,profile,location,size);
     }
 
     @Override
     public int delete(int dragonGroupId) {
         String sql = "delete from dragongroup where dragonGroupId = ?";
-        return DBUtils.executeUpdate(sql,dragonGroupId);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,dragonGroupId);
     }
 
     @Override
     public int update(String name, String profile, String location, double size,int id) {
         String sql = "update dragongroup set name = ?,profile = ?,location = ?,size = ? where dragonGroupId = ?";
-        return DBUtils.executeUpdate(sql,name,profile,location,size,id);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,name,profile,location,size,id);
     }
 
     /**
@@ -52,7 +51,7 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
      * */
     @Override
     public DragonGroup get(int dragonGroupId) {
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -68,7 +67,7 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null,ps, rs);
+            DBUtils.close(conn,ps, rs);
         }
         return null;
     }
@@ -78,7 +77,7 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
      * */
     @Override
     public DragonGroup get(String name) {
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -94,7 +93,7 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null,ps, rs);
+            DBUtils.close(conn,ps, rs);
         }
         return null;
     }
@@ -105,7 +104,7 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
     @Override
     public List<DragonGroup> getList() {
         List<DragonGroup> dragonGroupList = new ArrayList<>();
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         String sql = "select * from dragongroup";
@@ -122,7 +121,7 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null,ps, rs);
+            DBUtils.close(conn,ps, rs);
         }
         return null;
     }

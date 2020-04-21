@@ -7,16 +7,14 @@ public class DragonGroup {
     private String location;
     private double size;
 
+    public DragonGroup(){}
+
     public DragonGroup(int dragonGroupId,String name, String profile, String location, double size) {
         this.dragonGroupId = dragonGroupId;
         this.name = name;
         this.profile = profile;
         this.location = location;
         this.size = size;
-    }
-
-    public DragonGroup(){
-
     }
 
     public String getName() {

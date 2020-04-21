@@ -1,6 +1,5 @@
-package model.database.impl;
+package model.impl;
 
-import entity.DragonTrainer;
 import entity.Ticket;
 import model.ITicketDAO;
 import util.DBUtils;
@@ -34,31 +33,31 @@ public class TicketDAOImpl implements ITicketDAO{
     public int save(int foreignerId, double price, String type, String buyTime, int times,boolean back) {
         int backing = back ? 1 : 0;
         String sql = "insert into ticket(foreignerId,price,type,buyTime,times,backing) values(?,?,?,?,?,?)";
-        return DBUtils.executeUpdate(sql,foreignerId,price,type,buyTime,times,backing);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,foreignerId,price,type,buyTime,times,backing);
     }
 
     @Override
     public int delete(int foreignerId) {
         String sql = "delete from ticket where foreignerId = ?";
-        return DBUtils.executeUpdate(sql,foreignerId);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,foreignerId);
     }
 
     @Override
     public int update(int ticketId, int times) {
         String sql = "update ticket set times = ? where ticketId = ?";
-        return DBUtils.executeUpdate(sql,times,ticketId);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,times,ticketId);
     }
 
     @Override
     public int update(int ticketId,boolean back) {
         int backing = back ? 1 : 0;
         String sql = "update ticket set backing = ? where ticketId = ?";
-        return DBUtils.executeUpdate(sql,backing,ticketId);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,backing,ticketId);
     }
 
     @Override
     public Ticket get(int foreignerId) {
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -75,14 +74,14 @@ public class TicketDAOImpl implements ITicketDAO{
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null,ps, rs);
+            DBUtils.close(conn,ps, rs);
         }
         return null;
     }
 
     @Override
     public List<Ticket> getListByBacking(boolean back) {
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<Ticket> tickets = new ArrayList<>();
@@ -102,7 +101,7 @@ public class TicketDAOImpl implements ITicketDAO{
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null,ps, rs);
+            DBUtils.close(conn,ps, rs);
         }
         return null;
     }

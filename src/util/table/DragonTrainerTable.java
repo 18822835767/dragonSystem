@@ -1,6 +1,5 @@
 package util.table;
 
-import entity.DragonGroup;
 import entity.DragonTrainer;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableCell;
@@ -9,12 +8,8 @@ import javafx.scene.control.TreeTableView;
 import javafx.util.Callback;
 import model.IDragonGroupDAO;
 import model.IDragonTrainerDAO;
-import model.database.impl.DragonDAOImpl;
-import model.database.impl.DragonGroupDAOImpl;
-import model.database.impl.DragonTrainerDAOImpl;
 import util.DAOFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +34,7 @@ public class DragonTrainerTable {
 
     private IDragonTrainerDAO iDragonTrainerDAO = DAOFactory.getDragonTrainerDAOInstance();
 
-    private IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
+    private static IDragonGroupDAO iDragonGroupDAO = DAOFactory.getDragonGroupDAOInstance();
 
     /**
      * 一系列columnID常量.
@@ -100,7 +95,7 @@ public class DragonTrainerTable {
      * 驯龙高手表：
      * 单元格内容的显示
      */
-    class TrainerTableTreeCell extends TreeTableCell<DragonTrainer, DragonTrainer> {
+    private static class TrainerTableTreeCell extends TreeTableCell<DragonTrainer, DragonTrainer> {
         String columnID;
 
         public TrainerTableTreeCell(String columnID) {

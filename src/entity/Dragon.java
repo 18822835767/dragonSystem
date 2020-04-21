@@ -10,6 +10,8 @@ public class Dragon {
     private String sex;
     private int age;
 
+    public Dragon(){}
+
     public Dragon(int dragonId, int dragonGroupId, String name, String profile, boolean training, boolean healthy, String sex, int age) {
         this.dragonId = dragonId;
         this.dragonGroupId = dragonGroupId;
@@ -19,10 +21,6 @@ public class Dragon {
         this.healthy = healthy;
         this.sex = sex;
         this.age = age;
-    }
-
-    public Dragon(){
-
     }
 
     public String getName() {

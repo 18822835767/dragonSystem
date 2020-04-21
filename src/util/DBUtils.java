@@ -1,5 +1,8 @@
 package util;
 
+import model.database.MyDataSource;
+
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ResourceBundle;
 
@@ -8,33 +11,23 @@ import java.util.ResourceBundle;
  */
 public class DBUtils {
     /**
-     * 在静态代码块中加载connection，只有一份，重复利用
+     * 初始化一个连接池对象.
      * */
-    private static Connection conn;
+    private static DataSource dataSource = new MyDataSource();
 
     private DBUtils() {
     }
 
     /**
-     * 负责驱动与连接，只执行一次.
+     * 直接从连接池里拿.
      * */
-    static {
+    public static Connection getConnection() {
         try {
-            ResourceBundle bundle = ResourceBundle.getBundle("resource/jdbc");
-            String driver = bundle.getString("driver");
-            String url = bundle.getString("url");
-            String username = bundle.getString("username");
-            String password = bundle.getString("password");
-            Class.forName(driver);
-
-            conn = DriverManager.getConnection(url, username, password);
-        } catch (Exception e) {
+            return dataSource.getConnection();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public static Connection getConnection() {
-        return conn;
+        return null;
     }
 
     public static void close(Connection connection, Statement stmt, ResultSet rs) {
@@ -66,7 +59,7 @@ public class DBUtils {
     /**
      * DML语句封装在工具类里.
      * */
-    public static int executeUpdate(String sql, Object... params) {
+    public static int executeUpdate(Connection conn,String sql, Object... params) {
         PreparedStatement ps = null;
         try {
             //获取数据库预编译操作对象
@@ -79,7 +72,7 @@ public class DBUtils {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null, ps, null);
+            DBUtils.close(conn, ps, null);
         }
         return 0;
     }

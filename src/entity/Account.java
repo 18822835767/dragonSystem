@@ -16,6 +16,9 @@ public class Account {
     public static final String PURCHASE = "购买";
     public static final String REFUND = "退款";
 
+    public Account() {
+    }
+
     public Account(int accountId, int foreignerId, double money, String createTime, String status) {
         this.accountId = accountId;
         this.foreignerId = foreignerId;
@@ -26,10 +29,6 @@ public class Account {
 
     public int getAccountId() {
         return accountId;
-    }
-
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
     }
 
     public int getForeignerId() {
@@ -44,24 +43,12 @@ public class Account {
         return money;
     }
 
-    public void setMoney(double money) {
-        this.money = money;
-    }
-
     public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
     public String getStatus() {
         return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
 }

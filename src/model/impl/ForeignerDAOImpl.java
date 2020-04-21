@@ -1,4 +1,4 @@
-package model.database.impl;
+package model.impl;
 
 import entity.Foreigner;
 import model.IForeignerDAO;
@@ -34,19 +34,19 @@ public class ForeignerDAOImpl implements IForeignerDAO {
     @Override
     public int save(String username, String password, String name) {
         String sql = "insert into foreigner(username,password,name) values(?,?,?)";
-        return DBUtils.executeUpdate(sql, username, Encrypt.setEncrypt(password), name);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql, username, Encrypt.setEncrypt(password), name);
     }
 
     @Override
     public int update(int foreignerId, double money) {
         String sql = "update foreigner set money = ? where foreignerId = ?";
-        return DBUtils.executeUpdate(sql, money, foreignerId);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql, money, foreignerId);
     }
 
     //用户名和密码查询
     @Override
     public Foreigner get(String username, String password) {
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -64,14 +64,14 @@ public class ForeignerDAOImpl implements IForeignerDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null, ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }
 
     @Override
     public Foreigner get(int foreignerId) {
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -87,7 +87,7 @@ public class ForeignerDAOImpl implements IForeignerDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null, ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }
@@ -95,7 +95,7 @@ public class ForeignerDAOImpl implements IForeignerDAO {
     @Override
     public List<Foreigner> getList() {
         List<Foreigner> foreigners = new ArrayList<>();
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -112,7 +112,7 @@ public class ForeignerDAOImpl implements IForeignerDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null, ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }

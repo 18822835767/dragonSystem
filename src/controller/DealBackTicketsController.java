@@ -131,7 +131,7 @@ public class DealBackTicketsController implements Initializable {
 
 
     //负责单元格的显示
-    static class MyListCell extends ListCell<Ticket> {
+    private static class MyListCell extends ListCell<Ticket> {
         @Override
         public void updateItem(Ticket item, boolean empty) {
             super.updateItem(item, empty);

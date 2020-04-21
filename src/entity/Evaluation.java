@@ -4,9 +4,9 @@ package entity;
  * 评价的实体类.
  * */
 public class Evaluation {
-    private int evaluationId;//评价的Id，可能没用
-    private int activityId;//活动Id
-    private int foreignerId;//可能没用
+    private int evaluationId;
+    private int activityId;
+    private int foreignerId;
     private int rank;
     private String content;
     private String evaluateTime;//评价的时间
@@ -51,4 +51,7 @@ public class Evaluation {
         return evaluationId;
     }
 
+    public String getEvaluateTime() {
+        return evaluateTime;
+    }
 }

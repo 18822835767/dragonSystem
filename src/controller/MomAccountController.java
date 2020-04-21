@@ -44,7 +44,7 @@ public class MomAccountController implements Initializable {
         listView.setCellFactory(new Callback<ListView<Account>, ListCell<Account>>() {
             @Override
             public ListCell<Account> call(ListView<Account> accountListView) {
-                return new MyAccountController.MyListCell();
+                return new MomAccountController.MyListCell();
             }
         });
     }
@@ -52,7 +52,7 @@ public class MomAccountController implements Initializable {
     /**
      * 负责单元格的显示.
      * */
-    static class  MyListCell extends ListCell<Account>{
+    private static class  MyListCell extends ListCell<Account>{
         @Override
         public void updateItem(Account item, boolean empty) {
             super.updateItem(item, empty);

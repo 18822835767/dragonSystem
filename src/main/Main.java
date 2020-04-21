@@ -32,8 +32,8 @@ public class Main extends Application {
     @Override
     public void stop() throws Exception {
         super.stop();
-        Connection conn = DBUtils.getConnection();
-        DBUtils.close(conn,null,null);
+//        Connection conn = DBUtils.getConnection();
+//        DBUtils.close(conn,null,null);
     }
 
     public static void main(String[] args) {

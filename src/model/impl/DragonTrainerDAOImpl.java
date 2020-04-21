@@ -1,4 +1,4 @@
-package model.database.impl;
+package model.impl;
 
 import entity.DragonTrainer;
 import model.IDragonTrainerDAO;
@@ -33,19 +33,19 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
     @Override
     public int save(int dragonGroupId, String name, String username, String password) {
         String sql = "insert into dragontrainer(dragonGroupId,name,username,password) values(?,?,?,?)";
-        return DBUtils.executeUpdate(sql,dragonGroupId,name,username, Encrypt.setEncrypt(password));
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,dragonGroupId,name,username, Encrypt.setEncrypt(password));
     }
 
     @Override
     public int delete(int dragonTrainerId) {
         String sql = "delete from dragontrainer where dragonTrainerId = ?";
-        return DBUtils.executeUpdate(sql, dragonTrainerId);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql, dragonTrainerId);
     }
 
     @Override
     public int update(int id, int dragonGroupId, String name, String password) {
         String sql = "update dragontrainer set dragonGroupId=?,name=?,password=? where dragonTrainerId = ?";
-        return DBUtils.executeUpdate(sql,dragonGroupId,name,Encrypt.setEncrypt(password),id);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,dragonGroupId,name,Encrypt.setEncrypt(password),id);
     }
 
     /**
@@ -53,7 +53,7 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
      * */
     @Override
     public DragonTrainer get(int dragonTrainerId) {
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -70,7 +70,7 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null,ps, rs);
+            DBUtils.close(conn,ps, rs);
         }
         return null;
     }
@@ -80,7 +80,7 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
      * */
     @Override
     public DragonTrainer get(String username, String password) {
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -98,7 +98,7 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            DBUtils.close(null,ps,rs);
+            DBUtils.close(conn,ps,rs);
         }
         return null;
     }
@@ -109,7 +109,7 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
     @Override
     public List<DragonTrainer> getList() {
         List<DragonTrainer> dragonTrainerList = new ArrayList<>();
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         String sql = "select * from dragontrainer";
@@ -126,7 +126,7 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null,ps, rs);
+            DBUtils.close(conn,ps, rs);
         }
         return null;
     }

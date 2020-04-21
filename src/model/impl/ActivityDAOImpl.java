@@ -1,7 +1,6 @@
-package model.database.impl;
+package model.impl;
 
 import entity.Activity;
-import entity.Dragon;
 import model.IActivityDAO;
 import util.DBUtils;
 
@@ -32,12 +31,12 @@ public class ActivityDAOImpl implements IActivityDAO {
     @Override
     public int save(int dragonGroupId, String name, String content, String startTime, String overTime) {
         String sql = "insert into activity(dragonGroupId,name,content,startTime,overTime) values(?,?,?,?,?)";
-        return DBUtils.executeUpdate(sql,dragonGroupId,name,content,startTime,overTime);
+        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,dragonGroupId,name,content,startTime,overTime);
     }
 
     @Override
     public Activity getById(int activityId) {
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -53,14 +52,14 @@ public class ActivityDAOImpl implements IActivityDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null, ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }
 
     @Override
     public Activity getByTimeAndId(int activityId, LocalDate time) {
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -83,7 +82,7 @@ public class ActivityDAOImpl implements IActivityDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null, ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }
@@ -91,7 +90,7 @@ public class ActivityDAOImpl implements IActivityDAO {
     @Override
     public List<Activity> getValidList(LocalDate time) {
         List<Activity> activities = new ArrayList<>();
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -113,7 +112,7 @@ public class ActivityDAOImpl implements IActivityDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null, ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }
@@ -121,7 +120,7 @@ public class ActivityDAOImpl implements IActivityDAO {
     @Override
     public List<Activity> getList() {
         List<Activity> activities = new ArrayList<>();
-        Connection conn;
+        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -138,7 +137,7 @@ public class ActivityDAOImpl implements IActivityDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(null, ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }

@@ -1,18 +1,12 @@
 package util.table;
 
-import com.sun.source.tree.IfTree;
 import entity.Dragon;
-import entity.DragonGroup;
-import entity.DragonTrainer;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.util.Callback;
 import model.IDragonDAO;
-import model.database.impl.DragonDAOImpl;
-import model.database.impl.DragonGroupDAOImpl;
-import model.database.impl.DragonTrainerDAOImpl;
 import util.DAOFactory;
 
 import java.util.List;
@@ -79,7 +73,7 @@ public class DragonTable {
             treeTableColumn.setPrefWidth(columnPrefWidth[i]);
             //设置CellFactory,定义每一列单元格的显示
             treeTableColumn.setCellFactory((param) -> {
-                return new DragonTable.DragonTableTreeCell(columnId[finalI]);
+                return new DragonTableTreeCell(columnId[finalI]);
             });
         }
 
@@ -119,7 +113,7 @@ public class DragonTable {
      * 龙的表.
      * 单元格内容的显示
      */
-    class DragonTableTreeCell extends TreeTableCell<Dragon, Dragon> {
+    private static class DragonTableTreeCell extends TreeTableCell<Dragon, Dragon> {
         String columnID;
 
         public DragonTableTreeCell(String columnID) {

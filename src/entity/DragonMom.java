@@ -8,6 +8,8 @@ public class DragonMom extends Person {
     private int dragonMomId;
     private double moneyTub;//金库作为一个属性
 
+    public DragonMom(){}
+
     public DragonMom(int dragonMomId,String name, String username, String password,double moneyTub) {
         super(name, username, password);
         this.dragonMomId = dragonMomId;
