@@ -60,7 +60,7 @@ create table ticket(
     foreignerId int unique not null,
     price float,
     type varchar(255),
-    buyTime varchar(255),
+    buyTime char(10),
     times int,
     backing int,
     foreign key(foreignerId) references foreigner(foreignerId)
@@ -94,7 +94,7 @@ create table account(
     accountId int primary key auto_increment,
     foreignerId int,
     money float ,
-    createTime char(10),
+    createTime char(19),
     status char(2),
     foreign key(foreignerId) references foreigner(foreignerId)
 );

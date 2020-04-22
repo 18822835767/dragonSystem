@@ -21,6 +21,7 @@ import model.ITicketDAO;
 import util.Constants;
 import util.DAOFactory;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -85,7 +86,9 @@ public class DealBackTicketsController implements Initializable {
 
             listData.remove(ticket);
 
-            iAccountDAO.save(foreignerId, renewMoney, LocalDate.now().toString(), Constants.AccountConstant.REFUND);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
+            iAccountDAO.save(foreignerId, renewMoney, format.format(new Date()),Constants.AccountConstant.REFUND);
         }
         listView.refresh();//刷新listView的显示
     }

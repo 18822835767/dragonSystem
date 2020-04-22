@@ -306,6 +306,7 @@ public class ForeignerController extends BaseController {
             Date date = new Date();
             String currentTime = timeFormat.format(date);//得出当前买票时间
             double moneyTub = iDragonMomDAO.get().getMoneyTub();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
             //因为本次入园，所以购买成功后有效次数立即-1。
             switch (comboBox.getValue()) {
@@ -324,7 +325,7 @@ public class ForeignerController extends BaseController {
 
                         //保存账目
                         iAccountDAO.save(foreigner.getForeignerId(),Constants.TicketConstant.PRICE1,
-                                LocalDate.now().toString(), Constants.AccountConstant.PURCHASE);
+                                format.format(new Date()), Constants.AccountConstant.PURCHASE);
                     } else {
                         AlertTool.showAlert(Alert.AlertType.WARNING, "购买失败", null, "余额不足");
                         return false;
@@ -346,7 +347,7 @@ public class ForeignerController extends BaseController {
 
                         //保存账目
                         iAccountDAO.save(foreigner.getForeignerId(),Constants.TicketConstant.PRICE2,
-                                LocalDate.now().toString(), Constants.AccountConstant.PURCHASE);
+                                format.format(new Date()), Constants.AccountConstant.PURCHASE);
                     } else {
                         AlertTool.showAlert(Alert.AlertType.WARNING, "购买失败", null, "余额不足");
                         return false;
@@ -368,7 +369,7 @@ public class ForeignerController extends BaseController {
 
                         //保存账目
                         iAccountDAO.save(foreigner.getForeignerId(),Constants.TicketConstant.PRICE3,
-                                LocalDate.now().toString(), Constants.AccountConstant.PURCHASE);
+                                format.format(new Date()), Constants.AccountConstant.PURCHASE);
                     } else {
                         AlertTool.showAlert(Alert.AlertType.WARNING, "购买失败", null, "余额不足");
                         return false;

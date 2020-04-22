@@ -3,7 +3,7 @@ package util;
 /**
  * 存放常量.
  * */
-public class Constants {
+public final class Constants {
     private Constants(){}
 
     public static class AccountConstant{
