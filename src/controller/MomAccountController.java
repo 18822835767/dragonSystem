@@ -12,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.util.Callback;
 import model.IAccountDAO;
 import model.IForeignerDAO;
+import util.Constants;
 import util.DAOFactory;
 
 import java.net.URL;
@@ -77,14 +78,14 @@ public class MomAccountController implements Initializable {
 
     @FXML
     public void showPurchaseAccount(ActionEvent actionEvent) {
-        List<Account> accounts = iAccountDAO.getAllListByStatus(Account.PURCHASE);
+        List<Account> accounts = iAccountDAO.getAllListByStatus(Constants.AccountConstant.PURCHASE);
         listData.clear();
         listData.addAll(accounts);
     }
 
     @FXML
     public void showRefundAccount(ActionEvent actionEvent) {
-        List<Account> accounts = iAccountDAO.getAllListByStatus(Account.REFUND);
+        List<Account> accounts = iAccountDAO.getAllListByStatus(Constants.AccountConstant.REFUND);
         listData.clear();
         listData.addAll(accounts);
     }

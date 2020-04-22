@@ -18,6 +18,7 @@ import model.IAccountDAO;
 import model.IDragonMomDAO;
 import model.IForeignerDAO;
 import model.ITicketDAO;
+import util.Constants;
 import util.DAOFactory;
 import java.net.URL;
 import java.time.LocalDate;
@@ -70,7 +71,7 @@ public class DealBackTicketsController implements Initializable {
             Ticket ticket = iterator.next();
             int foreignerId = ticket.getForeignerId();
             //要更新的钱
-            double renewMoney = ticket.getTimes() * Ticket.Back_Price;
+            double renewMoney = ticket.getTimes() * Constants.TicketConstant.Back_Price;
             //更新金库的钱
             iDragonMomDAO.update(iDragonMomDAO.get().getMoneyTub() - renewMoney);
             //更新外邦人的钱
@@ -84,7 +85,7 @@ public class DealBackTicketsController implements Initializable {
 
             listData.remove(ticket);
 
-            iAccountDAO.save(foreignerId, renewMoney, LocalDate.now().toString(), Account.REFUND);
+            iAccountDAO.save(foreignerId, renewMoney, LocalDate.now().toString(), Constants.AccountConstant.REFUND);
         }
         listView.refresh();//刷新listView的显示
     }
@@ -139,7 +140,7 @@ public class DealBackTicketsController implements Initializable {
                 CheckBox checkBox = new CheckBox();
                 checkBox.setText("持票者:" + iForeignerDAO.get(item.getForeignerId()).getName() +
                         "   票的ID:" + item.getTicketId() + "   剩余有效次数:" + item.getTimes() + "   退款:" +
-                        item.getTimes() * Ticket.Back_Price);
+                        item.getTimes() * Constants.TicketConstant.Back_Price);
                 checkBox.setFont(new Font(13));
                 this.setGraphic(checkBox);
                 checkBox.selectedProperty().addListener(new MyCheckBoxListener(item));//给CheckBox设置监听器

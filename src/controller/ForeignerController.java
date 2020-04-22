@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import model.*;
+import util.Constants;
 import util.DAOFactory;
 import util.SwitchAccount;
 import util.ViewManager;
@@ -308,60 +309,66 @@ public class ForeignerController extends BaseController {
 
             //因为本次入园，所以购买成功后有效次数立即-1。
             switch (comboBox.getValue()) {
-                case Ticket.TYPE1: {
+                case Constants.TicketConstant.TYPE1: {
                     //如果用户买了一等票
-                    if (foreigner.getMoney() >= Ticket.PRICE1) {
+                    if (foreigner.getMoney() >= Constants.TicketConstant.PRICE1) {
                         //如果用户余额足够
-                        iTicketDAO.save(foreigner.getForeignerId(), Ticket.PRICE1, Ticket.TYPE1, currentTime,
-                                Ticket.TIMES1 - 1, false);
+                        iTicketDAO.save(foreigner.getForeignerId(), Constants.TicketConstant.PRICE1,
+                                Constants.TicketConstant.TYPE1, currentTime, Constants.TicketConstant.TIMES1 - 1,
+                                false);
 
-                        double balance = foreigner.getMoney() - Ticket.PRICE1;//用户剩余的钱
+                        double balance = foreigner.getMoney() -Constants.TicketConstant.PRICE1;//用户剩余的钱
                         foreigner.setMoney(balance);//更新对象中的值
                         iForeignerDAO.update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
-                        iDragonMomDAO.update(moneyTub + Ticket.PRICE1);//更新数据库的金库
+                        iDragonMomDAO.update(moneyTub + Constants.TicketConstant.PRICE1);//更新数据库的金库
 
                         //保存账目
-                        iAccountDAO.save(foreigner.getForeignerId(),Ticket.PRICE1, LocalDate.now().toString(), Account.PURCHASE);
+                        iAccountDAO.save(foreigner.getForeignerId(),Constants.TicketConstant.PRICE1,
+                                LocalDate.now().toString(), Constants.AccountConstant.PURCHASE);
                     } else {
                         AlertTool.showAlert(Alert.AlertType.WARNING, "购买失败", null, "余额不足");
                         return false;
                     }
                     break;
                 }
-                case Ticket.TYPE2: {
+                case Constants.TicketConstant.TYPE2: {
                     //如果用户购买了二等票
-                    if (foreigner.getMoney() >= Ticket.PRICE2) {
+                    if (foreigner.getMoney() >= Constants.TicketConstant.PRICE2) {
                         //如果用户余额足够
-                        iTicketDAO.save(foreigner.getForeignerId(), Ticket.PRICE2, Ticket.TYPE2, currentTime,
-                                Ticket.TIMES2 - 1, false);
+                        iTicketDAO.save(foreigner.getForeignerId(),Constants.TicketConstant.PRICE2,
+                                Constants.TicketConstant.TYPE2, currentTime, Constants.TicketConstant.TIMES2 - 1,
+                                false);
 
-                        double balance = foreigner.getMoney() - Ticket.PRICE2;//外邦人剩余的钱
+                        double balance = foreigner.getMoney() - Constants.TicketConstant.PRICE2;//外邦人剩余的钱
                         foreigner.setMoney(balance);//更新对象的值
                         iForeignerDAO.update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
-                        iDragonMomDAO.update(moneyTub + Ticket.PRICE2);//更新数据库的金库
+                        iDragonMomDAO.update(moneyTub +Constants.TicketConstant.PRICE2);//更新数据库的金库
 
                         //保存账目
-                        iAccountDAO.save(foreigner.getForeignerId(),Ticket.PRICE2, LocalDate.now().toString(), Account.PURCHASE);
+                        iAccountDAO.save(foreigner.getForeignerId(),Constants.TicketConstant.PRICE2,
+                                LocalDate.now().toString(), Constants.AccountConstant.PURCHASE);
                     } else {
                         AlertTool.showAlert(Alert.AlertType.WARNING, "购买失败", null, "余额不足");
                         return false;
                     }
                     break;
                 }
-                case Ticket.TYPE3: {
+                case Constants.TicketConstant.TYPE3: {
                     //如果用户购买了三等票
-                    if (foreigner.getMoney() >= Ticket.PRICE3) {
+                    if (foreigner.getMoney() >= Constants.TicketConstant.PRICE3) {
                         //如果用户余额足够
-                        iTicketDAO.save(foreigner.getForeignerId(), Ticket.PRICE3, Ticket.TYPE3, currentTime,
-                                Ticket.TIMES3 - 1, false);
+                        iTicketDAO.save(foreigner.getForeignerId(), Constants.TicketConstant.PRICE3,
+                                Constants.TicketConstant.TYPE3,currentTime, Constants.TicketConstant.TIMES3 - 1,
+                                false);
 
-                        double balance = foreigner.getMoney() - Ticket.PRICE3;//外邦人剩余的钱
+                        double balance = foreigner.getMoney() - Constants.TicketConstant.PRICE3;//外邦人剩余的钱
                         foreigner.setMoney(balance);//更新对象的值
                         iForeignerDAO.update(foreigner.getForeignerId(), balance);//更新数据库中外邦人的钱
-                        iDragonMomDAO.update(moneyTub + Ticket.PRICE3);//更新数据库的金库
+                        iDragonMomDAO.update(moneyTub + Constants.TicketConstant.PRICE3);//更新数据库的金库
 
                         //保存账目
-                        iAccountDAO.save(foreigner.getForeignerId(),Ticket.PRICE3, LocalDate.now().toString(), Account.PURCHASE);
+                        iAccountDAO.save(foreigner.getForeignerId(),Constants.TicketConstant.PRICE3,
+                                LocalDate.now().toString(), Constants.AccountConstant.PURCHASE);
                     } else {
                         AlertTool.showAlert(Alert.AlertType.WARNING, "购买失败", null, "余额不足");
                         return false;
@@ -390,7 +397,8 @@ public class ForeignerController extends BaseController {
         //买票窗口
         AnchorPane anchorPane = new AnchorPane();
 
-        comboBox.getItems().addAll(Ticket.TYPE1, Ticket.TYPE2, Ticket.TYPE3);//添加选项
+        comboBox.getItems().addAll(Constants.TicketConstant.TYPE1, Constants.TicketConstant.TYPE2,
+                Constants.TicketConstant.TYPE3);//添加选项
         comboBox.setEditable(false);//不可编辑
         Text t_balance = new Text("您的余额:" + foreigner.getMoney());//外邦人的余额
         Text info = new Text("价钱:" + "\n有效次数:");//显示票的有关信息
@@ -411,14 +419,14 @@ public class ForeignerController extends BaseController {
             public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
 
                 switch (newValue) {
-                    case Ticket.TYPE1:
-                        info.setText("价钱:" + Ticket.PRICE1 + "\n有效次数:" + Ticket.TIMES1);
+                    case Constants.TicketConstant.TYPE1:
+                        info.setText("价钱:" + Constants.TicketConstant.PRICE1 + "\n有效次数:" + Constants.TicketConstant.TIMES1);
                         break;
-                    case Ticket.TYPE2:
-                        info.setText("价钱:" + Ticket.PRICE2 + "\n有效次数:" + Ticket.TIMES2);
+                    case Constants.TicketConstant.TYPE2:
+                        info.setText("价钱:" + Constants.TicketConstant.PRICE2 + "\n有效次数:" + Constants.TicketConstant.TIMES2);
                         break;
-                    case Ticket.TYPE3:
-                        info.setText("价钱:" + Ticket.PRICE3 + "\n有效次数:" + Ticket.TIMES3);
+                    case Constants.TicketConstant.TYPE3:
+                        info.setText("价钱:" + Constants.TicketConstant.PRICE3 + "\n有效次数:" + Constants.TicketConstant.TIMES3);
                         break;
                     default:
                         break;

@@ -13,24 +13,6 @@ public class Ticket {
     private int times;//表示票的有效次数
     private boolean backing;//是否在退票状态
 
-    //票的类型
-    public static final String TYPE1 = "一等票";
-    public static final String TYPE2 = "二等票";
-    public static final String TYPE3 = "三等票";
-
-    //票的价格
-    public static final double PRICE1 = 20.0;
-    public static final double PRICE2 = 10.0;
-    public static final double PRICE3 = 5.0;
-
-    //退票的价格。一次有效次数==一个Back_Price
-    public static final double Back_Price = 1.0;
-
-    //票的有效次数
-    public static final int TIMES1 = 15;
-    public static final int TIMES2 = 5;
-    public static final int TIMES3 = 1;
-
     public Ticket(){}
 
     public Ticket(int ticketId, int foreignerId, double price, String type, String buyTime, int times, boolean backing) {
@@ -71,5 +53,31 @@ public class Ticket {
         this.foreignerId = foreignerId;
     }
 
+    public void setTicketId(int ticketId) {
+        this.ticketId = ticketId;
+    }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getBuyTime() {
+        return buyTime;
+    }
+
+    public void setBuyTime(String buyTime) {
+        this.buyTime = buyTime;
+    }
 }

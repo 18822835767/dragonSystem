@@ -10,12 +10,6 @@ public class Account {
     private String createTime;
     private String status;//表示状态，即购买/退货.
 
-    /**
-     * 表示购买/退款.
-     * */
-    public static final String PURCHASE = "购买";
-    public static final String REFUND = "退款";
-
     public Account() {
     }
 

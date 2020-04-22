@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
 import model.IAccountDAO;
+import util.Constants;
 import util.DAOFactory;
 
 import java.util.List;
@@ -87,7 +88,8 @@ public class MyAccountController {
      * */
     @FXML
     public void showMyPurchaseAccount(ActionEvent actionEvent) {
-        List<Account> accounts = iAccountDAO.getForeignerListByStatus(foreigner.getForeignerId(),Account.PURCHASE);
+        List<Account> accounts = iAccountDAO.getForeignerListByStatus(foreigner.getForeignerId(),
+                Constants.AccountConstant.PURCHASE);
         listData.clear();
         listData.addAll(accounts);
     }
@@ -97,7 +99,8 @@ public class MyAccountController {
      * */
     @FXML
     public void showMyRefundAccount(ActionEvent actionEvent) {
-        List<Account> accounts = iAccountDAO.getForeignerListByStatus(foreigner.getForeignerId(),Account.REFUND);
+        List<Account> accounts = iAccountDAO.getForeignerListByStatus(foreigner.getForeignerId(),
+                Constants.AccountConstant.REFUND);
         listData.clear();
         listData.addAll(accounts);
     }
