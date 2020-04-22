@@ -21,9 +21,7 @@ import model.ITicketDAO;
 import util.DAOFactory;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * 处理退票的控制器.
@@ -41,6 +39,8 @@ public class DealBackTicketsController implements Initializable {
     private IAccountDAO iAccountDAO = DAOFactory.getAccountDAOInstance();
 
     private ObservableList<Ticket> listData = FXCollections.observableArrayList();//数据源
+
+    private static Set<Ticket> tickets = new HashSet<>();//用于记录被勾选的票
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -65,26 +65,26 @@ public class DealBackTicketsController implements Initializable {
      */
     @FXML
     public void agree(ActionEvent actionEvent) {
-        Iterator<Ticket> iterator = listData.iterator();
-        while (iterator.hasNext()) {
+        Iterator<Ticket> iterator = tickets.iterator();
+        while(iterator.hasNext()){
             Ticket ticket = iterator.next();
-            if (ticket.isChecked()) {
-                int foreignerId = ticket.getForeignerId();
-                //要更新的钱
-                double renewMoney = ticket.getTimes() * Ticket.Back_Price;
-                //更新金库的钱
-                iDragonMomDAO.update(iDragonMomDAO.get().getMoneyTub() - renewMoney);
-                //更新外邦人的钱
-                iForeignerDAO.update(foreignerId, iForeignerDAO.get(foreignerId).getMoney() + renewMoney);
-                //将票的有效次数置0
-                iTicketDAO.update(ticket.getTicketId(), 0);
-                //更新票的状态
-                iTicketDAO.update(ticket.getTicketId(), false);
+            int foreignerId = ticket.getForeignerId();
+            //要更新的钱
+            double renewMoney = ticket.getTimes() * Ticket.Back_Price;
+            //更新金库的钱
+            iDragonMomDAO.update(iDragonMomDAO.get().getMoneyTub() - renewMoney);
+            //更新外邦人的钱
+            iForeignerDAO.update(foreignerId, iForeignerDAO.get(foreignerId).getMoney() + renewMoney);
+            //将票的有效次数置0
+            iTicketDAO.update(ticket.getTicketId(), 0);
+            //更新票的状态
+            iTicketDAO.update(ticket.getTicketId(), false);
 
-                iterator.remove();
+            iterator.remove();
 
-                iAccountDAO.save(foreignerId,renewMoney, LocalDate.now().toString(), Account.REFUND);
-            }
+            listData.remove(ticket);
+
+            iAccountDAO.save(foreignerId, renewMoney, LocalDate.now().toString(), Account.REFUND);
         }
         listView.refresh();//刷新listView的显示
     }
@@ -94,17 +94,17 @@ public class DealBackTicketsController implements Initializable {
      */
     @FXML
     public void refuse(ActionEvent actionEvent) {
-        Iterator<Ticket> iterator = listData.iterator();
-        while (iterator.hasNext()) {
+        Iterator<Ticket> iterator = tickets.iterator();
+        while(iterator.hasNext()){
             Ticket ticket = iterator.next();
-            if (ticket.isChecked()) {
-                //更新票的状态
-                iTicketDAO.update(ticket.getTicketId(), false);
+            //更新票的状态
+            iTicketDAO.update(ticket.getTicketId(), false);
 
-                iterator.remove();
-            }
+            iterator.remove();
+
+            listData.remove(ticket);
         }
-        listView.refresh();//刷新listView的显示
+        listView.refresh();
     }
 
     /**
@@ -112,9 +112,7 @@ public class DealBackTicketsController implements Initializable {
      */
     @FXML
     public void agreeAll(ActionEvent actionEvent) {
-        for (Ticket ticket : listData) {
-            ticket.setChecked(true);
-        }
+        tickets.addAll(listData);
         agree(actionEvent);
     }
 
@@ -123,9 +121,7 @@ public class DealBackTicketsController implements Initializable {
      */
     @FXML
     public void refuseAll(ActionEvent actionEvent) {
-        for (Ticket ticket : listData) {
-            ticket.setChecked(true);
-        }
+        tickets.addAll(listData);
         refuse(actionEvent);
     }
 
@@ -145,7 +141,6 @@ public class DealBackTicketsController implements Initializable {
                         "   票的ID:" + item.getTicketId() + "   剩余有效次数:" + item.getTimes() + "   退款:" +
                         item.getTimes() * Ticket.Back_Price);
                 checkBox.setFont(new Font(13));
-                checkBox.setSelected(item.isChecked());//默认情况下是不选中状态
                 this.setGraphic(checkBox);
                 checkBox.selectedProperty().addListener(new MyCheckBoxListener(item));//给CheckBox设置监听器
             }
@@ -162,7 +157,7 @@ public class DealBackTicketsController implements Initializable {
 
         @Override
         public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
-            ticket.setChecked(newValue);
+            tickets.add(ticket);
         }
     }
 }

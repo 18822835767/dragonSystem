@@ -12,7 +12,6 @@ public class Ticket {
     private String buyTime;
     private int times;//表示票的有效次数
     private boolean backing;//是否在退票状态
-    private boolean checked = false;//处理退票的时候用，标记checked是否被checkbox打勾
 
     //票的类型
     public static final String TYPE1 = "一等票";
@@ -72,12 +71,5 @@ public class Ticket {
         this.foreignerId = foreignerId;
     }
 
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
 
 }
