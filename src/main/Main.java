@@ -41,5 +41,15 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+
+//        IActivityDAO iActivityDAO = DAOFactory.getActivityDAOInstance();
+//        for(int i=0;i<20;i++){
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    iActivityDAO.save(1,"a","good","2020","2020");
+//                }
+//            }).start();
+//        }
     }
 }
