@@ -51,12 +51,9 @@ public class ActivityTable {
         //列的数量
         int columnNum = columnName.length;
 
-        Callback cellValueFactory = new Callback() {
-            @Override
-            public Object call(Object o) {
-                TreeTableColumn.CellDataFeatures p = (TreeTableColumn.CellDataFeatures) o;
-                return p.getValue().valueProperty();
-            }
+        Callback cellValueFactory = o -> {
+            TreeTableColumn.CellDataFeatures<Activity,Activity> p = (TreeTableColumn.CellDataFeatures) o;
+            return p.getValue().valueProperty();
         };
 
         for (int i = 0; i < columnNum; i++) {

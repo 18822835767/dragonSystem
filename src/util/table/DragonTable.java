@@ -55,12 +55,9 @@ public class DragonTable {
         int columnNum = columnName.length;
 
         //这里的警告实在不会解决...
-        Callback cellValueFactory = new Callback() {
-            @Override
-            public Object call(Object o) {
-                TreeTableColumn.CellDataFeatures p = (TreeTableColumn.CellDataFeatures) o;
-                return p.getValue().valueProperty();
-            }
+        Callback cellValueFactory = o -> {
+            TreeTableColumn.CellDataFeatures<Dragon,Dragon> p = (TreeTableColumn.CellDataFeatures) o;
+            return p.getValue().valueProperty();
         };
 
         for (int i = 0; i < columnNum; i++) {
