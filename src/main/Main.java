@@ -3,7 +3,9 @@ import controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import model.IActivityDAO;
 import util.Constants;
+import util.DAOFactory;
 import util.DBUtils;
 import util.ViewManager;
 

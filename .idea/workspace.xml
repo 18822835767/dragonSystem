@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/controller/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Shapes/out/production/Shapes/shapes/Circle.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Shapes/out/production/Shapes/shapes/Line.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Shapes/out/production/Shapes/shapes/MyPic.class" beforeDir="false" />
@@ -82,9 +83,20 @@
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/Item.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/MP3.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/VideoGame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/database/ConnectionProxy$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/model/database/ConnectionProxy$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/database/ConnectionProxy.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/model/database/ConnectionProxy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/database/ConnectionProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/ConnectionProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/DragonTrainerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/DragonTrainerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/MomActivityController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/MomActivityController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/controller/MomActivityController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/controller/MomActivityController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/main/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/database/ConnectionProxy$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/database/ConnectionProxy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/model/impl/AccountDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/model/impl/AccountDAOImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dragonsystem/util/DBUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dragonsystem/util/DBUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/DragonTrainerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DragonTrainerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/MomActivityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MomActivityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/database/ConnectionProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/MyDataSource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/impl/AccountDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/impl/AccountDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/DBUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/DBUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/coins/Coin.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/discussion34.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/notebook/NoteBook.class" beforeDir="false" />
@@ -378,7 +390,10 @@
       <workItem from="1587454444781" duration="12107000" />
       <workItem from="1587533055443" duration="1159000" />
       <workItem from="1587570723858" duration="96000" />
-      <workItem from="1587604205344" duration="1518000" />
+      <workItem from="1587604205344" duration="2432000" />
+      <workItem from="1587619335022" duration="1128000" />
+      <workItem from="1587620576342" duration="465000" />
+      <workItem from="1587621084060" duration="2779000" />
     </task>
     <servers />
   </component>
@@ -394,10 +409,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="361" y="71" key="#Inspections/0.0.1536.824@0.0.1536.824" timestamp="1587370242131" />
-    <state x="361" y="71" key="#SQL_Dialects" timestamp="1586872117714">
+    <state x="361" y="71" key="#SQL_Dialects" timestamp="1587620167911">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="71" key="#SQL_Dialects/0.0.1536.824@0.0.1536.824" timestamp="1586872117714" />
+    <state x="361" y="71" key="#SQL_Dialects/0.0.1536.824@0.0.1536.824" timestamp="1587620167911" />
     <state x="361" y="71" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586872441721">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -426,26 +441,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1586361827841" />
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1587604253581">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1587621091418">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1587604253581" />
-    <state width="1493" height="205" key="GridCell.Tab.0.bottom" timestamp="1587607416627">
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1587621091418" />
+    <state width="1493" height="206" key="GridCell.Tab.0.bottom" timestamp="1587623783536">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="205" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587607416627" />
-    <state width="1493" height="205" key="GridCell.Tab.0.center" timestamp="1587607416626">
+    <state width="1493" height="206" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587623783536" />
+    <state width="1493" height="206" key="GridCell.Tab.0.center" timestamp="1587623783536">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="205" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587607416626" />
-    <state width="1493" height="205" key="GridCell.Tab.0.left" timestamp="1587607416625">
+    <state width="1493" height="206" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587623783536" />
+    <state width="1493" height="206" key="GridCell.Tab.0.left" timestamp="1587623783536">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="205" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587607416625" />
-    <state width="1493" height="205" key="GridCell.Tab.0.right" timestamp="1587607416627">
+    <state width="1493" height="206" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587623783536" />
+    <state width="1493" height="206" key="GridCell.Tab.0.right" timestamp="1587623783536">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="205" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587607416627" />
+    <state width="1493" height="206" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587623783536" />
     <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1587371728696">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -470,10 +485,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="270" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1586872304017" />
-    <state x="449" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1587604207105">
+    <state x="449" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1587621083546">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="449" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1587604207105" />
+    <state x="449" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1587621083546" />
     <state x="562" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1587032459876">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

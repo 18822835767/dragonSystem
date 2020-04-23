@@ -69,7 +69,7 @@ public class MomActivityController implements Initializable {
         d_endTime.setDayCellFactory(new Callback<DatePicker, DateCell>() {
             @Override
             public DateCell call(DatePicker datePicker) {
-                DateCell cell = new DateCell(){
+                return new DateCell(){
                     @Override
                     public void updateItem(LocalDate item, boolean empty){
                         super.updateItem(item, empty);
@@ -83,7 +83,6 @@ public class MomActivityController implements Initializable {
                         }
                     }
                 };
-                return cell;
             }
         });
 

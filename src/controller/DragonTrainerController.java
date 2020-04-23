@@ -356,16 +356,9 @@ public class DragonTrainerController extends BaseController {
                 String profile = t_profile.getText().trim();
                 boolean training;
                 boolean healthy;
-                if (trainingMap.get("true").isSelected()) {
-                    training = true;
-                } else {
-                    training = false;
-                }
-                if (healthyMap.get("true").isSelected()) {
-                    healthy = true;
-                } else {
-                    healthy = false;
-                }
+
+                training = trainingMap.get("true").isSelected();
+                healthy = healthyMap.get("true").isSelected();
 
                 int items = iDragonDAO.update(dragonId, dragonGroupId, name, profile, training, healthy, age);
 

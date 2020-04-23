@@ -1,6 +1,6 @@
 package util;
 
-import model.database.ConnectionProxy;
+import model.database.MyDataSource;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -12,7 +12,7 @@ public class DBUtils {
     /**
      * 初始化一个连接池对象.
      * */
-    private static DataSource dataSource = new ConnectionProxy();
+    private static DataSource dataSource = new MyDataSource();
 
     private DBUtils() {
     }
