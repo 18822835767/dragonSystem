@@ -33,28 +33,28 @@ public class CheckValid {
     }
 
     /**
-     * 判断用户名是否重复(相对于所有用户而言).
+     * 判断用户名是否有效，即用户名不重复(相对于所有用户而言).
      */
-    public static boolean isValidUsername(String user) {
+    public static boolean isInvalidUsername(String user) {
         //是否和龙妈的用户名重复
         if (iDragonMomDAO.get().getPassword().equals(user)) {
-            return false;
+            return true;
         }
 
         //是否和驯龙高手用户名重复
         for (DragonTrainer trainer : iDragonTrainerDAO.getList()) {
             if (trainer.getUsername().equals(user)) {
-                return false;
+                return true;
             }
         }
 
         //是否和外邦人用户名重复
         for (Foreigner foreigner : iForeignerDAO.getList()) {
             if (foreigner.getUsername().equals(user)) {
-                return false;
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 }

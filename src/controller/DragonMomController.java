@@ -140,7 +140,7 @@ public class DragonMomController extends BaseController {
             }
 
             if (CheckValid.isEmpty(name, username, password, t_groupId.getText().trim()) ||
-                    !CheckValid.isValidUsername(username)) {
+                    CheckValid.isInvalidUsername(username)) {
                 //判断是否有空的信息以及用户名是否重复
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "添加失败", "信息填写不完整" +
                         "或者用户名已注册");
