@@ -391,7 +391,8 @@ public class DragonMomController extends BaseController {
             int items = iDragonGroupDAO.delete(dragonGroupId);
 
             if (items == 0) {//说明没有数据删除
-                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "删除失败", "可能是没有与id匹配的族群");
+                AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "删除失败", "请确保id存在或者" +
+                        "族群内无驯龙高手");
             } else {
                 for (TreeItem<DragonGroup> treeItem : groupTreeItemList) {
                     if (treeItem.getValue().getDragonGroupId() == dragonGroupId) {

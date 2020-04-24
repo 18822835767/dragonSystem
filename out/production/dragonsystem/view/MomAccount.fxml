@@ -7,7 +7,6 @@
 <?import javafx.scene.control.ListView?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.MomAccountController" prefHeight="400.0"
             prefWidth="600.0">
-
     <top>
         <HBox>
             <Button text="显示所有" onAction="#showAllAccount"/>

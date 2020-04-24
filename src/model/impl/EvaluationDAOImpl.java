@@ -3,6 +3,7 @@ package model.impl;
 import entity.Evaluation;
 import model.IEvaluationDAO;
 import util.DBUtils;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,12 +13,13 @@ import java.util.List;
 public class EvaluationDAOImpl implements IEvaluationDAO {
     private volatile static EvaluationDAOImpl instance = null;
 
-    private EvaluationDAOImpl(){}
+    private EvaluationDAOImpl() {
+    }
 
-    public static EvaluationDAOImpl getInstance(){
-        if(instance == null){
-            synchronized (EvaluationDAOImpl.class){
-                if(instance == null){
+    public static EvaluationDAOImpl getInstance() {
+        if (instance == null) {
+            synchronized (EvaluationDAOImpl.class) {
+                if (instance == null) {
                     instance = new EvaluationDAOImpl();
                 }
             }
@@ -29,25 +31,25 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
     @Override
     public int save(int activityId, int foreignerId, int rank, String content, String evaluateTime) {
         String sql = "insert into evaluation(activityId,foreignerId,rank,content,evaluateTime) values(?,?,?,?,?)";
-        return DBUtils.executeUpdate(DBUtils.getConnection(),sql, activityId,foreignerId,rank,content,evaluateTime);
+        return DBUtils.executeUpdate(DBUtils.getConnection(), sql, activityId, foreignerId, rank, content, evaluateTime);
     }
 
     @Override
     public int delete(int foreignerId, int evaluationId) {
         String sql = "delete from evaluation where foreignerId = ? and evaluationId = ?";
-        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,foreignerId,evaluationId);
+        return DBUtils.executeUpdate(DBUtils.getConnection(), sql, foreignerId, evaluationId);
     }
 
     @Override
     public int delete(int evaluationId) {
         String sql = "delete from evaluation where evaluationId = ?";
-        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,evaluationId);
+        return DBUtils.executeUpdate(DBUtils.getConnection(), sql, evaluationId);
     }
 
     @Override
     public int update(int evaluationId, int rank, String content, String evaluateTime) {
         String sql = "update evaluation set rank = ?,content = ?,evaluateTime = ? where evaluationId = ?";
-        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,rank,content,evaluateTime,evaluationId);
+        return DBUtils.executeUpdate(DBUtils.getConnection(), sql, rank, content, evaluateTime, evaluationId);
     }
 
     @Override
@@ -58,18 +60,20 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
         try {
             conn = DBUtils.getConnection();
             String sql = "select * from evaluation where foreignerId = ? and evaluationId = ?";
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1,foreignerId);
-            ps.setInt(2,evaluationId);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Evaluation(rs.getInt("evaluationId"),rs.getInt("activityId"),rs.getInt("foreignerId"),
-                        rs.getInt("rank"),rs.getString("content"),rs.getString("evaluateTime"));
+            if (conn != null) {
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, foreignerId);
+                ps.setInt(2, evaluationId);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    return new Evaluation(rs.getInt("evaluationId"), rs.getInt("activityId"), rs.getInt("foreignerId"),
+                            rs.getInt("rank"), rs.getString("content"), rs.getString("evaluateTime"));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(conn,ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }
@@ -82,18 +86,20 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
         try {
             conn = DBUtils.getConnection();
             String sql = "select * from evaluation where foreignerId = ? and activityId = ?";
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1,foreignerId);
-            ps.setInt(2, activityId);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Evaluation(rs.getInt("evaluationId"),rs.getInt("activityId"),rs.getInt("foreignerId"),
-                        rs.getInt("rank"),rs.getString("content"),rs.getString("evaluateTime"));
+            if (conn != null) {
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, foreignerId);
+                ps.setInt(2, activityId);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    return new Evaluation(rs.getInt("evaluationId"), rs.getInt("activityId"), rs.getInt("foreignerId"),
+                            rs.getInt("rank"), rs.getString("content"), rs.getString("evaluateTime"));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(conn,ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }
@@ -107,19 +113,22 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
         String sql = "select * from evaluation where foreignerId = ?";
         try {
             conn = DBUtils.getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1,foreignerId);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Evaluation evaluation = new Evaluation(rs.getInt("evaluationId"),rs.getInt("activityId"),
-                        rs.getInt("foreignerId"),rs.getInt("rank"),rs.getString("content"),rs.getString("evaluateTime"));
-                evaluationList.add(evaluation);
+            if (conn != null) {
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, foreignerId);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    Evaluation evaluation = new Evaluation(rs.getInt("evaluationId"), rs.getInt("activityId"),
+                            rs.getInt("foreignerId"), rs.getInt("rank"), rs.getString("content"),
+                            rs.getString("evaluateTime"));
+                    evaluationList.add(evaluation);
+                }
             }
             return evaluationList;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(conn,ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }
@@ -133,18 +142,21 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
         String sql = "select * from evaluation";
         try {
             conn = DBUtils.getConnection();
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Evaluation evaluation = new Evaluation(rs.getInt("evaluationId"),rs.getInt("activityId"),
-                        rs.getInt("foreignerId"),rs.getInt("rank"),rs.getString("content"),rs.getString("evaluateTime"));
-                evaluationList.add(evaluation);
+            if (conn != null) {
+                ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    Evaluation evaluation = new Evaluation(rs.getInt("evaluationId"), rs.getInt("activityId"),
+                            rs.getInt("foreignerId"), rs.getInt("rank"), rs.getString("content"),
+                            rs.getString("evaluateTime"));
+                    evaluationList.add(evaluation);
+                }
             }
             return evaluationList;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            DBUtils.close(conn,ps, rs);
+            DBUtils.close(conn, ps, rs);
         }
         return null;
     }

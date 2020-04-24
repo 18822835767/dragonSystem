@@ -4,6 +4,7 @@ import entity.Foreigner;
 import model.IForeignerDAO;
 import util.DBUtils;
 import util.Encrypt;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,13 +35,13 @@ public class ForeignerDAOImpl implements IForeignerDAO {
     @Override
     public int save(String username, String password, String name) {
         String sql = "insert into foreigner(username,password,name) values(?,?,?)";
-        return DBUtils.executeUpdate(DBUtils.getConnection(),sql, username, Encrypt.setEncrypt(password), name);
+        return DBUtils.executeUpdate(DBUtils.getConnection(), sql, username, Encrypt.setEncrypt(password), name);
     }
 
     @Override
     public int update(int foreignerId, double money) {
         String sql = "update foreigner set money = ? where foreignerId = ?";
-        return DBUtils.executeUpdate(DBUtils.getConnection(),sql, money, foreignerId);
+        return DBUtils.executeUpdate(DBUtils.getConnection(), sql, money, foreignerId);
     }
 
     //用户名和密码查询
@@ -52,14 +53,16 @@ public class ForeignerDAOImpl implements IForeignerDAO {
         try {
             String sql = "select * from foreigner where username = ? and password = ?";
             conn = DBUtils.getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, username);
-            ps.setString(2, Encrypt.setEncrypt(password));
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Foreigner(rs.getInt("foreignerId"), rs.getString("username"),
-                        Encrypt.getEncrypt(rs.getString("password")), rs.getString("name"),
-                        rs.getFloat("money"));
+            if (conn != null) {
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, username);
+                ps.setString(2, Encrypt.setEncrypt(password));
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    return new Foreigner(rs.getInt("foreignerId"), rs.getString("username"),
+                            Encrypt.getEncrypt(rs.getString("password")), rs.getString("name"),
+                            rs.getFloat("money"));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -77,12 +80,14 @@ public class ForeignerDAOImpl implements IForeignerDAO {
         try {
             String sql = "select * from foreigner where foreignerId = ?";
             conn = DBUtils.getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, foreignerId);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Foreigner(rs.getInt("foreignerId"), rs.getString("username"),
-                        Encrypt.getEncrypt(rs.getString("password")), rs.getString("name"), rs.getInt("money"));
+            if (conn != null) {
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, foreignerId);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    return new Foreigner(rs.getInt("foreignerId"), rs.getString("username"),
+                            Encrypt.getEncrypt(rs.getString("password")), rs.getString("name"), rs.getInt("money"));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,12 +106,14 @@ public class ForeignerDAOImpl implements IForeignerDAO {
         try {
             String sql = "select * from foreigner";
             conn = DBUtils.getConnection();
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Foreigner foreigner = new Foreigner(rs.getInt("foreignerId"), rs.getString("username"),
-                        rs.getString("password"), rs.getString("name"), rs.getInt("money"));
-                foreigners.add(foreigner);
+            if (conn != null) {
+                ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    Foreigner foreigner = new Foreigner(rs.getInt("foreignerId"), rs.getString("username"),
+                            rs.getString("password"), rs.getString("name"), rs.getInt("money"));
+                    foreigners.add(foreigner);
+                }
             }
             return foreigners;
         } catch (SQLException e) {

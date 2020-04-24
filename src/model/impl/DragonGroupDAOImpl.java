@@ -57,12 +57,14 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
         try {
             conn = DBUtils.getConnection();
             String sql = "select * from dragongroup where dragonGroupId = ?";
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1,dragonGroupId);
-            rs =ps.executeQuery();
-            if (rs.next()) {
-                return new DragonGroup(rs.getInt("dragonGroupId"),rs.getString("name"),
-                        rs.getString("profile"), rs.getString("location"),rs.getFloat("size"));
+            if(conn != null){
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1,dragonGroupId);
+                rs =ps.executeQuery();
+                if (rs.next()) {
+                    return new DragonGroup(rs.getInt("dragonGroupId"),rs.getString("name"),
+                            rs.getString("profile"), rs.getString("location"),rs.getFloat("size"));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,12 +85,14 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
         try {
             conn = DBUtils.getConnection();
             String sql = "select * from dragongroup where name = ?";
-            ps = conn.prepareStatement(sql);
-            ps.setString(1,name);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-               return new DragonGroup(rs.getInt("dragonGroupId"),rs.getString("name"),
-                        rs.getString("profile"), rs.getString("location"),rs.getFloat("size"));
+            if(conn != null){
+                ps = conn.prepareStatement(sql);
+                ps.setString(1,name);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    return new DragonGroup(rs.getInt("dragonGroupId"),rs.getString("name"),
+                            rs.getString("profile"), rs.getString("location"),rs.getFloat("size"));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,12 +114,14 @@ public class DragonGroupDAOImpl implements IDragonGroupDAO {
         String sql = "select * from dragongroup";
         try {
             conn = DBUtils.getConnection();
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                DragonGroup dragonGroup = new DragonGroup(rs.getInt("dragonGroupId"),rs.getString("name"),
-                        rs.getString("profile"), rs.getString("location"),rs.getFloat("size"));
-                dragonGroupList.add(dragonGroup);
+            if(conn != null){
+                ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    DragonGroup dragonGroup = new DragonGroup(rs.getInt("dragonGroupId"),rs.getString("name"),
+                            rs.getString("profile"), rs.getString("location"),rs.getFloat("size"));
+                    dragonGroupList.add(dragonGroup);
+                }
             }
             return dragonGroupList;
         } catch (Exception e) {

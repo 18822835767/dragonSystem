@@ -63,13 +63,15 @@ public class TicketDAOImpl implements ITicketDAO{
         try {
             conn = DBUtils.getConnection();
             String sql = "select * from ticket where foreignerId = ?";
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1,foreignerId);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                boolean backing = rs.getInt("backing")==1;
-                return new Ticket(rs.getInt("ticketId"),rs.getInt("foreignerId"),rs.getFloat("price"),
-                        rs.getString("type"),rs.getString("buyTime"),rs.getInt("times"),backing);
+            if(conn != null){
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1,foreignerId);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    boolean backing = rs.getInt("backing")==1;
+                    return new Ticket(rs.getInt("ticketId"),rs.getInt("foreignerId"),rs.getFloat("price"),
+                            rs.getString("type"),rs.getString("buyTime"),rs.getInt("times"),backing);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,13 +91,15 @@ public class TicketDAOImpl implements ITicketDAO{
         try {
             conn = DBUtils.getConnection();
             String sql = "select * from ticket where backing = ?";
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1,backing);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Ticket ticket = new Ticket(rs.getInt("ticketId"),rs.getInt("foreignerId"),rs.getFloat("price"),
-                        rs.getString("type"),rs.getString("buyTime"),rs.getInt("times"),back);
-                tickets.add(ticket);
+            if(conn != null){
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1,backing);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    Ticket ticket = new Ticket(rs.getInt("ticketId"),rs.getInt("foreignerId"),rs.getFloat("price"),
+                            rs.getString("type"),rs.getString("buyTime"),rs.getInt("times"),back);
+                    tickets.add(ticket);
+                }
             }
             return tickets;
         } catch (Exception e) {

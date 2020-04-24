@@ -15,12 +15,13 @@ import java.util.logging.Logger;
 public class AccountDAOImpl implements IAccountDAO {
     private volatile static AccountDAOImpl instance = null;
 
-    private AccountDAOImpl(){}
+    private AccountDAOImpl() {
+    }
 
-    public static AccountDAOImpl getInstance(){
-        if(instance == null){
-            synchronized (AccountDAOImpl.class){
-                if(instance == null){
+    public static AccountDAOImpl getInstance() {
+        if (instance == null) {
+            synchronized (AccountDAOImpl.class) {
+                if (instance == null) {
                     instance = new AccountDAOImpl();
                 }
             }
@@ -31,7 +32,7 @@ public class AccountDAOImpl implements IAccountDAO {
     @Override
     public int save(int foreignerId, double money, String createTime, String status) {
         String sql = "insert into account(foreignerId,money,createTime,status) values(?,?,?,?) ";
-        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,foreignerId,money,createTime,status);
+        return DBUtils.executeUpdate(DBUtils.getConnection(), sql, foreignerId, money, createTime, status);
     }
 
     @Override
@@ -43,14 +44,16 @@ public class AccountDAOImpl implements IAccountDAO {
         try {
             conn = DBUtils.getConnection();
             String sql = "select * from account where foreignerId = ? and status = ?";
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1,foreignerId);
-            ps.setString(2,status);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Account account = new Account(rs.getInt("accountId"),rs.getInt("foreignerId"),rs.getFloat("money"),
-                        rs.getString("createTime"),rs.getString("status"));
-                accounts.add(account);
+            if (conn != null) {
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, foreignerId);
+                ps.setString(2, status);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    Account account = new Account(rs.getInt("accountId"), rs.getInt("foreignerId"), rs.getFloat("money"),
+                            rs.getString("createTime"), rs.getString("status"));
+                    accounts.add(account);
+                }
             }
             return accounts;
         } catch (SQLException e) {
@@ -70,13 +73,15 @@ public class AccountDAOImpl implements IAccountDAO {
         try {
             conn = DBUtils.getConnection();
             String sql = "select * from account where foreignerId = ?";
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1,foreignerId);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Account account = new Account(rs.getInt("accountId"),rs.getInt("foreignerId"),rs.getFloat("money"),
-                        rs.getString("createTime"),rs.getString("status"));
-                accounts.add(account);
+            if (conn != null) {
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, foreignerId);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    Account account = new Account(rs.getInt("accountId"), rs.getInt("foreignerId"), rs.getFloat("money"),
+                            rs.getString("createTime"), rs.getString("status"));
+                    accounts.add(account);
+                }
             }
             return accounts;
         } catch (SQLException e) {
@@ -96,13 +101,15 @@ public class AccountDAOImpl implements IAccountDAO {
         try {
             conn = DBUtils.getConnection();
             String sql = "select * from account where status = ?";
-            ps = conn.prepareStatement(sql);
-            ps.setString(1,status);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Account account = new Account(rs.getInt("accountId"),rs.getInt("foreignerId"),rs.getFloat("money"),
-                        rs.getString("createTime"),rs.getString("status"));
-                accounts.add(account);
+            if (conn != null) {
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, status);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    Account account = new Account(rs.getInt("accountId"), rs.getInt("foreignerId"), rs.getFloat("money"),
+                            rs.getString("createTime"), rs.getString("status"));
+                    accounts.add(account);
+                }
             }
             return accounts;
         } catch (SQLException e) {
@@ -122,12 +129,14 @@ public class AccountDAOImpl implements IAccountDAO {
         try {
             conn = DBUtils.getConnection();
             String sql = "select * from account";
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Account account = new Account(rs.getInt("accountId"),rs.getInt("foreignerId"),rs.getFloat("money"),
-                        rs.getString("createTime"),rs.getString("status"));
-                accounts.add(account);
+            if (conn != null) {
+                ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    Account account = new Account(rs.getInt("accountId"), rs.getInt("foreignerId"), rs.getFloat("money"),
+                            rs.getString("createTime"), rs.getString("status"));
+                    accounts.add(account);
+                }
             }
             return accounts;
         } catch (SQLException e) {

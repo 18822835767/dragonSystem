@@ -59,13 +59,15 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         try {
             conn = DBUtils.getConnection();
             String sql = "select * from dragontrainer where dragonTrainerId = ?";
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1,dragonTrainerId);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                return new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
-                        , rs.getString("name"), rs.getString("username"),
-                        Encrypt.getEncrypt( rs.getString("password")));
+            if(conn != null){
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1,dragonTrainerId);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    return new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
+                            , rs.getString("name"), rs.getString("username"),
+                            Encrypt.getEncrypt( rs.getString("password")));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,14 +88,16 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         try {
             conn = DBUtils.getConnection();
             String sql = "select * from dragontrainer where username = ? and password = ?";
-            ps = conn.prepareStatement(sql);
-            ps.setString(1,username);
-            ps.setString(2,Encrypt.setEncrypt(password));
-            rs = ps.executeQuery();
-            if(rs.next()){
-                return new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
-                        , rs.getString("name"), rs.getString("username"),Encrypt.getEncrypt(
-                                rs.getString("password")));
+            if(conn != null){
+                ps = conn.prepareStatement(sql);
+                ps.setString(1,username);
+                ps.setString(2,Encrypt.setEncrypt(password));
+                rs = ps.executeQuery();
+                if(rs.next()){
+                    return new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
+                            , rs.getString("name"), rs.getString("username"),Encrypt.getEncrypt(
+                            rs.getString("password")));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -115,12 +119,15 @@ public class DragonTrainerDAOImpl implements IDragonTrainerDAO {
         String sql = "select * from dragontrainer";
         try {
             conn = DBUtils.getConnection();
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                DragonTrainer dragonTrainer = new DragonTrainer(rs.getInt("dragonTrainerId"), rs.getInt("dragonGroupId")
-                        , rs.getString("name"), rs.getString("username"), Encrypt.getEncrypt(rs.getString("password")));
-                dragonTrainerList.add(dragonTrainer);
+            if(conn != null){
+                ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    DragonTrainer dragonTrainer = new DragonTrainer(rs.getInt("dragonTrainerId"),
+                            rs.getInt("dragonGroupId"), rs.getString("name"), rs.getString("username"),
+                            Encrypt.getEncrypt(rs.getString("password")));
+                    dragonTrainerList.add(dragonTrainer);
+                }
             }
             return dragonTrainerList;
         } catch (Exception e) {

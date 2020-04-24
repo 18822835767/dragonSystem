@@ -15,12 +15,13 @@ import java.util.List;
 public class ActivityDAOImpl implements IActivityDAO {
     private volatile static ActivityDAOImpl instance = null;
 
-    private ActivityDAOImpl(){}
+    private ActivityDAOImpl() {
+    }
 
-    public static ActivityDAOImpl getInstance(){
-        if(instance == null){
-            synchronized (ActivityDAOImpl.class){
-                if(instance == null){
+    public static ActivityDAOImpl getInstance() {
+        if (instance == null) {
+            synchronized (ActivityDAOImpl.class) {
+                if (instance == null) {
                     instance = new ActivityDAOImpl();
                 }
             }
@@ -31,7 +32,7 @@ public class ActivityDAOImpl implements IActivityDAO {
     @Override
     public int save(int dragonGroupId, String name, String content, String startTime, String overTime) {
         String sql = "insert into activity(dragonGroupId,name,content,startTime,overTime) values(?,?,?,?,?)";
-        return DBUtils.executeUpdate(DBUtils.getConnection(),sql,dragonGroupId,name,content,startTime,overTime);
+        return DBUtils.executeUpdate(DBUtils.getConnection(), sql, dragonGroupId, name, content, startTime, overTime);
     }
 
     @Override
@@ -42,12 +43,14 @@ public class ActivityDAOImpl implements IActivityDAO {
         try {
             conn = DBUtils.getConnection();
             String sql = "select * from activity where activityId = ?";
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, activityId);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Activity(rs.getInt("activityId"),rs.getInt("dragonGroupId"),rs.getString("name"),
-                        rs.getString("content"),rs.getString("startTime"),rs.getString("overTime"));
+            if (conn != null) {
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, activityId);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    return new Activity(rs.getInt("activityId"), rs.getInt("dragonGroupId"), rs.getString("name"),
+                            rs.getString("content"), rs.getString("startTime"), rs.getString("overTime"));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,20 +68,24 @@ public class ActivityDAOImpl implements IActivityDAO {
         try {
             conn = DBUtils.getConnection();
             String sql = "select * from activity where activityId = ?";
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, activityId);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                Activity activity = new Activity(rs.getInt("activityId"),rs.getInt("dragonGroupId"),rs.getString("name"),
-                        rs.getString("content"),rs.getString("startTime"),rs.getString("overTime"));
+            if (conn != null) {
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, activityId);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    Activity activity = new Activity(rs.getInt("activityId"), rs.getInt("dragonGroupId"),
+                            rs.getString("name"), rs.getString("content"), rs.getString("startTime"),
+                            rs.getString("overTime"));
 
-                LocalDate startTime = LocalDate.parse(activity.getStartTime());
-                LocalDate overTime = LocalDate.parse(activity.getOverTime());
+                    LocalDate startTime = LocalDate.parse(activity.getStartTime());
+                    LocalDate overTime = LocalDate.parse(activity.getOverTime());
 
-                if(!((time.isBefore(startTime) || time.isAfter(overTime)))){
-                    return activity;
+                    if (!((time.isBefore(startTime) || time.isAfter(overTime)))) {
+                        return activity;
+                    }
                 }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -96,16 +103,19 @@ public class ActivityDAOImpl implements IActivityDAO {
         try {
             conn = DBUtils.getConnection();
             String sql = "select * from activity";
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                LocalDate startTime = LocalDate.parse(rs.getString("startTime"));
-                LocalDate overTime = LocalDate.parse(rs.getString("overTime"));
-                //传入的时间在活动的 开始时间-结束时间  之间
-                if(!(time.isBefore(startTime) || time.isAfter(overTime))){
-                    Activity activity = new Activity(rs.getInt("activityId"), rs.getInt("dragonGroupId"), rs.getString("name"),
-                            rs.getString("content"), rs.getString("startTime"),rs.getString("overTime"));
-                    activities.add(activity);
+            if (conn != null) {
+                ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    LocalDate startTime = LocalDate.parse(rs.getString("startTime"));
+                    LocalDate overTime = LocalDate.parse(rs.getString("overTime"));
+                    //传入的时间在活动的 开始时间-结束时间  之间
+                    if (!(time.isBefore(startTime) || time.isAfter(overTime))) {
+                        Activity activity = new Activity(rs.getInt("activityId"), rs.getInt("dragonGroupId"),
+                                rs.getString("name"), rs.getString("content"), rs.getString("startTime"),
+                                rs.getString("overTime"));
+                        activities.add(activity);
+                    }
                 }
             }
             return activities;
@@ -126,12 +136,15 @@ public class ActivityDAOImpl implements IActivityDAO {
         try {
             conn = DBUtils.getConnection();
             String sql = "select * from activity";
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Activity activity = new Activity(rs.getInt("activityId"), rs.getInt("dragonGroupId"), rs.getString("name"),
-                        rs.getString("content"), rs.getString("startTime"),rs.getString("overTime"));
-                activities.add(activity);
+            if (conn != null) {
+                ps = conn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    Activity activity = new Activity(rs.getInt("activityId"), rs.getInt("dragonGroupId"),
+                            rs.getString("name"), rs.getString("content"), rs.getString("startTime"),
+                            rs.getString("overTime"));
+                    activities.add(activity);
+                }
             }
             return activities;
         } catch (SQLException e) {

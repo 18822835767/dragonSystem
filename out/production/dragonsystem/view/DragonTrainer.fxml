@@ -14,62 +14,58 @@
 
         <TabPane fx:id="tabPane">
             <Tab text="族群的龙">
-                <content>
-                    <VBox alignment="CENTER" spacing="15">
-                        <padding>
-                            <Insets top="70.0"/>
-                        </padding>
-                        <Button text="增加" prefWidth="50" onAction="#addDragon">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </Button>
-                        <Button text="删除" prefWidth="50" onAction="#deleteDragon">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </Button>
-                        <Button text="查询" prefWidth="50" onAction="#queryDragon">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </Button>
-                        <Button text="修改" prefWidth="50" onAction="#changeDragon">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </Button>
-                        <Text fx:id="text1">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Text>
-                    </VBox>
-                </content>
+                <VBox alignment="CENTER" spacing="15">
+                    <padding>
+                        <Insets top="70.0"/>
+                    </padding>
+                    <Button text="增加" prefWidth="50" onAction="#addDragon">
+                        <font>
+                            <Font size="15.0"/>
+                        </font>
+                    </Button>
+                    <Button text="删除" prefWidth="50" onAction="#deleteDragon">
+                        <font>
+                            <Font size="15.0"/>
+                        </font>
+                    </Button>
+                    <Button text="查询" prefWidth="50" onAction="#queryDragon">
+                        <font>
+                            <Font size="15.0"/>
+                        </font>
+                    </Button>
+                    <Button text="修改" prefWidth="50" onAction="#changeDragon">
+                        <font>
+                            <Font size="15.0"/>
+                        </font>
+                    </Button>
+                    <Text fx:id="text1">
+                        <font>
+                            <Font size="13.0"/>
+                        </font>
+                    </Text>
+                </VBox>
             </Tab>
             <Tab text="所有族群">
-                <content>
-                    <VBox alignment="CENTER" spacing="15">
-                        <padding>
-                            <Insets top="70.0"/>
-                        </padding>
-                        <Button text="修改我的族群" prefWidth="120" onAction="#changeDragonGroup">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </Button>
-                        <Button text="查询族群信息" prefWidth="120" onAction="#queryDragonGroup">
-                            <font>
-                                <Font size="15.0"/>
-                            </font>
-                        </Button>
-                        <Text fx:id="text2">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Text>
-                    </VBox>
-                </content>
+                <VBox alignment="CENTER" spacing="15">
+                    <padding>
+                        <Insets top="70.0"/>
+                    </padding>
+                    <Button text="修改我的族群" prefWidth="120" onAction="#changeDragonGroup">
+                        <font>
+                            <Font size="15.0"/>
+                        </font>
+                    </Button>
+                    <Button text="查询族群信息" prefWidth="120" onAction="#queryDragonGroup">
+                        <font>
+                            <Font size="15.0"/>
+                        </font>
+                    </Button>
+                    <Text fx:id="text2">
+                        <font>
+                            <Font size="13.0"/>
+                        </font>
+                    </Text>
+                </VBox>
             </Tab>
         </TabPane>
     </VBox>
