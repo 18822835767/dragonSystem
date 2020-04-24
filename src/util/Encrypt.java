@@ -1,5 +1,8 @@
 package util;
 
+/**
+ * 异或加密，解密.
+ * */
 public class Encrypt {
     private static final String key = "key";
 
