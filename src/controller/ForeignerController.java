@@ -232,7 +232,7 @@ public class ForeignerController extends BaseController {
             VBox vBox = new VBox(10);
 
             Text t_name = new Text("名字:" + dragonGroup.getName());
-            Text t_id = new Text("Id:" + dragonGroup.getId());
+            Text t_id = new Text("Id:" + dragonGroup.getDragonGroupId());
             Text t_profile = new Text("简介:" + dragonGroup.getProfile());
             Text t_size = new Text("大小:" + dragonGroup.getSize());
 

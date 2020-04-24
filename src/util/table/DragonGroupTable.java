@@ -113,7 +113,7 @@ public class DragonGroupTable {
                         setText(item.getName());
                         break;
                     case ID:
-                        setText(String.valueOf(item.getId()));
+                        setText(String.valueOf(item.getDragonGroupId()));
                         break;
                     case PROFILE:
                         setText(item.getProfile());

@@ -54,7 +54,7 @@ public class DealBackTicketsController implements Initializable {
         listData.addAll(tickets);
 
         //设置单元格生成器，负责每个单元格的显示
-        listView.setCellFactory(new Callback<ListView<Ticket>, ListCell<Ticket>>() {
+        listView.setCellFactory(new Callback<>() {
             @Override
             public ListCell<Ticket> call(ListView<Ticket> ticketListView) {
                 return new MyListCell();

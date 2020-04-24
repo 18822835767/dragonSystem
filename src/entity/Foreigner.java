@@ -6,9 +6,10 @@ public class Foreigner extends Person {
     private int foreignerId;
     private double money;
 
-    public Foreigner(){}
+    public Foreigner() {
+    }
 
-    public Foreigner(int foreignerId, String username, String password,String name,double money) {
+    public Foreigner(int foreignerId, String username, String password, String name, double money) {
         super(name, username, password);
         this.foreignerId = foreignerId;
         this.money = money;
@@ -18,6 +19,10 @@ public class Foreigner extends Person {
         return foreignerId;
     }
 
+    public void setForeignerId(int foreignerId) {
+        this.foreignerId = foreignerId;
+    }
+
     public double getMoney() {
         return money;
     }
@@ -25,4 +30,5 @@ public class Foreigner extends Person {
     public void setMoney(double money) {
         this.money = money;
     }
+
 }

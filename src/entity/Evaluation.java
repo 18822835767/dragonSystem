@@ -2,7 +2,7 @@ package entity;
 
 /**
  * 评价的实体类.
- * */
+ */
 public class Evaluation {
     private int evaluationId;
     private int activityId;
@@ -23,20 +23,20 @@ public class Evaluation {
         this.evaluateTime = evaluateTime;
     }
 
-    public int getRank() {
-        return rank;
+    public int getEvaluationId() {
+        return evaluationId;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setEvaluationId(int evaluationId) {
+        this.evaluationId = evaluationId;
     }
 
     public int getActivityId() {
         return activityId;
+    }
+
+    public void setActivityId(int activityId) {
+        this.activityId = activityId;
     }
 
     public int getForeignerId() {
@@ -47,11 +47,27 @@ public class Evaluation {
         this.foreignerId = foreignerId;
     }
 
-    public int getEvaluationId() {
-        return evaluationId;
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getEvaluateTime() {
         return evaluateTime;
+    }
+
+    public void setEvaluateTime(String evaluateTime) {
+        this.evaluateTime = evaluateTime;
     }
 }

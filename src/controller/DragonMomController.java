@@ -127,7 +127,7 @@ public class DragonMomController extends BaseController {
             String name = t_name.getText();
             String username = t_username.getText().trim();
             String password = t_password.getText().trim();
-            int dragonGroupId = 0;
+            int dragonGroupId;
             try {
                 //判读输入的ID是否为整数
                 dragonGroupId = Integer.parseInt(t_groupId.getText().trim());
@@ -169,7 +169,7 @@ public class DragonMomController extends BaseController {
                 "请输入驯龙高手的Id", "Id:");
         //如果用户点击了确定按钮
         if (result.isPresent()) {
-            int dragonTrainerId = 0;
+            int dragonTrainerId;
             try {
                 dragonTrainerId = Integer.parseInt(result.get().trim());
             } catch (Exception e) {
@@ -202,7 +202,7 @@ public class DragonMomController extends BaseController {
         Optional<String> result = TextInputDialogTool.showTextInput("查询驯龙高手信息",
                 "请输入驯龙高手的Id", "Id:");
         if (result.isPresent()) {
-            int dragonTrainerId = 0;
+            int dragonTrainerId;
             try {
                 dragonTrainerId = Integer.parseInt(result.get());
             } catch (Exception e) {
@@ -245,7 +245,7 @@ public class DragonMomController extends BaseController {
         Optional<String> result = TextInputDialogTool.showTextInput(null, "请输入驯龙高手的Id",
                 "Id:");
         if (result.isPresent()) {
-            int dragonTrainerId = 0;
+            int dragonTrainerId;
 
             try {
                 dragonTrainerId = Integer.parseInt(result.get());
@@ -289,7 +289,7 @@ public class DragonMomController extends BaseController {
             if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                 String name = t_name.getText().trim();
                 String password = t_password.getText().trim();
-                int dragonGroupId = 0;
+                int dragonGroupId;
                 try {
                     //输入的ID是否为整数
                     dragonGroupId = Integer.parseInt(t_id.getText().trim());
@@ -342,7 +342,7 @@ public class DragonMomController extends BaseController {
             String name = t_name.getText().trim();
             String profile = t_profile.getText().trim();
             String location = t_location.getText().trim();
-            double size = 0;
+            double size;
             try {
                 size = Double.parseDouble(t_size.getText().trim());
             } catch (Exception e) {
@@ -380,7 +380,7 @@ public class DragonMomController extends BaseController {
                 "请输入族群的Id", "Id:");
         //如果用户点击了确定按钮
         if (result.isPresent()) {
-            int dragonGroupId = 0;
+            int dragonGroupId;
             try {
                 dragonGroupId = Integer.parseInt(result.get().trim());
             } catch (Exception e) {
@@ -388,14 +388,13 @@ public class DragonMomController extends BaseController {
                 return;
             }
 
-            DragonGroup dragonGroup = iDragonGroupDAO.get(dragonGroupId);
             int items = iDragonGroupDAO.delete(dragonGroupId);
 
             if (items == 0) {//说明没有数据删除
                 AlertTool.showAlert(Alert.AlertType.WARNING, "错误", "删除失败", "可能是没有与id匹配的族群");
             } else {
                 for (TreeItem<DragonGroup> treeItem : groupTreeItemList) {
-                    if (treeItem.getValue().getId() == dragonGroupId) {
+                    if (treeItem.getValue().getDragonGroupId() == dragonGroupId) {
                         groupTreeItemList.remove(treeItem);
                         groupRoot.getChildren().remove(treeItem);
                         break;
@@ -413,7 +412,7 @@ public class DragonMomController extends BaseController {
         Optional<String> result = TextInputDialogTool.showTextInput("查询族群信息",
                 "请输入族群的Id", "Id:");
         if (result.isPresent()) {
-            int dragonGroupId = 0;
+            int dragonGroupId;
             try {
                 dragonGroupId = Integer.parseInt(result.get());
             } catch (Exception e) {
@@ -434,7 +433,7 @@ public class DragonMomController extends BaseController {
             VBox vBox = new VBox(10);
 
             Text t_name = new Text("名字:" + group.getName());
-            Text t_id = new Text("Id:" + group.getId());
+            Text t_id = new Text("Id:" + group.getDragonGroupId());
             Text t_profile = new Text("简介:" + group.getProfile());
             Text t_location = new Text("地理位置:" + group.getLocation());
 

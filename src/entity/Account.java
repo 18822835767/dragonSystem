@@ -2,7 +2,7 @@ package entity;
 
 /**
  * 账目实体类.
- * */
+ */
 public class Account {
     private int accountId;
     private int foreignerId;
@@ -25,6 +25,10 @@ public class Account {
         return accountId;
     }
 
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
     public int getForeignerId() {
         return foreignerId;
     }
@@ -37,12 +41,23 @@ public class Account {
         return money;
     }
 
+    public void setMoney(double money) {
+        this.money = money;
+    }
+
     public String getCreateTime() {
         return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
     public String getStatus() {
         return status;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

@@ -120,8 +120,8 @@ public class DragonTrainerController extends BaseController {
      */
     public void initText() {
         DragonGroup dragonGroup = iDragonGroupDAO.get(dragonGroupId);
-        text1.setText("\n族群ID: " + dragonGroup.getId() + "\n\n" + "族群名字: " + dragonGroup.getName());
-        text2.setText("\n族群ID: " + dragonGroup.getId() + "\n\n" + "族群名字: " + dragonGroup.getName());
+        text1.setText("\n族群ID: " + dragonGroup.getDragonGroupId() + "\n\n" + "族群名字: " + dragonGroup.getName());
+        text2.setText("\n族群ID: " + dragonGroup.getDragonGroupId() + "\n\n" + "族群名字: " + dragonGroup.getName());
     }
 
     /**
@@ -402,7 +402,7 @@ public class DragonTrainerController extends BaseController {
             VBox vBox = new VBox(10);
 
             Text t_name = new Text("名字:" + group.getName());
-            Text t_id = new Text("Id:" + group.getId());
+            Text t_id = new Text("Id:" + group.getDragonGroupId());
             Text t_profile = new Text("简介:" + group.getProfile());
             Text t_location = new Text("地理位置:" + group.getLocation());
             Text t_size = new Text("大小:" + group.getSize());

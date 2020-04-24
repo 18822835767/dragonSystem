@@ -10,7 +10,8 @@ public class Dragon {
     private String sex;
     private int age;
 
-    public Dragon(){}
+    public Dragon() {
+    }
 
     public Dragon(int dragonId, int dragonGroupId, String name, String profile, boolean training, boolean healthy, String sex, int age) {
         this.dragonId = dragonId;
@@ -43,23 +44,47 @@ public class Dragon {
         return training;
     }
 
+    public void setTraining(boolean training) {
+        this.training = training;
+    }
+
     public boolean isHealthy() {
         return healthy;
+    }
+
+    public void setHealthy(boolean healthy) {
+        this.healthy = healthy;
     }
 
     public String getSex() {
         return sex;
     }
 
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
     public int getAge() {
         return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public int getDragonId() {
         return dragonId;
     }
 
+    public void setDragonId(int dragonId) {
+        this.dragonId = dragonId;
+    }
+
     public int getDragonGroupId() {
         return dragonGroupId;
+    }
+
+    public void setDragonGroupId(int dragonGroupId) {
+        this.dragonGroupId = dragonGroupId;
     }
 }
