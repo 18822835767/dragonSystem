@@ -13,7 +13,7 @@
         <Button fx:id="changeUser" text="切换账号" onAction="#switchAccount"/>
 
         <TabPane fx:id="tabPane">
-            <Tab text="龙">
+            <Tab fx:id="dragonTab" text="龙">
                 <VBox alignment="CENTER" spacing="15">
                     <padding>
                         <Insets top="70.0"/>
@@ -26,7 +26,7 @@
                 </VBox>
             </Tab>
 
-            <Tab text="族群">
+            <Tab fx:id="groupTab" text="族群">
                 <VBox alignment="CENTER" spacing="15">
                     <padding>
                         <Insets top="70.0"/>

@@ -26,7 +26,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 /**
- * 处理退票的控制器.
+ * 龙妈处理退票时对应的控制器.
  */
 public class DealBackTicketsController implements Initializable {
     @FXML

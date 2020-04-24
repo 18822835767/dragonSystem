@@ -35,6 +35,10 @@ import java.util.*;
  */
 public class ForeignerController extends BaseController {
     @FXML
+    private Tab dragonTab;
+    @FXML
+    private Tab groupTab;
+    @FXML
     private TreeTableView<Dragon> dragonTreeTableView;
     @FXML
     private TreeTableView<DragonGroup> groupTreeTableView;
@@ -127,10 +131,10 @@ public class ForeignerController extends BaseController {
         tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
             public void changed(ObservableValue<? extends Tab> observableValue, Tab oldTab, Tab newTab) {
-                if (newTab.getText().equals("龙") && enterSuccess) {
+                if (newTab.getText().equals(dragonTab.getText()) && enterSuccess) {
                     dragonTreeTableView.setVisible(true);
                     groupTreeTableView.setVisible(false);
-                } else if (newTab.getText().equals("族群") && enterSuccess) {
+                } else if (newTab.getText().equals(groupTab.getText()) && enterSuccess) {
                     dragonTreeTableView.setVisible(false);
                     groupTreeTableView.setVisible(true);
                 }

@@ -30,7 +30,6 @@ import java.util.Optional;
 
 /**
  * 驯龙高手的控制器.
- * 为了使代码简洁，CRUD使用了自定义的工具类AddNodeForPane。
  */
 public class DragonTrainerController extends BaseController {
     @FXML
@@ -45,6 +44,10 @@ public class DragonTrainerController extends BaseController {
     private Text text1;
     @FXML
     private Text text2;
+    @FXML
+    private Tab groupTab;
+    @FXML
+    private Tab dragonTab;
 
     IDragonDAO iDragonDAO = DAOFactory.getDragonDAOInstance();
 
@@ -94,10 +97,10 @@ public class DragonTrainerController extends BaseController {
         tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
             public void changed(ObservableValue<? extends Tab> observableValue, Tab oldTab, Tab newTab) {
-                if (newTab.getText().equals("族群的龙")) {
+                if (newTab.getText().equals(dragonTab.getText())) {
                     dragonTreeTableView.setVisible(true);
                     groupTreeTableView.setVisible(false);
-                } else if (newTab.getText().equals("所有族群")) {
+                } else if (newTab.getText().equals(groupTab.getText())) {
                     dragonTreeTableView.setVisible(false);
                     groupTreeTableView.setVisible(true);
                 }

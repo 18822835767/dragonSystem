@@ -27,7 +27,6 @@ import java.util.*;
 
 /**
  * 为了可以初始化，所以继承接口Initializable.
- * 为了使代码简洁，CRUD使用了自定义的工具类AddNodeForPane。
  */
 public class DragonMomController extends BaseController {
     @FXML
@@ -38,6 +37,10 @@ public class DragonMomController extends BaseController {
     private TabPane tabPane;
     @FXML
     private Button changeUser;
+    @FXML
+    private Tab trainerTab;
+    @FXML
+    private Tab groupTab;
 
     private DragonMom dragonMom = null;
 
@@ -79,10 +82,10 @@ public class DragonMomController extends BaseController {
         tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
             public void changed(ObservableValue<? extends Tab> observableValue, Tab oldTab, Tab newTab) {
-                if (newTab.getText().equals("驯龙高手")) {
+                if (newTab.getText().equals(trainerTab.getText())) {
                     trainerTreeTableView.setVisible(true);
                     groupTreeTableView.setVisible(false);
-                } else if (newTab.getText().equals("族群")) {
+                } else if (newTab.getText().equals(groupTab.getText())) {
                     groupTreeTableView.setVisible(true);
                     trainerTreeTableView.setVisible(false);
                 }
