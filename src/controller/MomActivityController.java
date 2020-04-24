@@ -92,7 +92,7 @@ public class MomActivityController implements Initializable {
 
         //负责数据的更新
         if (result.isPresent()) {
-            int groupId = 0;
+            int groupId;
             try{
                 groupId = Integer.parseInt(t_groupId.getText().trim());
             }catch (Exception e){

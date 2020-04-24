@@ -453,7 +453,7 @@ public class DragonMomController extends BaseController {
         Optional<String> result = TextInputDialogTool.showTextInput(null, "请输入族群的Id",
                 "Id:");
         if (result.isPresent()) {
-            int dragonGroupId = 0;
+            int dragonGroupId;
             try {
                 dragonGroupId = Integer.parseInt(result.get());
             } catch (Exception e) {

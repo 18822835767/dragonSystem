@@ -47,7 +47,7 @@ public class MomEvaluationController implements Initializable {
                 "请输入评价的Id", "Id:");
         //如果用户点击了确定按钮
         if (result.isPresent()) {
-            int evaluationId = 0;
+            int evaluationId;
             try {
                 evaluationId = Integer.parseInt(result.get().trim());
             } catch (Exception e) {

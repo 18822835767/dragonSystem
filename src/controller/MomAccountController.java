@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 
 /**
  * 龙妈打开账目对应的控制器.
- * */
+ */
 public class MomAccountController implements Initializable {
     @FXML
     private ListView<Account> listView;
@@ -52,8 +52,8 @@ public class MomAccountController implements Initializable {
 
     /**
      * 负责单元格的显示.
-     * */
-    private static class  MyListCell extends ListCell<Account>{
+     */
+    private static class MyListCell extends ListCell<Account> {
         @Override
         public void updateItem(Account item, boolean empty) {
             super.updateItem(item, empty);
@@ -62,8 +62,8 @@ public class MomAccountController implements Initializable {
                 this.setGraphic(null);
                 this.setText(null);
             } else {
-                this.setText("账目Id: "+item.getAccountId()+"   外邦人姓名: "+iForeignerDAO.get(item.getForeignerId()).getName()
-                        +"   状态: "+item.getStatus()+"   金额: "+item.getMoney()+"   生成时间:"+item.getCreateTime());
+                this.setText("账目Id: " + item.getAccountId() + "   外邦人姓名: " + iForeignerDAO.get(item.getForeignerId()).getName()
+                        + "   状态: " + item.getStatus() + "   金额: " + item.getMoney() + "   生成时间:" + item.getCreateTime());
                 this.setFont(new Font(13));
             }
         }
@@ -89,6 +89,4 @@ public class MomAccountController implements Initializable {
         listData.clear();
         listData.addAll(accounts);
     }
-
-
 }

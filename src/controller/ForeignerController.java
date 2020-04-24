@@ -59,7 +59,6 @@ public class ForeignerController extends BaseController {
 
     private TreeItem<DragonGroup> groupRoot = new TreeItem<DragonGroup>(new DragonGroup());
 
-
     private Foreigner foreigner = null;
 
     private Ticket ticket = null;
@@ -68,7 +67,6 @@ public class ForeignerController extends BaseController {
      * 标志是否成功入园.
      */
     boolean enterSuccess = false;
-
 
     /**
      * 因为多列树控件中删除一行时，需要是原来加载进去的那个TreeItem对象，所以这里先把TreeItem存起来.
@@ -163,7 +161,7 @@ public class ForeignerController extends BaseController {
         Optional<String> result = TextInputDialogTool.showTextInput("查询龙的信息",
                 "请输入龙的Id", "Id:");
         if (result.isPresent()) {
-            int dragonId = 0;
+            int dragonId;
 
             try {
                 dragonId = Integer.parseInt(result.get());
@@ -211,7 +209,7 @@ public class ForeignerController extends BaseController {
         Optional<String> result = TextInputDialogTool.showTextInput("查询族群信息",
                 "请输入族群的Id", "Id:");
         if (result.isPresent()) {
-            int dragonGroupId = 0;
+            int dragonGroupId;
             try {
                 dragonGroupId = Integer.parseInt(result.get());
             } catch (Exception e) {
@@ -239,8 +237,6 @@ public class ForeignerController extends BaseController {
             vBox.getChildren().addAll(t_name, t_id, t_profile, t_size);
 
             DialogTool.showDialog("族群信息", vBox, "确定", null).showAndWait();
-
-
         }
 
     }
@@ -525,7 +521,7 @@ public class ForeignerController extends BaseController {
 
             if (fx != null) {
                 //得到控制器
-                MyActivityController activityController = (MyActivityController) fx.getController();
+                MyActivityController activityController = fx.getController();
                 //传入外邦人实例
                 activityController.setForeigner(foreigner);
             }
@@ -542,7 +538,7 @@ public class ForeignerController extends BaseController {
                     400.0);
 
             //为控制器传入foreigner实例
-            MyEvaluationController controller = (MyEvaluationController) fx.getController();
+            MyEvaluationController controller = fx.getController();
             controller.setForeigner(foreigner);
             controller.init();
         } catch (IOException e) {
@@ -560,7 +556,7 @@ public class ForeignerController extends BaseController {
                     400.0);
 
             //为控制器传入foreigner实例
-            MyAccountController controller = (MyAccountController) fx.getController();
+            MyAccountController controller = fx.getController();
             controller.setForeigner(foreigner);
             controller.init();
         } catch (IOException e) {

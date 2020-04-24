@@ -24,8 +24,8 @@ public class CheckValid {
      * @return 布尔值
      */
     public static boolean isEmpty(String... params) {
-        for (int i = 0; i < params.length; i++) {
-            if (params[i].equals("")) {
+        for (String param : params) {
+            if (param.equals("")) {
                 return true;
             }
         }

@@ -61,7 +61,7 @@ public class MyActivityController implements Initializable {
     public void viewActivity(ActionEvent actionEvent) {
         Optional<String> result = TextInputDialogTool.showTextInput("观看活动", "请输入活动Id", "Id:");
         if (result.isPresent()) {
-            int activityId = 0;
+            int activityId;
             try {
                 activityId = Integer.parseInt(result.get());
             } catch (Exception e) {

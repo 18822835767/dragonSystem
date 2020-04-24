@@ -204,7 +204,7 @@ public class DragonTrainerController extends BaseController {
                 "请输入龙的Id", "Id:");
         //如果用户点击了确定按钮
         if (result.isPresent()) {
-            int dragonId = 0;
+            int dragonId;
             try {
                 dragonId = Integer.parseInt(result.get().trim());
             } catch (Exception e) {
@@ -236,7 +236,7 @@ public class DragonTrainerController extends BaseController {
         Optional<String> result = TextInputDialogTool.showTextInput("查询龙的信息",
                 "请输入龙的Id", "Id:");
         if (result.isPresent()) {
-            int dragonId = 0;
+            int dragonId;
             try {
                 dragonId = Integer.parseInt(result.get());
             } catch (Exception e) {
@@ -281,7 +281,7 @@ public class DragonTrainerController extends BaseController {
         Optional<String> result = TextInputDialogTool.showTextInput(null, "请输入龙的Id",
                 "Id:");
         if (result.isPresent()) {
-            int dragonId = 0;
+            int dragonId;
             try {
                 dragonId = Integer.parseInt(result.get());
             } catch (Exception e) {
@@ -345,7 +345,7 @@ public class DragonTrainerController extends BaseController {
             if (choice.isPresent() && choice.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
                 //从弹框得到信息并保存进数据库
                 String name = t_name.getText().trim();
-                int age = 0;
+                int age;
                 try {
                     age = Integer.parseInt(t_age.getText().trim());
                 } catch (Exception e) {
@@ -381,7 +381,7 @@ public class DragonTrainerController extends BaseController {
         Optional<String> result = TextInputDialogTool.showTextInput("查询族群信息",
                 "请输入族群的Id", "Id:");
         if (result.isPresent()) {
-            int dragonGroupId = 0;
+            int dragonGroupId;
             try {
                 dragonGroupId = Integer.parseInt(result.get());
             } catch (Exception e) {
@@ -451,7 +451,7 @@ public class DragonTrainerController extends BaseController {
             String name = t_name.getText().trim();
             String profile = t_profile.getText().trim();
             String location = t_location.getText().trim();
-            double size = 0;
+            double size;
             try {
                 size = Double.parseDouble(t_size.getText().trim());
             } catch (Exception e) {

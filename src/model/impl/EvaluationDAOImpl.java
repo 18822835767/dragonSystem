@@ -51,7 +51,7 @@ public class EvaluationDAOImpl implements IEvaluationDAO {
     }
 
     @Override
-    public Evaluation getByEvalutionId(int foreignerId, int evaluationId) {
+    public Evaluation getByEvaluationId(int foreignerId, int evaluationId) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;

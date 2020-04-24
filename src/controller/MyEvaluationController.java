@@ -49,7 +49,7 @@ public class MyEvaluationController {
         Optional<String> result = TextInputDialogTool.showTextInput(null, "请输入评价的Id",
                 "Id:");
         if (result.isPresent()) {
-            int evaluationId = 0;
+            int evaluationId;
             try {
                 evaluationId = Integer.parseInt(result.get());
             } catch (Exception e) {
@@ -58,7 +58,7 @@ public class MyEvaluationController {
             }
 
             //找评价
-            Evaluation evaluation = iEvaluationDAO.getByEvalutionId(foreigner.getForeignerId(), evaluationId);
+            Evaluation evaluation = iEvaluationDAO.getByEvaluationId(foreigner.getForeignerId(), evaluationId);
 
             //找不到评价
             if (evaluation == null) {
@@ -117,7 +117,7 @@ public class MyEvaluationController {
                 "请输入评价的Id", "Id:");
         //如果用户点击了确定按钮
         if (result.isPresent()) {
-            int evaluationId = 0;
+            int evaluationId;
             try {
                 evaluationId = Integer.parseInt(result.get().trim());
             } catch (Exception e) {
