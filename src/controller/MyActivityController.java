@@ -93,7 +93,7 @@ public class MyActivityController implements Initializable {
     }
 
     /**
-     * 外邦人"评价"时要调用的方法.
+     * 外邦人"评价活动"时要调用的方法.
      **/
     public void remark(int activityId) {
         //如果用户已有该活动的评价记录，就不可以重复评价.

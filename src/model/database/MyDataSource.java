@@ -13,17 +13,19 @@ import java.util.ResourceBundle;
  * 连接池.
  */
 public class MyDataSource extends DataSourceAdapter {
-    private static final int initConnections = 5;//空闲池初始的连接数
-    private static final int poolMaxIdleConnections = 10;//空闲池允许的最大的连接数量
-    private static final int poolMaxActiveConnections = 10;//正在使用的连接池中最大的连接数
-    private static LinkedList<Connection> idleConnections = new LinkedList<>();//空闲的连接池
-    private static LinkedList<Connection> activeConnections = new LinkedList<>();//激活的连接池
-
     private static ResourceBundle bundle = ResourceBundle.getBundle("resource/jdbc");
     private static String driver = bundle.getString("driver");
     private static String url = bundle.getString("url");
     private static String username = bundle.getString("username");
     private static String password = bundle.getString("password");
+
+    private static final int initConnections = 5;//空闲池初始的连接数
+    private static final int poolMaxIdleConnections = 10;//空闲池允许的最大的连接数量
+    private static final int poolMaxActiveConnections = 20;//正在使用的连接池中最大的连接数
+    private static LinkedList<Connection> idleConnections = new LinkedList<>();//空闲的连接池
+    private static LinkedList<Connection> activeConnections = new LinkedList<>();//激活的连接池
+
+
 
     private final Object monitor = new Object();//用于同步
 
@@ -75,10 +77,10 @@ public class MyDataSource extends DataSourceAdapter {
 
         }
 
-        /**
-         * 动态代理.
-         * 返回连接代理对象
-         * */
+        /*
+          动态代理.
+          返回连接代理对象
+          */
         Connection finalConn = conn;
         return (Connection) Proxy.newProxyInstance(Connection.class.getClassLoader(), new Class[]{Connection.class},
                 new InvocationHandler() {
@@ -89,6 +91,11 @@ public class MyDataSource extends DataSourceAdapter {
                                 activeConnections.remove(finalConn);
                                 if (idleConnections.size() < poolMaxIdleConnections) {
                                     idleConnections.addFirst(finalConn);
+                                }else{
+                                    //空闲池已经持有最大的连接个数。真实地关闭connection连接
+                                    if (finalConn != null) {
+                                        finalConn.close();
+                                    }
                                 }
                                 monitor.notifyAll();
                             }

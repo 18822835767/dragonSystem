@@ -389,7 +389,7 @@ public class ForeignerController extends BaseController {
     }
 
     /**
-     * 主要负责买票窗口的显示，显示的有票的类型，票价，不负责数据的更新与处理.
+     * 主要负责买票窗口的显示，显示的有票的类型，票价，即票的信息，不负责数据的更新与处理.
      *
      * @param comboBox 传入的下拉菜单
      * @return 返回用户的选择
