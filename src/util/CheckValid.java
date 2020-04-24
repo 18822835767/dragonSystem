@@ -57,6 +57,4 @@ public class CheckValid {
 
         return true;
     }
-
-
 }

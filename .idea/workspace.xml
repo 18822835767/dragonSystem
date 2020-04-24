@@ -82,17 +82,6 @@
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/Item.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/MP3.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dome/src/dome/VideoGame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/DragonMomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DragonMomController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/DragonTrainerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DragonTrainerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/ForeignerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ForeignerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/MomAccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MomAccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/MomActivityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MomActivityController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/MomEvaluationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MomEvaluationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/MyActivityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MyActivityController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/MyEvaluationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MyEvaluationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/IEvaluationDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/IEvaluationDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/database/MyDataSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/database/MyDataSource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/util/CheckValid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/CheckValid.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/coins/Coin.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../notebook/out/production/notebook/discussion34.class" beforeDir="false" />
@@ -392,7 +381,7 @@
       <workItem from="1587620576342" duration="465000" />
       <workItem from="1587621084060" duration="3064000" />
       <workItem from="1587657452565" duration="720000" />
-      <workItem from="1587709019667" duration="1963000" />
+      <workItem from="1587709019667" duration="2238000" />
     </task>
     <servers />
   </component>
